@@ -68,6 +68,7 @@ public class RestaurantController {
 	}
 	
 	@DeleteMapping("/restaurant/{restaurant_id}")
+	@CrossOrigin
 	public int deleteRestaurantInformationById(@PathVariable int restaurant_id) {
 		return restaurantDaoImpl.deleteRestaurantInformation(restaurant_id);
 	}

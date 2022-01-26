@@ -20,7 +20,8 @@ public class GeneralTrxDaoImpl implements GeneralTrxDao {
 
 	String GET_ALL_GENERAL_TRX_INFORMATION = "SELECT GT.TRANSACTION_ID, GT.AMOUNT, GT.ENTITY, GT.PAYMENT_DATE, TT.TRANSACTION_TYPE_DESCR, U.NAME " +
 			"FROM GENERAL_TRANSACTION GT, TRANSACTION_TYPE TT, USERS U " +
-			"WHERE GT.TRANSACTION_TYPE_ID = TT.TRANSACTION_TYPE_ID AND GT.USER_ID = U.USER_ID";
+			"WHERE GT.TRANSACTION_TYPE_ID = TT.TRANSACTION_TYPE_ID AND GT.USER_ID = U.USER_ID " +
+			"ORDER BY GT.PAYMENT_DATE DESC";
 	
 	String GET_ALL_GENERAL_TRANSACTION_INFO_BY_TYPE = "SELECT GT.TRANSACTION_ID, GT.AMOUNT, GT.ENTITY, GT.PAYMENT_DATE, TT.TRANSACTION_TYPE_DESCR, U.NAME " +
 			"FROM GENERAL_TRANSACTION GT, TRANSACTION_TYPE TT, USERS U " +
@@ -55,6 +56,8 @@ public class GeneralTrxDaoImpl implements GeneralTrxDao {
 	@Override
 	public List<GeneralTrxInfoDTO> findAllTransactionInformation() {
 		List<GeneralTrxInfoDTO> generalTrxList = jdbcTemplate.query(GET_ALL_GENERAL_TRX_INFORMATION, BeanPropertyRowMapper.newInstance(GeneralTrxInfoDTO.class));
+		
+		LOGGER.info("Retrieving all general transaction info...");
 		
 		return generalTrxList;
 	}
@@ -107,6 +110,8 @@ public class GeneralTrxDaoImpl implements GeneralTrxDao {
 	@Override
 	public long findCountOfGeneralTransaction() {
 		long count = jdbcTemplate.queryForObject(GET_TRANSCTION_COUNT, Integer.class);
+		
+		LOGGER.info("Getting General Transaction Count...");
 		
 		return count;
 	}

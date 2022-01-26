@@ -2,6 +2,8 @@ package com.deguzman.DeGuzmanStuffAnywhere.daoimpl;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -18,9 +20,15 @@ public class HomeInfoDaoImpl implements HomeInfoDao {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	
+	private static final Logger LOGGER = LoggerFactory.getLogger(HomeInfoDaoImpl.class);
+	
 	@Override
 	public List<HomeInfo> getAllHomeInfo() {
-		return jdbcTemplate.query(GET_HOME_INFO, BeanPropertyRowMapper.newInstance(HomeInfo.class));
+		List<HomeInfo> list = jdbcTemplate.query(GET_HOME_INFO, BeanPropertyRowMapper.newInstance(HomeInfo.class));
+		
+		LOGGER.info("Getting All Home Info...");
+		
+		return list;
 	}
 
 }

@@ -2,6 +2,8 @@ package com.deguzman.DeGuzmanStuffAnywhere.daoimpl;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -19,22 +21,26 @@ public class MedicalTrxDaoImpl implements MedicalTrxDao {
 
 	String GET_ALL_MEDICAL_TRANSACTION_INFO = "SELECT MT.MEDICAL_TRANSACTION_ID,MT.AMOUNT,MT.MEDICAL_TRANSACTION_DATE, MO.NAME AS FACILITYNAME,MO.ADDRESS,MO.CITY,MO.STATE,MO.ZIP,TT.TRANSACTION_TYPE_DESCR, US.NAME AS NAMEOFUSER " + 
 			"FROM MEDICAL_TRANSACTIONS MT, MEDICAL_OFFICE MO, TRANSACTION_TYPE TT, USERS US " + 
-			"WHERE MT.MEDICAL_OFFICE_ID = MO.MEDICAL_OFFICE_ID AND MT.TRANSACTION_TYPE_ID = TT.TRANSACTION_TYPE_ID  AND MT.USER_ID = US.USER_ID";
+			"WHERE MT.MEDICAL_OFFICE_ID = MO.MEDICAL_OFFICE_ID AND MT.TRANSACTION_TYPE_ID = TT.TRANSACTION_TYPE_ID  AND MT.USER_ID = US.USER_ID " +
+			"ORDER BY MT.MEDICAL_TRANSACTION_DATE DESC";
 	
 	String GET_ALL_MEDICAL_TRANSACTIONS_BY_FACILITY = "SELECT MT.MEDICAL_TRANSACTION_ID,MT.AMOUNT,MT.MEDICAL_TRANSACTION_DATE, MO.NAME AS FACILITYNAME,MO.ADDRESS,MO.CITY,MO.STATE,MO.ZIP,TT.TRANSACTION_TYPE_DESCR, US.NAME AS NAMEOFUSER " + 
 			"FROM MEDICAL_TRANSACTIONS MT, MEDICAL_OFFICE MO, TRANSACTION_TYPE TT, USERS US " + 
 			"WHERE MT.MEDICAL_OFFICE_ID = MO.MEDICAL_OFFICE_ID AND MT.TRANSACTION_TYPE_ID = TT.TRANSACTION_TYPE_ID  AND MT.USER_ID = US.USER_ID " + 
-			"AND MT.MEDICAL_OFFICE_ID = ?";
+			"AND MT.MEDICAL_OFFICE_ID = ? " +
+			"ORDER BY MT.MEDICAL_TRANSACTION_DATE DESC";
 	
 	String GET_ALL_MEDICAL_TRANSACTIONS_BY_TYPE = "SELECT MT.MEDICAL_TRANSACTION_ID,MT.AMOUNT,MT.MEDICAL_TRANSACTION_DATE, MO.NAME AS FACILITYNAME,MO.ADDRESS,MO.CITY,MO.STATE,MO.ZIP,TT.TRANSACTION_TYPE_DESCR, US.NAME AS NAMEOFUSER " + 
 			"FROM MEDICAL_TRANSACTIONS MT, MEDICAL_OFFICE MO, TRANSACTION_TYPE TT, USERS US " + 
 			"WHERE MT.MEDICAL_OFFICE_ID = MO.MEDICAL_OFFICE_ID AND MT.TRANSACTION_TYPE_ID = TT.TRANSACTION_TYPE_ID  AND MT.USER_ID = US.USER_ID " +
-			"AND MT.TRANSACTION_TYPE_ID = ?";
+			"AND MT.TRANSACTION_TYPE_ID = ? " +
+			"ORDER BY MT.MEDICAL_TRANSACTION_DATE DESC";
 	
 	String GET_ALL_MEDICAL_TRANSACTIONS_BY_USER = "SELECT MT.MEDICAL_TRANSACTION_ID,MT.AMOUNT,MT.MEDICAL_TRANSACTION_DATE, MO.NAME AS FACILITYNAME,MO.ADDRESS,MO.CITY,MO.STATE,MO.ZIP,TT.TRANSACTION_TYPE_DESCR, US.NAME AS NAMEOFUSER " + 
 			"FROM MEDICAL_TRANSACTIONS MT, MEDICAL_OFFICE MO, TRANSACTION_TYPE TT, USERS US " + 
 			"WHERE MT.MEDICAL_OFFICE_ID = MO.MEDICAL_OFFICE_ID AND MT.TRANSACTION_TYPE_ID = TT.TRANSACTION_TYPE_ID  AND MT.USER_ID = US.USER_ID " + 
-			"AND MT.USER_ID = ?";
+			"AND MT.USER_ID = ? " + 
+			"ORDER BY MT.MEDICAL_TRANSACTION_DATE DESC";
 	
 	String GET_MEDICAL_TRANSACTION_BY_ID = "SELECT MT.MEDICAL_TRANSACTION_ID,MT.AMOUNT,MT.MEDICAL_TRANSACTION_DATE, MO.NAME AS FACILITYNAME,MO.ADDRESS,MO.CITY,MO.STATE,MO.ZIP,TT.TRANSACTION_TYPE_DESCR, US.NAME AS NAMEOFUSER " + 
 			"FROM MEDICAL_TRANSACTIONS MT, MEDICAL_OFFICE MO, TRANSACTION_TYPE TT, USERS US " + 
@@ -49,12 +55,14 @@ public class MedicalTrxDaoImpl implements MedicalTrxDao {
 	
 	String UPDATE_MEDICAL_TRANSACTION = "UPDATE MEDICAL_TRANSACTIONS SET AMOUNT = ?, MEDICAL_TRANSACTION_DATE = ?, MEDICAL_OFFICE_ID = ?, TRANSACTION_TYPE_ID = ?, USER_ID = ?";
 	
-	String DELETE_MEDICAL_TRANSACTION_BY_ID = "DELETE FROM MEDICAL_TRANSACTION WHERE MEDICAL_TRANSACTION_ID = ?";
+	String DELETE_MEDICAL_TRANSACTION_BY_ID = "DELETE FROM MEDICAL_TRANSACTIONS WHERE MEDICAL_TRANSACTION_ID = ?";
 	
 	String DELETE_ALL_MEDICAL_TRANSACTIONS = "DELETE FROM MEDICAL_TRANSACTIONS";
 	
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(MedicalTrxDaoImpl.class);
 	
 	@Override
 	public List<MedicalTrxInfoDTO> findAllMedicalTransactionInformation() {
@@ -71,6 +79,8 @@ public class MedicalTrxDaoImpl implements MedicalTrxDao {
 				rs.getString("TRANSACTION_TYPE_DESCR"),
 				rs.getString("NAMEOFUSER")
 				));
+		
+		LOGGER.info("Retrieving all medical transactions...");
 		
 		return medicalTrxList;
 	}
@@ -90,6 +100,8 @@ public class MedicalTrxDaoImpl implements MedicalTrxDao {
 					rs.getString("TRANSACTION_TYPE_DESCR"),
 					rs.getString("NAMEOFUSER")
 					), facility_id);
+		
+		LOGGER.info("Retrieving All Medical Transactions by facility_id: " + facility_id);
 		
 		return medicalTrxListFacility;
 				
@@ -111,7 +123,9 @@ public class MedicalTrxDaoImpl implements MedicalTrxDao {
 				rs.getString("NAMEOFUSER")
 				), transaction_type_id);
 	
-	return medicalTrxListType;
+		LOGGER.info("Retrieving All Medical Transactions by transaction_type_id: " + transaction_type_id);
+		
+		return medicalTrxListType;
 	}
 
 	@Override
@@ -130,7 +144,9 @@ public class MedicalTrxDaoImpl implements MedicalTrxDao {
 				rs.getString("NAMEOFUSER")
 				), user_id);
 	
-	return medicalTrxListUser;
+		LOGGER.info("Retrieving All Medical Transactions by user_id: " + user_id);
+		
+		return medicalTrxListUser;
 	}
 
 	@Override
@@ -138,12 +154,16 @@ public class MedicalTrxDaoImpl implements MedicalTrxDao {
 			throws ResourceNotFoundException {
 		MedicalTrxInfoDTO medicalTrx = jdbcTemplate.queryForObject(GET_MEDICAL_TRANSACTION_BY_ID, BeanPropertyRowMapper.newInstance(MedicalTrxInfoDTO.class), medical_transaction_id);
 		
+		LOGGER.info("Retrieving Medical Transaction by ID: " + medical_transaction_id);
+		
 		return ResponseEntity.ok().body(medicalTrx);
 	}
 
 	@Override
 	public long getCountOfMedicalTransactions() {
 		long count = jdbcTemplate.queryForObject(GET_MEDICAL_TRX_COUNT, Integer.class);
+		
+		LOGGER.info("Getting the medical transaction count...");
 		
 		return count;
 	}
@@ -157,6 +177,8 @@ public class MedicalTrxDaoImpl implements MedicalTrxDao {
 		int medicalOffice = medicalTransaction.getMedical_office_id();
 		long transactionType = medicalTransaction.getTransaction_type_id();
 		long user = medicalTransaction.getUser_id();
+		
+		LOGGER.info("Adding medical transaction..." + " " + amount + " " + medicalTrxDate);
 		
 		int result = jdbcTemplate.update(ADD_MEDICAL_TRANSACTION, new Object[] {
 			amount,
@@ -179,6 +201,7 @@ public class MedicalTrxDaoImpl implements MedicalTrxDao {
 	public int deleteMedicalTraansactionInformation(long medical_transaction_id) {
 		int result = jdbcTemplate.update(DELETE_MEDICAL_TRANSACTION_BY_ID, medical_transaction_id);
 		
+		LOGGER.info("Deleting Medical Transaction based on medical_transaction_id: " + medical_transaction_id);
 		
 		return result;
 	}
@@ -186,6 +209,8 @@ public class MedicalTrxDaoImpl implements MedicalTrxDao {
 	@Override
 	public int deleteAllMedicalTransactions() {
 		int result = jdbcTemplate.update(DELETE_ALL_MEDICAL_TRANSACTIONS);
+		
+		LOGGER.info("Deleting All Medical Transactions...");
 		
 		return result;
 	}

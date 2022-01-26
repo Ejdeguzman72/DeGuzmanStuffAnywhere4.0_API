@@ -28,7 +28,8 @@ public class AutoTrxDaoImpl implements AutoTrxDao {
 			"WHERE AT.AUTO_SHOP_ID = ASH.AUTO_SHOP_ID " + 
 			"	AND AT.VEHICLE_ID = V.VEHICLE_ID " + 
 			"	AND AT.TRANSACTION_TYPE_ID = TT.TRANSACTION_TYPE_ID " + 
-			"	AND AT.USER_ID = US.USER_ID";
+			"	AND AT.USER_ID = US.USER_ID " +
+			"ORDER BY AT.AUTO_TRANSACTION_DATE";
 	
 	String GET_ALL_AUTO_TRX_INFO_BY_TYPE = "SELECT AT.AUTO_TRANSACTION_ID, AT.AUTO_TRANSACTION_DATE, AT.AMOUNT, V.MAKE, V.MODEL, V.YEAR, ASH.AUTO_SHOP_NAME, US.NAME, TT.TRANSACTION_TYPE_DESCR " + 
 			"FROM AUTO_TRANSACTIONS AT, AUTO_SHOP ASH, VEHICLE V, TRANSACTION_TYPE TT, USERS US " + 
@@ -170,13 +171,13 @@ public class AutoTrxDaoImpl implements AutoTrxDao {
 	public int addAutoTransactionInformation(AutoTransaction autoTransaction) throws InvalidAutoShopException,
 			InvalidUserException, InvalidTransactionTypeException, InvalidVehicleException {
 		double amount = autoTransaction.getAmount();
-		String auto_transaction_date = autoTransaction.getAutoTransactionDate();
+		String auto_transaction_date = autoTransaction.getAuto_transaction_date();
 		int autoShop = autoTransaction.getAuto_shop_id();
 		long transactionType = autoTransaction.getTransaction_type_id();
 		long vehicle = autoTransaction.getVehicle_id();
 		long user = autoTransaction.getUser_id();
 		
-		LOGGER.info("Adding Auto Transaction: " + auto_transaction_date + " " + amount);
+		LOGGER.info("Adding Auto Transaction: " + " " + amount);
 		
 		return jdbcTemplate.update(ADD_AUTO_TRX_INFO, new Object[] {
 				amount,

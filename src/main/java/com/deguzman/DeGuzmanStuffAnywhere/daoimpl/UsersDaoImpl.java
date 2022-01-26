@@ -72,11 +72,15 @@ public class UsersDaoImpl implements UsersDao {
 	
 	@Override
 	public List<UserInfoDTO> findAllUsersInformation() {
-		return jdbcTemplate.query(GET_ALL_USERS_INFORMATION, BeanPropertyRowMapper.newInstance(UserInfoDTO.class));
+		List<UserInfoDTO> list = jdbcTemplate.query(GET_ALL_USERS_INFORMATION, BeanPropertyRowMapper.newInstance(UserInfoDTO.class));
+		
+		LOGGER.info("Retrieving All User Information...");
+		
+		return list;
 	}
 
 	@Override
-	public List<UserInfoDTO> findAllUsersByRole() {
+	public List<UserInfoDTO> findAllUsersByRole(@PathVariable int role_id) {
 		List<UserInfoDTO> userListRole = jdbcTemplate.query(GET_USER_INFORMATION_BY_ROLE, (rs,rowNum) -> 
 					new UserInfoDTO(
 							rs.getInt("USER_ID"),
@@ -86,13 +90,15 @@ public class UsersDaoImpl implements UsersDao {
 							rs.getString("NAME"),
 							rs.getString("ROLE_DESCR"),
 							rs.getString("USER_STATUS_DESCR")
-							));
+							), role_id);
+		
+		LOGGER.info("Retrieving Users By Role: " + role_id);
 		
 		return userListRole;
 	}
 
 	@Override
-	public List<UserInfoDTO> findAllUsersByStatus() {
+	public List<UserInfoDTO> findAllUsersByStatus(@PathVariable int user_status_id) {
 		List<UserInfoDTO> userListStatus = jdbcTemplate.query(GET_USER_INFORMATION_BY_STATUS, (rs,rowNum) -> 
 			new UserInfoDTO(
 					rs.getInt("USER_ID"),
@@ -102,7 +108,9 @@ public class UsersDaoImpl implements UsersDao {
 					rs.getString("NAME"),
 					rs.getString("ROLE_DESCR"),
 					rs.getString("USER_STATUS_DESCR")
-					));
+					), user_status_id);
+		
+		LOGGER.info("Retrieving Users by Status: " + user_status_id);
 		
 		return userListStatus;
 	}
@@ -110,6 +118,7 @@ public class UsersDaoImpl implements UsersDao {
 	@Override
 	public ResponseEntity<UserInfoDTO> findUserInformationById(@PathVariable long user_id) {
 		UserInfoDTO userInfo = jdbcTemplate.queryForObject(GET_USER_INFORMATION_BY_ID, BeanPropertyRowMapper.newInstance(UserInfoDTO.class), user_id);
+		
 		LOGGER.info("Retrieved User Information by ID: " + " " + userInfo.getUser_id());
 		
 		return ResponseEntity.ok().body(userInfo);
@@ -118,6 +127,7 @@ public class UsersDaoImpl implements UsersDao {
 	@Override
 	public ResponseEntity<UserInfoDTO> findUserInformationByUsername(@PathVariable String username) {
 		UserInfoDTO userInfo = jdbcTemplate.queryForObject(GET_USER_INFORMATION_BY_USERNAME, BeanPropertyRowMapper.newInstance(UserInfoDTO.class), username);
+		
 		LOGGER.info("Retrieved User Info by username" + " " + userInfo.getUsername());
 		
 		return ResponseEntity.ok().body(userInfo);
@@ -126,6 +136,7 @@ public class UsersDaoImpl implements UsersDao {
 	@Override
 	public ResponseEntity<UserInfoDTO> findUserInformationByName(@PathVariable String name) {
 		UserInfoDTO userInfo = jdbcTemplate.queryForObject(GET_USER_INFORMATION_BY_NAME, BeanPropertyRowMapper.newInstance(UserInfoDTO.class), name);
+		
 		LOGGER.info("Retrieved User Info by name" + " " + userInfo.getName());
 		
 		return ResponseEntity.ok().body(userInfo);
@@ -134,6 +145,7 @@ public class UsersDaoImpl implements UsersDao {
 	@Override
 	public ResponseEntity<UserInfoDTO> findUserInformationByEmail(@PathVariable String email) {
 		UserInfoDTO userInfo = jdbcTemplate.queryForObject(GET_USER_INFORMATION_BY_EMAIL, BeanPropertyRowMapper.newInstance(UserInfoDTO.class), email);
+		
 		LOGGER.info("Retrieved User Info by email" + " " + userInfo.getEmail());
 		
 		return ResponseEntity.ok().body(userInfo);
@@ -153,6 +165,8 @@ public class UsersDaoImpl implements UsersDao {
 		long medicalTransaction = user.getMedical_transaction_id();
 		int exericse = user.getExercise_id();
 		long run = user.getRun_id();
+		
+		LOGGER.info("Adding user information: " + name + " " + username);
 		
 		return jdbcTemplate.update(ADD_USER_INFORMATION, new Object[] {
 			username, 
@@ -177,12 +191,20 @@ public class UsersDaoImpl implements UsersDao {
 
 	@Override
 	public int deleteUserInformationById(long user_id) {
-		return jdbcTemplate.update(DELETE_USER_INFORMATION_BY_ID, user_id);
+		int count = jdbcTemplate.update(DELETE_USER_INFORMATION_BY_ID, user_id);
+		
+		LOGGER.info("Deleting user information by ID: " + user_id);
+		
+		return count;
 	}
 
 	@Override
 	public int deleteAllUserInformation() {
-		return jdbcTemplate.update(DELETE_ALL_USERS);
+		int count = jdbcTemplate.update(DELETE_ALL_USERS);
+		
+		LOGGER.info("Deleting all users...");
+		
+		return count;
 	}
 
 }

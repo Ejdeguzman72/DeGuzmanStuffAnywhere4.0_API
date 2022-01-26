@@ -11,6 +11,7 @@ public class AutoTrxInfoDTO {
 	public String auto_shop_name;
 	public String name;
 	public String transaction_type_descr;
+	
 	public long getAuto_transaction_id() {
 		return auto_transaction_id;
 	}

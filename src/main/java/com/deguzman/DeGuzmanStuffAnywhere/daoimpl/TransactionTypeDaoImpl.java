@@ -28,12 +28,17 @@ public class TransactionTypeDaoImpl implements TransactionTypeDao {
 	
 	@Override
 	public List<TransactionType> retrieveAllTransactionTypes() {
-		return jdbcTemplate.query(GET_ALL_TRANSACTION_TYPES, BeanPropertyRowMapper.newInstance(TransactionType.class));
+		List<TransactionType> list = jdbcTemplate.query(GET_ALL_TRANSACTION_TYPES, BeanPropertyRowMapper.newInstance(TransactionType.class));
+		
+		LOGGER.info("Retrieving all transaction types...");
+		
+		return list;
 	}
 
 	@Override
 	public ResponseEntity<TransactionType> retrieveTransactionTypeById(@PathVariable int transaction_type_id) {
 		TransactionType trxType = jdbcTemplate.queryForObject(GET_TRANSACTION_TYPE_BY_ID, BeanPropertyRowMapper.newInstance(TransactionType.class), transaction_type_id);
+		
 		LOGGER.info("Retrieved Transaction Type: " + " " + transaction_type_id);
 		
 		return ResponseEntity.ok().body(trxType);
@@ -42,6 +47,7 @@ public class TransactionTypeDaoImpl implements TransactionTypeDao {
 	@Override
 	public ResponseEntity<TransactionType> retrieveTransactionTypeByName(@PathVariable String transaction_type_descr) {
 		TransactionType trxType = jdbcTemplate.queryForObject(GET_TRANSACTION_TYPE_BY_NAME, BeanPropertyRowMapper.newInstance(TransactionType.class), transaction_type_descr);
+		
 		LOGGER.info("Retrived Transaction Type: " + " " + transaction_type_descr);
 		
 		return ResponseEntity.ok().body(trxType);

@@ -32,13 +32,13 @@ public class UsersController {
 	}
 	
 	@GetMapping("/all/role")
-	public List<UserInfoDTO> getAllUsersByRole() {
-		return usersDaoImpl.findAllUsersByRole();
+	public List<UserInfoDTO> getAllUsersByRole(@PathVariable int role_id) {
+		return usersDaoImpl.findAllUsersByRole(role_id);
 	}
 	
 	@GetMapping("/all/status")
-	public List<UserInfoDTO> getAllUsersByStatus() {
-		return usersDaoImpl.findAllUsersByStatus();
+	public List<UserInfoDTO> getAllUsersByStatus(@PathVariable int user_status_id) {
+		return usersDaoImpl.findAllUsersByStatus(user_status_id);
 	}
 	
 	@GetMapping("/user/{user_id}")

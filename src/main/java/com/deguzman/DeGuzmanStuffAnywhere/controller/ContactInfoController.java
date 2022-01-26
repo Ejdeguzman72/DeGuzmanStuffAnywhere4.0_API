@@ -67,6 +67,7 @@ public class ContactInfoController {
 	}
 	
 	@DeleteMapping("/person/{personId}")
+	@CrossOrigin
 	public int deleteContactInformation(@PathVariable int personId) throws SecurityException, IOException {
 		return contactDaoImpl.deletePersonInformation(personId);
 	}

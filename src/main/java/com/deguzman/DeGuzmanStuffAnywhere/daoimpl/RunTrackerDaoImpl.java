@@ -24,12 +24,14 @@ public class RunTrackerDaoImpl implements RunTrackerDao {
 
 	String GET_ALL_RUN_TRACKER_INFO = "SELECT R.RUN_ID, R.RUN_DATE,R.RUN_DISTANCE, R.RUN_TIME, US.NAME " + 
 			"FROM RUN_TRACKER R, USERS US " + 
-			"WHERE R.USER_ID = US.USER_ID";
+			"WHERE R.USER_ID = US.USER_ID " +
+			"ORDER BY R.RUN_DATE DESC";
 	
 	String GET_RUN_TRACKER_BY_USER = "SELECT R.RUN_ID, R.RUN_DATE,R.RUN_DISTANCE, R.RUN_TIME, US.NAME " + 
 			"FROM RUN_TRACKER R, USERS US " + 
 			"WHERE R.USER_ID = US.USER_ID " +
-			"AND R.USER_ID = ?";
+			"AND R.USER_ID = ? " + 
+			"ORDER BY R.RUN_DATE DESC";
 	
 	String GET_RUN_TRACKER_INFORMATION_BY_ID = "SELECT R.RUN_ID, R.RUN_DATE,R.RUN_DISTANCE, R.RUN_TIME, US.NAME " + 
 			"FROM RUN_TRACKER R, USERS US " + 
@@ -52,12 +54,16 @@ public class RunTrackerDaoImpl implements RunTrackerDao {
 
 	@Override
 	public List<RunTrackerInfoDTO> findAllRunTrackerInformation() {
-		return jdbcTemplate.query(GET_ALL_RUN_TRACKER_INFO, BeanPropertyRowMapper.newInstance(RunTrackerInfoDTO.class));
+		List<RunTrackerInfoDTO> list = jdbcTemplate.query(GET_ALL_RUN_TRACKER_INFO, BeanPropertyRowMapper.newInstance(RunTrackerInfoDTO.class));
+		
+		LOGGER.info("Retrieving all run tracker entries...");
+		
+		return list;
 	}
 
 	@Override
 	public List<RunTrackerInfoDTO> findRunTrackerInformationByUser(@PathVariable long user_id) {
-		return jdbcTemplate.query(GET_RUN_TRACKER_BY_USER, (rs,rowNum) -> 
+		List<RunTrackerInfoDTO> runListUser = jdbcTemplate.query(GET_RUN_TRACKER_BY_USER, (rs,rowNum) -> 
 				new RunTrackerInfoDTO(
 						rs.getInt("RUN_ID"),
 						rs.getString("RUN_DATE"),
@@ -65,11 +71,16 @@ public class RunTrackerDaoImpl implements RunTrackerDao {
 						rs.getString("RUN_TIME"),
 						rs.getString("NAME")
 						), user_id);
+		
+		LOGGER.info("Retrieving all run information based on user_id: " + user_id);
+		
+		return runListUser;
 	}
 
 	@Override
 	public ResponseEntity<RunTrackerInfoDTO> findRunTrackerInformationById(@PathVariable long run_id) {
 		RunTrackerInfoDTO runTrackerInfo = jdbcTemplate.queryForObject(GET_RUN_TRACKER_INFORMATION_BY_ID, BeanPropertyRowMapper.newInstance(RunTrackerInfoDTO.class), run_id);
+		
 		LOGGER.info("Retrieving Run Tracker Information By Run ID: " + " " + run_id);
 		
 		return ResponseEntity.ok().body(runTrackerInfo);
@@ -77,7 +88,11 @@ public class RunTrackerDaoImpl implements RunTrackerDao {
 	
 	@Override
 	public long findCountOfRunTrackerInformation() {
-		return jdbcTemplate.queryForObject(GET_RUN_COUNT, Integer.class);
+		long count = jdbcTemplate.queryForObject(GET_RUN_COUNT, Integer.class);
+		
+		LOGGER.info("Getting run tracker count");
+		
+		return count;
 	}
 
 	@Override
@@ -87,6 +102,8 @@ public class RunTrackerDaoImpl implements RunTrackerDao {
 		double run_distance = runTracker.getRunDistance();
 		String run_time = runTracker.getRunTime();
 		long user = runTracker.getUser_id();
+		
+		LOGGER.info("Adding run information: " + run_date + " " + run_distance);
 		
 		return jdbcTemplate.update(ADD_RUN_TRACKER_INFORMATION, new Object[] {
 				run_date,
@@ -104,12 +121,20 @@ public class RunTrackerDaoImpl implements RunTrackerDao {
 
 	@Override
 	public int deleteRunTrackerInformation(@PathVariable long run_id) {
-		return jdbcTemplate.update(DELETE_RUN_TRACKER_INFORMATION_BY_ID, run_id);
+		int count = jdbcTemplate.update(DELETE_RUN_TRACKER_INFORMATION_BY_ID, run_id);
+		
+		LOGGER.info("Delete run information by ID: " + run_id);
+		
+		return count;
 	}
 
 	@Override
 	public int deleteAllRunTrackerInformation() {
-		return jdbcTemplate.queryForObject(DELETE_ALL_RUN_TRACKER_INFORMATION, Integer.class);
+		int count = jdbcTemplate.queryForObject(DELETE_ALL_RUN_TRACKER_INFORMATION, Integer.class);
+		
+		LOGGER.info("Deleting all run information...");
+		
+		return count;
 	}
 	
 }

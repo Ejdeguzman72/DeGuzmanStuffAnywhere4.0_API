@@ -13,9 +13,9 @@ public interface UsersDao {
 
 	public List<UserInfoDTO> findAllUsersInformation();
 	
-	public List<UserInfoDTO> findAllUsersByRole();
+	public List<UserInfoDTO> findAllUsersByRole(@PathVariable int role_id);
 	
-	public List<UserInfoDTO> findAllUsersByStatus();
+	public List<UserInfoDTO> findAllUsersByStatus(@PathVariable int user_status_id);
 	
 	public ResponseEntity<UserInfoDTO> findUserInformationById(@PathVariable long user_id);
 	

@@ -20,7 +20,7 @@ import com.deguzman.DeGuzmanStuffAnywhere.model.Books;
 @Repository
 public class BooksDaoImpl implements BooksDao {
 
-	String GET_ALL_BOOKS = "SELECT * FROM BOOKS";
+	String GET_ALL_BOOKS = "SELECT * FROM BOOKS ORDER BY NAME";
 	String GET_BOOK_INFORMATION_BY_ID = "SELECT * FROM BOOKS WHERE BOOK_ID = ?";
 	String GET_BOOK_INFORMATION_BY_AUTHOR = "SELECT * FROM BOOKS WHERE AUTHOR = ?";
 	String GET_BOOK_INFORMATION_NAME = "SELECT * FROM BOOKS WHERE NAME = ?";

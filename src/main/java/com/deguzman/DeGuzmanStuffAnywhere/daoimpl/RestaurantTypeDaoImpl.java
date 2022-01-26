@@ -2,6 +2,8 @@ package com.deguzman.DeGuzmanStuffAnywhere.daoimpl;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -24,14 +26,22 @@ public class RestaurantTypeDaoImpl implements RestaurantTypeDao {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	
+	private static final Logger LOGGER = LoggerFactory.getLogger(RestaurantTypeDaoImpl.class);
+	
 	@Override
 	public List<RestaurantType> findAllRestaurantTypeInformation() {
-		return jdbcTemplate.query(GET_ALL_RESTAURANT_TYPES, BeanPropertyRowMapper.newInstance(RestaurantType.class));
+		List<RestaurantType> list = jdbcTemplate.query(GET_ALL_RESTAURANT_TYPES, BeanPropertyRowMapper.newInstance(RestaurantType.class));
+		
+		LOGGER.info("Retrieving all restaurant type information...");
+		
+		return list;
 	}
 
 	@Override
 	public ResponseEntity<RestaurantType> findRestaurantInformationById(@PathVariable int restaurant_type_id) {
 		RestaurantType type = jdbcTemplate.queryForObject(GET_RESTAURANT_INFORMATION_BY_ID, BeanPropertyRowMapper.newInstance(RestaurantType.class), restaurant_type_id);
+		
+		LOGGER.info("Getting restaurant type by ID: " + restaurant_type_id);
 		
 		return ResponseEntity.ok().body(type);
 	}
@@ -40,17 +50,27 @@ public class RestaurantTypeDaoImpl implements RestaurantTypeDao {
 	public ResponseEntity<RestaurantType> findRestaurantTypeByDescr(String descr) {
 		RestaurantType type = jdbcTemplate.queryForObject(GET_RESTAURANT_INFORMATION_BY_DESCR, BeanPropertyRowMapper.newInstance(RestaurantType.class), descr);
 		
+		LOGGER.info("Getting restaurant type by Descr: " + descr);
+		
 		return ResponseEntity.ok().body(type);
 	}
 	
 
 	@Override
 	public long getRestaurantTypeCount() {
-		return jdbcTemplate.queryForObject(GET_RESTAURANT_TYPE_COUNT, Integer.class);
+		long count = jdbcTemplate.queryForObject(GET_RESTAURANT_TYPE_COUNT, Integer.class);
+		
+		LOGGER.info("Getting restaurant type count");
+		
+		return count;
 	}
 
 	public int retrieveTypeId(@PathVariable String descr) {
-		return jdbcTemplate.queryForObject(GET_RESTAURANT_TYPE_ID_BY_DESCR, Integer.class);
+		int id = jdbcTemplate.queryForObject(GET_RESTAURANT_TYPE_ID_BY_DESCR, Integer.class);
+		
+		LOGGER.info("Retrieving restaurant_type_id: " + retrieveTypeId(descr));
+		
+		return id;
 	}
 	
 }

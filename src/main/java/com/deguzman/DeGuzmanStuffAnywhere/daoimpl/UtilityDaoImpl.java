@@ -61,7 +61,11 @@ public class UtilityDaoImpl implements UtilityDao {
 	
 	@Override
 	public List<UtilityInfoDTO> findAllUtilityInformation() {
-		return jdbcTemplate.query(GET_ALL_UTILITY_INFORMATION, BeanPropertyRowMapper.newInstance(UtilityInfoDTO.class));
+		List<UtilityInfoDTO> list =  jdbcTemplate.query(GET_ALL_UTILITY_INFORMATION, BeanPropertyRowMapper.newInstance(UtilityInfoDTO.class));
+		
+		LOGGER.info("Retrieving all utility information...");
+		
+		return list;
 	}
 
 	@Override
@@ -76,12 +80,15 @@ public class UtilityDaoImpl implements UtilityDao {
 					rs.getString("UTILITY_TYPE_DESCR")
 					), dueDate);
 		
+		LOGGER.info("Retrieving utilties by Due Date: " + dueDate);
+		
 		return utilityList;
 	}
 
 	@Override
 	public ResponseEntity<UtilityInfoDTO> findUtilityInformationById(long utility_id) {
 		UtilityInfoDTO utilityInfo = jdbcTemplate.queryForObject(GET_UTILITY_INFORMATION_BY_ID, BeanPropertyRowMapper.newInstance(UtilityInfoDTO.class), utility_id);
+		
 		LOGGER.info("Retrieved Utility Information with ID: " + " " + utility_id + " " + utilityInfo.getName());
 		
 		return ResponseEntity.ok().body(utilityInfo);
@@ -90,6 +97,7 @@ public class UtilityDaoImpl implements UtilityDao {
 	@Override
 	public ResponseEntity<UtilityInfoDTO> findUtilityInformationByName(String name) {
 		UtilityInfoDTO utilityInfo = jdbcTemplate.queryForObject(GET_UTILITY_INFORMATION_BY_NAME, BeanPropertyRowMapper.newInstance(UtilityInfoDTO.class), name);
+		
 		LOGGER.info("Retrieved Utility Information by name: " + utilityInfo.getName());
 		
 		return ResponseEntity.ok().body(utilityInfo);
@@ -98,6 +106,7 @@ public class UtilityDaoImpl implements UtilityDao {
 	@Override
 	public ResponseEntity<UtilityInfoDTO> findUtilityInformationByType(int utility_type_id) {
 		UtilityInfoDTO utilityInfo = jdbcTemplate.queryForObject(GET_UTILITY_INFORMATION_BY_TYPE, BeanPropertyRowMapper.newInstance(UtilityInfoDTO.class), GET_UTILITY_INFORMATION_BY_TYPE);
+		
 		LOGGER.info("Retrieved Utility Information By Utility Type ID: " + " " + utility_type_id + " " + utilityInfo.getName());
 		
 		return ResponseEntity.ok().body(utilityInfo);
@@ -105,7 +114,11 @@ public class UtilityDaoImpl implements UtilityDao {
 
 	@Override
 	public long findUtilityCount() {
-		return jdbcTemplate.queryForObject(GET_UTILITY_COUNT, Integer.class);
+		long count = jdbcTemplate.queryForObject(GET_UTILITY_COUNT, Integer.class);
+		
+		LOGGER.info("Getting Utility Count...");
+		
+		return count;
 	}
 
 	@Override
@@ -116,6 +129,8 @@ public class UtilityDaoImpl implements UtilityDao {
 		String phone = utility.getPhone();
 		String url = utility.getUrl();
 		String dueDate = utility.getDueDate();
+		
+		LOGGER.info("Adding Utility Information: " + name + " " + url);
 		
 		return jdbcTemplate.update(ADD_UTILITY_INFORMATION, new Object[] {
 				utility_type_id,
@@ -134,12 +149,20 @@ public class UtilityDaoImpl implements UtilityDao {
 
 	@Override
 	public int deleteUtilityInformation(long utility_id) {
-		return jdbcTemplate.update(DELETE_UTILITY_INFORMATION_BY_ID, utility_id);
+		int count = jdbcTemplate.update(DELETE_UTILITY_INFORMATION_BY_ID, utility_id);
+		
+		LOGGER.info("Deleting Utility Information by ID: " + utility_id);
+		
+		return count;
 	}
 
 	@Override
 	public int deleteAllUtilityInformation() {
-		return jdbcTemplate.update(DELETE_ALL_UTILITY_INFORMATION);
+		int count = jdbcTemplate.update(DELETE_ALL_UTILITY_INFORMATION);
+		
+		LOGGER.info("Deleting All Utilities...");
+		
+		return count;
 	}
 
 }

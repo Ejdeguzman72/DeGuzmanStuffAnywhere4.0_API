@@ -25,7 +25,7 @@ public class ContactDaoImpl implements ContactDao {
 	
 	private Logger LOGGER = LoggerFactory.getLogger(ContactDaoImpl.class);
 	
-	String GET_ALL_CONTACT_INFO = "SELECT * FROM PERSON";
+	String GET_ALL_CONTACT_INFO = "SELECT * FROM PERSON ORDER BY FIRSTNAME, LASTNAME";
 	String GET_CONTACT_INFO_BY_ID = "SELECT * FROM PERSON WHERE PERSON_ID = ?";
 	String GET_CONTACT_INFO_BY_LASTNAME = "SELECT * FROM PERSON WHERE LASTNAME = ?";
 	String GET_CONTACT_INFO_BY_EMAIL = "SELECT * FROM PERSON WHERE EMAIL = ?";
@@ -93,6 +93,7 @@ public class ContactDaoImpl implements ContactDao {
 	public int addPersonInformation(@RequestBody Person person) throws SecurityException, IOException {
 		
 		String firstname = person.getFirstname();
+		String middleInitial = person.getMiddleInitial();
 		String lastname = person.getLastname();
 		String address01 = person.getAddress01();
 		String address02 = person.getAddress02();
@@ -108,6 +109,7 @@ public class ContactDaoImpl implements ContactDao {
 		
 		return jdbcTemplate.update(INSERT_NEW_CONTACT_INFO, new Object[] {
 				firstname,
+				middleInitial,
 				lastname,
 				address01,
 				address02,
@@ -155,7 +157,7 @@ public class ContactDaoImpl implements ContactDao {
 	public long getCountOfPersonInformation() {
 		long count = jdbcTemplate.queryForObject(GET_COUNT_OF_PERSON_INFO, Integer.class);
 		
-		LOGGER.info("Getting person count");
+		LOGGER.info("Getting person count...");
 		
 		return count;
 	}

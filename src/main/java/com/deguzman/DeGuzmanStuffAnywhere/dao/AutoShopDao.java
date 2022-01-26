@@ -12,7 +12,7 @@ public interface AutoShopDao {
 
 	public List<AutoRepairShop> findAllAutoRepairShopInfo();
 	
-	public ResponseEntity<AutoRepairShop> findAutoRepairShopById(@PathVariable int autoShopId);
+	public ResponseEntity<AutoRepairShop> findAutoRepairShopById(@PathVariable int auto_shop_id);
 	
 	public ResponseEntity<AutoRepairShop> findAutoRepairShopByName(@PathVariable String autoShopName);
 	
@@ -24,7 +24,7 @@ public interface AutoShopDao {
 	
 	public int updateAutoShopInfo(@PathVariable int autoShopId, @RequestBody AutoRepairShop autoRepairShop);
 	
-	public int deleteAutoRepairShopInfo(@PathVariable int autoShopId);
+	public int deleteAutoRepairShopInfo(@PathVariable int auto_shop_id);
 	
 	public int deleteAllAutoShop();
 }

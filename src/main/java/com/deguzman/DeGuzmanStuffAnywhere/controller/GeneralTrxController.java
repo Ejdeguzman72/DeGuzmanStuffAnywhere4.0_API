@@ -58,6 +58,7 @@ public class GeneralTrxController {
 	}
 	
 	@DeleteMapping("/transaction/{transaction_id}")
+	@CrossOrigin
 	public int deleteTransactionById(@PathVariable long transaction_id) {
 		return generalTrxDaoImpl.deleteTransactionInformation(transaction_id);
 	}

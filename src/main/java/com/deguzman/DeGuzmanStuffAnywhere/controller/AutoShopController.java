@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,9 +30,9 @@ public class AutoShopController {
 		return autoShopDaoImpl.findAllAutoRepairShopInfo();
 	}
 	
-	@GetMapping("/repair-shop/{autoShopId}")
-	public ResponseEntity<AutoRepairShop> getAutoRepairShopInfoById(@PathVariable int autoShopId) {
-		return autoShopDaoImpl.findAutoRepairShopById(autoShopId);
+	@GetMapping("/repair-shop/{auto_shop_id}")
+	public ResponseEntity<AutoRepairShop> getAutoRepairShopInfoById(@PathVariable int auto_shop_id) {
+		return autoShopDaoImpl.findAutoRepairShopById(auto_shop_id);
 	}
 	
 	@GetMapping("/repair-shop/name/{autoShopName}")
@@ -54,9 +55,15 @@ public class AutoShopController {
 		return autoShopDaoImpl.addAutoRepairShopInfo(autoShop);
 	}
 	
-	@DeleteMapping("/repair-shop/{autoRepairShopId}")
-	public int deleteAutoShopInformationById(@PathVariable int autoShopId) {
-		return autoShopDaoImpl.deleteAutoRepairShopInfo(autoShopId);
+	@PutMapping("/repair-shop/{auto_shop_id}")
+	public int updateAutoRepairShopInformation(@PathVariable int auto_shop_id, @RequestBody AutoRepairShop autoRepairShop) {
+		return autoShopDaoImpl.updateAutoShopInfo(auto_shop_id, autoRepairShop);
+	}
+	
+	@DeleteMapping("/repair-shop/{auto_shop_id}")
+	@CrossOrigin
+	public int deleteAutoShopInformationById(@PathVariable int auto_shop_id) {
+		return autoShopDaoImpl.deleteAutoRepairShopInfo(auto_shop_id);
 	}
 	
 	@DeleteMapping("/delete-all")

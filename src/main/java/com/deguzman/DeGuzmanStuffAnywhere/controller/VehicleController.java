@@ -36,22 +36,22 @@ public class VehicleController {
 	}
 	
 	@GetMapping("/vehicle/make/{make}")
-	public ResponseEntity<Vehicle> getVehicleInformationByMake(@PathVariable String make) {
+	public List<Vehicle> getVehicleInformationByMake(@PathVariable String make) {
 		return vehicleDaoImpl.findVehicleInformatioByMake(make);
 	}
 	
 	@GetMapping("/vehicle/model/{model}")
-	public ResponseEntity<Vehicle> getVehicleInformationByModel(@PathVariable String model) {
+	public List<Vehicle> getVehicleInformationByModel(@PathVariable String model) {
 		return vehicleDaoImpl.findVehicleInformationByModel(model);
 	}
 	
 	@GetMapping("/vehicle/year/{year}")
-	public ResponseEntity<Vehicle> getVehicleInformationByYear(@PathVariable String year) {
+	public List<Vehicle> getVehicleInformationByYear(@PathVariable String year) {
 		return vehicleDaoImpl.findVehicleInformationByYear(year);
 	}
 	
 	@GetMapping("/vehicle/transmission/{transmission}")
-	public ResponseEntity<Vehicle> getVehicleInformationByTransmission(@PathVariable String transmission) {
+	public List<Vehicle> getVehicleInformationByTransmission(@PathVariable String transmission) {
 		return vehicleDaoImpl.findVehicleInformationByTransmission(transmission);
 	}
 	

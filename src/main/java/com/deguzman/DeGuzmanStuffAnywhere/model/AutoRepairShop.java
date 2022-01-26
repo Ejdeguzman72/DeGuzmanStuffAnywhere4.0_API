@@ -9,53 +9,50 @@ public class AutoRepairShop implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 7246009274943519322L;
-	public int autoshopId;
+	public int auto_shop_id;
 	public String autoShopName;
 	public String address;
 	public String city;
 	public String zip;
 	public String state;
-	
-	public int getAutoshopId() {
-		return autoshopId;
+	public int getAuto_shop_id() {
+		return auto_shop_id;
 	}
-	public void setAutoshopId(int autoshopId) {
-		this.autoshopId = autoshopId;
+	public void setAuto_shop_id(int auto_shop_id) {
+		this.auto_shop_id = auto_shop_id;
 	}
-	
 	public String getAutoShopName() {
 		return autoShopName;
 	}
 	public void setAutoShopName(String autoShopName) {
 		this.autoShopName = autoShopName;
 	}
-	
 	public String getAddress() {
 		return address;
 	}
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	
 	public String getCity() {
 		return city;
 	}
 	public void setCity(String city) {
 		this.city = city;
 	}
-	
 	public String getZip() {
 		return zip;
 	}
 	public void setZip(String zip) {
 		this.zip = zip;
 	}
-	
 	public String getState() {
 		return state;
 	}
 	public void setState(String state) {
 		this.state = state;
+	}
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 	@Override
 	public int hashCode() {
@@ -63,7 +60,7 @@ public class AutoRepairShop implements Serializable {
 		int result = 1;
 		result = prime * result + ((address == null) ? 0 : address.hashCode());
 		result = prime * result + ((autoShopName == null) ? 0 : autoShopName.hashCode());
-		result = prime * result + autoshopId;
+		result = prime * result + auto_shop_id;
 		result = prime * result + ((city == null) ? 0 : city.hashCode());
 		result = prime * result + ((state == null) ? 0 : state.hashCode());
 		result = prime * result + ((zip == null) ? 0 : zip.hashCode());
@@ -88,7 +85,7 @@ public class AutoRepairShop implements Serializable {
 				return false;
 		} else if (!autoShopName.equals(other.autoShopName))
 			return false;
-		if (autoshopId != other.autoshopId)
+		if (auto_shop_id != other.auto_shop_id)
 			return false;
 		if (city == null) {
 			if (other.city != null)
@@ -109,12 +106,13 @@ public class AutoRepairShop implements Serializable {
 	}
 	@Override
 	public String toString() {
-		return "AutoRepairShop [autoshopId=" + autoshopId + ", autoShopName=" + autoShopName + ", address=" + address
-				+ ", city=" + city + ", zip=" + zip + ", state=" + state + "]";
+		return "AutoRepairShop [auto_shop_id=" + auto_shop_id + ", autoShopName=" + autoShopName + ", address="
+				+ address + ", city=" + city + ", zip=" + zip + ", state=" + state + "]";
 	}
-	public AutoRepairShop(int autoshopId, String autoShopName, String address, String city, String zip, String state) {
+	public AutoRepairShop(int auto_shop_id, String autoShopName, String address, String city, String zip,
+			String state) {
 		super();
-		this.autoshopId = autoshopId;
+		this.auto_shop_id = auto_shop_id;
 		this.autoShopName = autoShopName;
 		this.address = address;
 		this.city = city;

@@ -120,4 +120,5 @@ public class GeneralTransaction implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 	
+	
 }

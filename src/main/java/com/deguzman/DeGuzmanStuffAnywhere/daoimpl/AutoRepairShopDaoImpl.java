@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import com.deguzman.DeGuzmanStuffAnywhere.dao.AutoShopDao;
 import com.deguzman.DeGuzmanStuffAnywhere.model.AutoRepairShop;
@@ -22,7 +24,7 @@ public class AutoRepairShopDaoImpl implements AutoShopDao {
 	private static final Logger LOGGER = LoggerFactory.getLogger(AutoRepairShopDaoImpl.class);
 	
 	
-	String GET_ALL_AUTO_REPAIR_SHOPS = "SELECT * FROM AUTO_SHOP";
+	String GET_ALL_AUTO_REPAIR_SHOPS = "SELECT * FROM AUTO_SHOP ORDER BY AUTO_SHOP_NAME";
 	String GET_AUTO_SHOP_BY_ID = "SELECT * FROM AUTO_SHOP WHERE AUTO_SHOP_ID = ?";
 	String GET_AUTO_SHOP_BY_NAME = "SELECT * FROM AUTO_SHOP WHERE AUTO_SHOP_NAME = ?";
 	String GET_AUTO_REPAIR_SHOP_BY_ZIP = "SELECT * FROM AUTO_SHOP WHERE ZIP = ?";
@@ -44,8 +46,8 @@ public class AutoRepairShopDaoImpl implements AutoShopDao {
 	}
 
 	@Override
-	public ResponseEntity<AutoRepairShop> findAutoRepairShopById(int autoShopId) {
-		AutoRepairShop autoShop = jdbcTemplate.queryForObject(GET_AUTO_SHOP_BY_ID, BeanPropertyRowMapper.newInstance(AutoRepairShop.class), autoShopId);
+	public ResponseEntity<AutoRepairShop> findAutoRepairShopById(@PathVariable int auto_shop_id) {
+		AutoRepairShop autoShop = jdbcTemplate.queryForObject(GET_AUTO_SHOP_BY_ID, BeanPropertyRowMapper.newInstance(AutoRepairShop.class), auto_shop_id);
 		
 		LOGGER.info("Retrieved Auto Repair Shop Information: " + autoShop.getAutoShopName() + "...");
 		
@@ -53,7 +55,7 @@ public class AutoRepairShopDaoImpl implements AutoShopDao {
 	}
 
 	@Override
-	public ResponseEntity<AutoRepairShop> findAutoRepairShopByName(String autoShopName) {
+	public ResponseEntity<AutoRepairShop> findAutoRepairShopByName(@PathVariable String autoShopName) {
 		AutoRepairShop autoShop = jdbcTemplate.queryForObject(GET_AUTO_SHOP_BY_NAME, BeanPropertyRowMapper.newInstance(AutoRepairShop.class), autoShopName);
 		
 		LOGGER.info("Retrieved Repair Shop Information: " + autoShop.getAutoShopName() + "...");
@@ -62,7 +64,7 @@ public class AutoRepairShopDaoImpl implements AutoShopDao {
 	}
 
 	@Override
-	public List<AutoRepairShop> findAutoRepairShopByZip(String zip) {
+	public List<AutoRepairShop> findAutoRepairShopByZip(@PathVariable String zip) {
 		List<AutoRepairShop> autoShopList = jdbcTemplate.query(GET_AUTO_REPAIR_SHOP_BY_ZIP, (rs,rowNum) ->
 			new AutoRepairShop(
 					rs.getInt("AUTO_SHOP_ID"),
@@ -100,16 +102,19 @@ public class AutoRepairShopDaoImpl implements AutoShopDao {
 	}
 
 	@Override
-	public int updateAutoShopInfo(int autoShopId, AutoRepairShop autoRepairShop) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int updateAutoShopInfo(@PathVariable int auto_shop_id, @RequestBody AutoRepairShop autoRepairShop) {
+		int count = jdbcTemplate.update(UPDATE_AUTO_SHOP_INFORMATION, auto_shop_id);
+		
+		LOGGER.info("Updating Auto Shop Information for ID: " + auto_shop_id);
+		
+		return count;
 	}
 
 	@Override
-	public int deleteAutoRepairShopInfo(int autoShopId) {
-		int count = jdbcTemplate.update(DELETE_AUTO_SHOP_INFORMATION_BY_ID, autoShopId);
+	public int deleteAutoRepairShopInfo(@PathVariable int auto_shop_id) {
+		int count = jdbcTemplate.update(DELETE_AUTO_SHOP_INFORMATION_BY_ID, auto_shop_id);
 		
-		LOGGER.info("Deleting Auto Repair Shop with ID: " + " " + autoShopId + "...");
+		LOGGER.info("Deleting Auto Repair Shop with ID: " + " " + auto_shop_id + "...");
 		
 		return count;
 	}

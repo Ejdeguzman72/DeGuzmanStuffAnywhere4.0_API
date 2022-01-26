@@ -61,7 +61,11 @@ public class ExerciseDaoImpl implements ExerciseDao {
 
 	@Override
 	public List<ExerciseInfoDTO> findAllExerciseInformation() {
-		return jdbcTemplate.query(GET_ALL_EXERCISE_INFORMATION, BeanPropertyRowMapper.newInstance(ExerciseInfoDTO.class));
+		List<ExerciseInfoDTO> list = jdbcTemplate.query(GET_ALL_EXERCISE_INFORMATION, BeanPropertyRowMapper.newInstance(ExerciseInfoDTO.class));
+		
+		LOGGER.info("Retrieving All Exercise Information...");
+		
+		return list;
 	}
 
 	@Override
@@ -77,6 +81,7 @@ public class ExerciseDaoImpl implements ExerciseDao {
 					rs.getString("EXERCISE_TYPE_NAME"),
 					rs.getString("NAME")
 					), user_id);
+		
 		LOGGER.info("Retrieved Exercise Information by User ID: " + " " + user_id);
 		
 		return exerciseListUser;
@@ -95,6 +100,7 @@ public class ExerciseDaoImpl implements ExerciseDao {
 				rs.getString("EXERCISE_TYPE_NAME"),
 				rs.getString("NAME")
 				), exercise_type_id);
+		
 	LOGGER.info("Retrieved Exercise Information by Exercise Type ID: " + " " + exercise_type_id);
 	
 	return exerciseListType;
@@ -103,14 +109,11 @@ public class ExerciseDaoImpl implements ExerciseDao {
 	@Override
 	public ResponseEntity<ExerciseInfoDTO> findExerciseById(@PathVariable int exercise_id) {
 		ExerciseInfoDTO exerciseInfo = jdbcTemplate.queryForObject(GET_EXERCISE_INFORMATION_BY_ID, BeanPropertyRowMapper.newInstance(ExerciseInfoDTO.class), exercise_id);
+		
 		LOGGER.info("Retrieved Exercise information by exercise_id: " + " " + exercise_id);
 		
 		return ResponseEntity.ok().body(exerciseInfo);
 	}
-	
-//	String ADD_EXERCISE_INFORMATION = "INSERT INTO EXERCISE " + 
-//			"(DATE, EXERCISE_NAME, REPS, SETS, WEIGHT, EXERCISE_TYPE_ID, USER_ID) " + 
-//			"VALUES(?, ?, ?, ?, ?, ?, ?)";
 	
 	@Override
 	public int addExerciseInformation(Exercise exercise) {
@@ -145,11 +148,19 @@ public class ExerciseDaoImpl implements ExerciseDao {
 
 	@Override
 	public int deleteExerciseInformationById(int exercise_id) {
-		return jdbcTemplate.update(DELETE_EXERCISE_INFORMATION_BY_ID, exercise_id);
+		int count = jdbcTemplate.update(DELETE_EXERCISE_INFORMATION_BY_ID, exercise_id);
+		
+		LOGGER.info("Deleting Exercise Information by exercise_id: " + exercise_id);
+		
+		return count;
 	}
 
 	@Override
 	public int deleteAllExercisInformation() {
-		return jdbcTemplate.update(DELETE_ALL_EXERCISE_INFORMATION);
+		int count = jdbcTemplate.update(DELETE_ALL_EXERCISE_INFORMATION);
+		
+		LOGGER.info("Deleting All Exercise Information...");
+		
+		return count;
 	}
 }

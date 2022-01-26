@@ -19,7 +19,7 @@ import com.deguzman.DeGuzmanStuffAnywhere.model.Song;
 @Repository
 public class SongDaoImpl implements SongDao {
 
-	String GET_ALL_SONGS = "SELECT * FROM SONG";
+	String GET_ALL_SONGS = "SELECT * FROM SONG ORDER BY TITLE, ARTIST";
 	String GET_SONG_INFORMATION_BY_ID = "SELECT * FROM SONG WHERE SONG_ID = ?";
 	String GET_SONG_INFORMATION_BY_ARTIST = "SELECT * FROM SONG WHERE ARTIST = ?";
 	String GET_SONG_INFORMATION_BY_TITLE = "SELECT * FROM SONG WHERE TITLE = ?";
@@ -39,7 +39,11 @@ public class SongDaoImpl implements SongDao {
 	
 	@Override
 	public List<Song> findAllSongInformation() {
-		return jdbcTemplate.query(GET_ALL_SONGS, BeanPropertyRowMapper.newInstance(Song.class));
+		List<Song> list = jdbcTemplate.query(GET_ALL_SONGS, BeanPropertyRowMapper.newInstance(Song.class));
+		
+		LOGGER.info("Retrieving all songs...");
+		
+		return list;
 	}
 
 	@Override
@@ -47,10 +51,12 @@ public class SongDaoImpl implements SongDao {
 		List<Song> songListArtist = jdbcTemplate.query(GET_SONG_INFORMATION_BY_ARTIST, (rs, rowNum) -> 
 				new Song(
 							rs.getInt("song_id"),
-							rs.getString("title"),
 							rs.getString("artist"),
-							rs.getString("genre")
+							rs.getString("genre"),
+							rs.getString("title")
 						), artist);
+		
+		LOGGER.info("Retrieving music by artist: " + artist);
 		
 		return songListArtist;
 	}
@@ -65,12 +71,15 @@ public class SongDaoImpl implements SongDao {
 						rs.getString("genre")
 					), genre);
 
+		LOGGER.info("Retrieving music by genre: " + genre);
+		
 		return songListGenre;
 	}
 
 	@Override
 	public ResponseEntity<Song> findSongById(int song_id) throws ResourceNotFoundException {
 		Song song = jdbcTemplate.queryForObject(GET_SONG_INFORMATION_BY_ID, BeanPropertyRowMapper.newInstance(Song.class), song_id);
+		
 		LOGGER.info("Retrieved Song Information: " + song.getTitle() + " " + song.getArtist());
 		
 		return ResponseEntity.ok().body(song);
@@ -79,6 +88,7 @@ public class SongDaoImpl implements SongDao {
 	@Override
 	public ResponseEntity<Song> findSongByTitle(String title) {
 		Song song = jdbcTemplate.queryForObject(GET_SONG_INFORMATION_BY_TITLE, BeanPropertyRowMapper.newInstance(Song.class), title);
+		
 		LOGGER.info("Retrieved Song Information: " + " " + song.getTitle() + " " + song.getArtist());
 		
 		return ResponseEntity.ok().body(song);
@@ -86,15 +96,26 @@ public class SongDaoImpl implements SongDao {
 
 	@Override
 	public int findSongCount() {
-		return jdbcTemplate.queryForObject(GET_SONG_COUNT, Integer.class);
+		int count = jdbcTemplate.queryForObject(GET_SONG_COUNT, Integer.class);
+		
+		LOGGER.info("Getting music count...");
+		
+		return count;
 	}
 
 	@Override
 	public int addSongInformation(Song song) throws DuplicateTitleException {
+		
+		String title = song.getTitle();
+		String artist = song.getArtist();
+		String genre = song.getGenre();
+		
+		LOGGER.info("Adding Song Information: " + title + " " + "by " + artist);
+		
 		return jdbcTemplate.update(ADD_SONG_INFORMATION, new Object[] {
-				song.getTitle(),
-				song.getArtist(),
-				song.getGenre()
+				title,
+				artist,
+				genre
 		});
 	}
 
@@ -106,12 +127,20 @@ public class SongDaoImpl implements SongDao {
 
 	@Override
 	public int deleteSongInformation(int song_id) {
-		return jdbcTemplate.update(DELETE_SONG_INFORMATION_BY_ID, song_id);
+		int count = jdbcTemplate.update(DELETE_SONG_INFORMATION_BY_ID, song_id);
+		
+		LOGGER.info("Deleting song with ID: " + song_id);
+		
+		return count;
 	}
 
 	@Override
 	public int deleteAllSongs() {
-		return jdbcTemplate.update(DELETE_ALL_SONG_INFORMATION);
+		int count = jdbcTemplate.update(DELETE_ALL_SONG_INFORMATION);
+		
+		LOGGER.info("Deleting all songs...");
+		
+		return count;
 	}
 
 }

@@ -4,7 +4,7 @@ public class GeneralTrxInfoDTO {
 
 	public long transaction_id;
 	public double amount;
-	public String paymentDate;
+	public String payment_date;
 	public String entity;
 	public String transaction_type_descr;
 	public String name;
@@ -20,11 +20,11 @@ public class GeneralTrxInfoDTO {
 	public void setAmount(double amount) {
 		this.amount = amount;
 	}
-	public String getPaymentDate() {
-		return paymentDate;
+	public String getPayment_date() {
+		return payment_date;
 	}
-	public void setPaymentDate(String paymentDate) {
-		this.paymentDate = paymentDate;
+	public void setPayment_date(String payment_date) {
+		this.payment_date = payment_date;
 	}
 	public String getEntity() {
 		return entity;
@@ -53,7 +53,7 @@ public class GeneralTrxInfoDTO {
 		result = prime * result + (int) (temp ^ (temp >>> 32));
 		result = prime * result + ((entity == null) ? 0 : entity.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + ((paymentDate == null) ? 0 : paymentDate.hashCode());
+		result = prime * result + ((payment_date == null) ? 0 : payment_date.hashCode());
 		result = prime * result + (int) (transaction_id ^ (transaction_id >>> 32));
 		result = prime * result + ((transaction_type_descr == null) ? 0 : transaction_type_descr.hashCode());
 		return result;
@@ -79,10 +79,10 @@ public class GeneralTrxInfoDTO {
 				return false;
 		} else if (!name.equals(other.name))
 			return false;
-		if (paymentDate == null) {
-			if (other.paymentDate != null)
+		if (payment_date == null) {
+			if (other.payment_date != null)
 				return false;
-		} else if (!paymentDate.equals(other.paymentDate))
+		} else if (!payment_date.equals(other.payment_date))
 			return false;
 		if (transaction_id != other.transaction_id)
 			return false;
@@ -95,16 +95,16 @@ public class GeneralTrxInfoDTO {
 	}
 	@Override
 	public String toString() {
-		return "GeneralTrxInfoDTO [transaction_id=" + transaction_id + ", amount=" + amount + ", paymentDate="
-				+ paymentDate + ", entity=" + entity + ", transaction_type_descr=" + transaction_type_descr + ", name="
+		return "GeneralTrxInfoDTO [transaction_id=" + transaction_id + ", amount=" + amount + ", payment_date="
+				+ payment_date + ", entity=" + entity + ", transaction_type_descr=" + transaction_type_descr + ", name="
 				+ name + "]";
 	}
-	public GeneralTrxInfoDTO(long transaction_id, double amount, String paymentDate, String entity,
+	public GeneralTrxInfoDTO(long transaction_id, double amount, String payment_date, String entity,
 			String transaction_type_descr, String name) {
 		super();
 		this.transaction_id = transaction_id;
 		this.amount = amount;
-		this.paymentDate = paymentDate;
+		this.payment_date = payment_date;
 		this.entity = entity;
 		this.transaction_type_descr = transaction_type_descr;
 		this.name = name;
