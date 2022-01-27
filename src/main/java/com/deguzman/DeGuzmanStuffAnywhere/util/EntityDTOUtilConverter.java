@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.deguzman.DeGuzmanStuffAnywhere.daoimpl.RestaurantTypeDaoImpl;
 import com.deguzman.DeGuzmanStuffAnywhere.dto.RestaurantInfoDTO;
 import com.deguzman.DeGuzmanStuffAnywhere.model.Restaurant;
-import com.deguzman.DeGuzmanStuffAnywhere.model.RestaurantType;
 
 public class EntityDTOUtilConverter {
 

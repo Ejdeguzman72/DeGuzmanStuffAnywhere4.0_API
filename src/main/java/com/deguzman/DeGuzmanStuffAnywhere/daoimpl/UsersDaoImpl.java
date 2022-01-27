@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import com.deguzman.DeGuzmanStuffAnywhere.dao.UsersDao;
 import com.deguzman.DeGuzmanStuffAnywhere.dto.UserInfoDTO;
-import com.deguzman.DeGuzmanStuffAnywhere.model.Users;
+import com.deguzman.DeGuzmanStuffAnywhere.jpa_model.Users;
 
 @Repository
 public class UsersDaoImpl implements UsersDao {

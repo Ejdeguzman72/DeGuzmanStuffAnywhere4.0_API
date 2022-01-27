@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.deguzman.DeGuzmanStuffAnywhere.daoimpl.UsersDaoImpl;
 import com.deguzman.DeGuzmanStuffAnywhere.dto.UserInfoDTO;
-import com.deguzman.DeGuzmanStuffAnywhere.model.Users;
+import com.deguzman.DeGuzmanStuffAnywhere.jpa_model.Users;
 
 import org.springframework.web.bind.annotation.RestController;
 

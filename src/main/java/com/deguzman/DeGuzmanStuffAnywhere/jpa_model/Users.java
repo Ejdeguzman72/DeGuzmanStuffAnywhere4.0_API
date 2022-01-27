@@ -1,4 +1,4 @@
-package com.deguzman.DeGuzmanStuffAnywhere.model;
+package com.deguzman.DeGuzmanStuffAnywhere.jpa_model;
 
 import java.io.Serializable;
 

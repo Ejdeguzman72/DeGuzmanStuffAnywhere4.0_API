@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.deguzman.DeGuzmanStuffAnywhere.dto.UserInfoDTO;
-import com.deguzman.DeGuzmanStuffAnywhere.model.Users;
+import com.deguzman.DeGuzmanStuffAnywhere.jpa_model.Users;
 
 public interface UsersDao {
 

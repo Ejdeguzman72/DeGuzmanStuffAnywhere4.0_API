@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import com.deguzman.DeGuzmanStuffAnywhere.dao.VehicleDao;
 import com.deguzman.DeGuzmanStuffAnywhere.exception.InvalidVehicleException;
-import com.deguzman.DeGuzmanStuffAnywhere.exception.ResourceNotFoundException;
 import com.deguzman.DeGuzmanStuffAnywhere.model.Vehicle;
 
 @Repository
