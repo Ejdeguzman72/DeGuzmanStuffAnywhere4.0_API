@@ -158,13 +158,6 @@ public class UsersDaoImpl implements UsersDao {
 		String password = user.getPassword();
 		String name = user.getName();
 		String email = user.getEmail();
-		int role = user.getRole_id();
-		int user_status = user.getUser_status_id();
-		long autoTransaction = user.getAuto_transaction_id();
-		long transaction = user.getTransaction_id();
-		long medicalTransaction = user.getMedical_transaction_id();
-		int exericse = user.getExercise_id();
-		long run = user.getRun_id();
 		
 		LOGGER.info("Adding user information: " + name + " " + username);
 		
@@ -172,14 +165,7 @@ public class UsersDaoImpl implements UsersDao {
 			username, 
 			password, 
 			name, 
-			email, 
-			role, 
-			user_status, 
-			autoTransaction, 
-			transaction, 
-			medicalTransaction, 
-			exericse, 
-			run	
+			email
 		});
 	}
 
