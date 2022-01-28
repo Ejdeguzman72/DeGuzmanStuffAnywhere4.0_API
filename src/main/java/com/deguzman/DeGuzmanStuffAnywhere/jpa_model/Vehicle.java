@@ -2,8 +2,17 @@ package com.deguzman.DeGuzmanStuffAnywhere.jpa_model;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 import org.springframework.web.bind.annotation.CrossOrigin;
 
+@Entity
+@Table(name = "vehicle")
 @CrossOrigin
 public class Vehicle implements Serializable {
 
@@ -18,36 +27,49 @@ public class Vehicle implements Serializable {
 	public int capacity;
 	public String transmission;
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "vehicle_id")
 	public long getVehicleId() {
 		return vehicleId;
 	}
 	public void setVehicleId(long vehicleId) {
 		this.vehicleId = vehicleId;
 	}
+	
+	@Column(name = "year")
 	public String getYear() {
 		return year;
 	}
 	public void setYear(String year) {
 		this.year = year;
 	}
+	
+	@Column(name = "make")
 	public String getMake() {
 		return make;
 	}
 	public void setMake(String make) {
 		this.make = make;
 	}
+	
+	@Column(name = "model")
 	public String getModel() {
 		return model;
 	}
 	public void setModel(String model) {
 		this.model = model;
 	}
+	
+	@Column(name = "capacity")
 	public int getCapacity() {
 		return capacity;
 	}
 	public void setCapacity(int capacity) {
 		this.capacity = capacity;
 	}
+	
+	@Column(name = "transmission")
 	public String getTransmission() {
 		return transmission;
 	}

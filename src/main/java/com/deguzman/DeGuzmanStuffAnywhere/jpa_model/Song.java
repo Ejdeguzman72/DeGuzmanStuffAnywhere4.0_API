@@ -1,5 +1,17 @@
 package com.deguzman.DeGuzmanStuffAnywhere.jpa_model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import org.springframework.web.bind.annotation.CrossOrigin;
+
+@Entity
+@Table(name = "song")
+@CrossOrigin
 public class Song {
 
 	public int song_id;
@@ -7,6 +19,9 @@ public class Song {
 	public String artist; 
 	public String genre;
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "song_id")
 	public int getSong_id() {
 		return song_id;
 	}
@@ -15,6 +30,7 @@ public class Song {
 		this.song_id = song_id;
 	}
 	
+	@Column(name = "title")
 	public String getTitle() {
 		return title;
 	}
@@ -23,6 +39,7 @@ public class Song {
 		this.title = title;
 	}
 	
+	@Column(name = "artist")
 	public String getArtist() {
 		return artist;
 	}
@@ -31,6 +48,7 @@ public class Song {
 		this.artist = artist;
 	}
 	
+	@Column(name = "genre")
 	public String getGenre() {
 		return genre;
 	}

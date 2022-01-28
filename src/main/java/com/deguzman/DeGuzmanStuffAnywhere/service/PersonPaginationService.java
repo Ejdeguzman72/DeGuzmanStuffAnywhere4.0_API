@@ -13,27 +13,27 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.deguzman.DeGuzmanStuffAnywhere.jpa_dao.AutoRepairShopJpaDao;
-import com.deguzman.DeGuzmanStuffAnywhere.jpa_model.AutoRepairShop;
+import com.deguzman.DeGuzmanStuffAnywhere.jpa_dao.PersonJpaDao;
+import com.deguzman.DeGuzmanStuffAnywhere.jpa_model.Person;
 
 @Service
-public class AutoRepairShopService {
+public class PersonPaginationService {
 
 	@Autowired
-	private AutoRepairShopJpaDao autoShopDao;
+	private PersonJpaDao personJpaDao;
 	
-	public ResponseEntity<Map<String, Object>> getAllAutoShopsPagination(@RequestParam(required = false) String autoShopname,
+	public ResponseEntity<Map<String, Object>> getAllPersonsPagination(@RequestParam(required = false) String firstname,
 			@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
 		try {
 
-			List<AutoRepairShop> shop = autoShopDao.findAll();
+			List<Person> shop = personJpaDao.findAll();
 
 			Pageable paging = PageRequest.of(page, size);
 
-			Page<AutoRepairShop> pageBooks = null;
+			Page<Person> pageBooks = null;
 
-			if (autoShopname == null) {
-				pageBooks = autoShopDao.findAll(paging);
+			if (firstname == null) {
+				pageBooks = personJpaDao.findAll(paging);
 			} else {
 				// pageBooks = autoShopDao.findByNameContaining(autoShopname, paging);
 			}
@@ -41,7 +41,7 @@ public class AutoRepairShopService {
 			shop = pageBooks.getContent();
 
 			Map<String, Object> response = new HashMap<>();
-			response.put("shops", shop);
+			response.put("persons", shop);
 			response.put("currentPage", pageBooks.getNumber());
 			response.put("totalItems", pageBooks.getTotalElements());
 			response.put("totalPages", pageBooks.getTotalPages());

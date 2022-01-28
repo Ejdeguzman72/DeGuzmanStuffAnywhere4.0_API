@@ -1,7 +1,16 @@
 package com.deguzman.DeGuzmanStuffAnywhere.jpa_model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 import org.springframework.web.bind.annotation.CrossOrigin;
 
+@Entity
+@Table(name = "books")
 @CrossOrigin
 public class Books {
 	
@@ -10,6 +19,9 @@ public class Books {
 	public String author;
 	public String descr;
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "book_id")
 	public int getBook_id() {
 		return book_id;
 	}
@@ -17,6 +29,7 @@ public class Books {
 		this.book_id = book_id;
 	}
 	
+	@Column(name = "column")
 	public String getName() {
 		return name;
 	}
@@ -24,6 +37,7 @@ public class Books {
 		this.name = name;
 	}
 	
+	@Column(name = "author")
 	public String getAuthor() {
 		return author;
 	}
@@ -31,6 +45,7 @@ public class Books {
 		this.author = author;
 	}
 	
+	@Column(name = "descr")
 	public String getDescr() {
 		return descr;
 	}

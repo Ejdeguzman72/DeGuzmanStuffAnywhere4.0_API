@@ -1,5 +1,5 @@
-insert into facility (address, city, name, state, zip) 
-values ('111 Place Boulevard','Narnia','The Best Hospital','Missouri','90888'), 
-('123 City Avenue','Radcliffe','The Best Physical Therapist','Kentucky','40211'), 
-('900 Brick Boulevard','Austin','The Best Dentist','Texas','78777'), 
-('55 Stone Road','Austin','The Best Allergist','Texas','78111');
+insert into medical_office (address, city, name, state, zip) 
+values ('20 Prospect Avenue','Hackensack','hackensack University Medical Center','New Jersey','07601'), 
+('466 Old Hook Road #28','Emerson','Frank Mastriani, MD','New Jersey','07630'), 
+('885 Main Street','Hackensack','Desgigning Smiles','New Jersey','07601'), 
+('372 Kinderkamack Road','Westwood','Eye Care Insight: Dr. Floyd Smith Optometrist','New Jersey','07675');

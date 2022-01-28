@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.deguzman.DeGuzmanStuffAnywhere.daoimpl.AutoRepairShopDaoImpl;
 import com.deguzman.DeGuzmanStuffAnywhere.model.AutoRepairShop;
-import com.deguzman.DeGuzmanStuffAnywhere.service.AutoRepairShopService;
+import com.deguzman.DeGuzmanStuffAnywhere.service.AutoRepairShopPaginationService;
 
 @RestController
 @RequestMapping("/app/auto-repair-shops")
@@ -29,7 +29,7 @@ public class AutoShopController {
 	private AutoRepairShopDaoImpl autoShopDaoImpl;
 	
 	@Autowired
-	private AutoRepairShopService autoShopService;
+	private AutoRepairShopPaginationService autoShopService;
 	
 	@GetMapping("/all")
 	public List<AutoRepairShop> getAllAutoRepairShopInformation() {

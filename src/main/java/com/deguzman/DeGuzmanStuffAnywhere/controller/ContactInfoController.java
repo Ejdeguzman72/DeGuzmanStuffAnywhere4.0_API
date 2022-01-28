@@ -2,6 +2,7 @@ package com.deguzman.DeGuzmanStuffAnywhere.controller;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -12,11 +13,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.deguzman.DeGuzmanStuffAnywhere.daoimpl.ContactDaoImpl;
 import com.deguzman.DeGuzmanStuffAnywhere.exception.ResourceNotFoundException;
 import com.deguzman.DeGuzmanStuffAnywhere.model.Person;
+import com.deguzman.DeGuzmanStuffAnywhere.service.PersonPaginationService;
 
 @RestController
 @RequestMapping("/app/person-info")
@@ -26,9 +29,18 @@ public class ContactInfoController {
 	@Autowired
 	private ContactDaoImpl contactDaoImpl;
 	
+	@Autowired
+	private PersonPaginationService personPageService;
+	
 	@GetMapping("/all")
 	public List<Person> getAllPersonInfo() throws SecurityException, IOException {
 		return contactDaoImpl.findAllPersonInformation();
+	}
+	
+	@GetMapping("/all-contacts")
+	public ResponseEntity<Map<String, Object>> getAllPersonsPagination(@RequestParam(required = false) String firstname,
+			@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+		return personPageService.getAllPersonsPagination(firstname, page, size);
 	}
 	
 	@GetMapping("/person/{personId}")

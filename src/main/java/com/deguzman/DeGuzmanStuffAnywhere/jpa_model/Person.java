@@ -1,5 +1,17 @@
 package com.deguzman.DeGuzmanStuffAnywhere.jpa_model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import org.springframework.web.bind.annotation.CrossOrigin;
+
+@Entity
+@Table(name = "person")
+@CrossOrigin
 public class Person {
 
 	public int personId;
@@ -16,13 +28,17 @@ public class Person {
 	public String email;
 	public String birthdate;
 	
-	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "person_id")
 	public int getPersonId() {
 		return personId;
 	}
 	public void setPersonId(int personId) {
 		this.personId = personId;
 	}
+	
+	@Column(name = "firstname")
 	public String getFirstname() {
 		return firstname;
 	}
@@ -30,6 +46,7 @@ public class Person {
 		this.firstname = firstname;
 	}
 	
+	@Column(name = "middle_initial")
 	public String getMiddleInitial() {
 		return middleInitial;
 	}
@@ -37,6 +54,7 @@ public class Person {
 		this.middleInitial = middleInitial;
 	}
 	
+	@Column(name = "lastname")
 	public String getLastname() {
 		return lastname;
 	}
@@ -44,6 +62,7 @@ public class Person {
 		this.lastname = lastname;
 	}
 	
+	@Column(name = "age")
 	public int getAge() {
 		return age;
 	}
@@ -51,6 +70,7 @@ public class Person {
 		this.age = age;
 	}
 
+	@Column(name = "address01")
 	public String getAddress01() {
 		return address01;
 	}
@@ -58,6 +78,7 @@ public class Person {
 		this.address01 = address01;
 	}
 	
+	@Column(name = "address02")
 	public String getAddress02() {
 		return address02;
 	}
@@ -65,6 +86,7 @@ public class Person {
 		this.address02 = address02;
 	}
 
+	@Column(name = "city")
 	public String getCity() {
 		return city;
 	}
@@ -72,6 +94,7 @@ public class Person {
 		this.city = city;
 	}
 	
+	@Column(name = "state")
 	public String getState() {
 		return state;
 	}
@@ -79,6 +102,7 @@ public class Person {
 		this.state = state;
 	}
 	
+	@Column(name = "zip")
 	public String getZipcode() {
 		return zipcode;
 	}
@@ -86,6 +110,7 @@ public class Person {
 		this.zipcode = zipcode;
 	}
 
+	@Column(name = "phone")
 	public String getPhone() {
 		return phone;
 	}
@@ -93,13 +118,15 @@ public class Person {
 		this.phone = phone;
 	}
 
+	@Column(name = "email")
 	public String getEmail() {
 		return email;
 	}
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
+	
+	@Column(name = "birthdate")
 	public String getBirthdate() {
 		return birthdate;
 	}

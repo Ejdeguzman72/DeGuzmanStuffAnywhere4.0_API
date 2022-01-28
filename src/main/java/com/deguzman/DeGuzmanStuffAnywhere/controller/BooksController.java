@@ -1,6 +1,7 @@
 package com.deguzman.DeGuzmanStuffAnywhere.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -11,11 +12,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.deguzman.DeGuzmanStuffAnywhere.daoimpl.BooksDaoImpl;
 import com.deguzman.DeGuzmanStuffAnywhere.exception.BookNameException;
 import com.deguzman.DeGuzmanStuffAnywhere.exception.ResourceNotFoundException;
 import com.deguzman.DeGuzmanStuffAnywhere.model.Books;
+import com.deguzman.DeGuzmanStuffAnywhere.service.BooksPaginationService;
 
 import org.springframework.web.bind.annotation.RestController;
 
@@ -27,9 +30,18 @@ public class BooksController {
 	@Autowired
 	private BooksDaoImpl booksDaoImpl;
 	
+	@Autowired
+	private BooksPaginationService booksPageService;
+	
 	@GetMapping("/all")
 	public List<Books> getAllBooksInformation() {
 		return booksDaoImpl.findAllBooksInformation();
+	}
+	
+	@GetMapping("/all-books")
+	public ResponseEntity<Map<String, Object>> getAllBooksPagination(@RequestParam(required = false) String name,
+			@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+		return booksPageService.getAllBooksPagination(name, page, size);
 	}
 	
 	@GetMapping("/book/artist/{author}")

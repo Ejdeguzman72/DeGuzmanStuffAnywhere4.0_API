@@ -1,6 +1,7 @@
 package com.deguzman.DeGuzmanStuffAnywhere.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -11,11 +12,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.deguzman.DeGuzmanStuffAnywhere.daoimpl.VehicleDaoImpl;
 import com.deguzman.DeGuzmanStuffAnywhere.exception.InvalidVehicleException;
 import com.deguzman.DeGuzmanStuffAnywhere.model.Vehicle;
+import com.deguzman.DeGuzmanStuffAnywhere.service.VehiclePaginationService;
 
 @RestController
 @RequestMapping("/app/vehicles")
@@ -25,9 +28,18 @@ public class VehicleController {
 	@Autowired
 	private VehicleDaoImpl vehicleDaoImpl;
 	
+	@Autowired
+	private VehiclePaginationService vehiclePageService;
+	
 	@GetMapping("/all")
 	public List<Vehicle> getAllVehicleInformation() {
 		return vehicleDaoImpl.findAllCarInformation();
+	}
+	
+	@GetMapping("/all-vehicles")
+	public ResponseEntity<Map<String, Object>> getAllVehiclesPagination(@RequestParam(required = false) String model,
+			@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+		return vehiclePageService.getAllVehiclesPagination(model, page, size);
 	}
 	
 	@GetMapping("/vehicle/{vehicleId}")
