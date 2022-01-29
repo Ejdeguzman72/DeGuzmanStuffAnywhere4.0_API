@@ -13,24 +13,21 @@ import com.deguzman.DeGuzmanStuffAnywhere.model.Books;
 public interface BooksDao {
 
 	public List<Books> findAllBooksInformation();
-	
-	public List<Books> findAllBooksByAuthor(String author);
-	
-	public ResponseEntity<Books> findBooksInformationById(@PathVariable int book_id) throws ResourceNotFoundException;
-	
-	public ResponseEntity<Books> findBookInformationByName(String name);
-	
-	public long getBookCount();
-	
-	public int addBooksInformation(@RequestBody Books book) throws BookNameException;
-	
-	public int updateBooksInformation(@PathVariable int book_id,
-			@RequestBody Books book);
-	
-	public int deleteBookInformation(@PathVariable int book_id);
-	
-	public int deleteAllBookInformation();
-	
 
+	public List<Books> findAllBooksByAuthor(String author);
+
+	public ResponseEntity<Books> findBooksInformationById(@PathVariable int book_id) throws ResourceNotFoundException;
+
+	public ResponseEntity<Books> findBookInformationByName(String title);
+
+	public long getBookCount();
+
+	public int addBooksInformation(@RequestBody Books book) throws BookNameException;
+
+	public int updateBooksInformation(@PathVariable int book_id, @RequestBody Books book);
+
+	public int deleteBookInformation(@PathVariable int book_id);
+
+	public int deleteAllBookInformation();
 
 }

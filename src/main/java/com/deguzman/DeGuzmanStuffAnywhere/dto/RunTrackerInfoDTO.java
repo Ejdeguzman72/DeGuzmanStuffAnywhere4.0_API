@@ -7,37 +7,47 @@ public class RunTrackerInfoDTO {
 	public double run_distance;
 	public String run_time;
 	public String name;
-	
+
 	public long getRun_id() {
 		return run_id;
 	}
+
 	public void setRun_id(long run_id) {
 		this.run_id = run_id;
 	}
+
 	public String getRun_date() {
 		return run_date;
 	}
+
 	public void setRun_date(String run_date) {
 		this.run_date = run_date;
 	}
+
 	public double getRun_distance() {
 		return run_distance;
 	}
+
 	public void setRun_distance(double run_distance) {
 		this.run_distance = run_distance;
 	}
+
 	public String getRun_time() {
 		return run_time;
 	}
+
 	public void setRun_time(String run_time) {
 		this.run_time = run_time;
 	}
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -51,6 +61,7 @@ public class RunTrackerInfoDTO {
 		result = prime * result + ((run_time == null) ? 0 : run_time.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -81,11 +92,13 @@ public class RunTrackerInfoDTO {
 			return false;
 		return true;
 	}
+
 	@Override
 	public String toString() {
 		return "RunTrackerInfoDTO [run_id=" + run_id + ", run_date=" + run_date + ", run_distance=" + run_distance
 				+ ", run_time=" + run_time + ", name=" + name + "]";
 	}
+
 	public RunTrackerInfoDTO(long run_id, String run_date, double run_distance, String run_time, String name) {
 		super();
 		this.run_id = run_id;
@@ -94,9 +107,10 @@ public class RunTrackerInfoDTO {
 		this.run_time = run_time;
 		this.name = name;
 	}
+
 	public RunTrackerInfoDTO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
+
 }

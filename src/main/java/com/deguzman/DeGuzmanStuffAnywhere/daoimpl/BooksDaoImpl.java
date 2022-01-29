@@ -20,88 +20,81 @@ import com.deguzman.DeGuzmanStuffAnywhere.model.Books;
 @Repository
 public class BooksDaoImpl implements BooksDao {
 
-	String GET_ALL_BOOKS = "SELECT * FROM BOOKS ORDER BY NAME";
+	String GET_ALL_BOOKS = "SELECT * FROM BOOKS ORDER BY Title";
 	String GET_BOOK_INFORMATION_BY_ID = "SELECT * FROM BOOKS WHERE BOOK_ID = ?";
 	String GET_BOOK_INFORMATION_BY_AUTHOR = "SELECT * FROM BOOKS WHERE AUTHOR = ?";
-	String GET_BOOK_INFORMATION_NAME = "SELECT * FROM BOOKS WHERE NAME = ?";
+	String GET_BOOK_INFORMATION_NAME = "SELECT * FROM BOOKS WHERE Title = ?";
 	String GET_BOOK_COUNT = "SELECT COUNT(*) FROM BOOKS";
-	String ADD_BOOK_INFORMATION = "INSERT INTO BOOKS " + 
-			"(AUTHOR, DESCR, NAME) " + 
-			"VALUES(?, ?, ?)";
-	String UPDATE_BOOK_INFORMATION = "UPDATE books " + 
-			"SET author=?, descr=?, name=?" + 
-			"WHERE book_id=?";
+	String ADD_BOOK_INFORMATION = "INSERT INTO BOOKS " + "(AUTHOR, DESCR, TITLE) " + "VALUES(?, ?, ?)";
+	String UPDATE_BOOK_INFORMATION = "UPDATE books " + "SET author=?, descr=?, title=?" + "WHERE book_id=?";
 	String DELETE_BOOK_INFORMATION_BY_ID = "DELETE FROM BOOKS WHERE BOOK_ID = ?";
 	String DELETE_ALL_BOOK_INFORMATION = "DELETE FROM BOOKS";
-	
+
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
-	
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(BooksDaoImpl.class);
-	
+
 	@Override
 	public List<Books> findAllBooksInformation() {
-		List<Books> booksList =  jdbcTemplate.query(GET_ALL_BOOKS, BeanPropertyRowMapper.newInstance(Books.class));
-		
+		List<Books> booksList = jdbcTemplate.query(GET_ALL_BOOKS, BeanPropertyRowMapper.newInstance(Books.class));
+
 		LOGGER.info("Retrieving all books...");
-		
+
 		return booksList;
 	}
 
 	@Override
 	public List<Books> findAllBooksByAuthor(@PathVariable String author) {
-		List<Books> booksListAuthor = jdbcTemplate.query(GET_BOOK_INFORMATION_BY_AUTHOR, (rs, rowNum) ->
-			new Books(
-					rs.getInt("BOOK_ID"),
-					rs.getString("NAME"),
-					rs.getString("DESCR"),
-					rs.getString("AUTHOR")
-					), author);
-		
+		List<Books> booksListAuthor = jdbcTemplate.query(GET_BOOK_INFORMATION_BY_AUTHOR,
+				(rs, rowNum) -> new Books(rs.getInt("BOOK_ID"), rs.getString("NAME"), rs.getString("DESCR"),
+						rs.getString("AUTHOR")),
+				author);
+
 		LOGGER.info("Retriving all books by Author: " + author);
-		
+
 		return booksListAuthor;
 	}
 
 	@Override
 	public ResponseEntity<Books> findBooksInformationById(@PathVariable int book_id) throws ResourceNotFoundException {
-		Books book = jdbcTemplate.queryForObject(GET_BOOK_INFORMATION_BY_ID, BeanPropertyRowMapper.newInstance(Books.class), book_id);
-		
+		Books book = jdbcTemplate.queryForObject(GET_BOOK_INFORMATION_BY_ID,
+				BeanPropertyRowMapper.newInstance(Books.class), book_id);
+
 		LOGGER.info("Retrieved Book Information By ID: " + book_id);
-		
+
 		return ResponseEntity.ok().body(book);
 	}
 
 	@Override
 	public ResponseEntity<Books> findBookInformationByName(@PathVariable String name) {
-		Books book = jdbcTemplate.queryForObject(GET_BOOK_INFORMATION_NAME, BeanPropertyRowMapper.newInstance(Books.class), name);
-		
-		LOGGER.info("Retrived Book Information: " + " " + book.getName() + " " + book.getAuthor());
-		
+		Books book = jdbcTemplate.queryForObject(GET_BOOK_INFORMATION_NAME,
+				BeanPropertyRowMapper.newInstance(Books.class), name);
+
+		LOGGER.info("Retrived Book Information: " + " " + book.getTitle() + " " + book.getAuthor());
+
 		return ResponseEntity.ok().body(book);
 	}
 
 	@Override
 	public long getBookCount() {
 		long count = jdbcTemplate.queryForObject(GET_BOOK_COUNT, Integer.class);
-		
+
 		LOGGER.info("Getting count of all books...");
-		
+
 		return count;
 	}
 
 	@Override
 	public int addBooksInformation(@RequestBody Books book) throws BookNameException {
-		
+
 		String author = book.getAuthor();
 		String descr = book.getDescr();
-		String name = book.getName();
-		
+		String name = book.getTitle();
+
 		LOGGER.info("Adding book information: " + name + " " + author);
-		
-		return jdbcTemplate.update(ADD_BOOK_INFORMATION, new Object[] {
-				author,descr,name
-		});
+
+		return jdbcTemplate.update(ADD_BOOK_INFORMATION, new Object[] { author, descr, name });
 	}
 
 	@Override
@@ -112,19 +105,19 @@ public class BooksDaoImpl implements BooksDao {
 
 	@Override
 	public int deleteBookInformation(@PathVariable int book_id) {
-		int count =  jdbcTemplate.update(DELETE_BOOK_INFORMATION_BY_ID, book_id);
-		
+		int count = jdbcTemplate.update(DELETE_BOOK_INFORMATION_BY_ID, book_id);
+
 		LOGGER.info("Deleting Book With ID: " + book_id);
-		
+
 		return count;
 	}
 
 	@Override
 	public int deleteAllBookInformation() {
 		int count = jdbcTemplate.update(DELETE_ALL_BOOK_INFORMATION);
-		
+
 		LOGGER.info("Deleting all books...");
-		
+
 		return count;
 	}
 

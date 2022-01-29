@@ -11,61 +11,79 @@ public class AutoTrxInfoDTO {
 	public String auto_shop_name;
 	public String name;
 	public String transaction_type_descr;
-	
+
 	public long getAuto_transaction_id() {
 		return auto_transaction_id;
 	}
+
 	public void setAuto_transaction_id(long auto_transaction_id) {
 		this.auto_transaction_id = auto_transaction_id;
 	}
+
 	public double getAmount() {
 		return amount;
 	}
+
 	public void setAmount(double amount) {
 		this.amount = amount;
 	}
+
 	public String getAuto_transaction_date() {
 		return auto_transaction_date;
 	}
+
 	public void setAuto_transaction_date(String auto_transaction_date) {
 		this.auto_transaction_date = auto_transaction_date;
 	}
+
 	public String getMake() {
 		return make;
 	}
+
 	public void setMake(String make) {
 		this.make = make;
 	}
+
 	public String getModel() {
 		return model;
 	}
+
 	public void setModel(String model) {
 		this.model = model;
 	}
+
 	public String getYear() {
 		return year;
 	}
+
 	public void setYear(String year) {
 		this.year = year;
 	}
+
 	public String getAuto_shop_name() {
 		return auto_shop_name;
 	}
+
 	public void setAuto_shop_name(String auto_shop_name) {
 		this.auto_shop_name = auto_shop_name;
 	}
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
+
 	public String getTransaction_type_descr() {
 		return transaction_type_descr;
 	}
+
 	public void setTransaction_type_descr(String transaction_type_descr) {
 		this.transaction_type_descr = transaction_type_descr;
 	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -83,6 +101,7 @@ public class AutoTrxInfoDTO {
 		result = prime * result + ((year == null) ? 0 : year.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -133,6 +152,7 @@ public class AutoTrxInfoDTO {
 			return false;
 		return true;
 	}
+
 	@Override
 	public String toString() {
 		return "AutoTrxInfoDTO [auto_transaction_id=" + auto_transaction_id + ", amount=" + amount
@@ -140,6 +160,7 @@ public class AutoTrxInfoDTO {
 				+ year + ", auto_shop_name=" + auto_shop_name + ", name=" + name + ", transaction_type_descr="
 				+ transaction_type_descr + "]";
 	}
+
 	public AutoTrxInfoDTO(long auto_transaction_id, double amount, String auto_transaction_date, String make,
 			String model, String year, String auto_shop_name, String name, String transaction_type_descr) {
 		super();
@@ -153,9 +174,10 @@ public class AutoTrxInfoDTO {
 		this.name = name;
 		this.transaction_type_descr = transaction_type_descr;
 	}
+
 	public AutoTrxInfoDTO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
+
 }

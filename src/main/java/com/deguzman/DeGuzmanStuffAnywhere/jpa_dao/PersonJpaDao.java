@@ -12,7 +12,7 @@ import com.deguzman.DeGuzmanStuffAnywhere.jpa_model.Person;
 @Repository
 public interface PersonJpaDao extends JpaRepository<Person, Integer> {
 
-	@Query(value = "SELECT * FROM person WHERE firstname = ?1", nativeQuery=true)
+	@Query(value = "SELECT * FROM person WHERE firstname = ?1", nativeQuery = true)
 	MedicalOffice findPersonByName(String autoShopName);
 
 	Page<Person> findAll(Pageable pageable);

@@ -4,6 +4,7 @@ package com.deguzman.DeGuzmanStuffAnywhere.dto;
  * DTO class for Contact Information
  * 
  * derived from Person class
+ * 
  * @author EJ DeGuzman
  *
  */
@@ -12,7 +13,7 @@ public class ContactInfoDTO {
 	public Long person_id;
 	public String firstname;
 	public String lastname;
-	public int age; 
+	public int age;
 	public String address01;
 	public String address02;
 	public String city;
@@ -20,73 +21,95 @@ public class ContactInfoDTO {
 	public String zipcode;
 	public String email;
 	public String phone;
-	
+
 	public Long getPerson_id() {
 		return person_id;
 	}
+
 	public void setPerson_id(Long person_id) {
 		this.person_id = person_id;
 	}
+
 	public String getFirstname() {
 		return firstname;
 	}
+
 	public void setFirstname(String firstname) {
 		this.firstname = firstname;
 	}
+
 	public String getLastname() {
 		return lastname;
 	}
+
 	public void setLastname(String lastname) {
 		this.lastname = lastname;
 	}
+
 	public int getAge() {
 		return age;
 	}
+
 	public void setAge(int age) {
 		this.age = age;
 	}
+
 	public String getAddress01() {
 		return address01;
 	}
+
 	public void setAddress01(String address01) {
 		this.address01 = address01;
 	}
+
 	public String getAddress02() {
 		return address02;
 	}
+
 	public void setAddress02(String address02) {
 		this.address02 = address02;
 	}
+
 	public String getCity() {
 		return city;
 	}
+
 	public void setCity(String city) {
 		this.city = city;
 	}
+
 	public String getState() {
 		return state;
 	}
+
 	public void setState(String state) {
 		this.state = state;
 	}
+
 	public String getZipcode() {
 		return zipcode;
 	}
+
 	public void setZipcode(String zipcode) {
 		this.zipcode = zipcode;
 	}
+
 	public String getEmail() {
 		return email;
 	}
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
 	public String getPhone() {
 		return phone;
 	}
+
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -104,6 +127,7 @@ public class ContactInfoDTO {
 		result = prime * result + ((zipcode == null) ? 0 : zipcode.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -167,12 +191,14 @@ public class ContactInfoDTO {
 			return false;
 		return true;
 	}
+
 	@Override
 	public String toString() {
 		return "ContactInfoDTO [person_id=" + person_id + ", firstname=" + firstname + ", lastname=" + lastname
 				+ ", age=" + age + ", address01=" + address01 + ", address02=" + address02 + ", city=" + city
 				+ ", state=" + state + ", zipcode=" + zipcode + ", email=" + email + ", phone=" + phone + "]";
 	}
+
 	public ContactInfoDTO(Long person_id, String firstname, String lastname, int age, String address01,
 			String address02, String city, String state, String zipcode, String email, String phone) {
 		super();
@@ -188,9 +214,10 @@ public class ContactInfoDTO {
 		this.email = email;
 		this.phone = phone;
 	}
+
 	public ContactInfoDTO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
+
 }

@@ -18,7 +18,7 @@ public class JpaTesController {
 
 	@Autowired
 	private JPATestDao jpaTestDao;
-	
+
 	@GetMapping("/all")
 	public List<JPATestModel> getAll() {
 		return jpaTestDao.findAll();

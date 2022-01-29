@@ -16,43 +16,43 @@ public class Song {
 
 	public int song_id;
 	public String title;
-	public String artist; 
+	public String artist;
 	public String genre;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "song_id")
 	public int getSong_id() {
 		return song_id;
 	}
-	
+
 	public void setSong_id(int song_id) {
 		this.song_id = song_id;
 	}
-	
+
 	@Column(name = "title")
 	public String getTitle() {
 		return title;
 	}
-	
+
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	
+
 	@Column(name = "artist")
 	public String getArtist() {
 		return artist;
 	}
-	
+
 	public void setArtist(String artist) {
 		this.artist = artist;
 	}
-	
+
 	@Column(name = "genre")
 	public String getGenre() {
 		return genre;
 	}
-	
+
 	public void setGenre(String genre) {
 		this.genre = genre;
 	}
@@ -114,6 +114,5 @@ public class Song {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
-	
+
 }

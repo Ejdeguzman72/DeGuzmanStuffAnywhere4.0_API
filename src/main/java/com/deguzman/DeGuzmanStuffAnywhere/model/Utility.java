@@ -8,43 +8,55 @@ public class Utility {
 	public String phone;
 	public String url;
 	public String dueDate;
-	
+
 	public long getUtility_id() {
 		return utility_id;
 	}
+
 	public void setUtility_id(long utility_id) {
 		this.utility_id = utility_id;
 	}
+
 	public int getUtility_type_id() {
 		return utility_type_id;
 	}
+
 	public void setUtility_type_id(int utility_type_id) {
 		this.utility_type_id = utility_type_id;
 	}
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
+
 	public String getPhone() {
 		return phone;
 	}
+
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
+
 	public String getUrl() {
 		return url;
 	}
+
 	public void setUrl(String url) {
 		this.url = url;
 	}
+
 	public String getDueDate() {
 		return dueDate;
 	}
+
 	public void setDueDate(String dueDate) {
 		this.dueDate = dueDate;
 	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -57,6 +69,7 @@ public class Utility {
 		result = prime * result + utility_type_id;
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -92,11 +105,13 @@ public class Utility {
 			return false;
 		return true;
 	}
+
 	@Override
 	public String toString() {
 		return "Utility [utility_id=" + utility_id + ", utility_type_id=" + utility_type_id + ", name=" + name
 				+ ", phone=" + phone + ", url=" + url + ", dueDate=" + dueDate + "]";
 	}
+
 	public Utility(long utility_id, int utility_type_id, String name, String phone, String url, String dueDate) {
 		super();
 		this.utility_id = utility_id;
@@ -106,9 +121,10 @@ public class Utility {
 		this.url = url;
 		this.dueDate = dueDate;
 	}
+
 	public Utility() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
+
 }

@@ -20,25 +20,25 @@ public class RestaurantTypeController {
 
 	@Autowired
 	private RestaurantTypeDaoImpl restaurantTypeDaoImpl;
-	
+
 	@GetMapping("/all")
 	public List<RestaurantType> getAllRestaurantTypeInformation() {
 		return restaurantTypeDaoImpl.findAllRestaurantTypeInformation();
 	}
-	
+
 	@GetMapping("/type/{restaurant_type_id}")
 	public ResponseEntity<RestaurantType> getRestaurantTypeById(@PathVariable int restaurant_type_id) {
 		return restaurantTypeDaoImpl.findRestaurantInformationById(restaurant_type_id);
 	}
-	
+
 	@GetMapping("/type/descr/{restaurantDescr}")
 	public ResponseEntity<RestaurantType> getRestaurantTypeByDescr(@PathVariable String descr) {
 		return restaurantTypeDaoImpl.findRestaurantTypeByDescr(descr);
 	}
-	
+
 	@GetMapping("/type-count")
 	public long getRestaurantTypeCount() {
 		return restaurantTypeDaoImpl.getRestaurantTypeCount();
 	}
-	
+
 }

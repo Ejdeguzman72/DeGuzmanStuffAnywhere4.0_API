@@ -19,16 +19,16 @@ import com.deguzman.DeGuzmanStuffAnywhere.util.LoggerMessage;
 
 @Service
 public class AutoTransactionFilesStorageServiceImpl implements AutoTransactionFilesStorageService {
-	
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(AutoTransactionFilesStorageServiceImpl.class);
 
 	private final Path root = Paths.get("auto-transaction-uploads");
-	
+
 	@Override
 	public void init() {
 		try {
 			Files.createDirectory(root);
-			LOGGER.info(LoggerMessage.CREATE_AUTO_TRANSACTION_UPLOADS_INFO_MESSAGE  + ": " + root);
+			LOGGER.info(LoggerMessage.CREATE_AUTO_TRANSACTION_UPLOADS_INFO_MESSAGE + ": " + root);
 		} catch (IOException e) {
 			LOGGER.warn(LoggerMessage.CREATE_AUTO_TRANSACTION_UPLOADS_ERROR_MESSAGE);
 			throw new RuntimeException("Could not initialize folder for upload");
@@ -51,7 +51,7 @@ public class AutoTransactionFilesStorageServiceImpl implements AutoTransactionFi
 		try {
 			Path file = root.resolve(filename);
 			Resource resource = new UrlResource(file.toUri());
-			
+
 			if (resource.exists() || resource.isReadable()) {
 				LOGGER.info(LoggerMessage.GET_AUTO_TRANSACTION_FILE_INFO_MESSAGE + ": " + resource);
 				return resource;

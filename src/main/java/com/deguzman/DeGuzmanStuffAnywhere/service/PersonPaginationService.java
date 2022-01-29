@@ -21,7 +21,7 @@ public class PersonPaginationService {
 
 	@Autowired
 	private PersonJpaDao personJpaDao;
-	
+
 	public ResponseEntity<Map<String, Object>> getAllPersonsPagination(@RequestParam(required = false) String firstname,
 			@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
 		try {

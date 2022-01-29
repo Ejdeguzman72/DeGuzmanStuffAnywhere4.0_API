@@ -7,7 +7,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.stream.Stream;
 
-
 import org.springframework.core.io.Resource;
 
 import org.springframework.core.io.UrlResource;
@@ -18,8 +17,8 @@ import org.springframework.web.multipart.MultipartFile;
 @Service
 public class PhotosFilesStorageServiceImpl implements PhotoFilesStorageService {
 
-	private final Path root =  Paths.get("photos-uploads");
-	
+	private final Path root = Paths.get("photos-uploads");
+
 	@Override
 	public void init() {
 		try {
@@ -43,8 +42,8 @@ public class PhotosFilesStorageServiceImpl implements PhotoFilesStorageService {
 	public Resource load(String filename) {
 		try {
 			Path file = root.resolve(filename);
-			Resource resource =  new UrlResource(file.toUri());
-			
+			Resource resource = new UrlResource(file.toUri());
+
 			if (resource.exists() || resource.isReadable()) {
 				return resource;
 			} else {
@@ -62,7 +61,7 @@ public class PhotosFilesStorageServiceImpl implements PhotoFilesStorageService {
 
 	@Override
 	public Stream<Path> loadAllPhotos() {
-		try  {
+		try {
 			return Files.walk(this.root, 1).filter(path -> !path.equals(this.root)).map(this.root::relativize);
 		} catch (IOException e) {
 			throw new RuntimeException("Could not load the files");

@@ -21,8 +21,8 @@ public class BooksPaginationService {
 
 	@Autowired
 	private BooksJpaDao booksJpaDao;
-	
-	public ResponseEntity<Map<String, Object>> getAllBooksPagination(@RequestParam(required = false) String name,
+
+	public ResponseEntity<Map<String, Object>> getAllBooksPagination(@RequestParam(required = false) String title,
 			@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
 		try {
 
@@ -32,7 +32,7 @@ public class BooksPaginationService {
 
 			Page<Books> pageBooks = null;
 
-			if (name == null) {
+			if (title == null) {
 				pageBooks = booksJpaDao.findAll(paging);
 			} else {
 				// pageBooks = autoShopDao.findByNameContaining(autoShopname, paging);

@@ -28,56 +28,57 @@ public class ContactInfoController {
 
 	@Autowired
 	private ContactDaoImpl contactDaoImpl;
-	
+
 	@Autowired
 	private PersonPaginationService personPageService;
-	
+
 	@GetMapping("/all")
 	public List<Person> getAllPersonInfo() throws SecurityException, IOException {
 		return contactDaoImpl.findAllPersonInformation();
 	}
-	
+
 	@GetMapping("/all-contacts")
 	public ResponseEntity<Map<String, Object>> getAllPersonsPagination(@RequestParam(required = false) String firstname,
 			@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
 		return personPageService.getAllPersonsPagination(firstname, page, size);
 	}
-	
+
 	@GetMapping("/person/{personId}")
-	public ResponseEntity<Person> getPersonInformationById(@PathVariable int personId) throws ResourceNotFoundException, SecurityException, IOException {
+	public ResponseEntity<Person> getPersonInformationById(@PathVariable int personId)
+			throws ResourceNotFoundException, SecurityException, IOException {
 		return contactDaoImpl.findPersonById(personId);
 	}
-	
+
 	@GetMapping("/person/lastname/{lastname}")
 	public ResponseEntity<Person> getPersonInformationByLastname(@PathVariable String lastname) {
 		return contactDaoImpl.findPersonByLastName(lastname);
 	}
-	
+
 	@GetMapping("/person/email/{email}")
 	public ResponseEntity<Person> getPersonInformationByEmail(@PathVariable String email) {
 		return contactDaoImpl.findPersonByEmail(email);
 	}
-	
+
 	@GetMapping("/person/phone/{phone}")
 	public ResponseEntity<Person> getPersonInformationByPhone(@PathVariable String phone) {
 		return contactDaoImpl.findPersonByPhone(phone);
 	}
-	
+
 	@GetMapping("/count")
 	public long getCountOfPersonInfo() {
 		return contactDaoImpl.getCountOfPersonInformation();
 	}
-	
+
 	@PostMapping("/add-person-information")
 	public int saveContactInformation(@RequestBody Person personInfo) throws SecurityException, IOException {
 		return contactDaoImpl.addPersonInformation(personInfo);
 	}
-	
+
 	@DeleteMapping("/delete-all")
 	public int deleteAllContactInformation() {
 		return contactDaoImpl.deleteAllPersonInformation();
 	}
-	
+
 	@DeleteMapping("/person/{personId}")
 	@CrossOrigin
 	public int deleteContactInformation(@PathVariable int personId) throws SecurityException, IOException {

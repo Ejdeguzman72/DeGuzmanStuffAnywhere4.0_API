@@ -27,7 +27,7 @@ public class CacheConfig {
 	private String SONG_LIST = "songList";
 	private String TRANSACTION_LIST = "transactionList";
 	private String UTILITY_LIST = "utilityList";
-	
+
 	private String AUTO_TRANSACTION_BY_ID = "autoTrasactionById";
 	private String BOOK_BY_ID = "bookById";
 	private String RESTAURANT_BY_ID = "restaurantByid";
@@ -39,45 +39,31 @@ public class CacheConfig {
 	private String CAR_BY_ID = "carById";
 	private String MEDICAL_TRANSACTION_BY_ID = "medicalTransaction_Id";
 	private String EXERCISE_BY_ID = "exerciseById";
-	
+
 	private String BOOK_BY_NAME = "bookName";
 
 	@Bean
 	public CacheManager dsaCacheManager() {
 		SimpleCacheManager dsaCacheManager = new SimpleCacheManager();
-		dsaCacheManager.setCaches(Arrays.asList(
-				new ConcurrentMapCache(AUTO_TRANSACTION_BY_ID),
-				new ConcurrentMapCache(BOOK_BY_ID),
-				new ConcurrentMapCache(RESTAURANT_BY_ID),
-				new ConcurrentMapCache(RUN_TRACKER_BY_ID),
-				new ConcurrentMapCache(SONG_BY_ID),
-				new ConcurrentMapCache(TRANSACTION_BY_ID),
-				new ConcurrentMapCache(USER_BY_ID),
-				new ConcurrentMapCache(UTILITY_BY_ID),
-				new ConcurrentMapCache(CAR_BY_ID),
-				new ConcurrentMapCache(MEDICAL_TRANSACTION_BY_ID),
-				new ConcurrentMapCache(EXERCISE_BY_ID),
-				new ConcurrentMapCache(AUTO_TRANSACTION_LIST),
-				new ConcurrentMapCache(BOOK_PAGINATION_LIST),
-				new ConcurrentMapCache(USER_LIST),
-				new ConcurrentMapCache(BOOK_BY_NAME),
-				new ConcurrentMapCache(CAR_LIST),
-				new ConcurrentMapCache(EXERCISE_LIST),
-				new ConcurrentMapCache(FACILITY_LIST),
-				new ConcurrentMapCache(MEDICAL_TRANSACTION_LIST),
-				new ConcurrentMapCache(PERSON_LIST),
-				new ConcurrentMapCache(RESTAURANT_LIST),
-				new ConcurrentMapCache(RUN_LIST),
-				new ConcurrentMapCache(SONG_LIST),
-				new ConcurrentMapCache(TRANSACTION_LIST),
-				new ConcurrentMapCache(UTILITY_LIST)
-				));
-		
+		dsaCacheManager.setCaches(Arrays.asList(new ConcurrentMapCache(AUTO_TRANSACTION_BY_ID),
+				new ConcurrentMapCache(BOOK_BY_ID), new ConcurrentMapCache(RESTAURANT_BY_ID),
+				new ConcurrentMapCache(RUN_TRACKER_BY_ID), new ConcurrentMapCache(SONG_BY_ID),
+				new ConcurrentMapCache(TRANSACTION_BY_ID), new ConcurrentMapCache(USER_BY_ID),
+				new ConcurrentMapCache(UTILITY_BY_ID), new ConcurrentMapCache(CAR_BY_ID),
+				new ConcurrentMapCache(MEDICAL_TRANSACTION_BY_ID), new ConcurrentMapCache(EXERCISE_BY_ID),
+				new ConcurrentMapCache(AUTO_TRANSACTION_LIST), new ConcurrentMapCache(BOOK_PAGINATION_LIST),
+				new ConcurrentMapCache(USER_LIST), new ConcurrentMapCache(BOOK_BY_NAME),
+				new ConcurrentMapCache(CAR_LIST), new ConcurrentMapCache(EXERCISE_LIST),
+				new ConcurrentMapCache(FACILITY_LIST), new ConcurrentMapCache(MEDICAL_TRANSACTION_LIST),
+				new ConcurrentMapCache(PERSON_LIST), new ConcurrentMapCache(RESTAURANT_LIST),
+				new ConcurrentMapCache(RUN_LIST), new ConcurrentMapCache(SONG_LIST),
+				new ConcurrentMapCache(TRANSACTION_LIST), new ConcurrentMapCache(UTILITY_LIST)));
+
 		return dsaCacheManager;
 	}
-	
+
 	@Scheduled(fixedRate = 6000)
-    public void evictAllcachesAtIntervals() {
-        evictAllcachesAtIntervals();
-    }
+	public void evictAllcachesAtIntervals() {
+		evictAllcachesAtIntervals();
+	}
 }

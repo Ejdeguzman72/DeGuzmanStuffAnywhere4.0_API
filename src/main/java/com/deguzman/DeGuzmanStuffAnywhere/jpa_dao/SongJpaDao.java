@@ -12,7 +12,7 @@ import com.deguzman.DeGuzmanStuffAnywhere.jpa_model.Song;
 @Repository
 public interface SongJpaDao extends JpaRepository<Song, Integer> {
 
-	@Query(value = "SELECT * FROM song WHERE title = ?1", nativeQuery=true)
+	@Query(value = "SELECT * FROM song WHERE title = ?1", nativeQuery = true)
 	MedicalOffice findPersonByName(String title);
 
 	Page<Song> findAll(Pageable pageable);

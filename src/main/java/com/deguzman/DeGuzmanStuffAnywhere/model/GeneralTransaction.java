@@ -17,45 +17,59 @@ public class GeneralTransaction implements Serializable {
 	private String entity;
 	public long transaction_type_id;
 	public long user_id;
+
 	public long getTransaction_id() {
 		return transaction_id;
 	}
+
 	public void setTransaction_id(long transaction_id) {
 		this.transaction_id = transaction_id;
 	}
+
 	public double getAmount() {
 		return amount;
 	}
+
 	public void setAmount(double amount) {
 		this.amount = amount;
 	}
+
 	public String getPayment_date() {
 		return payment_date;
 	}
+
 	public void setPayment_date(String payment_date) {
 		this.payment_date = payment_date;
 	}
+
 	public String getEntity() {
 		return entity;
 	}
+
 	public void setEntity(String entity) {
 		this.entity = entity;
 	}
+
 	public long getTransaction_type_id() {
 		return transaction_type_id;
 	}
+
 	public void setTransaction_type_id(long transaction_type_id) {
 		this.transaction_type_id = transaction_type_id;
 	}
+
 	public long getUser_id() {
 		return user_id;
 	}
+
 	public void setUser_id(long user_id) {
 		this.user_id = user_id;
 	}
+
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -70,6 +84,7 @@ public class GeneralTransaction implements Serializable {
 		result = prime * result + (int) (user_id ^ (user_id >>> 32));
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -99,12 +114,14 @@ public class GeneralTransaction implements Serializable {
 			return false;
 		return true;
 	}
+
 	@Override
 	public String toString() {
 		return "GeneralTransaction [transaction_id=" + transaction_id + ", amount=" + amount + ", payment_date="
 				+ payment_date + ", entity=" + entity + ", transaction_type_id=" + transaction_type_id + ", user_id="
 				+ user_id + "]";
 	}
+
 	public GeneralTransaction(long transaction_id, double amount, String payment_date, String entity,
 			long transaction_type_id, long user_id) {
 		super();
@@ -115,10 +132,10 @@ public class GeneralTransaction implements Serializable {
 		this.transaction_type_id = transaction_type_id;
 		this.user_id = user_id;
 	}
+
 	public GeneralTransaction() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
-	
+
 }

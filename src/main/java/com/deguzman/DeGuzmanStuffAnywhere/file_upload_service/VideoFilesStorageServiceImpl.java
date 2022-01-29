@@ -17,7 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class VideoFilesStorageServiceImpl implements VideoFilesStorageService {
 
 	private final Path root = Paths.get("video-uploads");
-	
+
 	@Override
 	public void init() {
 		try {
@@ -41,8 +41,8 @@ public class VideoFilesStorageServiceImpl implements VideoFilesStorageService {
 	public Resource load(String filename) {
 		try {
 			Path file = root.resolve(filename);
-			Resource resource =  new UrlResource(file.toUri());
-			
+			Resource resource = new UrlResource(file.toUri());
+
 			if (resource.exists() || resource.isReadable()) {
 				return resource;
 			} else {
@@ -56,12 +56,12 @@ public class VideoFilesStorageServiceImpl implements VideoFilesStorageService {
 	@Override
 	public void deleteVideoFiles() {
 		FileSystemUtils.deleteRecursively(root.toFile());
-		
+
 	}
 
 	@Override
 	public Stream<Path> loadAllVideos() {
-		try  {
+		try {
 			return Files.walk(this.root, 1).filter(path -> !path.equals(this.root)).map(this.root::relativize);
 		} catch (IOException e) {
 			throw new RuntimeException("Could not load the files");

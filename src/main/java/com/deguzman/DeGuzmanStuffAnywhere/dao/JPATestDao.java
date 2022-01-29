@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.deguzman.DeGuzmanStuffAnywhere.model.JPATestModel;
 
 @Repository
-public interface JPATestDao extends JpaRepository<JPATestModel,Integer> {
+public interface JPATestDao extends JpaRepository<JPATestModel, Integer> {
 
 }

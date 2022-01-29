@@ -26,59 +26,67 @@ public class Vehicle implements Serializable {
 	public String model;
 	public int capacity;
 	public String transmission;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "vehicle_id")
 	public long getVehicleId() {
 		return vehicleId;
 	}
+
 	public void setVehicleId(long vehicleId) {
 		this.vehicleId = vehicleId;
 	}
-	
+
 	@Column(name = "year")
 	public String getYear() {
 		return year;
 	}
+
 	public void setYear(String year) {
 		this.year = year;
 	}
-	
+
 	@Column(name = "make")
 	public String getMake() {
 		return make;
 	}
+
 	public void setMake(String make) {
 		this.make = make;
 	}
-	
+
 	@Column(name = "model")
 	public String getModel() {
 		return model;
 	}
+
 	public void setModel(String model) {
 		this.model = model;
 	}
-	
+
 	@Column(name = "capacity")
 	public int getCapacity() {
 		return capacity;
 	}
+
 	public void setCapacity(int capacity) {
 		this.capacity = capacity;
 	}
-	
+
 	@Column(name = "transmission")
 	public String getTransmission() {
 		return transmission;
 	}
+
 	public void setTransmission(String transmission) {
 		this.transmission = transmission;
 	}
+
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -91,6 +99,7 @@ public class Vehicle implements Serializable {
 		result = prime * result + ((year == null) ? 0 : year.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -126,11 +135,13 @@ public class Vehicle implements Serializable {
 			return false;
 		return true;
 	}
+
 	@Override
 	public String toString() {
 		return "Vehicle [vehicleId=" + vehicleId + ", year=" + year + ", make=" + make + ", model=" + model
 				+ ", capacity=" + capacity + ", transmission=" + transmission + "]";
 	}
+
 	public Vehicle(long vehicleId, String year, String make, String model, int capacity, String transmission) {
 		super();
 		this.vehicleId = vehicleId;
@@ -140,6 +151,7 @@ public class Vehicle implements Serializable {
 		this.capacity = capacity;
 		this.transmission = transmission;
 	}
+
 	public Vehicle() {
 		super();
 		// TODO Auto-generated constructor stub

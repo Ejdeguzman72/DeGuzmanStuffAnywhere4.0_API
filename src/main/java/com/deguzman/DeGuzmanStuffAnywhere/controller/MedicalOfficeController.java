@@ -27,46 +27,47 @@ public class MedicalOfficeController {
 
 	@Autowired
 	private MedicalOfficeDaoImpl medicalOfficeDaoImpl;
-	
+
 	@Autowired
 	private MedicalOfficePaginationService medOfficePageService;
-	
+
 	@GetMapping("/all")
 	public List<MedicalOffice> getAllMedicalOfficeInformation() {
 		return medicalOfficeDaoImpl.findAllMedicalOfficeInformation();
 	}
-	
+
 	@GetMapping("all-medical-offices")
-	public ResponseEntity<Map<String, Object>> getAllMedicalOfficesPagination(@RequestParam(required = false) String name,
-			@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+	public ResponseEntity<Map<String, Object>> getAllMedicalOfficesPagination(
+			@RequestParam(required = false) String name, @RequestParam(defaultValue = "0") int page,
+			@RequestParam(defaultValue = "10") int size) {
 		return medOfficePageService.getAllMedicalOfficesPagination(name, page, size);
 	}
-	
+
 	@GetMapping("/medical-office/zip/{zip}")
 	public List<MedicalOffice> getAllMedicalOfficeInformationByZipCode(@PathVariable String zip) {
 		return medicalOfficeDaoImpl.findMedicalOfficesByZip(zip);
 	}
-	
+
 	@GetMapping("/medical-office/{medicalOfficeId}")
 	public ResponseEntity<MedicalOffice> getMedicalOfficeInformationById(@PathVariable long medicalOfficeId) {
 		return medicalOfficeDaoImpl.findMedicalOfficeInformationById(medicalOfficeId);
 	}
-	
+
 	@GetMapping("/medical-office-count")
 	public long getMedicalOfficeCount() {
 		return medicalOfficeDaoImpl.getMedicalOfficeCount();
 	}
-	
+
 	@PostMapping("/add-medical-office-information")
 	public int addMedicalOfficeInformation(@RequestBody MedicalOffice medicalOffice) {
 		return medicalOfficeDaoImpl.addMedicalOfficeInformation(medicalOffice);
 	}
-	
+
 	@DeleteMapping("/medical-office/{medicalOfficeId}")
 	public int deleteMedicalOfficeById(@PathVariable long medicalOfficeId) {
 		return medicalOfficeDaoImpl.deleteMedicalOfficeById(medicalOfficeId);
 	}
-	
+
 	@DeleteMapping("/delete-all-medical-offices")
 	public int deleteAllMedicalOffices() {
 		return medicalOfficeDaoImpl.deleteAllMedicalOfficeInformation();

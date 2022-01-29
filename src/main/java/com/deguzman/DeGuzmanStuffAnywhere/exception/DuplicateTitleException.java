@@ -9,6 +9,7 @@ public class DuplicateTitleException extends DeGuzmanStuffAnywhereException {
 
 	/**
 	 * Exception to handle duplicate titles
+	 * 
 	 * @param message
 	 */
 	public DuplicateTitleException(String message) {

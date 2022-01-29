@@ -19,9 +19,9 @@ import com.deguzman.DeGuzmanStuffAnywhere.util.LoggerMessage;
 
 @Service
 public class GeneralTransactionFilesStorageServiceImpl implements GeneralTransactionFileStorageService {
-	
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(GeneralTransactionFilesStorageServiceImpl.class);
-	
+
 	private final Path root = Paths.get("general-transaction-uploads");
 
 	@Override
@@ -33,7 +33,7 @@ public class GeneralTransactionFilesStorageServiceImpl implements GeneralTransac
 			LOGGER.warn(LoggerMessage.GET_GENERAL_TRANSACTION_FILE_ERROR_MESSAGE);
 			throw new RuntimeException("Could not initialize folder for upload");
 		}
-		
+
 	}
 
 	@Override
@@ -52,7 +52,7 @@ public class GeneralTransactionFilesStorageServiceImpl implements GeneralTransac
 		try {
 			Path file = root.resolve(filename);
 			Resource resource = new UrlResource(file.toUri());
-			
+
 			if (resource.exists() || resource.isReadable()) {
 				LOGGER.info(LoggerMessage.GET_GENERAL_TRANSACTION_FILE_INFO_MESAGE + ": " + file.getFileName());
 				return resource;
@@ -69,7 +69,7 @@ public class GeneralTransactionFilesStorageServiceImpl implements GeneralTransac
 	@Override
 	public void deleteAllGeneralFiles() {
 		FileSystemUtils.deleteRecursively(root.toFile());
-		
+
 	}
 
 	@Override

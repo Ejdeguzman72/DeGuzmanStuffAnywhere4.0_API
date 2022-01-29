@@ -4,7 +4,7 @@ public class GeneralTransactionFileInfo {
 
 	private String name;
 	private String url;
-	
+
 	public GeneralTransactionFileInfo(String name, String url) {
 		super();
 		this.name = name;
@@ -29,10 +29,9 @@ public class GeneralTransactionFileInfo {
 
 	@Override
 	public String toString() {
-		return "GeneralTransactionFileInfo [name=" + name + ", url=" + url + ", getName()=" + getName() + ", getUrl()=" + getUrl()
-				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString()
-				+ "]";
+		return "GeneralTransactionFileInfo [name=" + name + ", url=" + url + ", getName()=" + getName() + ", getUrl()="
+				+ getUrl() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()="
+				+ super.toString() + "]";
 	}
-	
-	
+
 }

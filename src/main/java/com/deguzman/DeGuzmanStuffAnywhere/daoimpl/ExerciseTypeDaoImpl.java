@@ -19,27 +19,29 @@ public class ExerciseTypeDaoImpl implements ExerciseTypeDao {
 
 	String GET_ALL_EXERCISE_TYPES = "SELECT * FROM EXERCISE_TYPE";
 	String GET_EXERCISE_TYPE_BY_INFORMATION = "SELECT * FROM EXERCISE_TYPE WHERE EXERCISE_TYPE_ID = ?";
-	
+
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
-	
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(ExerciseTypeDaoImpl.class);
-	
+
 	@Override
 	public List<ExerciseType> findAllExerciseTypeInformation() {
-		List<ExerciseType> list = jdbcTemplate.query(GET_ALL_EXERCISE_TYPES, BeanPropertyRowMapper.newInstance(ExerciseType.class));
-		
+		List<ExerciseType> list = jdbcTemplate.query(GET_ALL_EXERCISE_TYPES,
+				BeanPropertyRowMapper.newInstance(ExerciseType.class));
+
 		LOGGER.info("Retrieving All Exercise Types...");
-		
+
 		return list;
 	}
 
 	@Override
 	public ResponseEntity<ExerciseType> findExerciseTypeInformationById(@PathVariable int exercise_type_id) {
-		ExerciseType type = jdbcTemplate.queryForObject(GET_EXERCISE_TYPE_BY_INFORMATION, BeanPropertyRowMapper.newInstance(ExerciseType.class), exercise_type_id);
-		
+		ExerciseType type = jdbcTemplate.queryForObject(GET_EXERCISE_TYPE_BY_INFORMATION,
+				BeanPropertyRowMapper.newInstance(ExerciseType.class), exercise_type_id);
+
 		LOGGER.info("Retrieving Exercise Type by exercise_type_id: " + exercise_type_id);
-		
+
 		return ResponseEntity.ok().body(type);
 	}
 

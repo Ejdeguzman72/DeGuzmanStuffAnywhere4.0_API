@@ -11,8 +11,7 @@ import javax.persistence.Table;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 
-
-@Table(name="auto_shop")
+@Table(name = "auto_shop")
 @Entity
 @CrossOrigin
 public class AutoRepairShop implements Serializable {
@@ -27,60 +26,67 @@ public class AutoRepairShop implements Serializable {
 	public String city;
 	public String zip;
 	public String state;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "auto_shop_id")
 	public int getAuto_shop_id() {
 		return auto_shop_id;
 	}
+
 	public void setAuto_shop_id(int auto_shop_id) {
 		this.auto_shop_id = auto_shop_id;
 	}
-	
-	@Column(name = "autoShopName")
+
+	@Column(name = "auto_shop_name")
 	public String getAutoShopName() {
 		return autoShopName;
 	}
+
 	public void setAutoShopName(String autoShopName) {
 		this.autoShopName = autoShopName;
 	}
-	
+
 	@Column(name = "address")
 	public String getAddress() {
 		return address;
 	}
+
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	
+
 	@Column(name = "city")
 	public String getCity() {
 		return city;
 	}
+
 	public void setCity(String city) {
 		this.city = city;
 	}
-	
+
 	@Column(name = "zip")
 	public String getZip() {
 		return zip;
 	}
+
 	public void setZip(String zip) {
 		this.zip = zip;
 	}
-	
+
 	@Column(name = "state")
 	public String getState() {
 		return state;
 	}
+
 	public void setState(String state) {
 		this.state = state;
 	}
+
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -93,7 +99,7 @@ public class AutoRepairShop implements Serializable {
 		result = prime * result + ((zip == null) ? 0 : zip.hashCode());
 		return result;
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -132,13 +138,13 @@ public class AutoRepairShop implements Serializable {
 			return false;
 		return true;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "AutoRepairShop [auto_shop_id=" + auto_shop_id + ", autoShopName=" + autoShopName + ", address="
 				+ address + ", city=" + city + ", zip=" + zip + ", state=" + state + "]";
 	}
-	
+
 	public AutoRepairShop(int auto_shop_id, String autoShopName, String address, String city, String zip,
 			String state) {
 		super();
@@ -149,10 +155,10 @@ public class AutoRepairShop implements Serializable {
 		this.zip = zip;
 		this.state = state;
 	}
-	
+
 	public AutoRepairShop() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
+
 }

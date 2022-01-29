@@ -10,54 +10,71 @@ public class ExerciseInfoDTO {
 	public String date;
 	public String exercise_type_name;
 	public String name;
+
 	public int getExercise_id() {
 		return exercise_id;
 	}
+
 	public void setExercise_id(int exercise_id) {
 		this.exercise_id = exercise_id;
 	}
+
 	public String getExerciseName() {
 		return exerciseName;
 	}
+
 	public void setExerciseName(String exerciseName) {
 		this.exerciseName = exerciseName;
 	}
+
 	public int getSets() {
 		return sets;
 	}
+
 	public void setSets(int sets) {
 		this.sets = sets;
 	}
+
 	public int getReps() {
 		return reps;
 	}
+
 	public void setReps(int reps) {
 		this.reps = reps;
 	}
+
 	public double getWeight() {
 		return weight;
 	}
+
 	public void setWeight(double weight) {
 		this.weight = weight;
 	}
+
 	public String getDate() {
 		return date;
 	}
+
 	public void setDate(String date) {
 		this.date = date;
 	}
+
 	public String getExercise_type_name() {
 		return exercise_type_name;
 	}
+
 	public void setExercise_type_name(String exercise_type_name) {
 		this.exercise_type_name = exercise_type_name;
 	}
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -74,6 +91,7 @@ public class ExerciseInfoDTO {
 		result = prime * result + (int) (temp ^ (temp >>> 32));
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -113,12 +131,14 @@ public class ExerciseInfoDTO {
 			return false;
 		return true;
 	}
+
 	@Override
 	public String toString() {
 		return "ExerciseInfoDTO [exercise_id=" + exercise_id + ", exerciseName=" + exerciseName + ", sets=" + sets
 				+ ", reps=" + reps + ", weight=" + weight + ", date=" + date + ", exercise_type_name="
 				+ exercise_type_name + ", name=" + name + "]";
 	}
+
 	public ExerciseInfoDTO(int exercise_id, String exerciseName, int sets, int reps, double weight, String date,
 			String exercise_type_name, String name) {
 		super();
@@ -131,9 +151,10 @@ public class ExerciseInfoDTO {
 		this.exercise_type_name = exercise_type_name;
 		this.name = name;
 	}
+
 	public ExerciseInfoDTO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
+
 }

@@ -14,43 +14,55 @@ public class MedicalOffice implements Serializable {
 	public String city;
 	public String state;
 	public String zip;
-	
+
 	public Long getMedicalOfficeId() {
 		return medicalOfficeId;
 	}
+
 	public void setMedicalOfficeId(Long medicalOfficeId) {
 		this.medicalOfficeId = medicalOfficeId;
 	}
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
+
 	public String getAddress() {
 		return address;
 	}
+
 	public void setAddress(String address) {
 		this.address = address;
 	}
+
 	public String getCity() {
 		return city;
 	}
+
 	public void setCity(String city) {
 		this.city = city;
 	}
+
 	public String getState() {
 		return state;
 	}
+
 	public void setState(String state) {
 		this.state = state;
 	}
+
 	public String getZip() {
 		return zip;
 	}
+
 	public void setZip(String zip) {
 		this.zip = zip;
 	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -63,6 +75,7 @@ public class MedicalOffice implements Serializable {
 		result = prime * result + ((zip == null) ? 0 : zip.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -101,11 +114,13 @@ public class MedicalOffice implements Serializable {
 			return false;
 		return true;
 	}
+
 	@Override
 	public String toString() {
 		return "MedicalOffice [medicalOfficeId=" + medicalOfficeId + ", name=" + name + ", address=" + address
 				+ ", city=" + city + ", state=" + state + ", zip=" + zip + "]";
 	}
+
 	public MedicalOffice(long medicalOfficeId, String name, String address, String city, String state, String zip) {
 		super();
 		this.medicalOfficeId = medicalOfficeId;
@@ -115,9 +130,10 @@ public class MedicalOffice implements Serializable {
 		this.state = state;
 		this.zip = zip;
 	}
+
 	public MedicalOffice() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
+
 }

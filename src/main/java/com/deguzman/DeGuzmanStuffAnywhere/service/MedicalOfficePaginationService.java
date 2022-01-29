@@ -21,9 +21,10 @@ public class MedicalOfficePaginationService {
 
 	@Autowired
 	private MedicalOfficeJpaDao medOfficeJpaDao;
-	
-	public ResponseEntity<Map<String, Object>> getAllMedicalOfficesPagination(@RequestParam(required = false) String name,
-			@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+
+	public ResponseEntity<Map<String, Object>> getAllMedicalOfficesPagination(
+			@RequestParam(required = false) String name, @RequestParam(defaultValue = "0") int page,
+			@RequestParam(defaultValue = "10") int size) {
 		try {
 
 			List<MedicalOffice> shop = medOfficeJpaDao.findAll();

@@ -23,47 +23,47 @@ public class UtilityController {
 
 	@Autowired
 	private UtilityDaoImpl utilityDaoImpl;
-	
+
 	@GetMapping("/all")
 	public List<UtilityInfoDTO> getAllUtilityInformation() {
 		return utilityDaoImpl.findAllUtilityInformation();
 	}
-	
+
 	@GetMapping("/dueDate")
 	public List<UtilityInfoDTO> getUtilityInformationByDueDate(@PathVariable String dueDate) {
 		return utilityDaoImpl.findUtilityInformationByDueDate(dueDate);
 	}
-	
+
 	@GetMapping("/utility/{utility_id}")
 	public ResponseEntity<UtilityInfoDTO> getUtilityInformationById(@PathVariable long utility_id) {
 		return utilityDaoImpl.findUtilityInformationById(utility_id);
 	}
-	
+
 	@GetMapping("/utility/name/{name}")
 	public ResponseEntity<UtilityInfoDTO> getUtilityInformationByName(@PathVariable String name) {
 		return utilityDaoImpl.findUtilityInformationByName(name);
 	}
-	
+
 	@GetMapping("/utility/utility-type/{utility_type_id}")
 	public ResponseEntity<UtilityInfoDTO> getUtilityInformationByType(@PathVariable int utility_type_id) {
 		return utilityDaoImpl.findUtilityInformationByType(utility_type_id);
 	}
-	
+
 	@GetMapping("/get-utility-count")
 	public long getCountOfUtilities() {
 		return utilityDaoImpl.findUtilityCount();
 	}
-	
+
 	@GetMapping("/add-utility-information")
 	public int addUtilityInformation(@RequestBody Utility utility) {
 		return utilityDaoImpl.addUtilityInformation(utility);
 	}
-	
+
 	@DeleteMapping("/utility/{utility_id}")
 	public int deleteUtilityInformationById(@PathVariable long utility_id) {
 		return utilityDaoImpl.deleteUtilityInformation(utility_id);
 	}
-	
+
 	@DeleteMapping("/delete-all-utilties")
 	public int deleteAllUtilityInformation() {
 		return utilityDaoImpl.deleteAllUtilityInformation();

@@ -9,49 +9,63 @@ public class PostRestaurantDTO {
 	public String state;
 	public String zip;
 	public int restaurant_type_id;
-	
+
 	public int getRestaurant_id() {
 		return restaurant_id;
 	}
+
 	public void setRestaurant_id(int restaurant_id) {
 		this.restaurant_id = restaurant_id;
 	}
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
+
 	public String getAddress() {
 		return address;
 	}
+
 	public void setAddress(String address) {
 		this.address = address;
 	}
+
 	public String getCity() {
 		return city;
 	}
+
 	public void setCity(String city) {
 		this.city = city;
 	}
+
 	public String getState() {
 		return state;
 	}
+
 	public void setState(String state) {
 		this.state = state;
 	}
+
 	public String getZip() {
 		return zip;
 	}
+
 	public void setZip(String zip) {
 		this.zip = zip;
 	}
+
 	public int getRestaurant_type_id() {
 		return restaurant_type_id;
 	}
+
 	public void setRestaurant_type_id(int restaurant_type_id) {
 		this.restaurant_type_id = restaurant_type_id;
 	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -65,6 +79,7 @@ public class PostRestaurantDTO {
 		result = prime * result + ((zip == null) ? 0 : zip.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -105,12 +120,14 @@ public class PostRestaurantDTO {
 			return false;
 		return true;
 	}
+
 	@Override
 	public String toString() {
 		return "PostRestaurantDTO [restaurant_id=" + restaurant_id + ", name=" + name + ", address=" + address
 				+ ", city=" + city + ", state=" + state + ", zip=" + zip + ", restaurant_type_id=" + restaurant_type_id
 				+ "]";
 	}
+
 	public PostRestaurantDTO(int restaurant_id, String name, String address, String city, String state, String zip,
 			int restaurant_type_id) {
 		super();
@@ -122,6 +139,7 @@ public class PostRestaurantDTO {
 		this.zip = zip;
 		this.restaurant_type_id = restaurant_type_id;
 	}
+
 	public PostRestaurantDTO() {
 		super();
 		// TODO Auto-generated constructor stub

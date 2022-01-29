@@ -26,53 +26,54 @@ public class RestaurantController {
 
 	@Autowired
 	private RestaurantDaoImpl restaurantDaoImpl;
-	
+
 	@GetMapping("/all")
 	public List<RestaurantInfoDTO> getAllRestaurantInformation() {
 		return restaurantDaoImpl.findAllRestaurants();
 	}
-	
+
 	@GetMapping("/restaurant/type/{restaurant_type_id}")
 	public List<RestaurantInfoDTO> getAllRestaurantInformationByType(@PathVariable int restaurant_type_id) {
 		return restaurantDaoImpl.findAllRestaurantsByType(restaurant_type_id);
 	}
-	
+
 	@GetMapping("/restaurant/zip/{zip}")
 	public List<RestaurantInfoDTO> getAllRestaurantInformationByZip(@PathVariable String zip) {
 		return restaurantDaoImpl.findRestaurantsByZipCode(zip);
 	}
-	
+
 	@GetMapping("/restaurant/descr/{descr}")
 	public List<RestaurantInfoDTO> getAllRestaurantInformationByDescr(@PathVariable String descr) {
 		return restaurantDaoImpl.findRestaurantsByDescr(descr);
 	}
-	
+
 	@GetMapping("/restaurant/{restaurant_id}")
-	public ResponseEntity<RestaurantInfoDTO> getRestaurantInformationById(@PathVariable int restaurant_id) throws InvalidRestaurantException {
+	public ResponseEntity<RestaurantInfoDTO> getRestaurantInformationById(@PathVariable int restaurant_id)
+			throws InvalidRestaurantException {
 		return restaurantDaoImpl.findRestaurantById(restaurant_id);
 	}
-	
+
 	@GetMapping("/restaurant/name/{name}")
 	public ResponseEntity<RestaurantInfoDTO> getRestaurantInformationByName(@PathVariable String name) {
 		return restaurantDaoImpl.findRestaurantByName(name);
 	}
-	
+
 	@GetMapping("/restaurant-count")
 	public long getRestaurantCount() {
 		return restaurantDaoImpl.getRestaurantCount();
 	}
-	
+
 	@PostMapping("/add-restaurant-information")
 	public int addRestaurantInformation(@RequestBody Restaurant restaurant) throws ResourceNotFoundException {
 		return restaurantDaoImpl.addRestaurantInformation(restaurant);
 	}
-	
+
 	@DeleteMapping("/restaurant/{restaurant_id}")
 	@CrossOrigin
 	public int deleteRestaurantInformationById(@PathVariable int restaurant_id) {
 		return restaurantDaoImpl.deleteRestaurantInformation(restaurant_id);
 	}
-	
+
 	@DeleteMapping("/delete-all-restaurant")
 	public int deleteAllRestaurantInformation() {
 		return restaurantDaoImpl.deleteAllRestaurantInformation();

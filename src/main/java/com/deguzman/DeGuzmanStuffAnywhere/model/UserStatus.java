@@ -3,29 +3,34 @@ package com.deguzman.DeGuzmanStuffAnywhere.model;
 import java.io.Serializable;
 
 public class UserStatus implements Serializable {
-	
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -133071239717271640L;
 	public int user_status_id;
 	public String user_status_descr;
-	
+
 	public int getUser_status_id() {
 		return user_status_id;
 	}
+
 	public void setUser_status_id(int user_status_id) {
 		this.user_status_id = user_status_id;
 	}
+
 	public String getUser_status_descr() {
 		return user_status_descr;
 	}
+
 	public void setUser_status_descr(String user_status_descr) {
 		this.user_status_descr = user_status_descr;
 	}
+
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -34,6 +39,7 @@ public class UserStatus implements Serializable {
 		result = prime * result + user_status_id;
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -52,18 +58,21 @@ public class UserStatus implements Serializable {
 			return false;
 		return true;
 	}
+
 	@Override
 	public String toString() {
 		return "UserStatus [user_status_id=" + user_status_id + ", user_status_descr=" + user_status_descr + "]";
 	}
+
 	public UserStatus(int user_status_id, String user_status_descr) {
 		super();
 		this.user_status_id = user_status_id;
 		this.user_status_descr = user_status_descr;
 	}
+
 	public UserStatus() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
+
 }

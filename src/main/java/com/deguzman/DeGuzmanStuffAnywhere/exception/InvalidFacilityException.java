@@ -9,6 +9,7 @@ public class InvalidFacilityException extends DeGuzmanStuffAnywhereException {
 
 	/**
 	 * Exception class to handle invalid medical facilities
+	 * 
 	 * @param message
 	 */
 	public InvalidFacilityException(String message) {

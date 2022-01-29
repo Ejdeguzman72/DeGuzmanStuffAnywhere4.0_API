@@ -11,7 +11,7 @@ import com.deguzman.DeGuzmanStuffAnywhere.jpa_model.MedicalOffice;
 @Repository
 public interface MedicalOfficeJpaDao extends JpaRepository<MedicalOffice, Integer> {
 
-	@Query(value = "SELECT * FROM medical_office WHERE name = ?1", nativeQuery=true)
+	@Query(value = "SELECT * FROM medical_office WHERE name = ?1", nativeQuery = true)
 	MedicalOffice findMedicalOfficeByName(String autoShopName);
 
 	Page<MedicalOffice> findAll(Pageable pageable);

@@ -10,8 +10,8 @@ import com.deguzman.DeGuzmanStuffAnywhere.model.UtilityType;
 public interface UtilityTypeDao {
 
 	public List<UtilityType> findAllUtilityTypes();
-	
+
 	public ResponseEntity<UtilityType> findUtilityInformationById(@PathVariable int utility_type_id);
-	
+
 	public ResponseEntity<UtilityType> findUtilityInformationByDescr(@PathVariable String descr);
 }

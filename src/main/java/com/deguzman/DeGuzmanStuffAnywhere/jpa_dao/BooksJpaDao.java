@@ -11,10 +11,10 @@ import com.deguzman.DeGuzmanStuffAnywhere.jpa_model.Books;
 @Repository
 public interface BooksJpaDao extends JpaRepository<Books, Integer> {
 
-	@Query(value = "SELECT * FROM books WHERE name = ?1", nativeQuery=true)
-	Books findBooksByName(String autoShopName);
-
-	Page<Books> findAll(Pageable pageable);
+//	@Query(value = "SELECT * FROM books WHERE title = ?1", nativeQuery=true)
+//	Books findBooksByName(String autoShopName);
+//
+//	Page<Books> findAll(Pageable pageable);
 
 //	Page<AutoRepairShop> findByNameContaining(String name, Pageable pageable);
 }

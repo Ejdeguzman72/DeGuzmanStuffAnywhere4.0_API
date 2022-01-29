@@ -16,18 +16,18 @@ import com.deguzman.DeGuzmanStuffAnywhere.model.HomeInfo;
 public class HomeInfoDaoImpl implements HomeInfoDao {
 
 	String GET_HOME_INFO = "SELECT * FROM HOME";
-	
+
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
-	
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(HomeInfoDaoImpl.class);
-	
+
 	@Override
 	public List<HomeInfo> getAllHomeInfo() {
 		List<HomeInfo> list = jdbcTemplate.query(GET_HOME_INFO, BeanPropertyRowMapper.newInstance(HomeInfo.class));
-		
+
 		LOGGER.info("Getting All Home Info...");
-		
+
 		return list;
 	}
 

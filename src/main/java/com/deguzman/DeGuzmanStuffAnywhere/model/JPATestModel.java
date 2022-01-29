@@ -15,21 +15,25 @@ public class JPATestModel {
 
 	public int id;
 	public String test;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public int getId() {
 		return id;
 	}
+
 	public void setId(int id) {
 		this.id = id;
 	}
+
 	public String getTest() {
 		return test;
 	}
+
 	public void setTest(String test) {
 		this.test = test;
 	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -38,6 +42,7 @@ public class JPATestModel {
 		result = prime * result + ((test == null) ? 0 : test.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -56,18 +61,21 @@ public class JPATestModel {
 			return false;
 		return true;
 	}
+
 	@Override
 	public String toString() {
 		return "JPATestModel [id=" + id + ", test=" + test + "]";
 	}
+
 	public JPATestModel(int id, String test) {
 		super();
 		this.id = id;
 		this.test = test;
 	}
+
 	public JPATestModel() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
+
 }

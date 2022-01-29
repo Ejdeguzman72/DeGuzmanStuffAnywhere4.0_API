@@ -18,7 +18,7 @@ public class HomeInfoController {
 
 	@Autowired
 	private HomeInfoDaoImpl homeInfoDaoImpl;
-	
+
 	@GetMapping("/all")
 	public List<HomeInfo> getAllHomeInformation() {
 		return homeInfoDaoImpl.getAllHomeInfo();

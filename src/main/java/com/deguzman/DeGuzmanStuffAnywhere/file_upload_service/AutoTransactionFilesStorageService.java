@@ -8,12 +8,12 @@ import org.springframework.web.multipart.MultipartFile;
 
 public interface AutoTransactionFilesStorageService {
 	public void init();
-	
+
 	public void save(MultipartFile file);
-	
+
 	public Resource load(String filename);
-	
+
 	public void deleteAllAutoFiles();
-	
+
 	public Stream<Path> loadAllAutoFiles();
 }

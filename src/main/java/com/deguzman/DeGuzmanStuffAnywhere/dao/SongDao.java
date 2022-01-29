@@ -13,23 +13,22 @@ import com.deguzman.DeGuzmanStuffAnywhere.model.Song;
 public interface SongDao {
 
 	public List<Song> findAllSongInformation();
-	
+
 	public List<Song> findSongByArtist(@PathVariable String artist);
-	
+
 	public List<Song> findSongsByGenre(@PathVariable String genre);
-	
+
 	public ResponseEntity<Song> findSongById(@PathVariable int song_id) throws ResourceNotFoundException;
-	
+
 	public ResponseEntity<Song> findSongByTitle(@PathVariable String title);
-	
+
 	public int findSongCount();
-	
+
 	public int addSongInformation(@RequestBody Song song) throws DuplicateTitleException;
-	
-	public int updateSongInformation(@PathVariable int song_id, 
-			@RequestBody Song songDetails);
-	
+
+	public int updateSongInformation(@PathVariable int song_id, @RequestBody Song songDetails);
+
 	public int deleteSongInformation(int song_id);
-	
+
 	public int deleteAllSongs();
 }

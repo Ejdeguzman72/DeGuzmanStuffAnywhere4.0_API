@@ -10,9 +10,9 @@ import com.deguzman.DeGuzmanStuffAnywhere.model.TransactionType;
 public interface TransactionTypeDao {
 
 	public List<TransactionType> retrieveAllTransactionTypes();
-	
+
 	public ResponseEntity<TransactionType> retrieveTransactionTypeById(@PathVariable int transaction_type_id);
-	
+
 	public ResponseEntity<TransactionType> retrieveTransactionTypeByName(@PathVariable String transaction_type_descr);
-	
+
 }

@@ -1,7 +1,7 @@
 package com.deguzman.DeGuzmanStuffAnywhere.exception;
 
 public class InvalidRestaurantException extends DeGuzmanStuffAnywhereException {
-	
+
 	/**
 	 * 
 	 */
@@ -9,6 +9,7 @@ public class InvalidRestaurantException extends DeGuzmanStuffAnywhereException {
 
 	/**
 	 * Exception class to handle invalid restaurant information
+	 * 
 	 * @param message
 	 */
 	public InvalidRestaurantException(String message) {

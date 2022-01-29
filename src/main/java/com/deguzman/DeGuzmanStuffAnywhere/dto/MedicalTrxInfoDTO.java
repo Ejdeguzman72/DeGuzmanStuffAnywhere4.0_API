@@ -5,74 +5,94 @@ public class MedicalTrxInfoDTO {
 	public long medical_transaction_id;
 	public double amount;
 	public String medical_transaction_date;
-	public String facilityName; 
+	public String facilityName;
 	public String address;
 	public String city;
 	public String state;
 	public String zip;
 	public String transaction_type_descr;
 	public String name;
-	
+
 	public long getMedical_transaction_id() {
 		return medical_transaction_id;
 	}
+
 	public void setMedical_transaction_id(long medical_transaction_id) {
 		this.medical_transaction_id = medical_transaction_id;
 	}
+
 	public double getAmount() {
 		return amount;
 	}
+
 	public void setAmount(double amount) {
 		this.amount = amount;
 	}
+
 	public String getMedical_transaction_date() {
 		return medical_transaction_date;
 	}
+
 	public void setMedical_transaction_date(String medical_transaction_date) {
 		this.medical_transaction_date = medical_transaction_date;
 	}
+
 	public String getFacilityName() {
 		return facilityName;
 	}
+
 	public void setFacilityName(String facilityName) {
 		this.facilityName = facilityName;
 	}
+
 	public String getAddress() {
 		return address;
 	}
+
 	public void setAddress(String address) {
 		this.address = address;
 	}
+
 	public String getCity() {
 		return city;
 	}
+
 	public void setCity(String city) {
 		this.city = city;
 	}
+
 	public String getState() {
 		return state;
 	}
+
 	public void setState(String state) {
 		this.state = state;
 	}
+
 	public String getZip() {
 		return zip;
 	}
+
 	public void setZip(String zip) {
 		this.zip = zip;
 	}
+
 	public String getTransaction_type_descr() {
 		return transaction_type_descr;
 	}
+
 	public void setTransaction_type_descr(String transaction_type_descr) {
 		this.transaction_type_descr = transaction_type_descr;
 	}
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -91,6 +111,7 @@ public class MedicalTrxInfoDTO {
 		result = prime * result + ((zip == null) ? 0 : zip.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -146,6 +167,7 @@ public class MedicalTrxInfoDTO {
 			return false;
 		return true;
 	}
+
 	@Override
 	public String toString() {
 		return "MedicalTrxInfoDTO [medical_transaction_id=" + medical_transaction_id + ", amount=" + amount
@@ -153,6 +175,7 @@ public class MedicalTrxInfoDTO {
 				+ ", address=" + address + ", city=" + city + ", state=" + state + ", zip=" + zip
 				+ ", transaction_type_descr=" + transaction_type_descr + ", name=" + name + "]";
 	}
+
 	public MedicalTrxInfoDTO(long medical_transaction_id, double amount, String medical_transaction_date,
 			String facilityName, String address, String city, String state, String zip, String transaction_type_descr,
 			String name) {
@@ -168,9 +191,10 @@ public class MedicalTrxInfoDTO {
 		this.transaction_type_descr = transaction_type_descr;
 		this.name = name;
 	}
+
 	public MedicalTrxInfoDTO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
+
 }

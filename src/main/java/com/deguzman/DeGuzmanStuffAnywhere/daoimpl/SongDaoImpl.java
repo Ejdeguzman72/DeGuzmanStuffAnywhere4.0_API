@@ -25,98 +25,88 @@ public class SongDaoImpl implements SongDao {
 	String GET_SONG_INFORMATION_BY_TITLE = "SELECT * FROM SONG WHERE TITLE = ?";
 	String GET_SONG_INFORMATION_BY_GENRE = "SELECT * FROM SONG WHERE GENRE = ?";
 	String GET_SONG_COUNT = "SELECT COUNT(*) FROM SONG";
-	String ADD_SONG_INFORMATION = "INSERT INTO song " + 
-			"(artist, genre, title) " + 
-			"VALUES(?, ?, ?)";
+	String ADD_SONG_INFORMATION = "INSERT INTO song " + "(artist, genre, title) " + "VALUES(?, ?, ?)";
 	String UPDATE_SONG_INFORMATION = "UPDATE SONG SET TITLE = ?, ARTIST = ?, GENRE = ? WHERE SONG_ID = ?";
 	String DELETE_SONG_INFORMATION_BY_ID = "DELETE FROM SONG WHERE SONG_ID = ?";
 	String DELETE_ALL_SONG_INFORMATION = "DELETE FROM SONG";
-	
+
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
-	
+
 	private Logger LOGGER = LoggerFactory.getLogger(SongDaoImpl.class);
-	
+
 	@Override
 	public List<Song> findAllSongInformation() {
 		List<Song> list = jdbcTemplate.query(GET_ALL_SONGS, BeanPropertyRowMapper.newInstance(Song.class));
-		
+
 		LOGGER.info("Retrieving all songs...");
-		
+
 		return list;
 	}
 
 	@Override
 	public List<Song> findSongByArtist(@PathVariable String artist) {
-		List<Song> songListArtist = jdbcTemplate.query(GET_SONG_INFORMATION_BY_ARTIST, (rs, rowNum) -> 
-				new Song(
-							rs.getInt("song_id"),
-							rs.getString("artist"),
-							rs.getString("genre"),
-							rs.getString("title")
-						), artist);
-		
+		List<Song> songListArtist = jdbcTemplate.query(GET_SONG_INFORMATION_BY_ARTIST,
+				(rs, rowNum) -> new Song(rs.getInt("song_id"), rs.getString("artist"), rs.getString("genre"),
+						rs.getString("title")),
+				artist);
+
 		LOGGER.info("Retrieving music by artist: " + artist);
-		
+
 		return songListArtist;
 	}
 
 	@Override
 	public List<Song> findSongsByGenre(@PathVariable String genre) {
-		List<Song> songListGenre = jdbcTemplate.query(GET_SONG_INFORMATION_BY_GENRE, (rs, rowNum) -> 
-			new Song(
-						rs.getInt("song_id"),
-						rs.getString("title"),
-						rs.getString("artist"),
-						rs.getString("genre")
-					), genre);
+		List<Song> songListGenre = jdbcTemplate.query(GET_SONG_INFORMATION_BY_GENRE,
+				(rs, rowNum) -> new Song(rs.getInt("song_id"), rs.getString("title"), rs.getString("artist"),
+						rs.getString("genre")),
+				genre);
 
 		LOGGER.info("Retrieving music by genre: " + genre);
-		
+
 		return songListGenre;
 	}
 
 	@Override
 	public ResponseEntity<Song> findSongById(int song_id) throws ResourceNotFoundException {
-		Song song = jdbcTemplate.queryForObject(GET_SONG_INFORMATION_BY_ID, BeanPropertyRowMapper.newInstance(Song.class), song_id);
-		
+		Song song = jdbcTemplate.queryForObject(GET_SONG_INFORMATION_BY_ID,
+				BeanPropertyRowMapper.newInstance(Song.class), song_id);
+
 		LOGGER.info("Retrieved Song Information: " + song.getTitle() + " " + song.getArtist());
-		
+
 		return ResponseEntity.ok().body(song);
 	}
 
 	@Override
 	public ResponseEntity<Song> findSongByTitle(String title) {
-		Song song = jdbcTemplate.queryForObject(GET_SONG_INFORMATION_BY_TITLE, BeanPropertyRowMapper.newInstance(Song.class), title);
-		
+		Song song = jdbcTemplate.queryForObject(GET_SONG_INFORMATION_BY_TITLE,
+				BeanPropertyRowMapper.newInstance(Song.class), title);
+
 		LOGGER.info("Retrieved Song Information: " + " " + song.getTitle() + " " + song.getArtist());
-		
+
 		return ResponseEntity.ok().body(song);
 	}
 
 	@Override
 	public int findSongCount() {
 		int count = jdbcTemplate.queryForObject(GET_SONG_COUNT, Integer.class);
-		
+
 		LOGGER.info("Getting music count...");
-		
+
 		return count;
 	}
 
 	@Override
 	public int addSongInformation(Song song) throws DuplicateTitleException {
-		
+
 		String title = song.getTitle();
 		String artist = song.getArtist();
 		String genre = song.getGenre();
-		
+
 		LOGGER.info("Adding Song Information: " + title + " " + "by " + artist);
-		
-		return jdbcTemplate.update(ADD_SONG_INFORMATION, new Object[] {
-				title,
-				artist,
-				genre
-		});
+
+		return jdbcTemplate.update(ADD_SONG_INFORMATION, new Object[] { title, artist, genre });
 	}
 
 	@Override
@@ -128,18 +118,18 @@ public class SongDaoImpl implements SongDao {
 	@Override
 	public int deleteSongInformation(int song_id) {
 		int count = jdbcTemplate.update(DELETE_SONG_INFORMATION_BY_ID, song_id);
-		
+
 		LOGGER.info("Deleting song with ID: " + song_id);
-		
+
 		return count;
 	}
 
 	@Override
 	public int deleteAllSongs() {
 		int count = jdbcTemplate.update(DELETE_ALL_SONG_INFORMATION);
-		
+
 		LOGGER.info("Deleting all songs...");
-		
+
 		return count;
 	}
 

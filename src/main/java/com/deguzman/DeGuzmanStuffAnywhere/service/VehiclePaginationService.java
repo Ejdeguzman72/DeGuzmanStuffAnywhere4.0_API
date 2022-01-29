@@ -21,7 +21,7 @@ public class VehiclePaginationService {
 
 	@Autowired
 	private VehicleJpaDao vehicleJpaDao;
-	
+
 	public ResponseEntity<Map<String, Object>> getAllVehiclesPagination(@RequestParam(required = false) String model,
 			@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
 		try {

@@ -28,17 +28,18 @@ import com.deguzman.DeGuzmanStuffAnywhere.util.ResponseMessage;
 @RequestMapping("/app/medical-transaction-documents")
 @CrossOrigin
 public class MedicalTransactionFilesController {
-	
+
 	@Autowired
 	MedicalTransactionFilesStorageService medicalTrxFilesStorageService;
-	
+
 	@PostMapping("/upload")
-	public ResponseEntity<ResponseMessage> uploadFile(@RequestParam("file") MultipartFile file) throws FileAlreadyExistsException {
+	public ResponseEntity<ResponseMessage> uploadFile(@RequestParam("file") MultipartFile file)
+			throws FileAlreadyExistsException {
 		String message = "";
-		
+
 		try {
 			medicalTrxFilesStorageService.save(file);
-			
+
 			message = "Uploaded the file successfully: " + file.getOriginalFilename() + "!";
 			return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage(message));
 		} catch (Exception e) {
@@ -46,26 +47,28 @@ public class MedicalTransactionFilesController {
 			return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage(message));
 		}
 	}
-	
+
 	@GetMapping("/files")
 	public ResponseEntity<List<MedicalTransactionFileInfo>> getListFiles() {
-		List<MedicalTransactionFileInfo> medicalFileInfos = (List<MedicalTransactionFileInfo>) medicalTrxFilesStorageService.laodAllMedicalFiles().map(path -> {
-			String filename = path.getFileName().toString();
-			String url = MvcUriComponentsBuilder
-					.fromMethodName(MedicalTransactionFilesController.class, "getFile",path.getFileName().toString()).build().toString();
-			
-			return new MedicalTransactionFileInfo(filename,url);
-		}).collect(Collectors.toList());
-		
+		List<MedicalTransactionFileInfo> medicalFileInfos = (List<MedicalTransactionFileInfo>) medicalTrxFilesStorageService
+				.laodAllMedicalFiles().map(path -> {
+					String filename = path.getFileName().toString();
+					String url = MvcUriComponentsBuilder.fromMethodName(MedicalTransactionFilesController.class,
+							"getFile", path.getFileName().toString()).build().toString();
+
+					return new MedicalTransactionFileInfo(filename, url);
+				}).collect(Collectors.toList());
+
 		return ResponseEntity.status(HttpStatus.OK).body(medicalFileInfos);
 	}
-	
+
 	@GetMapping("/files/{filename}")
 	@ResponseBody
 	public ResponseEntity<Resource> getFile(@PathVariable String filename) {
 		Resource file = medicalTrxFilesStorageService.load(filename);
 		return ResponseEntity.ok()
-				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"").body(file);
+				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"")
+				.body(file);
 	}
-	
+
 }

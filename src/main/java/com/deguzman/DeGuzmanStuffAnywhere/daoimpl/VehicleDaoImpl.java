@@ -110,10 +110,9 @@ public class VehicleDaoImpl implements VehicleDao {
 		return vehicleListMake;
 	}
 
-	
 //	String ADD_VEHICLE_INFORMATION = "INSERT INTO VEHICLE " + "(CAPACITY, MAKE, MODEL, TRANSMISSION, YEAR) "
 //			+ "VALUES(?, ?, ?, ?, ?)";
-	
+
 	@Override
 	public int addCarInformation(@RequestBody Vehicle vehicle) {
 
@@ -137,27 +136,27 @@ public class VehicleDaoImpl implements VehicleDao {
 	@Override
 	public int deleteCarInformation(@PathVariable long vehicleId) {
 		int result = jdbcTemplate.update(DELETE_VEHICLE_INFORMATION_BY_ID, vehicleId);
-		
+
 		LOGGER.info("Deleting Vehicle Information by ID: " + vehicleId);
-		
+
 		return result;
 	}
 
 	@Override
 	public int deleteAllVehicleInformation() {
 		int count = jdbcTemplate.update(DELETE_ALL_VEHICLE_INFORMATION);
-		
+
 		LOGGER.info("Deleting All Vehicles...");
-		
+
 		return count;
 	}
 
 	@Override
 	public int getCountofCars() {
 		int count = jdbcTemplate.queryForObject(GET_VEHICLE_COUNT, Integer.class);
-		
+
 		LOGGER.info("Getting count of vehicles...");
-		
+
 		return count;
 	}
 

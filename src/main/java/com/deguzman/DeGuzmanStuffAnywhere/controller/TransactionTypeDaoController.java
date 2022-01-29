@@ -20,17 +20,17 @@ public class TransactionTypeDaoController {
 
 	@Autowired
 	private TransactionTypeDaoImpl trxTypeDaoImpl;
-	
+
 	@GetMapping("/all")
 	public List<TransactionType> getAllTransactionTypes() {
 		return trxTypeDaoImpl.retrieveAllTransactionTypes();
 	}
-	
+
 	@GetMapping("/transaction-type/{transaction_type_id}")
 	public ResponseEntity<TransactionType> getTransactionTypeById(@PathVariable int transaction_type_id) {
 		return trxTypeDaoImpl.retrieveTransactionTypeById(transaction_type_id);
 	}
-	
+
 	@GetMapping("/transaction-type/name/{transaction_type_descr}")
 	public ResponseEntity<TransactionType> getTransactionTypeByDescr(@PathVariable String transaction_type_descr) {
 		return trxTypeDaoImpl.retrieveTransactionTypeByName(transaction_type_descr);

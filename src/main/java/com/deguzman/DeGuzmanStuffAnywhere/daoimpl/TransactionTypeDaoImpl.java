@@ -20,36 +20,39 @@ public class TransactionTypeDaoImpl implements TransactionTypeDao {
 	String GET_ALL_TRANSACTION_TYPES = "SELECT * FROM TRANSACTION_TYPE";
 	String GET_TRANSACTION_TYPE_BY_ID = "SELECT * FROM TRANSACTION_TYPE WHERE TRANSACTION_TYPE_ID = ?";
 	String GET_TRANSACTION_TYPE_BY_NAME = "SELECT * FROM TRANSACTION_TYPE WHERE TRANSACTION_TYPE_DESCR = ?";
-	
+
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
-	
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(TransactionTypeDaoImpl.class);
-	
+
 	@Override
 	public List<TransactionType> retrieveAllTransactionTypes() {
-		List<TransactionType> list = jdbcTemplate.query(GET_ALL_TRANSACTION_TYPES, BeanPropertyRowMapper.newInstance(TransactionType.class));
-		
+		List<TransactionType> list = jdbcTemplate.query(GET_ALL_TRANSACTION_TYPES,
+				BeanPropertyRowMapper.newInstance(TransactionType.class));
+
 		LOGGER.info("Retrieving all transaction types...");
-		
+
 		return list;
 	}
 
 	@Override
 	public ResponseEntity<TransactionType> retrieveTransactionTypeById(@PathVariable int transaction_type_id) {
-		TransactionType trxType = jdbcTemplate.queryForObject(GET_TRANSACTION_TYPE_BY_ID, BeanPropertyRowMapper.newInstance(TransactionType.class), transaction_type_id);
-		
+		TransactionType trxType = jdbcTemplate.queryForObject(GET_TRANSACTION_TYPE_BY_ID,
+				BeanPropertyRowMapper.newInstance(TransactionType.class), transaction_type_id);
+
 		LOGGER.info("Retrieved Transaction Type: " + " " + transaction_type_id);
-		
+
 		return ResponseEntity.ok().body(trxType);
 	}
 
 	@Override
 	public ResponseEntity<TransactionType> retrieveTransactionTypeByName(@PathVariable String transaction_type_descr) {
-		TransactionType trxType = jdbcTemplate.queryForObject(GET_TRANSACTION_TYPE_BY_NAME, BeanPropertyRowMapper.newInstance(TransactionType.class), transaction_type_descr);
-		
+		TransactionType trxType = jdbcTemplate.queryForObject(GET_TRANSACTION_TYPE_BY_NAME,
+				BeanPropertyRowMapper.newInstance(TransactionType.class), transaction_type_descr);
+
 		LOGGER.info("Retrived Transaction Type: " + " " + transaction_type_descr);
-		
+
 		return ResponseEntity.ok().body(trxType);
 	}
 

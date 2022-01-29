@@ -9,6 +9,7 @@ public class BookNameException extends DeGuzmanStuffAnywhereException {
 
 	/**
 	 * Exception class to handle invalid book names within the application
+	 * 
 	 * @param message
 	 */
 	public BookNameException(String message) {

@@ -16,34 +16,24 @@ import com.deguzman.DeGuzmanStuffAnywhere.file_upload_service.VideoFilesStorageS
 
 @SpringBootApplication
 public class DeGuzmanStuffAnywhereApplication {
-	
+
 	@Resource
 	GeneralTransactionFileStorageService generalTrxfilesStorageService;
-	
+
 	@Resource
 	MedicalTransactionFilesStorageService medicalTrxFilesStorageService;
-	
+
 	@Resource
 	AutoTransactionFilesStorageService autoTrxFilesStorageService;
-	
+
 	@Resource
 	PhotoFilesStorageService photosFilesStorageService;
-	
+
 	@Resource
 	VideoFilesStorageService videosFilesStorageService;
-	
-	public static void main(String[] args) {		
+
+	public static void main(String[] args) {
 		SpringApplication.run(DeGuzmanStuffAnywhereApplication.class, args);
 	}
-	
-//	@Bean
-//    public WebMvcConfigurer corsConfigurer() {
-//        return new WebMvcConfigurer() {
-//            @Override
-//            public void addCorsMappings(CorsRegistry registry) {
-//                registry.addMapping("/**").allowCredentials(true).allowedOrigins("*").allowedMethods("*");
-//            }
-//        };
-//    }
 
 }

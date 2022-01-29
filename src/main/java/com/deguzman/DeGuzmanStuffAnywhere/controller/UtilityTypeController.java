@@ -21,17 +21,17 @@ public class UtilityTypeController {
 
 	@Autowired
 	private UtilityTypeDaoImpl utilityTypeDaoImpl;
-	
+
 	@GetMapping("/all")
 	public List<UtilityType> getAllUtilityTypes() {
 		return utilityTypeDaoImpl.findAllUtilityTypes();
 	}
-	
+
 	@GetMapping("/utility-type/{utility_type_id}")
 	public ResponseEntity<UtilityType> getUtilityTypeInformationById(@PathVariable int utility_type_id) {
 		return utilityTypeDaoImpl.findUtilityInformationById(utility_type_id);
 	}
-	
+
 	@GetMapping("/utility-type/descr/{utility_type_descr}")
 	public ResponseEntity<UtilityType> getUtilityInformationByDescr(@PathVariable String utility_type_descr) {
 		return utilityTypeDaoImpl.findUtilityInformationByDescr(utility_type_descr);

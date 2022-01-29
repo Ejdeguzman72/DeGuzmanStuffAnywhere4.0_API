@@ -12,20 +12,19 @@ import com.deguzman.DeGuzmanStuffAnywhere.model.RunTracker;
 public interface RunTrackerDao {
 
 	public List<RunTrackerInfoDTO> findAllRunTrackerInformation();
-	
+
 	public List<RunTrackerInfoDTO> findRunTrackerInformationByUser(@PathVariable long user_id);
-	
+
 	public ResponseEntity<RunTrackerInfoDTO> findRunTrackerInformationById(@PathVariable long run_id);
-	
+
 	public long findCountOfRunTrackerInformation();
-	
+
 	public int addRunTrackerInformation(@RequestBody RunTracker runTracker);
-	
-	public int updateRunTrackerInformation(@PathVariable long run_id,
-			@RequestBody RunTracker runTrackerDetails);
-	
+
+	public int updateRunTrackerInformation(@PathVariable long run_id, @RequestBody RunTracker runTrackerDetails);
+
 	public int deleteRunTrackerInformation(@PathVariable long run_id);
-	
+
 	public int deleteAllRunTrackerInformation();
-	
+
 }

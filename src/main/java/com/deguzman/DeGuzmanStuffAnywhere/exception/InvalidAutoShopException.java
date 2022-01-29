@@ -11,6 +11,7 @@ public class InvalidAutoShopException extends DeGuzmanStuffAnywhereException {
 	 * Exception class that handles invalid auto repair shops
 	 * 
 	 * auto repair shops should exist in the database
+	 * 
 	 * @param message
 	 */
 	public InvalidAutoShopException(String message) {

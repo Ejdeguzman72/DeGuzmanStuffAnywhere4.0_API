@@ -13,19 +13,23 @@ public class RestaurantType implements Serializable {
 	private static final long serialVersionUID = 1L;
 	public int restaurant_type_id;
 	public String descr;
-	
+
 	public int getRestaurant_type_id() {
 		return restaurant_type_id;
 	}
+
 	public void setRestaurant_type_id(int restaurant_type_id) {
 		this.restaurant_type_id = restaurant_type_id;
 	}
+
 	public String getDescr() {
 		return descr;
 	}
+
 	public void setDescr(String descr) {
 		this.descr = descr;
 	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -34,6 +38,7 @@ public class RestaurantType implements Serializable {
 		result = prime * result + restaurant_type_id;
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -52,18 +57,21 @@ public class RestaurantType implements Serializable {
 			return false;
 		return true;
 	}
+
 	@Override
 	public String toString() {
 		return "RestaurantType [restaurant_type_id=" + restaurant_type_id + ", descr=" + descr + "]";
 	}
+
 	public RestaurantType(int restaurant_type_id, String descr) {
 		super();
 		this.restaurant_type_id = restaurant_type_id;
 		this.descr = descr;
 	}
+
 	public RestaurantType() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
+
 }

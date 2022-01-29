@@ -29,46 +29,46 @@ public class BooksController {
 
 	@Autowired
 	private BooksDaoImpl booksDaoImpl;
-	
+
 	@Autowired
 	private BooksPaginationService booksPageService;
-	
+
 	@GetMapping("/all")
 	public List<Books> getAllBooksInformation() {
 		return booksDaoImpl.findAllBooksInformation();
 	}
-	
+
 	@GetMapping("/all-books")
 	public ResponseEntity<Map<String, Object>> getAllBooksPagination(@RequestParam(required = false) String name,
 			@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
 		return booksPageService.getAllBooksPagination(name, page, size);
 	}
-	
+
 	@GetMapping("/book/artist/{author}")
 	public List<Books> getBooksInformationByAuthor(@PathVariable String author) {
 		return booksDaoImpl.findAllBooksByAuthor(author);
 	}
-	
+
 	@GetMapping("/book/{book_id}")
 	public ResponseEntity<Books> getBookInformationById(@PathVariable int book_id) throws ResourceNotFoundException {
 		return booksDaoImpl.findBooksInformationById(book_id);
 	}
-	
+
 	@GetMapping("/book/name/{name}")
 	public ResponseEntity<Books> getBookInformationByName(@PathVariable String name) {
 		return booksDaoImpl.findBookInformationByName(name);
 	}
-	
+
 	@PostMapping("/add-book-information")
 	public int addBookInformation(@RequestBody Books book) throws BookNameException {
 		return booksDaoImpl.addBooksInformation(book);
 	}
-	
+
 	@DeleteMapping("/book/{book_id}")
 	public int deleteBookInformationById(@PathVariable int book_id) {
 		return booksDaoImpl.deleteBookInformation(book_id);
 	}
-	
+
 	@DeleteMapping("/delete-all-books")
 	public int deleteAllBookInformation() {
 		return booksDaoImpl.deleteAllBookInformation();

@@ -4,37 +4,37 @@ public class Song {
 
 	public int song_id;
 	public String title;
-	public String artist; 
+	public String artist;
 	public String genre;
-	
+
 	public int getSong_id() {
 		return song_id;
 	}
-	
+
 	public void setSong_id(int song_id) {
 		this.song_id = song_id;
 	}
-	
+
 	public String getTitle() {
 		return title;
 	}
-	
+
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	
+
 	public String getArtist() {
 		return artist;
 	}
-	
+
 	public void setArtist(String artist) {
 		this.artist = artist;
 	}
-	
+
 	public String getGenre() {
 		return genre;
 	}
-	
+
 	public void setGenre(String genre) {
 		this.genre = genre;
 	}
@@ -96,6 +96,5 @@ public class Song {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
-	
+
 }

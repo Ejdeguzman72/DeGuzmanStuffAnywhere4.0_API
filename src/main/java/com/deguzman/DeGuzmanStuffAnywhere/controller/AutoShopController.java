@@ -27,57 +27,59 @@ public class AutoShopController {
 
 	@Autowired
 	private AutoRepairShopDaoImpl autoShopDaoImpl;
-	
+
 	@Autowired
 	private AutoRepairShopPaginationService autoShopService;
-	
+
 	@GetMapping("/all")
 	public List<AutoRepairShop> getAllAutoRepairShopInformation() {
 		return autoShopDaoImpl.findAllAutoRepairShopInfo();
 	}
-	
+
 	@GetMapping("/all-shops")
-	public ResponseEntity<Map<String, Object>> getAllAutoShopsPagination(@RequestParam(required = false) String autoShopName,
-			@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+	public ResponseEntity<Map<String, Object>> getAllAutoShopsPagination(
+			@RequestParam(required = false) String autoShopName, @RequestParam(defaultValue = "0") int page,
+			@RequestParam(defaultValue = "10") int size) {
 		return autoShopService.getAllAutoShopsPagination(autoShopName, page, size);
 	}
-	
+
 	@GetMapping("/repair-shop/{auto_shop_id}")
 	public ResponseEntity<AutoRepairShop> getAutoRepairShopInfoById(@PathVariable int auto_shop_id) {
 		return autoShopDaoImpl.findAutoRepairShopById(auto_shop_id);
 	}
-	
+
 	@GetMapping("/repair-shop/name/{autoShopName}")
 	public ResponseEntity<AutoRepairShop> getAutoRepairShopByName(@PathVariable String autoShopName) {
 		return autoShopDaoImpl.findAutoRepairShopByName(autoShopName);
 	}
-	
+
 	@GetMapping("/repair-shop/zip/{zip}")
 	public List<AutoRepairShop> getAutoRepairShopByZip(@PathVariable String zip) {
 		return autoShopDaoImpl.findAutoRepairShopByZip(zip);
 	}
-	
+
 	@GetMapping("/repair-shop/count")
 	public long getCountOfAllRepairShops() {
 		return autoShopDaoImpl.getCountOfAutoRepairShops();
 	}
-	
+
 	@PostMapping("/add-auto-shop")
 	public int addAutoRepairShopInformation(@RequestBody AutoRepairShop autoShop) {
 		return autoShopDaoImpl.addAutoRepairShopInfo(autoShop);
 	}
-	
+
 	@PutMapping("/repair-shop/{auto_shop_id}")
-	public int updateAutoRepairShopInformation(@PathVariable int auto_shop_id, @RequestBody AutoRepairShop autoRepairShop) {
+	public int updateAutoRepairShopInformation(@PathVariable int auto_shop_id,
+			@RequestBody AutoRepairShop autoRepairShop) {
 		return autoShopDaoImpl.updateAutoShopInfo(auto_shop_id, autoRepairShop);
 	}
-	
+
 	@DeleteMapping("/repair-shop/{auto_shop_id}")
 	@CrossOrigin
 	public int deleteAutoShopInformationById(@PathVariable int auto_shop_id) {
 		return autoShopDaoImpl.deleteAutoRepairShopInfo(auto_shop_id);
 	}
-	
+
 	@DeleteMapping("/delete-all")
 	public int deleteAllAutoRepairShopInformation() {
 		return autoShopDaoImpl.deleteAllAutoShop();

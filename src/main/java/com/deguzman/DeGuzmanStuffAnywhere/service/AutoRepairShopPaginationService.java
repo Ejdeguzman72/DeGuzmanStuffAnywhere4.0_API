@@ -21,9 +21,10 @@ public class AutoRepairShopPaginationService {
 
 	@Autowired
 	private AutoRepairShopJpaDao autoShopDao;
-	
-	public ResponseEntity<Map<String, Object>> getAllAutoShopsPagination(@RequestParam(required = false) String autoShopname,
-			@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+
+	public ResponseEntity<Map<String, Object>> getAllAutoShopsPagination(
+			@RequestParam(required = false) String autoShopname, @RequestParam(defaultValue = "0") int page,
+			@RequestParam(defaultValue = "10") int size) {
 		try {
 
 			List<AutoRepairShop> shop = autoShopDao.findAll();
@@ -41,7 +42,7 @@ public class AutoRepairShopPaginationService {
 			shop = pageBooks.getContent();
 
 			Map<String, Object> response = new HashMap<>();
-			response.put("shops", shop);
+			response.put("autoShops", shop);
 			response.put("currentPage", pageBooks.getNumber());
 			response.put("totalItems", pageBooks.getTotalElements());
 			response.put("totalPages", pageBooks.getTotalPages());

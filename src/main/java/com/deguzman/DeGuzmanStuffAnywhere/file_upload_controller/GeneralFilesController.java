@@ -30,13 +30,13 @@ public class GeneralFilesController {
 
 	@Autowired
 	GeneralTransactionFileStorageService generalTrxFilesStorageService;
-	
+
 	@PostMapping("/upload")
 	public ResponseEntity<ResponseMessage> uploadFile(@RequestParam("file") MultipartFile file) {
 		String message = "";
 		try {
 			generalTrxFilesStorageService.save(file);
-			
+
 			message = "Uploaded the file successfully: " + file.getOriginalFilename() + "!";
 			return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage(message));
 		} catch (Exception e) {
@@ -44,26 +44,28 @@ public class GeneralFilesController {
 			return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage(message));
 		}
 	}
-	
+
 	@GetMapping("/files")
 	public ResponseEntity<List<GeneralTransactionFileInfo>> getListFiles() {
-		List<GeneralTransactionFileInfo> fileInfos = (List<GeneralTransactionFileInfo>) generalTrxFilesStorageService.loadAllGeneralFiles().map(path -> {
-			String filename = path.getFileName().toString();
-			String url = MvcUriComponentsBuilder
-					.fromMethodName(GeneralFilesController.class, "getFile",path.getFileName().toString()).build().toString();
-			
-			return new GeneralTransactionFileInfo(filename,url);
-		}).collect(Collectors.toList());
-		
-		
+		List<GeneralTransactionFileInfo> fileInfos = (List<GeneralTransactionFileInfo>) generalTrxFilesStorageService
+				.loadAllGeneralFiles().map(path -> {
+					String filename = path.getFileName().toString();
+					String url = MvcUriComponentsBuilder
+							.fromMethodName(GeneralFilesController.class, "getFile", path.getFileName().toString())
+							.build().toString();
+
+					return new GeneralTransactionFileInfo(filename, url);
+				}).collect(Collectors.toList());
+
 		return ResponseEntity.status(HttpStatus.OK).body(fileInfos);
 	}
-	
+
 	@GetMapping("/files/{filename}")
 	@ResponseBody
 	public ResponseEntity<Resource> getFile(@PathVariable String filename) {
 		Resource file = generalTrxFilesStorageService.load(filename);
 		return ResponseEntity.ok()
-				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"").body(file);
+				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"")
+				.body(file);
 	}
 }

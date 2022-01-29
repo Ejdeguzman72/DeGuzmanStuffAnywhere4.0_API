@@ -10,22 +10,27 @@ public class ExerciseType implements Serializable {
 	private static final long serialVersionUID = -7118064847455021642L;
 	public int exercise_type_id;
 	public String exercise_type_name;
-	
+
 	public int getExercise_type_id() {
 		return exercise_type_id;
 	}
+
 	public void setExercise_type_id(int exercise_type_id) {
 		this.exercise_type_id = exercise_type_id;
 	}
+
 	public String getExercise_type_name() {
 		return exercise_type_name;
 	}
+
 	public void setExercise_type_name(String exercise_type_name) {
 		this.exercise_type_name = exercise_type_name;
 	}
+
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -34,6 +39,7 @@ public class ExerciseType implements Serializable {
 		result = prime * result + ((exercise_type_name == null) ? 0 : exercise_type_name.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -52,19 +58,22 @@ public class ExerciseType implements Serializable {
 			return false;
 		return true;
 	}
+
 	@Override
 	public String toString() {
 		return "ExerciseType [exercise_type_id=" + exercise_type_id + ", exercise_type_name=" + exercise_type_name
 				+ "]";
 	}
+
 	public ExerciseType(int exercise_type_id, String exercise_type_name) {
 		super();
 		this.exercise_type_id = exercise_type_id;
 		this.exercise_type_name = exercise_type_name;
 	}
+
 	public ExerciseType() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
+
 }

@@ -20,11 +20,11 @@ import com.deguzman.DeGuzmanStuffAnywhere.util.LoggerMessage;
 
 @Service
 public class MedicalTransactionFilesStorageServiceImpl implements MedicalTransactionFilesStorageService {
-	
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(MedicalTransactionFilesStorageServiceImpl.class);
 
 	private final Path root = Paths.get("medical-file-uploads");
-	
+
 	@Override
 	public void init() {
 		try {
@@ -52,7 +52,7 @@ public class MedicalTransactionFilesStorageServiceImpl implements MedicalTransac
 		try {
 			Path file = root.resolve(filename);
 			Resource resource = new UrlResource(file.toUri());
-			
+
 			if (resource.exists() || resource.isReadable()) {
 				LOGGER.info(LoggerMessage.GET_MEDICAL_TRANSACTION_FILE_INFO_MESSAGE + file.getFileName());
 				return resource;
@@ -69,13 +69,13 @@ public class MedicalTransactionFilesStorageServiceImpl implements MedicalTransac
 	@Override
 	public void deleteAllMedicalFiles() {
 		FileSystemUtils.deleteRecursively(root.toFile());
-		
+
 	}
 
 	@Override
 	public Stream<Path> laodAllMedicalFiles() {
 		try {
-			return Files.walk(this.root,1).filter(path -> !path.equals(this.root)).map(this.root::relativize);
+			return Files.walk(this.root, 1).filter(path -> !path.equals(this.root)).map(this.root::relativize);
 		} catch (IOException e) {
 			throw new RuntimeException("Could not load the files");
 		}

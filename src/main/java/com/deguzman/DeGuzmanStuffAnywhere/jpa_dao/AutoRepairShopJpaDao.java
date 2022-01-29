@@ -13,10 +13,10 @@ import com.deguzman.DeGuzmanStuffAnywhere.jpa_model.AutoRepairShop;
 @Repository
 public interface AutoRepairShopJpaDao extends JpaRepository<AutoRepairShop, Integer> {
 
-	@Query(value = "SELECT * FROM auto_shop WHERE auto_shop_name = ?1", nativeQuery=true)
+	@Query(value = "SELECT * FROM auto_shop WHERE auto_shop_name = ?1", nativeQuery = true)
 	AutoRepairShop findAutoShopsByName(String autoShopName);
 
-	@Query(value = "SELECT * FROM auto_shop WHERE zip = ?1", nativeQuery=true)
+	@Query(value = "SELECT * FROM auto_shop WHERE zip = ?1", nativeQuery = true)
 	List<AutoRepairShop> findAutoRepairShopsByZip(String zip);
 
 	Page<AutoRepairShop> findAll(Pageable pageable);

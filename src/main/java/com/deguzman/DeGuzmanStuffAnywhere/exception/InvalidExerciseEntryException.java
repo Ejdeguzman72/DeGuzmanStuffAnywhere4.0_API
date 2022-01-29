@@ -9,6 +9,7 @@ public class InvalidExerciseEntryException extends DeGuzmanStuffAnywhereExceptio
 
 	/**
 	 * Exception class to handle invlaid exercise entries
+	 * 
 	 * @param message
 	 */
 	public InvalidExerciseEntryException(String message) {

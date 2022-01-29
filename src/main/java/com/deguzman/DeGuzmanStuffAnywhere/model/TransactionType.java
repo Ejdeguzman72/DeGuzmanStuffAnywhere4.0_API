@@ -3,29 +3,34 @@ package com.deguzman.DeGuzmanStuffAnywhere.model;
 import java.io.Serializable;
 
 public class TransactionType implements Serializable {
-	
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -3284448543761009503L;
 	public long transaction_type_id;
 	public String transaction_type_descr;
-	
+
 	public long getTransaction_type_id() {
 		return transaction_type_id;
 	}
+
 	public void setTransaction_type_id(long transaction_type_id) {
 		this.transaction_type_id = transaction_type_id;
 	}
+
 	public String getTransaction_type_descr() {
 		return transaction_type_descr;
 	}
+
 	public void setTransaction_type_descr(String transaction_type_descr) {
 		this.transaction_type_descr = transaction_type_descr;
 	}
+
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -34,6 +39,7 @@ public class TransactionType implements Serializable {
 		result = prime * result + (int) (transaction_type_id ^ (transaction_type_id >>> 32));
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -52,16 +58,19 @@ public class TransactionType implements Serializable {
 			return false;
 		return true;
 	}
+
 	@Override
 	public String toString() {
 		return "TransactionType [transaction_type_id=" + transaction_type_id + ", transaction_type_descr="
 				+ transaction_type_descr + "]";
 	}
+
 	public TransactionType(long transaction_type_id, String transaction_type_descr) {
 		super();
 		this.transaction_type_id = transaction_type_id;
 		this.transaction_type_descr = transaction_type_descr;
 	}
+
 	public TransactionType() {
 		super();
 		// TODO Auto-generated constructor stub

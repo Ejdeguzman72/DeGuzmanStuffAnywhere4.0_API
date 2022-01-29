@@ -17,46 +17,59 @@ public class MedicalTransaction implements Serializable {
 	public int medical_office_id;
 	public long transaction_type_id;
 	public long user_id;
-	
+
 	public long getMedical_transaction_id() {
 		return medical_transaction_id;
 	}
+
 	public void setMedical_transaction_id(long medical_transaction_id) {
 		this.medical_transaction_id = medical_transaction_id;
 	}
+
 	public String getMedical_transaction_date() {
 		return medical_transaction_date;
 	}
+
 	public void setMedical_transaction_date(String medical_transaction_date) {
 		this.medical_transaction_date = medical_transaction_date;
 	}
+
 	public double getAmount() {
 		return amount;
 	}
+
 	public void setAmount(double amount) {
 		this.amount = amount;
 	}
+
 	public int getMedical_office_id() {
 		return medical_office_id;
 	}
+
 	public void setMedical_office_id(int medical_office_id) {
 		this.medical_office_id = medical_office_id;
 	}
+
 	public long getTransaction_type_id() {
 		return transaction_type_id;
 	}
+
 	public void setTransaction_type_id(long transaction_type_id) {
 		this.transaction_type_id = transaction_type_id;
 	}
+
 	public long getUser_id() {
 		return user_id;
 	}
+
 	public void setUser_id(long user_id) {
 		this.user_id = user_id;
 	}
+
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -71,6 +84,7 @@ public class MedicalTransaction implements Serializable {
 		result = prime * result + (int) (user_id ^ (user_id >>> 32));
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -97,12 +111,14 @@ public class MedicalTransaction implements Serializable {
 			return false;
 		return true;
 	}
+
 	@Override
 	public String toString() {
 		return "MedicalTransaction [medical_transaction_id=" + medical_transaction_id + ", medical_transaction_date="
 				+ medical_transaction_date + ", amount=" + amount + ", medical_office_id=" + medical_office_id
 				+ ", transaction_type_id=" + transaction_type_id + ", user_id=" + user_id + "]";
 	}
+
 	public MedicalTransaction(long medical_transaction_id, String medical_transaction_date, double amount,
 			int medical_office_id, long transaction_type_id, long user_id) {
 		super();
@@ -113,9 +129,10 @@ public class MedicalTransaction implements Serializable {
 		this.transaction_type_id = transaction_type_id;
 		this.user_id = user_id;
 	}
+
 	public MedicalTransaction() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
+
 }

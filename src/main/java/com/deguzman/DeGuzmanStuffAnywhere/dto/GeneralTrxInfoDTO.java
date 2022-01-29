@@ -8,42 +8,55 @@ public class GeneralTrxInfoDTO {
 	public String entity;
 	public String transaction_type_descr;
 	public String name;
+
 	public long getTransaction_id() {
 		return transaction_id;
 	}
+
 	public void setTransaction_id(long transaction_id) {
 		this.transaction_id = transaction_id;
 	}
+
 	public double getAmount() {
 		return amount;
 	}
+
 	public void setAmount(double amount) {
 		this.amount = amount;
 	}
+
 	public String getPayment_date() {
 		return payment_date;
 	}
+
 	public void setPayment_date(String payment_date) {
 		this.payment_date = payment_date;
 	}
+
 	public String getEntity() {
 		return entity;
 	}
+
 	public void setEntity(String entity) {
 		this.entity = entity;
 	}
+
 	public String getTransaction_type_descr() {
 		return transaction_type_descr;
 	}
+
 	public void setTransaction_type_descr(String transaction_type_descr) {
 		this.transaction_type_descr = transaction_type_descr;
 	}
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -58,6 +71,7 @@ public class GeneralTrxInfoDTO {
 		result = prime * result + ((transaction_type_descr == null) ? 0 : transaction_type_descr.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -93,12 +107,14 @@ public class GeneralTrxInfoDTO {
 			return false;
 		return true;
 	}
+
 	@Override
 	public String toString() {
 		return "GeneralTrxInfoDTO [transaction_id=" + transaction_id + ", amount=" + amount + ", payment_date="
 				+ payment_date + ", entity=" + entity + ", transaction_type_descr=" + transaction_type_descr + ", name="
 				+ name + "]";
 	}
+
 	public GeneralTrxInfoDTO(long transaction_id, double amount, String payment_date, String entity,
 			String transaction_type_descr, String name) {
 		super();
@@ -109,9 +125,10 @@ public class GeneralTrxInfoDTO {
 		this.transaction_type_descr = transaction_type_descr;
 		this.name = name;
 	}
+
 	public GeneralTrxInfoDTO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
+
 }

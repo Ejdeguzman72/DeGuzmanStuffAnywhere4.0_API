@@ -26,43 +26,45 @@ public class GeneralTrxController {
 
 	@Autowired
 	private GeneralTrxDaoImpl generalTrxDaoImpl;
-	
+
 	@GetMapping("/all")
 	public List<GeneralTrxInfoDTO> getAllGeneralTransactionInformation() {
 		return generalTrxDaoImpl.findAllTransactionInformation();
 	}
-	
+
 	@GetMapping("/all/type/{transaction_type_id}")
 	public List<GeneralTrxInfoDTO> getTransactionsByType(@PathVariable long transaction_type_id) {
 		return generalTrxDaoImpl.findTransactionsByType(transaction_type_id);
 	}
-	
+
 	@GetMapping("/all/user/{user_id}")
 	public List<GeneralTrxInfoDTO> getTransactionsByUser(@PathVariable long user_id) {
 		return generalTrxDaoImpl.findTransactionsByUser(user_id);
 	}
-	
+
 	@GetMapping("/transaction/{transaction_id}")
-	public ResponseEntity<GeneralTrxInfoDTO> getTrxInformationById(@PathVariable long transaction_id) throws ResourceNotFoundException {
+	public ResponseEntity<GeneralTrxInfoDTO> getTrxInformationById(@PathVariable long transaction_id)
+			throws ResourceNotFoundException {
 		return generalTrxDaoImpl.findTransactionInformationById(transaction_id);
 	}
-	
+
 	@GetMapping("/get-transaction-count")
 	public long getTransactionCcount() {
 		return generalTrxDaoImpl.findCountOfGeneralTransaction();
 	}
-	
+
 	@PostMapping("/add-general-transaction-information")
-	public int addGeneralTrasactionInformation(@RequestBody GeneralTransaction transaction) throws ResourceNotFoundException {
+	public int addGeneralTrasactionInformation(@RequestBody GeneralTransaction transaction)
+			throws ResourceNotFoundException {
 		return generalTrxDaoImpl.addTransactionInformation(transaction);
 	}
-	
+
 	@DeleteMapping("/transaction/{transaction_id}")
 	@CrossOrigin
 	public int deleteTransactionById(@PathVariable long transaction_id) {
 		return generalTrxDaoImpl.deleteTransactionInformation(transaction_id);
 	}
-	
+
 	@DeleteMapping("/delete-all-transactions")
 	public int deleteAllTransactions() {
 		return generalTrxDaoImpl.deleteAllTransactions();

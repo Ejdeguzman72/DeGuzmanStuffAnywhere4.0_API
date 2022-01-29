@@ -10,12 +10,12 @@ import org.springframework.web.multipart.MultipartFile;
 public interface PhotoFilesStorageService {
 
 	public void init();
-	
+
 	public void save(MultipartFile file);
-	
+
 	public Resource load(String filename);
-	
+
 	public void deleteAllPhotos();
-	
+
 	public Stream<Path> loadAllPhotos();
 }

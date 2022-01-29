@@ -10,10 +10,10 @@ import org.springframework.stereotype.Component;
 public class AppStartupConfigEvent {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(AppStartupConfigEvent.class);
-	
+
 	@EventListener(ApplicationReadyEvent.class)
 	public void startApp() {
-		
+
 		LOGGER.info("AppStartupConfigEvent - startApp(): Application has started on port 8080");
 	}
 }

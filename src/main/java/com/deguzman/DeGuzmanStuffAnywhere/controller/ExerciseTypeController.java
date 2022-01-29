@@ -20,12 +20,12 @@ public class ExerciseTypeController {
 
 	@Autowired
 	private ExerciseTypeDaoImpl exerciseTypeDaoImpl;
-	
+
 	@GetMapping("/all")
 	public List<ExerciseType> getAllExerciseTypeInformation() {
 		return exerciseTypeDaoImpl.findAllExerciseTypeInformation();
 	}
-	
+
 	@GetMapping("/type/{exercise_type_id}")
 	public ResponseEntity<ExerciseType> getExerciseTypeById(@PathVariable int exercise_type_id) {
 		return exerciseTypeDaoImpl.findExerciseTypeInformationById(exercise_type_id);
