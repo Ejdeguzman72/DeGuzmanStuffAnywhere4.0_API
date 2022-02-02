@@ -23,16 +23,19 @@ public class UtilityTypeController {
 	private UtilityTypeDaoImpl utilityTypeDaoImpl;
 
 	@GetMapping("/all")
+	@CrossOrigin
 	public List<UtilityType> getAllUtilityTypes() {
 		return utilityTypeDaoImpl.findAllUtilityTypes();
 	}
 
 	@GetMapping("/utility-type/{utility_type_id}")
+	@CrossOrigin
 	public ResponseEntity<UtilityType> getUtilityTypeInformationById(@PathVariable int utility_type_id) {
 		return utilityTypeDaoImpl.findUtilityInformationById(utility_type_id);
 	}
 
 	@GetMapping("/utility-type/descr/{utility_type_descr}")
+	@CrossOrigin
 	public ResponseEntity<UtilityType> getUtilityInformationByDescr(@PathVariable String utility_type_descr) {
 		return utilityTypeDaoImpl.findUtilityInformationByDescr(utility_type_descr);
 	}

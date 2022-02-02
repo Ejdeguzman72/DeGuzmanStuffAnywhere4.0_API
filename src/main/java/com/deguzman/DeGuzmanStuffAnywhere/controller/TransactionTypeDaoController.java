@@ -22,16 +22,19 @@ public class TransactionTypeDaoController {
 	private TransactionTypeDaoImpl trxTypeDaoImpl;
 
 	@GetMapping("/all")
+	@CrossOrigin
 	public List<TransactionType> getAllTransactionTypes() {
 		return trxTypeDaoImpl.retrieveAllTransactionTypes();
 	}
 
 	@GetMapping("/transaction-type/{transaction_type_id}")
+	@CrossOrigin
 	public ResponseEntity<TransactionType> getTransactionTypeById(@PathVariable int transaction_type_id) {
 		return trxTypeDaoImpl.retrieveTransactionTypeById(transaction_type_id);
 	}
 
 	@GetMapping("/transaction-type/name/{transaction_type_descr}")
+	@CrossOrigin
 	public ResponseEntity<TransactionType> getTransactionTypeByDescr(@PathVariable String transaction_type_descr) {
 		return trxTypeDaoImpl.retrieveTransactionTypeByName(transaction_type_descr);
 	}

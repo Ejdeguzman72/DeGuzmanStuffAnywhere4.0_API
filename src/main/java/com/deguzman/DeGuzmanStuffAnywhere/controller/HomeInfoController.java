@@ -20,6 +20,7 @@ public class HomeInfoController {
 	private HomeInfoDaoImpl homeInfoDaoImpl;
 
 	@GetMapping("/all")
+	@CrossOrigin
 	public List<HomeInfo> getAllHomeInformation() {
 		return homeInfoDaoImpl.getAllHomeInfo();
 	}

@@ -28,42 +28,50 @@ public class RestaurantController {
 	private RestaurantDaoImpl restaurantDaoImpl;
 
 	@GetMapping("/all")
+	@CrossOrigin
 	public List<RestaurantInfoDTO> getAllRestaurantInformation() {
 		return restaurantDaoImpl.findAllRestaurants();
 	}
 
 	@GetMapping("/restaurant/type/{restaurant_type_id}")
+	@CrossOrigin
 	public List<RestaurantInfoDTO> getAllRestaurantInformationByType(@PathVariable int restaurant_type_id) {
 		return restaurantDaoImpl.findAllRestaurantsByType(restaurant_type_id);
 	}
 
 	@GetMapping("/restaurant/zip/{zip}")
+	@CrossOrigin
 	public List<RestaurantInfoDTO> getAllRestaurantInformationByZip(@PathVariable String zip) {
 		return restaurantDaoImpl.findRestaurantsByZipCode(zip);
 	}
 
 	@GetMapping("/restaurant/descr/{descr}")
+	@CrossOrigin
 	public List<RestaurantInfoDTO> getAllRestaurantInformationByDescr(@PathVariable String descr) {
 		return restaurantDaoImpl.findRestaurantsByDescr(descr);
 	}
 
 	@GetMapping("/restaurant/{restaurant_id}")
+	@CrossOrigin
 	public ResponseEntity<RestaurantInfoDTO> getRestaurantInformationById(@PathVariable int restaurant_id)
 			throws InvalidRestaurantException {
 		return restaurantDaoImpl.findRestaurantById(restaurant_id);
 	}
 
 	@GetMapping("/restaurant/name/{name}")
+	@CrossOrigin
 	public ResponseEntity<RestaurantInfoDTO> getRestaurantInformationByName(@PathVariable String name) {
 		return restaurantDaoImpl.findRestaurantByName(name);
 	}
 
 	@GetMapping("/restaurant-count")
+	@CrossOrigin
 	public long getRestaurantCount() {
 		return restaurantDaoImpl.getRestaurantCount();
 	}
 
 	@PostMapping("/add-restaurant-information")
+	@CrossOrigin
 	public int addRestaurantInformation(@RequestBody Restaurant restaurant) throws ResourceNotFoundException {
 		return restaurantDaoImpl.addRestaurantInformation(restaurant);
 	}
@@ -75,6 +83,7 @@ public class RestaurantController {
 	}
 
 	@DeleteMapping("/delete-all-restaurant")
+	@CrossOrigin
 	public int deleteAllRestaurantInformation() {
 		return restaurantDaoImpl.deleteAllRestaurantInformation();
 	}

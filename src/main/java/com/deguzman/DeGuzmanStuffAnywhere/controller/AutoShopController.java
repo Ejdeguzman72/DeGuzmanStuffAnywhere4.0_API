@@ -32,11 +32,13 @@ public class AutoShopController {
 	private AutoRepairShopPaginationService autoShopService;
 
 	@GetMapping("/all")
+	@CrossOrigin
 	public List<AutoRepairShop> getAllAutoRepairShopInformation() {
 		return autoShopDaoImpl.findAllAutoRepairShopInfo();
 	}
 
 	@GetMapping("/all-shops")
+	@CrossOrigin
 	public ResponseEntity<Map<String, Object>> getAllAutoShopsPagination(
 			@RequestParam(required = false) String autoShopName, @RequestParam(defaultValue = "0") int page,
 			@RequestParam(defaultValue = "10") int size) {
@@ -44,31 +46,37 @@ public class AutoShopController {
 	}
 
 	@GetMapping("/repair-shop/{auto_shop_id}")
+	@CrossOrigin
 	public ResponseEntity<AutoRepairShop> getAutoRepairShopInfoById(@PathVariable int auto_shop_id) {
 		return autoShopDaoImpl.findAutoRepairShopById(auto_shop_id);
 	}
 
 	@GetMapping("/repair-shop/name/{autoShopName}")
+	@CrossOrigin
 	public ResponseEntity<AutoRepairShop> getAutoRepairShopByName(@PathVariable String autoShopName) {
 		return autoShopDaoImpl.findAutoRepairShopByName(autoShopName);
 	}
 
 	@GetMapping("/repair-shop/zip/{zip}")
+	@CrossOrigin
 	public List<AutoRepairShop> getAutoRepairShopByZip(@PathVariable String zip) {
 		return autoShopDaoImpl.findAutoRepairShopByZip(zip);
 	}
 
 	@GetMapping("/repair-shop/count")
+	@CrossOrigin
 	public long getCountOfAllRepairShops() {
 		return autoShopDaoImpl.getCountOfAutoRepairShops();
 	}
 
 	@PostMapping("/add-auto-shop")
+	@CrossOrigin
 	public int addAutoRepairShopInformation(@RequestBody AutoRepairShop autoShop) {
 		return autoShopDaoImpl.addAutoRepairShopInfo(autoShop);
 	}
 
 	@PutMapping("/repair-shop/{auto_shop_id}")
+	@CrossOrigin
 	public int updateAutoRepairShopInformation(@PathVariable int auto_shop_id,
 			@RequestBody AutoRepairShop autoRepairShop) {
 		return autoShopDaoImpl.updateAutoShopInfo(auto_shop_id, autoRepairShop);
@@ -81,6 +89,7 @@ public class AutoShopController {
 	}
 
 	@DeleteMapping("/delete-all")
+	@CrossOrigin
 	public int deleteAllAutoRepairShopInformation() {
 		return autoShopDaoImpl.deleteAllAutoShop();
 	}

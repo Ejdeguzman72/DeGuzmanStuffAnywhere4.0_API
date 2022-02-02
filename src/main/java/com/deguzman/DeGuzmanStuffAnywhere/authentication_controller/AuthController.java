@@ -32,9 +32,9 @@ import com.deguzman.DeGuzmanStuffAnywhere.authentication_repository.RoleReposito
 import com.deguzman.DeGuzmanStuffAnywhere.authentication_repository.UserRepository;
 import com.deguzman.DeGuzmanStuffAnywhere.authentication_services.UserDetailsImpl;
 
-@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/auth")
+@CrossOrigin
 public class AuthController {
 	
   @Autowired
@@ -53,6 +53,7 @@ public class AuthController {
   JwtUtils jwtUtils;
 
   @PostMapping("/signin")
+  @CrossOrigin
   public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
     Authentication authentication = authenticationManager.authenticate(
@@ -74,6 +75,7 @@ public class AuthController {
   }
 
   @PostMapping("/signup")
+  @CrossOrigin
   public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
     if (userRepository.existsByUsername(signUpRequest.getUsername())) {
       return ResponseEntity

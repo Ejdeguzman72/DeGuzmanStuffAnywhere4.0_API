@@ -32,58 +32,69 @@ public class VehicleController {
 	private VehiclePaginationService vehiclePageService;
 
 	@GetMapping("/all")
+	@CrossOrigin
 	public List<Vehicle> getAllVehicleInformation() {
 		return vehicleDaoImpl.findAllCarInformation();
 	}
 
 	@GetMapping("/all-vehicles")
+	@CrossOrigin
 	public ResponseEntity<Map<String, Object>> getAllVehiclesPagination(@RequestParam(required = false) String model,
 			@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
 		return vehiclePageService.getAllVehiclesPagination(model, page, size);
 	}
 
 	@GetMapping("/vehicle/{vehicleId}")
+	@CrossOrigin
 	public ResponseEntity<Vehicle> getVehicleInformationById(@PathVariable int vehicleId)
 			throws InvalidVehicleException {
 		return vehicleDaoImpl.findVehicleInformationById(vehicleId);
 	}
 
 	@GetMapping("/vehicle/make/{make}")
+	@CrossOrigin
 	public List<Vehicle> getVehicleInformationByMake(@PathVariable String make) {
 		return vehicleDaoImpl.findVehicleInformatioByMake(make);
 	}
 
 	@GetMapping("/vehicle/model/{model}")
+	@CrossOrigin
 	public List<Vehicle> getVehicleInformationByModel(@PathVariable String model) {
 		return vehicleDaoImpl.findVehicleInformationByModel(model);
 	}
 
 	@GetMapping("/vehicle/year/{year}")
+	@CrossOrigin
 	public List<Vehicle> getVehicleInformationByYear(@PathVariable String year) {
 		return vehicleDaoImpl.findVehicleInformationByYear(year);
 	}
 
 	@GetMapping("/vehicle/transmission/{transmission}")
+	@CrossOrigin
 	public List<Vehicle> getVehicleInformationByTransmission(@PathVariable String transmission) {
 		return vehicleDaoImpl.findVehicleInformationByTransmission(transmission);
 	}
 
 	@GetMapping("/vehicle-count")
+	@CrossOrigin
 	public int getVehicleCount() {
 		return vehicleDaoImpl.getCountofCars();
 	}
 
 	@PostMapping("/add-vehicle-information")
+	@CrossOrigin
 	public int addVehicleInformation(@RequestBody Vehicle vehicle) {
 		return vehicleDaoImpl.addCarInformation(vehicle);
 	}
 
 	@DeleteMapping("/vehicle/{vehicleId}")
+	@CrossOrigin
 	public int deleteVehicleInformationbyId(@PathVariable int vehicleId) {
 		return vehicleDaoImpl.deleteCarInformation(vehicleId);
 	}
 
 	@DeleteMapping("/delete-all-vehicles")
+	@CrossOrigin
 	public int deleteAllVehicleInformation() {
 		return vehicleDaoImpl.deleteAllVehicleInformation();
 	}

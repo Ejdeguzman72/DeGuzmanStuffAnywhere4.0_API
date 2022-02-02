@@ -22,21 +22,25 @@ public class RestaurantTypeController {
 	private RestaurantTypeDaoImpl restaurantTypeDaoImpl;
 
 	@GetMapping("/all")
+	@CrossOrigin
 	public List<RestaurantType> getAllRestaurantTypeInformation() {
 		return restaurantTypeDaoImpl.findAllRestaurantTypeInformation();
 	}
 
 	@GetMapping("/type/{restaurant_type_id}")
+	@CrossOrigin
 	public ResponseEntity<RestaurantType> getRestaurantTypeById(@PathVariable int restaurant_type_id) {
 		return restaurantTypeDaoImpl.findRestaurantInformationById(restaurant_type_id);
 	}
 
 	@GetMapping("/type/descr/{restaurantDescr}")
+	@CrossOrigin
 	public ResponseEntity<RestaurantType> getRestaurantTypeByDescr(@PathVariable String descr) {
 		return restaurantTypeDaoImpl.findRestaurantTypeByDescr(descr);
 	}
 
 	@GetMapping("/type-count")
+	@CrossOrigin
 	public long getRestaurantTypeCount() {
 		return restaurantTypeDaoImpl.getRestaurantTypeCount();
 	}

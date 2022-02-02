@@ -34,42 +34,50 @@ public class BooksController {
 	private BooksPaginationService booksPageService;
 
 	@GetMapping("/all")
+	@CrossOrigin
 	public List<Books> getAllBooksInformation() {
 		return booksDaoImpl.findAllBooksInformation();
 	}
 
 	@GetMapping("/all-books")
+	@CrossOrigin
 	public ResponseEntity<Map<String, Object>> getAllBooksPagination(@RequestParam(required = false) String name,
 			@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
 		return booksPageService.getAllBooksPagination(name, page, size);
 	}
 
 	@GetMapping("/book/artist/{author}")
+	@CrossOrigin
 	public List<Books> getBooksInformationByAuthor(@PathVariable String author) {
 		return booksDaoImpl.findAllBooksByAuthor(author);
 	}
 
 	@GetMapping("/book/{book_id}")
+	@CrossOrigin
 	public ResponseEntity<Books> getBookInformationById(@PathVariable int book_id) throws ResourceNotFoundException {
 		return booksDaoImpl.findBooksInformationById(book_id);
 	}
 
 	@GetMapping("/book/name/{name}")
+	@CrossOrigin
 	public ResponseEntity<Books> getBookInformationByName(@PathVariable String name) {
 		return booksDaoImpl.findBookInformationByName(name);
 	}
 
 	@PostMapping("/add-book-information")
+	@CrossOrigin
 	public int addBookInformation(@RequestBody Books book) throws BookNameException {
 		return booksDaoImpl.addBooksInformation(book);
 	}
 
 	@DeleteMapping("/book/{book_id}")
+	@CrossOrigin
 	public int deleteBookInformationById(@PathVariable int book_id) {
 		return booksDaoImpl.deleteBookInformation(book_id);
 	}
 
 	@DeleteMapping("/delete-all-books")
+	@CrossOrigin
 	public int deleteAllBookInformation() {
 		return booksDaoImpl.deleteAllBookInformation();
 	}

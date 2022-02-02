@@ -20,6 +20,7 @@ public class JpaTesController {
 	private JPATestDao jpaTestDao;
 
 	@GetMapping("/all")
+	@CrossOrigin
 	public List<JPATestModel> getAll() {
 		return jpaTestDao.findAll();
 	}

@@ -32,11 +32,13 @@ public class MedicalOfficeController {
 	private MedicalOfficePaginationService medOfficePageService;
 
 	@GetMapping("/all")
+	@CrossOrigin
 	public List<MedicalOffice> getAllMedicalOfficeInformation() {
 		return medicalOfficeDaoImpl.findAllMedicalOfficeInformation();
 	}
 
 	@GetMapping("all-medical-offices")
+	@CrossOrigin
 	public ResponseEntity<Map<String, Object>> getAllMedicalOfficesPagination(
 			@RequestParam(required = false) String name, @RequestParam(defaultValue = "0") int page,
 			@RequestParam(defaultValue = "10") int size) {
@@ -44,31 +46,37 @@ public class MedicalOfficeController {
 	}
 
 	@GetMapping("/medical-office/zip/{zip}")
+	@CrossOrigin
 	public List<MedicalOffice> getAllMedicalOfficeInformationByZipCode(@PathVariable String zip) {
 		return medicalOfficeDaoImpl.findMedicalOfficesByZip(zip);
 	}
 
 	@GetMapping("/medical-office/{medicalOfficeId}")
+	@CrossOrigin
 	public ResponseEntity<MedicalOffice> getMedicalOfficeInformationById(@PathVariable long medicalOfficeId) {
 		return medicalOfficeDaoImpl.findMedicalOfficeInformationById(medicalOfficeId);
 	}
 
 	@GetMapping("/medical-office-count")
+	@CrossOrigin
 	public long getMedicalOfficeCount() {
 		return medicalOfficeDaoImpl.getMedicalOfficeCount();
 	}
 
 	@PostMapping("/add-medical-office-information")
+	@CrossOrigin
 	public int addMedicalOfficeInformation(@RequestBody MedicalOffice medicalOffice) {
 		return medicalOfficeDaoImpl.addMedicalOfficeInformation(medicalOffice);
 	}
 
 	@DeleteMapping("/medical-office/{medicalOfficeId}")
+	@CrossOrigin
 	public int deleteMedicalOfficeById(@PathVariable long medicalOfficeId) {
 		return medicalOfficeDaoImpl.deleteMedicalOfficeById(medicalOfficeId);
 	}
 
 	@DeleteMapping("/delete-all-medical-offices")
+	@CrossOrigin
 	public int deleteAllMedicalOffices() {
 		return medicalOfficeDaoImpl.deleteAllMedicalOfficeInformation();
 	}
