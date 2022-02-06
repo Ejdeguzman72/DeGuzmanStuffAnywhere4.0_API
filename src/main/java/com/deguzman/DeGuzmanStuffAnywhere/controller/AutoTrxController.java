@@ -31,7 +31,7 @@ public class AutoTrxController {
 	private AutoTrxDaoImpl autoTrxDaoImpl;
 
 	@GetMapping("/all")
-	@CrossOrigin
+	@CrossOrigin(origins = "*", maxAge = 3600)
 	public List<AutoTrxInfoDTO> getAllAutoTransactionInformation() {
 		return autoTrxDaoImpl.findAllAutoTransactionInformation();
 	}

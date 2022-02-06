@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/app/books")
-@CrossOrigin
+@CrossOrigin(origins = "*", maxAge = 3600)
 public class BooksController {
 
 	@Autowired
@@ -34,20 +34,20 @@ public class BooksController {
 	private BooksPaginationService booksPageService;
 
 	@GetMapping("/all")
-	@CrossOrigin
+	@CrossOrigin(origins = "*", maxAge = 3600)
 	public List<Books> getAllBooksInformation() {
 		return booksDaoImpl.findAllBooksInformation();
 	}
 
 	@GetMapping("/all-books")
-	@CrossOrigin
+	@CrossOrigin(origins = "*", maxAge = 3600)
 	public ResponseEntity<Map<String, Object>> getAllBooksPagination(@RequestParam(required = false) String name,
 			@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
 		return booksPageService.getAllBooksPagination(name, page, size);
 	}
 
 	@GetMapping("/book/artist/{author}")
-	@CrossOrigin
+	@CrossOrigin(origins = "*", maxAge = 3600)
 	public List<Books> getBooksInformationByAuthor(@PathVariable String author) {
 		return booksDaoImpl.findAllBooksByAuthor(author);
 	}

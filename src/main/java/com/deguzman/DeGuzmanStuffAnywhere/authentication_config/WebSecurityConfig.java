@@ -1,6 +1,5 @@
 package com.deguzman.DeGuzmanStuffAnywhere.authentication_config;
 
-import org.codehaus.plexus.component.annotations.Configuration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -57,7 +56,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     http.cors().and().csrf().disable()
       .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
       .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-      .authorizeRequests().antMatchers("/api/auth/**").permitAll()
+      .authorizeRequests().antMatchers("/api/auth/**","/app/**").permitAll()
       .antMatchers("/api/test/**").permitAll()
       .anyRequest().authenticated();
 

@@ -34,7 +34,7 @@ import com.deguzman.DeGuzmanStuffAnywhere.authentication_services.UserDetailsImp
 
 @RestController
 @RequestMapping("/api/auth")
-@CrossOrigin
+@CrossOrigin(origins = "*", maxAge = 3600)
 public class AuthController {
 	
   @Autowired
@@ -53,7 +53,6 @@ public class AuthController {
   JwtUtils jwtUtils;
 
   @PostMapping("/signin")
-  @CrossOrigin
   public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
     Authentication authentication = authenticationManager.authenticate(
@@ -75,7 +74,6 @@ public class AuthController {
   }
 
   @PostMapping("/signup")
-  @CrossOrigin
   public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
     if (userRepository.existsByUsername(signUpRequest.getUsername())) {
       return ResponseEntity
@@ -91,9 +89,8 @@ public class AuthController {
 
     // Create new user's account
     User user = new User(signUpRequest.getUsername(), 
-               signUpRequest.getEmail(),
-               signUpRequest.getName(),
-               encoder.encode(signUpRequest.getPassword()));
+            		   signUpRequest.getEmail(),
+                       encoder.encode(signUpRequest.getPassword()));
 
     Set<String> strRoles = signUpRequest.getRole();
     Set<Role> roles = new HashSet<>();
