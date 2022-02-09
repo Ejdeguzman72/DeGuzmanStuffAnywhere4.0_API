@@ -1,6 +1,7 @@
 package com.deguzman.DeGuzmanStuffAnywhere.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -11,13 +12,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.deguzman.DeGuzmanStuffAnywhere.daoimpl.GeneralTrxDaoImpl;
 import com.deguzman.DeGuzmanStuffAnywhere.dto.GeneralTrxInfoDTO;
 import com.deguzman.DeGuzmanStuffAnywhere.exception.ResourceNotFoundException;
 import com.deguzman.DeGuzmanStuffAnywhere.model.GeneralTransaction;
+import com.deguzman.DeGuzmanStuffAnywhere.service.GeneralTrxPaginationService;
 
 @RestController
 @RequestMapping("/app/general-transactions")
@@ -26,11 +28,20 @@ public class GeneralTrxController {
 
 	@Autowired
 	private GeneralTrxDaoImpl generalTrxDaoImpl;
+	
+	@Autowired
+	private GeneralTrxPaginationService generatlTrxPageService;
 
 	@GetMapping("/all")
 	@CrossOrigin
 	public List<GeneralTrxInfoDTO> getAllGeneralTransactionInformation() {
 		return generalTrxDaoImpl.findAllTransactionInformation();
+	}
+	
+	@GetMapping("/all-transactions")
+	public ResponseEntity<Map<String, Object>> getAllTransactionsPagination(@RequestParam(required = false) String paymentDate,
+			@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+		return generatlTrxPageService.getAllTransactionsPagination(paymentDate, page, size);
 	}
 
 	@GetMapping("/all/type/{transaction_type_id}")

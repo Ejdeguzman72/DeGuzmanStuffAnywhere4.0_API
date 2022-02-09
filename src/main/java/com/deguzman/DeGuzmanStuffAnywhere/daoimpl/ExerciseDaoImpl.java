@@ -96,14 +96,14 @@ public class ExerciseDaoImpl implements ExerciseDao {
 
 		return ResponseEntity.ok().body(exerciseInfo);
 	}
-
+	
 	@Override
 	public int addExerciseInformation(Exercise exercise) {
 
 		String date = exercise.getDate();
 		String exerciseName = exercise.getExerciseName();
-		int reps = exercise.getReps();
 		int sets = exercise.getSets();
+		int reps = exercise.getReps();
 		double weight = exercise.getWeight();
 		int exercise_type = exercise.getExercise_type_id();
 		long user = exercise.getUser_id();

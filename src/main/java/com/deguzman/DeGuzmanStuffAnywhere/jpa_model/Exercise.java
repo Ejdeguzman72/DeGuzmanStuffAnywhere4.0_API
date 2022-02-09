@@ -33,7 +33,7 @@ public class Exercise implements Serializable {
 	public int sets;
 	public int reps;
 	public double weight;
-	public Date date;
+	public String date;
 	
 	public ExerciseType exerciseType;
 	
@@ -106,11 +106,11 @@ public class Exercise implements Serializable {
 		this.user = user;
 	}
 
-	public Date getDate() {
+	public String getDate() {
 		return date;
 	}
 	
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 
@@ -178,7 +178,7 @@ public class Exercise implements Serializable {
 				+ "]";
 	}
 
-	public Exercise(String exerciseName, int sets, int reps, double weight, Date date,
+	public Exercise(String exerciseName, int sets, int reps, double weight, String date,
 			ExerciseType exerciseType, User user) {
 		super();
 //		this.exerciseid = exerciseid;

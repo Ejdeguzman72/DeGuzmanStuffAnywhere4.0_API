@@ -1,6 +1,7 @@
 package com.deguzman.DeGuzmanStuffAnywhere.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -11,12 +12,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.deguzman.DeGuzmanStuffAnywhere.daoimpl.MedicalTrxDaoImpl;
 import com.deguzman.DeGuzmanStuffAnywhere.dto.MedicalTrxInfoDTO;
 import com.deguzman.DeGuzmanStuffAnywhere.exception.ResourceNotFoundException;
 import com.deguzman.DeGuzmanStuffAnywhere.model.MedicalTransaction;
+import com.deguzman.DeGuzmanStuffAnywhere.service.MedicalTrxPaginationService;
 
 @RestController
 @RequestMapping("/app/medical-transactions")
@@ -25,12 +28,23 @@ public class MedicalTrxController {
 
 	@Autowired
 	private MedicalTrxDaoImpl medicalTrxDaoImpl;
+	
+	@Autowired
+	private MedicalTrxPaginationService medicalTrxPageService;
 
 	@GetMapping("/all")
 	@CrossOrigin
 	public List<MedicalTrxInfoDTO> getAllMedicalTrxInformation() {
 		return medicalTrxDaoImpl.findAllMedicalTransactionInformation();
 	}
+	
+	@GetMapping("/all-transactions")
+	@CrossOrigin
+	public ResponseEntity<Map<String, Object>> getAllTransactionsPagination(@RequestParam(required = false) String paymentDate,
+			@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+		return medicalTrxPageService.getAllTransactionsPagination(paymentDate, page, size);
+	}
+
 
 	@GetMapping("/all/facility/{facility_id}")
 	@CrossOrigin

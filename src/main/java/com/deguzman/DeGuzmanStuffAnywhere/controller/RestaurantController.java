@@ -1,6 +1,7 @@
 package com.deguzman.DeGuzmanStuffAnywhere.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.deguzman.DeGuzmanStuffAnywhere.daoimpl.RestaurantDaoImpl;
@@ -18,6 +20,7 @@ import com.deguzman.DeGuzmanStuffAnywhere.dto.RestaurantInfoDTO;
 import com.deguzman.DeGuzmanStuffAnywhere.exception.InvalidRestaurantException;
 import com.deguzman.DeGuzmanStuffAnywhere.exception.ResourceNotFoundException;
 import com.deguzman.DeGuzmanStuffAnywhere.model.Restaurant;
+import com.deguzman.DeGuzmanStuffAnywhere.service.RestaurantInfoPaginationService;
 
 @RestController
 @RequestMapping("/app/restaurants")
@@ -26,11 +29,20 @@ public class RestaurantController {
 
 	@Autowired
 	private RestaurantDaoImpl restaurantDaoImpl;
+	
+	@Autowired
+	private RestaurantInfoPaginationService restaurantPageService;
 
 	@GetMapping("/all")
 	@CrossOrigin
 	public List<RestaurantInfoDTO> getAllRestaurantInformation() {
 		return restaurantDaoImpl.findAllRestaurants();
+	}
+	
+	@GetMapping("/all-restaurants")
+	public ResponseEntity<Map<String, Object>> getAllRestaurantsPagination(@RequestParam(required = false) String name,
+			@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+		return restaurantPageService.getAllRestaurantsPagination(name, page, size);
 	}
 
 	@GetMapping("/restaurant/type/{restaurant_type_id}")

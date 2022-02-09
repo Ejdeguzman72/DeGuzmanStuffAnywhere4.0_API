@@ -13,27 +13,27 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.deguzman.DeGuzmanStuffAnywhere.jpa_dao.GeneralTrxJpaDao;
-import com.deguzman.DeGuzmanStuffAnywhere.jpa_model.GeneralTransaction;
+import com.deguzman.DeGuzmanStuffAnywhere.jpa_dao.MedicalTrxJpaDao;
+import com.deguzman.DeGuzmanStuffAnywhere.jpa_model.MedicalTransaction;
 
 @Service
-public class GeneralTrxPaginationService {
+public class MedicalTrxPaginationService {
 
 	@Autowired
-	private GeneralTrxJpaDao generalTrxDao;
+	private MedicalTrxJpaDao medicalTrxDao;
 	
 	public ResponseEntity<Map<String, Object>> getAllTransactionsPagination(@RequestParam(required = false) String paymentDate,
 			@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
 		try {
 
-			List<GeneralTransaction> shop = generalTrxDao.findAll();
+			List<MedicalTransaction> shop = medicalTrxDao.findAll();
 
 			Pageable paging = PageRequest.of(page, size);
 
-			Page<GeneralTransaction> pageBooks = null;
+			Page<MedicalTransaction> pageBooks = null;
 
 			if (paymentDate == null) {
-				pageBooks = generalTrxDao.findAll(paging);
+				pageBooks = medicalTrxDao.findAll(paging);
 			} else {
 				// pageBooks = autoShopDao.findByNameContaining(autoShopname, paging);
 			}
