@@ -9,7 +9,7 @@ public class Exercise implements Serializable {
 	 */
 	private static final long serialVersionUID = -1101615341293557860L;
 	public int exerciseid;
-	public String exerciseName;
+	public String exercise_name;
 	public int sets;
 	public int reps;
 	public double weight;
@@ -23,10 +23,10 @@ public class Exercise implements Serializable {
 		this.exerciseid = exerciseid;
 	}
 	public String getExerciseName() {
-		return exerciseName;
+		return exercise_name;
 	}
-	public void setExerciseName(String exerciseName) {
-		this.exerciseName = exerciseName;
+	public void setExerciseName(String exercise_name) {
+		this.exercise_name = exercise_name;
 	}
 	public int getSets() {
 		return sets;
@@ -72,7 +72,7 @@ public class Exercise implements Serializable {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((date == null) ? 0 : date.hashCode());
-		result = prime * result + ((exerciseName == null) ? 0 : exerciseName.hashCode());
+		result = prime * result + ((exercise_name == null) ? 0 : exercise_name.hashCode());
 		result = prime * result + exercise_type_id;
 		result = prime * result + exerciseid;
 		result = prime * result + reps;
@@ -97,10 +97,10 @@ public class Exercise implements Serializable {
 				return false;
 		} else if (!date.equals(other.date))
 			return false;
-		if (exerciseName == null) {
-			if (other.exerciseName != null)
+		if (exercise_name == null) {
+			if (other.exercise_name != null)
 				return false;
-		} else if (!exerciseName.equals(other.exerciseName))
+		} else if (!exercise_name.equals(other.exercise_name))
 			return false;
 		if (exercise_type_id != other.exercise_type_id)
 			return false;
@@ -118,15 +118,15 @@ public class Exercise implements Serializable {
 	}
 	@Override
 	public String toString() {
-		return "Exercise [exerciseid=" + exerciseid + ", exerciseName=" + exerciseName + ", sets=" + sets + ", reps="
+		return "Exercise [exerciseid=" + exerciseid + ", exercise_name=" + exercise_name + ", sets=" + sets + ", reps="
 				+ reps + ", weight=" + weight + ", date=" + date + ", exercise_type_id=" + exercise_type_id
 				+ ", user_id=" + user_id + "]";
 	}
-	public Exercise(int exerciseid, String exerciseName, int sets, int reps, double weight, String date,
+	public Exercise(int exerciseid, String exercise_name, int sets, int reps, double weight, String date,
 			int exercise_type_id, long user_id) {
 		super();
 		this.exerciseid = exerciseid;
-		this.exerciseName = exerciseName;
+		this.exercise_name = exercise_name;
 		this.sets = sets;
 		this.reps = reps;
 		this.weight = weight;
