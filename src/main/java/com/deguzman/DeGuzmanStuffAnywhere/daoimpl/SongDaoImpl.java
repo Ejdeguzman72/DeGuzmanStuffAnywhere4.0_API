@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import com.deguzman.DeGuzmanStuffAnywhere.dao.SongDao;
 import com.deguzman.DeGuzmanStuffAnywhere.exception.DuplicateTitleException;
 import com.deguzman.DeGuzmanStuffAnywhere.exception.ResourceNotFoundException;
+import com.deguzman.DeGuzmanStuffAnywhere.model.Books;
 import com.deguzman.DeGuzmanStuffAnywhere.model.Song;
 
 @Repository
@@ -111,8 +112,29 @@ public class SongDaoImpl implements SongDao {
 
 	@Override
 	public int updateSongInformation(int song_id, Song songDetails) {
-		// TODO Auto-generated method stub
-		return 0;
+
+		int result = 0;
+		
+		Song song = jdbcTemplate.queryForObject(GET_SONG_INFORMATION_BY_ID,
+				BeanPropertyRowMapper.newInstance(Song.class), song_id);
+		
+		if (song != null) {
+			song.setTitle(songDetails.getTitle());
+			song.setArtist(songDetails.getArtist());
+			song.setGenre(songDetails.getGenre());
+			song.setSong_id(song_id);
+			
+			result = jdbcTemplate.update(UPDATE_SONG_INFORMATION, new Object[] {
+					song.getTitle(),
+					song.getArtist(),
+					song.getGenre(),
+					song.getSong_id()
+			});
+			
+			LOGGER.info("Updating song info for song_id: " + song_id);
+		}
+		
+		return result;
 	}
 
 	@Override

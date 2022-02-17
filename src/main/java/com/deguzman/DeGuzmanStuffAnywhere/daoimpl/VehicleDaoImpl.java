@@ -110,17 +110,14 @@ public class VehicleDaoImpl implements VehicleDao {
 		return vehicleListMake;
 	}
 
-//	String ADD_VEHICLE_INFORMATION = "INSERT INTO VEHICLE " + "(CAPACITY, MAKE, MODEL, TRANSMISSION, YEAR) "
-//			+ "VALUES(?, ?, ?, ?, ?)";
-
 	@Override
 	public int addCarInformation(@RequestBody Vehicle vehicle) {
 
-		int capacity = vehicle.getCapacity();
 		String make = vehicle.getMake();
 		String model = vehicle.getModel();
 		String year = vehicle.getYear();
 		String transmission = vehicle.getTransmission();
+		int capacity = vehicle.getCapacity();
 
 		LOGGER.info("Adding Vehicle Information: " + make + " " + model + " " + year);
 
@@ -129,8 +126,33 @@ public class VehicleDaoImpl implements VehicleDao {
 
 	@Override
 	public int updateCarInformation(long vehicleId, Vehicle vehicleDetails) {
-		// TODO Auto-generated method stub
-		return 0;
+
+		int result = 0;
+		
+		Vehicle vehicle = jdbcTemplate.queryForObject(GET_VEHICLE_INFORMATION_BY_ID,
+				BeanPropertyRowMapper.newInstance(Vehicle.class), vehicleId);
+		
+		if (vehicle != null) {
+			vehicle.setMake(vehicleDetails.getMake());
+			vehicle.setModel(vehicleDetails.getModel());
+			vehicle.setYear(vehicleDetails.getYear());
+			vehicle.setTransmission(vehicleDetails.getTransmission());
+			vehicle.setCapacity(vehicleDetails.getCapacity());
+			vehicle.setVehicleId(vehicleDetails.getVehicleId());
+			
+			result = jdbcTemplate.update(UPDATE_VEHICLE_INFORMATION, new Object[] {
+					vehicle.getMake(),
+					vehicle.getModel(),
+					vehicle.getYear(),
+					vehicle.getTransmission(),
+					vehicle.getCapacity(),
+					vehicle.getVehicleId(),
+			});
+			
+			LOGGER.info("Updating vehicle info for vehicle_id: " + vehicleId);
+		}
+		
+		return result;
 	}
 
 	@Override

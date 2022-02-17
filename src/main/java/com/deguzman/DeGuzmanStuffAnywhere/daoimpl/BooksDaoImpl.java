@@ -98,9 +98,31 @@ public class BooksDaoImpl implements BooksDao {
 	}
 
 	@Override
-	public int updateBooksInformation(int book_id, Books book) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int updateBooksInformation(@PathVariable int book_id, @RequestBody Books book) {
+		
+		int result = 0;
+		
+		Books updatedBook = jdbcTemplate.queryForObject(GET_BOOK_INFORMATION_BY_ID,
+				BeanPropertyRowMapper.newInstance(Books.class), book_id);
+
+		
+		if (updatedBook != null) {
+			updatedBook.setAuthor(book.getAuthor());
+			updatedBook.setDescr(book.getDescr());
+			updatedBook.setTitle(book.getTitle());
+			updatedBook.setBook_id(book_id);
+			
+			result = jdbcTemplate.update(UPDATE_BOOK_INFORMATION, new Object[] {
+					updatedBook.getAuthor(),
+					updatedBook.getDescr(),
+					updatedBook.getTitle(),
+					updatedBook.getBook_id()
+			});
+			
+			LOGGER.info("Updating book information with book_id: " + book_id);
+		}
+		
+		return result;
 	}
 
 	@Override

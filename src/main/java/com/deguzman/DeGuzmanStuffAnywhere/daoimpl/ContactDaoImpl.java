@@ -34,7 +34,20 @@ public class ContactDaoImpl implements ContactDao {
 	String INSERT_NEW_CONTACT_INFO = "INSERT INTO PERSON "
 			+ "(FIRSTNAME, MIDDLE_INITIAL, LASTNAME, ADDRESS01, ADDRESS02, CITY, STATE, ZIPCODE, AGE, BIRTHDATE, EMAIL, PHONE) "
 			+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-	String UPDATE_CONTACT_INFO = "UPDATE PERSON SET FIRSTNAME = ?, MIDDLE_INITIAL = ?, LASTNAME = ?, ADDRESS01 = ?, ADDRESS02 = ?, CITY = ?, STATE = ?, ZIPCODE = ?, AGE = ?. BIRTHDATE = ?, PHONE = ?, EMAIL = ?";
+	String UPDATE_CONTACT_INFO = "UPDATE PERSON "
+			+ "SET FIRSTNAME = ?, "
+			+ "MIDDLE_INITIAL = ?, "
+			+ "LASTNAME = ?, "
+			+ "ADDRESS01 = ?, "
+			+ "ADDRESS02 = ?, "
+			+ "CITY = ?, "
+			+ "STATE = ?, "
+			+ "ZIPCODE = ?, "
+			+ "AGE = ?, "
+			+ "BIRTHDATE = ?, "
+			+ "PHONE = ?, "
+			+ "EMAIL = ? "
+			+ "WHERE PERSON_ID = ?";
 	String DELETE_CONTACT_INFO_BY_ID = "DELETE FROM PERSON WHERE PERSON_ID = ?";
 	String DELETE_ALL_CONTACT_INFO = "DELETE FROM PERSON";
 
@@ -116,15 +129,50 @@ public class ContactDaoImpl implements ContactDao {
 	}
 
 	@Override
-	public int updatePersonInformation(@PathVariable int personId, @RequestBody Person person)
+	public int updatePersonInformation(@PathVariable int personId, @RequestBody Person personDetails)
 			throws SecurityException, IOException {
 
-		person = jdbcTemplate.queryForObject(GET_CONTACT_INFO_BY_ID, BeanPropertyRowMapper.newInstance(Person.class),
-				personId);
+		int result = 0;
 
-		return jdbcTemplate.update(UPDATE_CONTACT_INFO, new Object[] { person.getFirstname(), person.getMiddleInitial(),
-				person.getLastname(), person.getAddress01(), person.getAddress02(), person.getCity(), person.getState(),
-				person.getZipcode(), person.getAge(), person.getBirthdate(), person.getPhone(), person.getEmail() });
+		Person person = jdbcTemplate.queryForObject(GET_CONTACT_INFO_BY_ID,
+				BeanPropertyRowMapper.newInstance(Person.class), personId);
+		
+		if (person != null) {
+			person.setFirstname(personDetails.getFirstname());
+			person.setMiddleInitial(personDetails.getMiddleInitial());
+			person.setLastname(personDetails.getLastname());
+			person.setAddress01(personDetails.getAddress01());
+			person.setAddress02(personDetails.getAddress02());
+			person.setCity(personDetails.getCity());
+			person.setState(personDetails.getState());
+			person.setZipcode(personDetails.getZipcode());
+			person.setAge(personDetails.getAge());
+			person.setBirthdate(personDetails.getBirthdate());
+			person.setPhone(personDetails.getPhone());
+			person.setEmail(personDetails.getEmail());
+			person.setPersonId(personDetails.getPersonId());;
+			
+			result = jdbcTemplate.update(UPDATE_CONTACT_INFO, new Object[] {
+					person.getFirstname(),
+					person.getMiddleInitial(),
+					person.getLastname(),
+					person.getAddress01(),
+					person.getAddress02(),
+					person.getCity(),
+					person.getState(),
+					person.getZipcode(),
+					person.getAge(),
+					person.getBirthdate(),
+					person.getPhone(),
+					person.getEmail(),
+					person.getPersonId()
+			});
+			
+			
+			LOGGER.info("Updating person info with person_id: " + personId);
+		}
+
+		return result;
 	}
 
 	@Override

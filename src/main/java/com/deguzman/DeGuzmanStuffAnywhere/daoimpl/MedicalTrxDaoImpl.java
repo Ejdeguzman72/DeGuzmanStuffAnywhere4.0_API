@@ -43,6 +43,8 @@ public class MedicalTrxDaoImpl implements MedicalTrxDao {
 			+ "FROM MEDICAL_TRANSACTIONS MT, MEDICAL_OFFICE MO, TRANSACTION_TYPE TT, USERS US "
 			+ "WHERE MT.MEDICAL_OFFICE_ID = MO.MEDICAL_OFFICE_ID AND MT.TRANSACTION_TYPE_ID = TT.TRANSACTION_TYPE_ID  AND MT.USER_ID = US.USER_ID "
 			+ "AND MT.MEDICAL_TRANSACTION_ID = ?";
+	
+	String GET_MEDICAL_TRANSACTION_INFO = "SELECT * FROM MEDICAL_TRANSACTIONS WHERE MEDICAL_TRANSACTION_ID = ?";
 
 	String GET_MEDICAL_TRX_COUNT = "SELECT COUNT(*) FROM MEDICAL_TRANSACTIONS";
 
@@ -50,7 +52,13 @@ public class MedicalTrxDaoImpl implements MedicalTrxDao {
 			+ "(AMOUNT, MEDICAL_TRANSACTION_DATE, MEDICAL_OFFICE_ID, TRANSACTION_TYPE_ID, USER_ID) "
 			+ "VALUES(?, ?, ?, ?, ?)";
 
-	String UPDATE_MEDICAL_TRANSACTION = "UPDATE MEDICAL_TRANSACTIONS SET AMOUNT = ?, MEDICAL_TRANSACTION_DATE = ?, MEDICAL_OFFICE_ID = ?, TRANSACTION_TYPE_ID = ?, USER_ID = ?";
+	String UPDATE_MEDICAL_TRANSACTION = "UPDATE MEDICAL_TRANSACTIONS "
+			+ "SET AMOUNT = ?, "
+			+ "MEDICAL_TRANSACTION_DATE = ?, "
+			+ "MEDICAL_OFFICE_ID = ?, "
+			+ "TRANSACTION_TYPE_ID = ?, "
+			+ "USER_ID = ? "
+			+ "WHERE MEDICAL_TRANSACTION_ID = ?";
 
 	String DELETE_MEDICAL_TRANSACTION_BY_ID = "DELETE FROM MEDICAL_TRANSACTIONS WHERE MEDICAL_TRANSACTION_ID = ?";
 
@@ -156,9 +164,34 @@ public class MedicalTrxDaoImpl implements MedicalTrxDao {
 	}
 
 	@Override
-	public int updateMedicalTransaction(long medicalTransactionId, MedicalTransaction medicalTransactionDetails) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int updateMedicalTransaction(long medical_transaction_id, MedicalTransaction medicalTransactionDetails) {
+
+		int result = 0;
+		
+		MedicalTransaction transaction = jdbcTemplate.queryForObject(GET_MEDICAL_TRANSACTION_INFO,
+				BeanPropertyRowMapper.newInstance(MedicalTransaction.class), medical_transaction_id);
+		
+		if (transaction != null) {
+			transaction.setAmount(medicalTransactionDetails.getAmount());
+			transaction.setMedical_transaction_date(medicalTransactionDetails.getMedical_transaction_date());
+			transaction.setMedical_office_id(medicalTransactionDetails.getMedical_office_id());
+			transaction.setTransaction_type_id(medicalTransactionDetails.getTransaction_type_id());
+			transaction.setUser_id(medicalTransactionDetails.getUser_id());
+			transaction.setMedical_transaction_id(medical_transaction_id);
+			
+			result = jdbcTemplate.update(UPDATE_MEDICAL_TRANSACTION, new Object[] {
+				transaction.getAmount(),
+				transaction.getMedical_transaction_date(),
+				transaction.getMedical_office_id(),
+				transaction.getTransaction_type_id(),
+				transaction.getUser_id(),
+				transaction.getMedical_transaction_id()
+			});
+			
+			LOGGER.info("Updating medical transaction info for medical_transaction_id: " + medical_transaction_id);
+		}
+		
+		return result;
 	}
 
 	@Override

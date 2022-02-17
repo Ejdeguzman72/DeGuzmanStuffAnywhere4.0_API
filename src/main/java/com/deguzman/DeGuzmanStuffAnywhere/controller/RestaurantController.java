@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -88,6 +89,12 @@ public class RestaurantController {
 		return restaurantDaoImpl.addRestaurantInformation(restaurant);
 	}
 
+	@PutMapping("/restaurant/{restaurant_id}")
+	@CrossOrigin
+	public int updateRestaurantInformation(@PathVariable int restaurant_id, @RequestBody Restaurant restaurantDetails) throws ResourceNotFoundException {
+		return restaurantDaoImpl.updateRestaurantInformation(restaurant_id, restaurantDetails);
+	}
+	
 	@DeleteMapping("/restaurant/{restaurant_id}")
 	@CrossOrigin
 	public int deleteRestaurantInformationById(@PathVariable int restaurant_id) {

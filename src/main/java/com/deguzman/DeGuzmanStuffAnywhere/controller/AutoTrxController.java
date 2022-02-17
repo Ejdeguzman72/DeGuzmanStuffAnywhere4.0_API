@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -85,6 +86,12 @@ public class AutoTrxController {
 			throws InvalidAutoShopException, InvalidUserException, InvalidTransactionTypeException,
 			InvalidVehicleException {
 		return autoTrxDaoImpl.addAutoTransactionInformation(autoTransaction);
+	}
+	
+	@PutMapping("/auto-transaction/{auto_transaction_id}")
+	@CrossOrigin
+	public int updateAutoTransactionInformation(@PathVariable long auto_transaction_id, @RequestBody AutoTransaction autoTransactionDetails) throws InvalidAutoShopException, InvalidVehicleException, InvalidTransactionTypeException, InvalidUserException {
+		return autoTrxDaoImpl.updateTransactionInformation(auto_transaction_id, autoTransactionDetails);
 	}
 
 	@DeleteMapping("/auto-transaction/{auto_transaction_id}")

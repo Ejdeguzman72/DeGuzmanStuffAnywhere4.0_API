@@ -31,11 +31,20 @@ public class RunTrackerDaoImpl implements RunTrackerDao {
 
 	String GET_RUN_TRACKER_INFORMATION_BY_ID = "SELECT R.RUN_ID, R.RUN_DATE,R.RUN_DISTANCE, R.RUN_TIME, US.NAME "
 			+ "FROM RUN_TRACKER R, USERS US " + "WHERE R.USER_ID = US.USER_ID " + "AND R.RUN_ID = ?";
+	
+	String GET_RUN_TRACKER_INFO = "SELECT * FROM RUN_TRACKER WHERE RUN_ID = ?";
 
 	String GET_RUN_COUNT = "SELECT COUNT(*) FROM RUN_TRACKER";
 
 	String ADD_RUN_TRACKER_INFORMATION = "INSERT INTO RUN_TRACKER (RUN_DATE,RUN_DISTANCE,RUN_TIME,USER_ID) "
 			+ "VALUES (?,?,?,?)";
+	
+	String UPDATE_RUN_TRACKER_INFORMATION = "UPDATE RUN_TRACKER "
+			+ "SET RUN_DATE=?, "
+			+ "RUN_DISTANCE=?, "
+			+ "RUN_TIME=?, "
+			+ "USER_ID=? "
+			+ "WHERE RUN_ID = ?";
 
 	String DELETE_RUN_TRACKER_INFORMATION_BY_ID = "DELETE FROM RUN_TRACKER WHERE RUN_ID = ?";
 
@@ -103,8 +112,32 @@ public class RunTrackerDaoImpl implements RunTrackerDao {
 
 	@Override
 	public int updateRunTrackerInformation(long run_id, RunTracker runTrackerDetails) {
-		// TODO Auto-generated method stub
-		return 0;
+
+		int result = 0;
+		
+		RunTracker run = jdbcTemplate.queryForObject(GET_RUN_TRACKER_INFO, 
+				BeanPropertyRowMapper.newInstance(RunTracker.class), run_id);
+		
+		if (run != null) {
+			run.setRunDate(runTrackerDetails.getRunDate());
+			run.setRunDistance(runTrackerDetails.getRunDistance());
+			run.setRunTime(runTrackerDetails.getRunTime());
+			run.setUser_id(runTrackerDetails.getUser_id());
+			run.setRun_id(run_id);
+			
+			
+			result = jdbcTemplate.update(UPDATE_RUN_TRACKER_INFORMATION, new Object[] {
+				run.getRunDate(),
+				run.getRunDistance(),
+				run.getRunTime(),
+				run.getUser_id(),
+				run.getRun_id()
+			});
+			
+			LOGGER.info("Updating run tracker info for run_id: " + run_id);
+		}
+		
+		return result;
 	}
 
 	@Override

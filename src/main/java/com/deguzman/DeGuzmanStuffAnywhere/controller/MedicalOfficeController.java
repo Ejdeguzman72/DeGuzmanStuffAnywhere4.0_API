@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -67,6 +68,12 @@ public class MedicalOfficeController {
 	@CrossOrigin
 	public int addMedicalOfficeInformation(@RequestBody MedicalOffice medicalOffice) {
 		return medicalOfficeDaoImpl.addMedicalOfficeInformation(medicalOffice);
+	}
+	
+	@PutMapping("/medical-office/{medicalOfficeId}")
+	@CrossOrigin
+	public int updateMedicalOfficeInformation(@PathVariable long medicalOfficeId, @RequestBody MedicalOffice officeDetails) {
+		return medicalOfficeDaoImpl.updateMedicalOfficeInformation(medicalOfficeId, officeDetails);
 	}
 
 	@DeleteMapping("/medical-office/{medicalOfficeId}")

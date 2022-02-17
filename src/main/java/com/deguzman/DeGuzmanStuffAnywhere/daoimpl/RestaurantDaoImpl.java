@@ -48,6 +48,15 @@ public class RestaurantDaoImpl implements RestaurantDao {
 
 	String ADD_RESTAURANT_INFORMATION = "INSERT INTO RESTAURANT "
 			+ "(NAME, ADDRESS, CITY, STATE, ZIP, RESTAURANT_TYPE_ID) " + "VALUES(?, ?, ?, ?, ?, ?)";
+	
+	String UPDATE_RESTAURANT_INFORMATION = "UPDATE RESTAURANT "
+			+ "SET NAME = ?, "
+			+ "ADDRESS = ?, "
+			+ "CITY = ?, "
+			+ "STATE = ?, "
+			+ "ZIP = ?, "
+			+ "RESTAURANT_TYPE_ID = ? "
+			+ "WHERE RESTAURANT_ID = ?";
 
 	String DELETE_RESTAURANT_INFORMATION_BY_ID = "DELETE FROM RESTAURANT WHERE RESTAURANT_ID = ?";
 
@@ -153,10 +162,37 @@ public class RestaurantDaoImpl implements RestaurantDao {
 	}
 
 	@Override
-	public int updateRestaurantInformation(int restaurantid, Restaurant restaurantDetails)
+	public int updateRestaurantInformation(int restaurant_id, Restaurant restaurantDetails)
 			throws ResourceNotFoundException {
-		// TODO Auto-generated method stub
-		return 0;
+
+		int result = 0;
+		
+		Restaurant restaurant = jdbcTemplate.queryForObject(GET_RESTAURANT_INFORMATION_BY_ID,
+				BeanPropertyRowMapper.newInstance(Restaurant.class), restaurant_id);
+		
+		if (restaurant != null) {
+			restaurant.setName(restaurantDetails.getName());
+			restaurant.setAddress(restaurantDetails.getAddress());
+			restaurant.setCity(restaurantDetails.getCity());
+			restaurant.setState(restaurantDetails.getState());
+			restaurant.setZip(restaurantDetails.getZip());
+			restaurant.setRestaurant_type_id(restaurantDetails.getRestaurant_type_id());
+			restaurant.setRestauant_id(restaurant_id);
+			
+			result = jdbcTemplate.update(UPDATE_RESTAURANT_INFORMATION, new Object[] {
+				restaurant.getName(),
+				restaurant.getAddress(),
+				restaurant.getCity(),
+				restaurant.getState(),
+				restaurant.getZip(),
+				restaurant.getRestaurant_type_id(),
+				restaurant.getRestauant_id()
+			});
+			
+			LOGGER.info("Updating restaurant info for restaurant_id: " + restaurant_id);
+		}
+		
+		return result;
 	}
 
 	@Override

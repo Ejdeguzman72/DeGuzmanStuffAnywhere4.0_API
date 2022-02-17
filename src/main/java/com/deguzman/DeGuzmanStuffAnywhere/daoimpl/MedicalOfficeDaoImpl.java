@@ -23,7 +23,12 @@ public class MedicalOfficeDaoImpl implements MedicalOfficeDao {
 	String ADD_MEDICAL_OFFICE_INFORMATION = "INSERT INTO MEDICAL_OFFICE " + "(ADDRESS, CITY, NAME, STATE, ZIP) "
 			+ "VALUES(?, ?, ?, ?, ?)";
 	String UPDATE_MEDICAL_OFFICE_INFORMATION = "UPDATE MEDICAL_OFFICE "
-			+ "SET ADDRESS=?, CITY=?, NAME=?, STATE=?, ZIP=?" + "WHERE MEDICAL_OFFICE_ID=?";
+			+ "SET NAME=?, "
+			+ "ADDRESS=?, "
+			+ "CITY=?, "
+			+ "STATE=?, "
+			+ "ZIP=? " 
+			+ "WHERE MEDICAL_OFFICE_ID=?";
 	String DELETE_MEDICAL_OFFICE_BY_ID = "DELETE FROM MEDICAL_OFFICE WHERE MEDICAL_OFFICE_ID = ?";
 	String DELETE_ALL_MEDICAL_OFFICE_INFORMATION = "DELETE FROM MEDICAL_OFFICE";
 
@@ -89,9 +94,34 @@ public class MedicalOfficeDaoImpl implements MedicalOfficeDao {
 	}
 
 	@Override
-	public int updateMedicalOfficeInformation(long medicalOfficeId, MedicalOffice medicalOffice) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int updateMedicalOfficeInformation(long medicalOfficeId, MedicalOffice officeDetails) {
+
+		int result = 0; 
+		
+		MedicalOffice medicalOffice = jdbcTemplate.queryForObject(GET_ALL_MEDICAL_OFFICE_INFORMATION_BY_ID,
+				BeanPropertyRowMapper.newInstance(MedicalOffice.class), medicalOfficeId);
+		
+		if (medicalOffice != null) {
+			medicalOffice.setName(officeDetails.getName());
+			medicalOffice.setAddress(officeDetails.getAddress());
+			medicalOffice.setCity(officeDetails.getCity());
+			medicalOffice.setState(officeDetails.getState());
+			medicalOffice.setZip(officeDetails.getZip());
+			medicalOffice.setMedicalOfficeId(medicalOfficeId);
+			
+			result = jdbcTemplate.update(UPDATE_MEDICAL_OFFICE_INFORMATION, new Object [] {
+				medicalOffice.getName(),
+				medicalOffice.getAddress(),
+				medicalOffice.getCity(),
+				medicalOffice.getState(),
+				medicalOffice.getZip(),
+				medicalOffice.getMedicalOfficeId()
+			});
+			
+			LOGGER.info("Updating medical office information with medical_office_id: " + medicalOfficeId);
+		}
+		
+		return result;
 	}
 
 	@Override

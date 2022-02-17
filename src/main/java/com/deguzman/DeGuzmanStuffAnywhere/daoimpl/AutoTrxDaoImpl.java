@@ -53,11 +53,22 @@ public class AutoTrxDaoImpl implements AutoTrxDao {
 			+ "	AND AT.TRANSACTION_TYPE_ID = TT.TRANSACTION_TYPE_ID " + "	AND AT.USER_ID = US.USER_ID"
 			+ "   AND AT.AUTO_TRANSACTION_ID = ?";
 
+	String GET_AUTO_TRANSACTION_INFO = "SELECT * FROM AUTO_TRANSACTIONS WHERE AUTO_TRANSACTION_ID = ?";
+	
 	String GET_AUTO_TRX_COUNT = "SELECT COUNT(*) FROM AUTO_TRANSACTIONS";
 
 	String ADD_AUTO_TRX_INFO = "INSERT INTO AUTO_TRANSACTIONS "
 			+ "(AMOUNT, AUTO_TRANSACTION_DATE, AUTO_SHOP_ID, VEHICLE_ID, TRANSACTION_TYPE_ID, USER_ID) "
 			+ "VALUES(?, ?, ?, ?, ?, ?)";
+	
+	String UPDATE_AUTO_TRANSACTION_INFORMATION = "UPDATE AUTO_TRANSACTIONS "
+			+ "SET AMOUNT = ?, "
+			+ "AUTO_TRANSACTION_DATE = ?, "
+			+ "AUTO_SHOP_ID = ?, "
+			+ "VEHICLE_ID = ?, "
+			+ "TRANSACTION_TYPE_ID = ?, "
+			+ "USER_ID = ? "
+			+ "WHERE AUTO_TRANSACTION_ID = ?";
 
 	String DELETE_AUTO_TRX_BY_ID = "DELETE FROM AUTO_TRANSACTIONS WHERE AUTO_TRANSACTION_ID = ?";
 
@@ -162,8 +173,35 @@ public class AutoTrxDaoImpl implements AutoTrxDao {
 	public int updateTransactionInformation(long auto_transaction_id, AutoTransaction autoTransactionDetails)
 			throws InvalidAutoShopException, InvalidVehicleException, InvalidTransactionTypeException,
 			InvalidUserException {
-		// TODO Auto-generated method stub
-		return 0;
+
+		int result = 0;
+		
+		AutoTransaction transaction = jdbcTemplate.queryForObject(GET_AUTO_TRANSACTION_INFO,
+				BeanPropertyRowMapper.newInstance(AutoTransaction.class), auto_transaction_id);
+		
+		if (transaction != null) {
+			transaction.setAmount(autoTransactionDetails.getAmount());
+			transaction.setAuto_transaction_date(autoTransactionDetails.getAuto_transaction_date());
+			transaction.setAuto_shop_id(autoTransactionDetails.getAuto_shop_id());
+			transaction.setTransaction_type_id(autoTransactionDetails.getTransaction_type_id());
+			transaction.setVehicle_id(autoTransactionDetails.getVehicle_id());
+			transaction.setUser_id(autoTransactionDetails.getUser_id());
+			transaction.setAuto_transaction_id(auto_transaction_id);
+			
+			result = jdbcTemplate.update(UPDATE_AUTO_TRANSACTION_INFORMATION, new Object[] {
+					transaction.getAmount(),
+					transaction.getAuto_transaction_date(),
+					transaction.getAuto_shop_id(),
+					transaction.getTransaction_type_id(),
+					transaction.getVehicle_id(),
+					transaction.getUser_id(),
+					transaction.getAuto_transaction_id()
+			});
+			
+			LOGGER.info("Updating Auto Tranasction Information with auto_transaction_id: " + auto_transaction_id);
+		}
+		
+		return result;
 	}
 
 	@Override

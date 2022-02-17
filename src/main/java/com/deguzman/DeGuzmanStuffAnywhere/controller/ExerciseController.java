@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -66,6 +67,12 @@ public class ExerciseController {
 	@CrossOrigin
 	public int addExerciseInformation(@RequestBody Exercise exercise) {
 		return exerciseDaoImpl.addExerciseInformation(exercise);
+	}
+	
+	@PutMapping("/exercise/{exercise_id}")
+	@CrossOrigin
+	public int updateExerciseInformation(@PathVariable int exercise_id, @RequestBody Exercise exerciseDetails) {
+		return exerciseDaoImpl.updateExerciseInformation(exercise_id, exerciseDetails);
 	}
 
 	@DeleteMapping("/exercise/{exercise_id}")

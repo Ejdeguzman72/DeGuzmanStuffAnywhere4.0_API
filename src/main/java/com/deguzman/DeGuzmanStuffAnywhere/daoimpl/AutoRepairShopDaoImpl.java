@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import com.deguzman.DeGuzmanStuffAnywhere.dao.AutoShopDao;
 import com.deguzman.DeGuzmanStuffAnywhere.model.AutoRepairShop;
+import com.deguzman.DeGuzmanStuffAnywhere.model.Vehicle;
 
 @Repository
 public class AutoRepairShopDaoImpl implements AutoShopDao {
@@ -30,7 +31,7 @@ public class AutoRepairShopDaoImpl implements AutoShopDao {
 	String GET_COUNT_OF_REPAIR_SHOPS = "SELECT COUNT(*) FROM AUTO_SHOP";
 	String ADD_AUTO_SHOP_INFORMATION = "INSERT INTO auto_shop " + "(address, auto_shop_name, city, state, zip) "
 			+ "VALUES(?, ?, ?, ?, ?)";
-	String UPDATE_AUTO_SHOP_INFORMATION = "UPDATE AUTO_SHOP SET AUTOSHOPNAME= ?, ADDRESS = ?. CITY = ?. STATE = ?, ZIP = ? WHERE AUTO_SHOP_ID = ?";
+	String UPDATE_AUTO_SHOP_INFORMATION = "UPDATE AUTO_SHOP SET AUTO_SHOP_NAME = ?, ADDRESS = ?, CITY = ?, STATE = ?, ZIP = ? WHERE AUTO_SHOP_ID = ?";
 	String DELETE_AUTO_SHOP_INFORMATION_BY_ID = "DELETE FROM AUTO_SHOP WHERE AUTO_SHOP_ID = ?";
 	String DELETE_ALL_AUTO_SHOPS = "DELETE FROM AUTO_SHOP";
 
@@ -97,12 +98,35 @@ public class AutoRepairShopDaoImpl implements AutoShopDao {
 	}
 
 	@Override
-	public int updateAutoShopInfo(@PathVariable int auto_shop_id, @RequestBody AutoRepairShop autoRepairShop) {
-		int count = jdbcTemplate.update(UPDATE_AUTO_SHOP_INFORMATION, auto_shop_id);
-
-		LOGGER.info("Updating Auto Shop Information for ID: " + auto_shop_id);
-
-		return count;
+	public int updateAutoShopInfo(@PathVariable int auto_shop_id, @RequestBody AutoRepairShop shopDetails) {
+		
+		int result = 0;
+		
+		AutoRepairShop autoShop = jdbcTemplate.queryForObject(GET_AUTO_SHOP_BY_ID,
+				BeanPropertyRowMapper.newInstance(AutoRepairShop.class), auto_shop_id);
+		 
+		if (autoShop != null) {
+			autoShop.setAutoShopName(shopDetails.getAutoShopName());
+			autoShop.setAddress(shopDetails.getAddress());
+			autoShop.setCity(shopDetails.getCity());
+			autoShop.setState(shopDetails.getState());
+			autoShop.setZip(shopDetails.getZip());
+			autoShop.setAuto_shop_id(shopDetails.getAuto_shop_id());
+			
+			
+			result = jdbcTemplate.update(UPDATE_AUTO_SHOP_INFORMATION, new Object[] {
+				autoShop.getAutoShopName(),
+				autoShop.getAddress(),
+				autoShop.getCity(),
+				autoShop.getState(),
+				autoShop.getZip(),
+				autoShop.getAuto_shop_id()
+			});
+			
+			LOGGER.info("Updating Auto Repair Shop with auto_shop_id: " + auto_shop_id);
+		}
+		
+		return result;
 	}
 
 	@Override

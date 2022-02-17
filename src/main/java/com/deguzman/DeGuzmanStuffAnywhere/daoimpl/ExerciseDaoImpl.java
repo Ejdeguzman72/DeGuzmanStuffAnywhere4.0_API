@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import com.deguzman.DeGuzmanStuffAnywhere.dao.ExerciseDao;
 import com.deguzman.DeGuzmanStuffAnywhere.dto.ExerciseInfoDTO;
@@ -34,13 +35,15 @@ public class ExerciseDaoImpl implements ExerciseDao {
 	String GET_EXERCISE_INFORMATION_BY_ID = "SELECT E.EXERCISE_ID, E.EXERCISE_NAME, E.DATE, E.REPS, E.SETS, E.WEIGHT, ET.EXERCISE_TYPE_NAME, US.NAME "
 			+ "FROM EXERCISE E, EXERCISE_TYPE ET, USERS US " + "WHERE E.EXERCISE_TYPE_ID = ET.EXERCISE_TYPE_ID "
 			+ "AND E.USER_ID = US.USER_ID " + "AND E.EXERCISE_ID = ?";
+	
+	String GET_EXERCISE_INFO = "SELECT * FROM EXERCISE WHERE EXERCISE_ID = ?";
 
 	String ADD_EXERCISE_INFORMATION = "INSERT INTO EXERCISE "
 			+ "(DATE, EXERCISE_NAME, REPS, SETS, WEIGHT, EXERCISE_TYPE_ID, USER_ID) " + "VALUES(?, ?, ?, ?, ?, ?, ?)";
 
 	String UPDATE_EXERCISE_INFORMATION = "UPDATE EXERCISE "
-			+ "SET DATE=?, EXERCISE_NAME=?, REPS=?, SETS=?, WEGIHT=?, EXERCISE_TYPE_ID, USER_ID=? "
-			+ "WHERE USER_ID =?";
+			+ "SET EXERCISE_NAME=?, SETS=?, REPS=?, WEIGHT=?, DATE=?, EXERCISE_TYPE_ID=?, USER_ID=? "
+			+ "WHERE EXERCISE_ID=?";
 
 	String DELETE_EXERCISE_INFORMATION_BY_ID = "DELETE FROM EXERCISE WHERE EXERCISE_ID =?";
 
@@ -100,11 +103,11 @@ public class ExerciseDaoImpl implements ExerciseDao {
 	@Override
 	public int addExerciseInformation(Exercise exercise) {
 
-		String date = exercise.getDate();
 		String exerciseName = exercise.getExerciseName();
 		int sets = exercise.getSets();
 		int reps = exercise.getReps();
 		double weight = exercise.getWeight();
+		String date = exercise.getDate();
 		int exercise_type = exercise.getExercise_type_id();
 		long user = exercise.getUser_id();
 
@@ -116,9 +119,38 @@ public class ExerciseDaoImpl implements ExerciseDao {
 	}
 
 	@Override
-	public int updateExerciseInformation(int exercise_id, Exercise exerciseDetails) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int updateExerciseInformation(@PathVariable int exercise_id, @RequestBody Exercise exerciseDetails) {
+
+		int result = 0;
+		
+		Exercise exercise = jdbcTemplate.queryForObject(GET_EXERCISE_INFO,
+				BeanPropertyRowMapper.newInstance(Exercise.class), exercise_id);
+		
+		if (exercise != null) {
+			exercise.setExerciseName(exerciseDetails.getExerciseName());
+			exercise.setSets(exerciseDetails.getSets());
+			exercise.setReps(exerciseDetails.getReps());
+			exercise.setWeight(exerciseDetails.getWeight());
+			exercise.setDate(exerciseDetails.getDate());
+			exercise.setExercise_type_id(exerciseDetails.getExercise_type_id());
+			exercise.setUser_id(exerciseDetails.getUser_id());
+			exercise.setExerciseid(exercise_id);
+			
+			result = jdbcTemplate.update(UPDATE_EXERCISE_INFORMATION, new Object[] {
+				exercise.getExerciseName(),
+				exercise.getSets(),
+				exercise.getReps(),
+				exercise.getWeight(),
+				exercise.getDate(),
+				exercise.getExercise_type_id(),
+				exercise.getUser_id(),
+				exercise.getExerciseid()
+			});
+			
+			LOGGER.info("Updating exercise information with exericse_id: " + exercise_id);
+		}
+		
+		return result;
 	}
 
 	@Override

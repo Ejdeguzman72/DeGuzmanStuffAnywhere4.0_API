@@ -37,11 +37,15 @@ public class GeneralTrxDaoImpl implements GeneralTrxDao {
 			+ "FROM GENERAL_TRANSACTION GT, TRANSACTION_TYPE TT, USERS U "
 			+ "WHERE GT.TRANSACTION_TYPE_ID = TT.TRANSACTION_TYPE_ID AND GT.USER_ID = U.USER_ID "
 			+ "AND GT.TRANSACTION_ID = ?";
+	
+	String GET_TRANSASCTION_INFO = "SELECT FROM GENERAL_TRANSACTION WHERE TRANSACTION_ID = ?";
 
 	String GET_TRANSCTION_COUNT = "SELECT COUNT(*) FROM GENERAL_TRANSACTIONS";
 
 	String ADD_TRANSACTION_INFO = "INSERT INTO GENERAL_TRANSACTION "
 			+ "(AMOUNT, ENTITY, PAYMENT_DATE, TRANSACTION_TYPE_ID, USER_ID) " + "VALUES(?, ?, ?, ?, ?)";
+	
+	String UPDATE_TRANSACTION_INFO = "UPDATE GENERAL_TRANSACTION SET AMOUNT = ?, ENTITY = ?, PAYMENT_DATE = ?, TRANSACTION_TYPE_ID = ?, USER_ID = ? WHERE TRANSACTION_ID = ?";
 
 	String DELETE_TRANSACTION_BY_ID = "DELETE FROM GENERAL_TRANSACTION WHERE TRANSACTION_ID = ?";
 
@@ -125,8 +129,33 @@ public class GeneralTrxDaoImpl implements GeneralTrxDao {
 
 	@Override
 	public int updateTransactionInformation(Long transaction_id, GeneralTransaction transactionDetails) {
-		// TODO Auto-generated method stub
-		return 0;
+
+		int result = 0;
+		
+		GeneralTransaction transaction = jdbcTemplate.queryForObject(GET_TRANSASCTION_INFO,
+				BeanPropertyRowMapper.newInstance(GeneralTransaction.class), transaction_id);
+		
+		if (transaction != null) {
+			transaction.setAmount(transactionDetails.getAmount());
+			transaction.setEntity(transactionDetails.getEntity());
+			transaction.setPayment_date(transactionDetails.getPayment_date());
+			transaction.setTransaction_type_id(transactionDetails.getTransaction_type_id());
+			transaction.setUser_id(transactionDetails.getUser_id());
+			transaction.setTransaction_id(transaction_id);
+			
+			result = jdbcTemplate.update(UPDATE_TRANSACTION_INFO, new Object[] {
+				transaction.getAmount(),
+				transaction.getEntity(),
+				transaction.getPayment_date(),
+				transaction.getTransaction_type_id(),
+				transaction.getUser_id(),
+				transaction.getTransaction_id()
+			});
+			
+			LOGGER.info("Updating general transaction information for transaction_id: " + transaction_id);
+		}
+		
+		return result;
 	}
 
 	@Override

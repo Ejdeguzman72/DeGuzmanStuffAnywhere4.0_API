@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -81,6 +82,12 @@ public class MedicalTrxController {
 	@CrossOrigin
 	public int addMedicalTransaction(@RequestBody MedicalTransaction medicalTrx) throws ResourceNotFoundException {
 		return medicalTrxDaoImpl.addMedicalTransactionInformation(medicalTrx);
+	}
+	
+	@PutMapping("/medical-transaction/{medical_transaction_id}")
+	@CrossOrigin
+	public int updateMedicalTransactionInformation(@PathVariable long medical_transaction_id, @RequestBody MedicalTransaction medicalTranasctionDetails) {
+		return medicalTrxDaoImpl.updateMedicalTransaction(medical_transaction_id, medicalTranasctionDetails);
 	}
 
 	@DeleteMapping("/medical-transaction/{medical_transaction_id}")

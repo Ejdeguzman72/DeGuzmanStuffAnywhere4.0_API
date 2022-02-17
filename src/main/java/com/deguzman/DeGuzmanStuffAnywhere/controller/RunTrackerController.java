@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -68,6 +69,12 @@ public class RunTrackerController {
 		return runTrackerDaoImpl.addRunTrackerInformation(run);
 	}
 
+	@PutMapping("/run/{run_id}")
+	@CrossOrigin
+	public int updateRunTrackerInformation(@PathVariable long run_id, @RequestBody RunTracker runTrackerDetails) {
+		return runTrackerDaoImpl.updateRunTrackerInformation(run_id, runTrackerDetails);
+	}
+	
 	@DeleteMapping("/run/{run_id}")
 	@CrossOrigin
 	public int deleteRunTrackerInformationById(@PathVariable long run_id) {
