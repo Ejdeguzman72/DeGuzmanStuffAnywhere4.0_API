@@ -1,6 +1,7 @@
 package com.deguzman.DeGuzmanStuffAnywhere.daoimpl;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,6 +14,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.deguzman.DeGuzmanStuffAnywhere.dao.AutoShopDao;
+import com.deguzman.DeGuzmanStuffAnywhere.dto.RestaurantInfoDTO;
+import com.deguzman.DeGuzmanStuffAnywhere.exception.DuplicateAutoShopException;
+import com.deguzman.DeGuzmanStuffAnywhere.exception.DuplicateRestaurantException;
 import com.deguzman.DeGuzmanStuffAnywhere.model.AutoRepairShop;
 import com.deguzman.DeGuzmanStuffAnywhere.model.Vehicle;
 
@@ -28,6 +32,7 @@ public class AutoRepairShopDaoImpl implements AutoShopDao {
 	String GET_AUTO_SHOP_BY_ID = "SELECT * FROM AUTO_SHOP WHERE AUTO_SHOP_ID = ?";
 	String GET_AUTO_SHOP_BY_NAME = "SELECT * FROM AUTO_SHOP WHERE AUTO_SHOP_NAME = ?";
 	String GET_AUTO_REPAIR_SHOP_BY_ZIP = "SELECT * FROM AUTO_SHOP WHERE ZIP = ?";
+	String CHECK_DUPLICATE_AUTO_SHOPS = "SELECT * FROM AUTO_SHOP WHERE AUTO_SHOP_NAME = ?";
 	String GET_COUNT_OF_REPAIR_SHOPS = "SELECT COUNT(*) FROM AUTO_SHOP";
 	String ADD_AUTO_SHOP_INFORMATION = "INSERT INTO auto_shop " + "(address, auto_shop_name, city, state, zip) "
 			+ "VALUES(?, ?, ?, ?, ?)";
@@ -87,9 +92,28 @@ public class AutoRepairShopDaoImpl implements AutoShopDao {
 	}
 
 	@Override
-	public int addAutoRepairShopInfo(AutoRepairShop autoShop) {
-		int count = jdbcTemplate.update(ADD_AUTO_SHOP_INFORMATION, new Object[] { autoShop.getAutoShopName(),
-				autoShop.getAddress(), autoShop.getCity(), autoShop.getState(), autoShop.getZip() });
+	public int addAutoRepairShopInfo(AutoRepairShop autoShop) throws DuplicateAutoShopException {
+		
+		String autoShopName = autoShop.getAutoShopName();
+		
+		if (checkAutoShops(autoShopName)) {
+			throw new DuplicateAutoShopException("Duplicate Auto Repair Shop");
+		}
+		
+		String address = autoShop.getAddress();
+		String city = autoShop.getCity();
+		String state = autoShop.getState();
+		String zip = autoShop.getZip();
+		
+		
+		
+		int count = jdbcTemplate.update(ADD_AUTO_SHOP_INFORMATION, new Object[] {
+				autoShopName,
+				address,
+				city,
+				state,
+				zip
+		});
 
 		LOGGER.info("Inserted Auto Repair Shop Information: " + autoShop.getAutoShopName() + "...");
 
@@ -145,6 +169,19 @@ public class AutoRepairShopDaoImpl implements AutoShopDao {
 		LOGGER.info("Deleting all Auto Repair Shops...");
 
 		return count;
+	}
+	
+	public boolean checkAutoShops(String autoShopName) {
+
+		boolean duplicate = false;
+		
+		List<AutoRepairShop> autoShopList = findAllAutoRepairShopInfo();
+		
+		if (autoShopList.contains(autoShopName)) {
+			duplicate = true;
+		}
+		
+		return duplicate;
 	}
 
 }

@@ -1,6 +1,7 @@
 package com.deguzman.DeGuzmanStuffAnywhere.daoimpl;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import com.deguzman.DeGuzmanStuffAnywhere.dao.SongDao;
+import com.deguzman.DeGuzmanStuffAnywhere.exception.DuplicateSongTitleException;
 import com.deguzman.DeGuzmanStuffAnywhere.exception.DuplicateTitleException;
 import com.deguzman.DeGuzmanStuffAnywhere.exception.ResourceNotFoundException;
 import com.deguzman.DeGuzmanStuffAnywhere.model.Books;
@@ -98,13 +100,32 @@ public class SongDaoImpl implements SongDao {
 		return count;
 	}
 
+	public boolean checkSongTitles(String title) {
+
+		List<Song> bookList = findAllSongInformation();
+		List<String> namesList;
+		boolean result = false;
+
+		namesList = bookList.stream().map(Song::getTitle).collect(Collectors.toList());
+
+		if (namesList.contains(title)) {
+			result = true;
+		}
+
+		return result;
+	}
+	
 	@Override
-	public int addSongInformation(Song song) throws DuplicateTitleException {
+	public int addSongInformation(Song song) throws DuplicateSongTitleException {
 
 		String title = song.getTitle();
 		String artist = song.getArtist();
 		String genre = song.getGenre();
 
+		if (checkSongTitles(title)) {
+			throw new DuplicateSongTitleException("Song Already Exists");
+		}
+		
 		LOGGER.info("Adding Song Information: " + title + " " + "by " + artist);
 
 		return jdbcTemplate.update(ADD_SONG_INFORMATION, new Object[] { title, artist, genre });

@@ -1,6 +1,6 @@
 package com.deguzman.DeGuzmanStuffAnywhere.exception;
 
-public class BookNameException extends DeGuzmanStuffAnywhereException {
+public class DuplicateBookNameException extends DeGuzmanStuffAnywhereException {
 
 	/**
 	 * 
@@ -12,7 +12,7 @@ public class BookNameException extends DeGuzmanStuffAnywhereException {
 	 * 
 	 * @param message
 	 */
-	public BookNameException(String message) {
+	public DuplicateBookNameException(String message) {
 		super(message);
 	}
 }

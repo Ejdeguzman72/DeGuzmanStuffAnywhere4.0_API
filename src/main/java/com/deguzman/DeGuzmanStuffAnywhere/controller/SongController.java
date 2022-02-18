@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.deguzman.DeGuzmanStuffAnywhere.daoimpl.SongDaoImpl;
+import com.deguzman.DeGuzmanStuffAnywhere.exception.DuplicateSongTitleException;
 import com.deguzman.DeGuzmanStuffAnywhere.exception.DuplicateTitleException;
 import com.deguzman.DeGuzmanStuffAnywhere.exception.ResourceNotFoundException;
 import com.deguzman.DeGuzmanStuffAnywhere.model.Song;
@@ -72,7 +73,7 @@ public class SongController {
 
 	@PostMapping("/add-song-information")
 	@CrossOrigin
-	public int addSongInformation(@RequestBody Song song) throws DuplicateTitleException {
+	public int addSongInformation(@RequestBody Song song) throws DuplicateSongTitleException {
 		return songDaoImpl.addSongInformation(song);
 	}
 	

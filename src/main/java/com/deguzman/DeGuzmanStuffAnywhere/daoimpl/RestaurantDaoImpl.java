@@ -1,6 +1,7 @@
 package com.deguzman.DeGuzmanStuffAnywhere.daoimpl;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import com.deguzman.DeGuzmanStuffAnywhere.dao.RestaurantDao;
 import com.deguzman.DeGuzmanStuffAnywhere.dto.RestaurantInfoDTO;
+import com.deguzman.DeGuzmanStuffAnywhere.exception.DuplicateRestaurantException;
 import com.deguzman.DeGuzmanStuffAnywhere.exception.InvalidRestaurantException;
 import com.deguzman.DeGuzmanStuffAnywhere.exception.ResourceNotFoundException;
+import com.deguzman.DeGuzmanStuffAnywhere.model.Books;
 import com.deguzman.DeGuzmanStuffAnywhere.model.Restaurant;
 
 @Repository
@@ -146,9 +149,14 @@ public class RestaurantDaoImpl implements RestaurantDao {
 	}
 
 	@Override
-	public int addRestaurantInformation(@RequestBody Restaurant restaurant) throws ResourceNotFoundException {
+	public int addRestaurantInformation(@RequestBody Restaurant restaurant) throws ResourceNotFoundException, DuplicateRestaurantException {
 
 		String name = restaurant.getName();
+		
+		if (checkRestaurantNames(name)) {
+			throw new DuplicateRestaurantException("Restaurant Already Exists");
+		}
+		
 		String address = restaurant.getAddress();
 		String city = restaurant.getCity();
 		String state = restaurant.getState();
@@ -211,6 +219,21 @@ public class RestaurantDaoImpl implements RestaurantDao {
 		LOGGER.info("Deleting All Restaurants...");
 
 		return count;
+	}
+	
+	public boolean checkRestaurantNames(String name) {
+
+		List<RestaurantInfoDTO> bookList = findAllRestaurants();
+		List<String> namesList;
+		boolean result = false;
+
+		namesList = bookList.stream().map(RestaurantInfoDTO::getName).collect(Collectors.toList());
+
+		if (namesList.contains(name)) {
+			result = true;
+		}
+
+		return result;
 	}
 
 }

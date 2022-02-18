@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.deguzman.DeGuzmanStuffAnywhere.daoimpl.BooksDaoImpl;
-import com.deguzman.DeGuzmanStuffAnywhere.exception.BookNameException;
+import com.deguzman.DeGuzmanStuffAnywhere.exception.DuplicateBookNameException;
 import com.deguzman.DeGuzmanStuffAnywhere.exception.ResourceNotFoundException;
 import com.deguzman.DeGuzmanStuffAnywhere.model.Books;
 import com.deguzman.DeGuzmanStuffAnywhere.service.BooksPaginationService;
@@ -67,7 +67,7 @@ public class BooksController {
 
 	@PostMapping("/add-book-information")
 	@CrossOrigin
-	public int addBookInformation(@RequestBody Books book) throws BookNameException {
+	public int addBookInformation(@RequestBody Books book) throws DuplicateBookNameException {
 		return booksDaoImpl.addBooksInformation(book);
 	}
 	

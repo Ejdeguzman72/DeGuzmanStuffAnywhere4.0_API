@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.deguzman.DeGuzmanStuffAnywhere.daoimpl.AutoRepairShopDaoImpl;
+import com.deguzman.DeGuzmanStuffAnywhere.exception.DuplicateAutoShopException;
+import com.deguzman.DeGuzmanStuffAnywhere.exception.DuplicateRestaurantException;
 import com.deguzman.DeGuzmanStuffAnywhere.model.AutoRepairShop;
 import com.deguzman.DeGuzmanStuffAnywhere.service.AutoRepairShopPaginationService;
 
@@ -71,7 +73,7 @@ public class AutoShopController {
 
 	@PostMapping("/add-auto-shop")
 	@CrossOrigin
-	public int addAutoRepairShopInformation(@RequestBody AutoRepairShop autoShop) {
+	public int addAutoRepairShopInformation(@RequestBody AutoRepairShop autoShop) throws DuplicateAutoShopException {
 		return autoShopDaoImpl.addAutoRepairShopInfo(autoShop);
 	}
 

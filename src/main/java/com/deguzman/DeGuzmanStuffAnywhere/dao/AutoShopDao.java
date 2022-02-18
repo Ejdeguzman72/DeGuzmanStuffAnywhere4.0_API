@@ -6,6 +6,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import com.deguzman.DeGuzmanStuffAnywhere.exception.DuplicateAutoShopException;
+import com.deguzman.DeGuzmanStuffAnywhere.exception.DuplicateRestaurantException;
 import com.deguzman.DeGuzmanStuffAnywhere.model.AutoRepairShop;
 
 public interface AutoShopDao {
@@ -20,7 +22,7 @@ public interface AutoShopDao {
 
 	public long getCountOfAutoRepairShops();
 
-	public int addAutoRepairShopInfo(@RequestBody AutoRepairShop autoShop);
+	public int addAutoRepairShopInfo(@RequestBody AutoRepairShop autoShop) throws DuplicateAutoShopException;
 
 	public int updateAutoShopInfo(@PathVariable int autoShopId, @RequestBody AutoRepairShop autoRepairShop);
 

@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.deguzman.DeGuzmanStuffAnywhere.daoimpl.RestaurantDaoImpl;
 import com.deguzman.DeGuzmanStuffAnywhere.dto.RestaurantInfoDTO;
+import com.deguzman.DeGuzmanStuffAnywhere.exception.DuplicateRestaurantException;
 import com.deguzman.DeGuzmanStuffAnywhere.exception.InvalidRestaurantException;
 import com.deguzman.DeGuzmanStuffAnywhere.exception.ResourceNotFoundException;
 import com.deguzman.DeGuzmanStuffAnywhere.model.Restaurant;
@@ -85,7 +86,7 @@ public class RestaurantController {
 
 	@PostMapping("/add-restaurant-information")
 	@CrossOrigin
-	public int addRestaurantInformation(@RequestBody Restaurant restaurant) throws ResourceNotFoundException {
+	public int addRestaurantInformation(@RequestBody Restaurant restaurant) throws ResourceNotFoundException, DuplicateRestaurantException {
 		return restaurantDaoImpl.addRestaurantInformation(restaurant);
 	}
 

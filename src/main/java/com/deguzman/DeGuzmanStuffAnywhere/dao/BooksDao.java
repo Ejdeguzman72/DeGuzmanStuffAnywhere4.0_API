@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import com.deguzman.DeGuzmanStuffAnywhere.exception.BookNameException;
+import com.deguzman.DeGuzmanStuffAnywhere.exception.DuplicateBookNameException;
 import com.deguzman.DeGuzmanStuffAnywhere.exception.ResourceNotFoundException;
 import com.deguzman.DeGuzmanStuffAnywhere.model.Books;
 
@@ -22,7 +22,7 @@ public interface BooksDao {
 
 	public long getBookCount();
 
-	public int addBooksInformation(@RequestBody Books book) throws BookNameException;
+	public int addBooksInformation(@RequestBody Books book) throws DuplicateBookNameException;
 
 	public int updateBooksInformation(@PathVariable int book_id, @RequestBody Books book);
 
