@@ -126,7 +126,7 @@ public class MedicalTrxDaoImpl implements MedicalTrxDao {
 	}
 
 	@Override
-	public ResponseEntity<MedicalTrxInfoDTO> findMedicalTransactionInformationById(
+	public ResponseEntity<MedicalTrxInfoDTO> findMedicalTransactionInformationDTOById(
 			@PathVariable long medical_transaction_id) throws ResourceNotFoundException {
 		MedicalTrxInfoDTO medicalTrx = jdbcTemplate.queryForObject(GET_MEDICAL_TRANSACTION_BY_ID,
 				BeanPropertyRowMapper.newInstance(MedicalTrxInfoDTO.class), medical_transaction_id);
@@ -136,6 +136,17 @@ public class MedicalTrxDaoImpl implements MedicalTrxDao {
 		return ResponseEntity.ok().body(medicalTrx);
 	}
 
+	@Override
+	public ResponseEntity<MedicalTransaction> findMedicalTransactionInformationById(
+			@PathVariable long medical_transaction_id) throws ResourceNotFoundException {
+		MedicalTransaction medicalTrx = jdbcTemplate.queryForObject(GET_MEDICAL_TRANSACTION_INFO,
+				BeanPropertyRowMapper.newInstance(MedicalTransaction.class), medical_transaction_id);
+
+		LOGGER.info("Retrieving Medical Transaction by ID: " + medical_transaction_id);
+
+		return ResponseEntity.ok().body(medicalTrx);
+	}
+	
 	@Override
 	public long getCountOfMedicalTransactions() {
 		long count = jdbcTemplate.queryForObject(GET_MEDICAL_TRX_COUNT, Integer.class);

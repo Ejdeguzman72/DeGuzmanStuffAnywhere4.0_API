@@ -78,9 +78,19 @@ public class RunTrackerDaoImpl implements RunTrackerDao {
 	}
 
 	@Override
-	public ResponseEntity<RunTrackerInfoDTO> findRunTrackerInformationById(@PathVariable long run_id) {
+	public ResponseEntity<RunTrackerInfoDTO> findRunTrackerInformationDTOById(@PathVariable long run_id) {
 		RunTrackerInfoDTO runTrackerInfo = jdbcTemplate.queryForObject(GET_RUN_TRACKER_INFORMATION_BY_ID,
 				BeanPropertyRowMapper.newInstance(RunTrackerInfoDTO.class), run_id);
+
+		LOGGER.info("Retrieving Run Tracker Information By Run ID: " + " " + run_id);
+
+		return ResponseEntity.ok().body(runTrackerInfo);
+	}
+	
+	@Override
+	public ResponseEntity<RunTracker> findRunTrackerById(@PathVariable long run_id) {
+		RunTracker runTrackerInfo = jdbcTemplate.queryForObject(GET_RUN_TRACKER_INFO,
+				BeanPropertyRowMapper.newInstance(RunTracker.class), run_id);
 
 		LOGGER.info("Retrieving Run Tracker Information By Run ID: " + " " + run_id);
 

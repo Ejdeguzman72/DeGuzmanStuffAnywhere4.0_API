@@ -67,9 +67,16 @@ public class AutoTrxController {
 		return autoTrxDaoImpl.findAutoTransactionsByType(transaction_type_id);
 	}
 
+	@GetMapping("/auto-transaction-dto/{auto_transaction_id}")
+	@CrossOrigin
+	public ResponseEntity<AutoTrxInfoDTO> getAutoTransactionDTOById(@PathVariable long auto_transaction_id)
+			throws InvalidTransactionException {
+		return autoTrxDaoImpl.findAutoTranasctionInformatioDTOnById(auto_transaction_id);
+	}
+	
 	@GetMapping("/auto-transaction/{auto_transaction_id}")
 	@CrossOrigin
-	public ResponseEntity<AutoTrxInfoDTO> getAutoTransactionById(@PathVariable long auto_transaction_id)
+	public ResponseEntity<AutoTransaction> getAutoTransactionById(@PathVariable long auto_transaction_id)
 			throws InvalidTransactionException {
 		return autoTrxDaoImpl.findAutoTranasctionInformationById(auto_transaction_id);
 	}

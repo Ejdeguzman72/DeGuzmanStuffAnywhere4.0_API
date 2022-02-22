@@ -24,7 +24,7 @@ public interface AutoTrxDao {
 
 	public List<AutoTrxInfoDTO> findAutoTransactionsByType(@PathVariable long transaction_type_id);
 
-	public ResponseEntity<AutoTrxInfoDTO> findAutoTranasctionInformationById(@PathVariable long auto_transaction_id)
+	public ResponseEntity<AutoTransaction> findAutoTranasctionInformationById(@PathVariable long auto_transaction_id)
 			throws InvalidTransactionException;
 
 	public long getCountOfAutoTransactions();
@@ -40,5 +40,8 @@ public interface AutoTrxDao {
 	public int deleteAutoTransactionInformation(@PathVariable long auto_transaction_id);
 
 	public int deleteAllAutoTransactions();
+
+	ResponseEntity<AutoTrxInfoDTO> findAutoTranasctionInformatioDTOnById(long auto_transaction_id)
+			throws InvalidTransactionException;
 
 }

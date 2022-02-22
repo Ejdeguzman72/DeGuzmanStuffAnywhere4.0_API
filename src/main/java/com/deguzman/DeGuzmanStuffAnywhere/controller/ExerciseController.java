@@ -59,8 +59,14 @@ public class ExerciseController {
 
 	@GetMapping("/exercise/{exercise_id}")
 	@CrossOrigin
-	public ResponseEntity<ExerciseInfoDTO> getExerciseById(@PathVariable int exercise_id) {
+	public ResponseEntity<Exercise> getExerciseById(@PathVariable int exercise_id) {
 		return exerciseDaoImpl.findExerciseById(exercise_id);
+	}
+	
+	@GetMapping("/exercise-dto/{exercise_id}")
+	@CrossOrigin
+	public ResponseEntity<ExerciseInfoDTO> getExerciseDTOById(@PathVariable int exercise_id) {
+		return exerciseDaoImpl.findExerciseDTOById(exercise_id);
 	}
 
 	@PostMapping("/add-exercise-information")

@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import com.deguzman.DeGuzmanStuffAnywhere.dao.GeneralTrxDao;
 import com.deguzman.DeGuzmanStuffAnywhere.dto.GeneralTrxInfoDTO;
@@ -38,7 +40,7 @@ public class GeneralTrxDaoImpl implements GeneralTrxDao {
 			+ "WHERE GT.TRANSACTION_TYPE_ID = TT.TRANSACTION_TYPE_ID AND GT.USER_ID = U.USER_ID "
 			+ "AND GT.TRANSACTION_ID = ?";
 	
-	String GET_TRANSASCTION_INFO = "SELECT FROM GENERAL_TRANSACTION WHERE TRANSACTION_ID = ?";
+	String GET_TRANSASCTION_INFO = "SELECT * FROM GENERAL_TRANSACTION WHERE TRANSACTION_ID = ?";
 
 	String GET_TRANSCTION_COUNT = "SELECT COUNT(*) FROM GENERAL_TRANSACTIONS";
 
@@ -67,7 +69,7 @@ public class GeneralTrxDaoImpl implements GeneralTrxDao {
 	}
 
 	@Override
-	public List<GeneralTrxInfoDTO> findTransactionsByUser(long user_id) {
+	public List<GeneralTrxInfoDTO> findTransactionsByUser(@PathVariable long user_id) {
 		List<GeneralTrxInfoDTO> generalTrxListUser = jdbcTemplate.query(GET_ALL_GENERAL_TRANSACTION_INFO_BY_USER,
 				(rs, rowNum) -> new GeneralTrxInfoDTO(rs.getLong("TRANSACTION_ID"), rs.getDouble("AMOUNT"),
 						rs.getString("ENTITY"), rs.getString("PAYMENT_DATE"), rs.getString("TRANSACTION_TYPE_DESCR"),
@@ -80,7 +82,7 @@ public class GeneralTrxDaoImpl implements GeneralTrxDao {
 	}
 
 	@Override
-	public List<GeneralTrxInfoDTO> findTransactionsByType(long transaction_type_id) {
+	public List<GeneralTrxInfoDTO> findTransactionsByType(@PathVariable long transaction_type_id) {
 		List<GeneralTrxInfoDTO> generalTrxListType = jdbcTemplate.query(GET_ALL_GENERAL_TRANSACTION_INFO_BY_TYPE,
 				(rs, rowNum) -> new GeneralTrxInfoDTO(rs.getLong("TRANSACTION_ID"), rs.getDouble("AMOUNT"),
 						rs.getString("ENTITY"), rs.getString("PAYMENT_DATE"), rs.getString("TRANSACTION_TYPE_DESCR"),
@@ -93,7 +95,7 @@ public class GeneralTrxDaoImpl implements GeneralTrxDao {
 	}
 
 	@Override
-	public ResponseEntity<GeneralTrxInfoDTO> findTransactionInformationById(long transaction_id)
+	public ResponseEntity<GeneralTrxInfoDTO> findTransactionInformationDTOById(@PathVariable long transaction_id)
 			throws ResourceNotFoundException {
 		GeneralTrxInfoDTO generalTrx = jdbcTemplate.queryForObject(GET_TRANSACTION_INFO_BY_ID,
 				BeanPropertyRowMapper.newInstance(GeneralTrxInfoDTO.class), transaction_id);
@@ -101,6 +103,18 @@ public class GeneralTrxDaoImpl implements GeneralTrxDao {
 		LOGGER.info("Retrieving transaction with ID: " + transaction_id);
 
 		return ResponseEntity.ok().body(generalTrx);
+	}
+	
+	@Override
+	public ResponseEntity<GeneralTransaction> findTransactionInformationById(@PathVariable long transaction_id)
+			throws ResourceNotFoundException {
+		GeneralTransaction transaction = jdbcTemplate.queryForObject(GET_TRANSASCTION_INFO,
+				BeanPropertyRowMapper.newInstance(GeneralTransaction.class), transaction_id);
+		
+		LOGGER.info("Retrieving transaction with ID: " + transaction_id);
+		
+		return ResponseEntity.ok().body(transaction);
+		
 	}
 
 	@Override
@@ -113,7 +127,7 @@ public class GeneralTrxDaoImpl implements GeneralTrxDao {
 	}
 
 	@Override
-	public int addTransactionInformation(GeneralTransaction transaction) throws ResourceNotFoundException {
+	public int addTransactionInformation(@RequestBody GeneralTransaction transaction) throws ResourceNotFoundException {
 
 		double amount = transaction.getAmount();
 		String entity = transaction.getEntity();
@@ -128,7 +142,7 @@ public class GeneralTrxDaoImpl implements GeneralTrxDao {
 	}
 
 	@Override
-	public int updateTransactionInformation(Long transaction_id, GeneralTransaction transactionDetails) {
+	public int updateTransactionInformation(@PathVariable Long transaction_id, @RequestBody GeneralTransaction transactionDetails) {
 
 		int result = 0;
 		
@@ -159,7 +173,7 @@ public class GeneralTrxDaoImpl implements GeneralTrxDao {
 	}
 
 	@Override
-	public int deleteTransactionInformation(long transaction_id) {
+	public int deleteTransactionInformation(@PathVariable long transaction_id) {
 		int result = jdbcTemplate.update(DELETE_TRANSACTION_BY_ID, transaction_id);
 
 		LOGGER.info("Deleting transaction with ID: " + transaction_id);

@@ -15,7 +15,9 @@ public interface RunTrackerDao {
 
 	public List<RunTrackerInfoDTO> findRunTrackerInformationByUser(@PathVariable long user_id);
 
-	public ResponseEntity<RunTrackerInfoDTO> findRunTrackerInformationById(@PathVariable long run_id);
+	public ResponseEntity<RunTrackerInfoDTO> findRunTrackerInformationDTOById(@PathVariable long run_id);
+	
+	public ResponseEntity<RunTracker> findRunTrackerById(@PathVariable long run_id);
 
 	public long findCountOfRunTrackerInformation();
 

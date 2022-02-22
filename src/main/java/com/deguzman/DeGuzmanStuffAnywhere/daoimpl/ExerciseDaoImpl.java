@@ -91,7 +91,17 @@ public class ExerciseDaoImpl implements ExerciseDao {
 	}
 
 	@Override
-	public ResponseEntity<ExerciseInfoDTO> findExerciseById(@PathVariable int exercise_id) {
+	public ResponseEntity<Exercise> findExerciseById(@PathVariable int exercise_id) {
+		Exercise exerciseInfo = jdbcTemplate.queryForObject(GET_EXERCISE_INFO,
+				BeanPropertyRowMapper.newInstance(Exercise.class), exercise_id);
+
+		LOGGER.info("Retrieved Exercise information by exercise_id: " + " " + exercise_id);
+
+		return ResponseEntity.ok().body(exerciseInfo);
+	}
+	
+	@Override
+	public ResponseEntity<ExerciseInfoDTO> findExerciseDTOById(@PathVariable int exercise_id) {
 		ExerciseInfoDTO exerciseInfo = jdbcTemplate.queryForObject(GET_EXERCISE_INFORMATION_BY_ID,
 				BeanPropertyRowMapper.newInstance(ExerciseInfoDTO.class), exercise_id);
 
@@ -103,7 +113,7 @@ public class ExerciseDaoImpl implements ExerciseDao {
 	@Override
 	public int addExerciseInformation(Exercise exercise) {
 
-		String exerciseName = exercise.getExerciseName();
+		String exerciseName = exercise.getExercise_name();
 		int sets = exercise.getSets();
 		int reps = exercise.getReps();
 		double weight = exercise.getWeight();
@@ -127,24 +137,24 @@ public class ExerciseDaoImpl implements ExerciseDao {
 				BeanPropertyRowMapper.newInstance(Exercise.class), exercise_id);
 		
 		if (exercise != null) {
-			exercise.setExerciseName(exerciseDetails.getExerciseName());
+			exercise.setExercise_name(exerciseDetails.getExercise_name());
 			exercise.setSets(exerciseDetails.getSets());
 			exercise.setReps(exerciseDetails.getReps());
 			exercise.setWeight(exerciseDetails.getWeight());
 			exercise.setDate(exerciseDetails.getDate());
 			exercise.setExercise_type_id(exerciseDetails.getExercise_type_id());
 			exercise.setUser_id(exerciseDetails.getUser_id());
-			exercise.setExerciseid(exercise_id);
+			exercise.setExercise_id(exercise_id);
 			
 			result = jdbcTemplate.update(UPDATE_EXERCISE_INFORMATION, new Object[] {
-				exercise.getExerciseName(),
+				exercise.getExercise_name(),
 				exercise.getSets(),
 				exercise.getReps(),
 				exercise.getWeight(),
 				exercise.getDate(),
 				exercise.getExercise_type_id(),
 				exercise.getUser_id(),
-				exercise.getExerciseid()
+				exercise.getExercise_id()
 			});
 			
 			LOGGER.info("Updating exercise information with exericse_id: " + exercise_id);

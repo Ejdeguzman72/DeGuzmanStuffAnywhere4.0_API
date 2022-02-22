@@ -22,7 +22,7 @@ public class Restaurant implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	public int restauant_id;
+	public int restaurant_id;
 	public String name;
 	public String address;
 	public String city;
@@ -35,11 +35,11 @@ public class Restaurant implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "restaurant_id")
 	public int getRestauant_id() {
-		return restauant_id;
+		return restaurant_id;
 	}
 
 	public void setRestauant_id(int restauant_id) {
-		this.restauant_id = restauant_id;
+		this.restaurant_id = restauant_id;
 	}
 
 	@Column(name = "name")
@@ -103,7 +103,7 @@ public class Restaurant implements Serializable {
 		result = prime * result + ((address == null) ? 0 : address.hashCode());
 		result = prime * result + ((city == null) ? 0 : city.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + restauant_id;
+		result = prime * result + restaurant_id;
 		result = prime * result + ((restaurantType == null) ? 0 : restaurantType.hashCode());
 		result = prime * result + ((state == null) ? 0 : state.hashCode());
 		result = prime * result + ((zip == null) ? 0 : zip.hashCode());
@@ -134,7 +134,7 @@ public class Restaurant implements Serializable {
 				return false;
 		} else if (!name.equals(other.name))
 			return false;
-		if (restauant_id != other.restauant_id)
+		if (restaurant_id != other.restaurant_id)
 			return false;
 		if (restaurantType == null) {
 			if (other.restaurantType != null)
@@ -156,14 +156,14 @@ public class Restaurant implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Restaurant [restauant_id=" + restauant_id + ", name=" + name + ", address=" + address + ", city=" + city
+		return "Restaurant [restauant_id=" + restaurant_id + ", name=" + name + ", address=" + address + ", city=" + city
 				+ ", state=" + state + ", zip=" + zip + ", restaurantType=" + restaurantType + "]";
 	}
 
 	public Restaurant(int restauant_id, String name, String address, String city, String state, String zip,
 			RestaurantType restaurantType) {
 		super();
-		this.restauant_id = restauant_id;
+		this.restaurant_id = restauant_id;
 		this.name = name;
 		this.address = address;
 		this.city = city;

@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.deguzman.DeGuzmanStuffAnywhere.dao.RestaurantDao;
@@ -31,9 +32,11 @@ public class RestaurantDaoImpl implements RestaurantDao {
 			+ "FROM RESTAURANT R, RESTAURANT_TYPE RT " + "WHERE R.RESTAURANT_TYPE_ID  = RT.RESTAURANT_TYPE_ID "
 			+ "AND RT.RESTAURANT_TYPE_ID = ? " + "ORDER BY R.NAME";
 
-	String GET_RESTAURANT_INFORMATION_BY_ID = "SELECT R.RESTAURANT_ID, R.NAME, R.ADDRESS, R.CITY, R.STATE, R.ZIP, RT.DESCR "
+	String GET_RESTAURANT_INFORMATION_DTO_BY_ID = "SELECT R.RESTAURANT_ID, R.NAME, R.ADDRESS, R.CITY, R.STATE, R.ZIP, RT.DESCR "
 			+ "FROM RESTAURANT R, RESTAURANT_TYPE RT " + "WHERE R.RESTAURANT_TYPE_ID  = RT.RESTAURANT_TYPE_ID "
 			+ "AND RESTAURANT_ID = ?";
+	
+	String GET_RESTAURANT_INFO_BY_ID = "SELECT * FROM RESTAURANT WHERE RESTAURANT_ID = ?";
 
 	String GET_RESTAURANT_INFORMATION_BY_ZIP = "SELECT R.RESTAURANT_ID, R.NAME, R.ADDRESS, R.CITY, R.STATE, R.ZIP, RT.DESCR "
 			+ "FROM RESTAURANT R, RESTAURANT_TYPE RT " + "WHERE R.RESTAURANT_TYPE_ID  = RT.RESTAURANT_TYPE_ID "
@@ -95,12 +98,20 @@ public class RestaurantDaoImpl implements RestaurantDao {
 
 	@Override
 	public ResponseEntity<RestaurantInfoDTO> findRestaurantById(int restaurant_id) throws InvalidRestaurantException {
-		RestaurantInfoDTO restaurantInfo = jdbcTemplate.queryForObject(GET_RESTAURANT_INFORMATION_BY_ID,
+		RestaurantInfoDTO restaurantInfo = jdbcTemplate.queryForObject(GET_RESTAURANT_INFORMATION_DTO_BY_ID,
 				BeanPropertyRowMapper.newInstance(RestaurantInfoDTO.class), restaurant_id);
 
 		LOGGER.info("Retrieved Restaurant Information: " + " " + restaurantInfo.getName());
 
 		return ResponseEntity.ok().body(restaurantInfo);
+	}
+	
+	public ResponseEntity<Restaurant> findRestaurantInfoById(@PathVariable int restaurant_id) {
+		Restaurant restaurant = jdbcTemplate.queryForObject(GET_RESTAURANT_INFO_BY_ID , BeanPropertyRowMapper.newInstance(Restaurant.class), restaurant_id);
+		
+		LOGGER.info("Retrieved Restaurant Information: " + " " + restaurant.getName());
+		
+		return ResponseEntity.ok().body(restaurant);
 	}
 
 	@Override
@@ -175,7 +186,7 @@ public class RestaurantDaoImpl implements RestaurantDao {
 
 		int result = 0;
 		
-		Restaurant restaurant = jdbcTemplate.queryForObject(GET_RESTAURANT_INFORMATION_BY_ID,
+		Restaurant restaurant = jdbcTemplate.queryForObject(GET_RESTAURANT_INFORMATION_DTO_BY_ID,
 				BeanPropertyRowMapper.newInstance(Restaurant.class), restaurant_id);
 		
 		if (restaurant != null) {
@@ -185,7 +196,7 @@ public class RestaurantDaoImpl implements RestaurantDao {
 			restaurant.setState(restaurantDetails.getState());
 			restaurant.setZip(restaurantDetails.getZip());
 			restaurant.setRestaurant_type_id(restaurantDetails.getRestaurant_type_id());
-			restaurant.setRestauant_id(restaurant_id);
+			restaurant.setRestaurant_id(restaurant_id);
 			
 			result = jdbcTemplate.update(UPDATE_RESTAURANT_INFORMATION, new Object[] {
 				restaurant.getName(),
@@ -194,7 +205,7 @@ public class RestaurantDaoImpl implements RestaurantDao {
 				restaurant.getState(),
 				restaurant.getZip(),
 				restaurant.getRestaurant_type_id(),
-				restaurant.getRestauant_id()
+				restaurant.getRestaurant_id()
 			});
 			
 			LOGGER.info("Updating restaurant info for restaurant_id: " + restaurant_id);

@@ -57,9 +57,16 @@ public class GeneralTrxController {
 		return generalTrxDaoImpl.findTransactionsByUser(user_id);
 	}
 
+	@GetMapping("/transaction-dto/{transaction_id}")
+	@CrossOrigin
+	public ResponseEntity<GeneralTrxInfoDTO> getTrxInformationDTOById(@PathVariable long transaction_id)
+			throws ResourceNotFoundException {
+		return generalTrxDaoImpl.findTransactionInformationDTOById(transaction_id);
+	}
+	
 	@GetMapping("/transaction/{transaction_id}")
 	@CrossOrigin
-	public ResponseEntity<GeneralTrxInfoDTO> getTrxInformationById(@PathVariable long transaction_id)
+	public ResponseEntity<GeneralTransaction> getTrxInformationById(@PathVariable long transaction_id)
 			throws ResourceNotFoundException {
 		return generalTrxDaoImpl.findTransactionInformationById(transaction_id);
 	}

@@ -8,7 +8,7 @@ public class Exercise implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -1101615341293557860L;
-	public int exerciseid;
+	public int exercise_id;
 	public String exercise_name;
 	public int sets;
 	public int reps;
@@ -16,16 +16,16 @@ public class Exercise implements Serializable {
 	public String date;
 	public int exercise_type_id;
 	public long user_id;
-	public int getExerciseid() {
-		return exerciseid;
+	public int getExercise_id() {
+		return exercise_id;
 	}
-	public void setExerciseid(int exerciseid) {
-		this.exerciseid = exerciseid;
+	public void setExercise_id(int exercise_id) {
+		this.exercise_id = exercise_id;
 	}
-	public String getExerciseName() {
+	public String getExercise_name() {
 		return exercise_name;
 	}
-	public void setExerciseName(String exercise_name) {
+	public void setExercise_name(String exercise_name) {
 		this.exercise_name = exercise_name;
 	}
 	public int getSets() {
@@ -72,9 +72,9 @@ public class Exercise implements Serializable {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((date == null) ? 0 : date.hashCode());
+		result = prime * result + exercise_id;
 		result = prime * result + ((exercise_name == null) ? 0 : exercise_name.hashCode());
 		result = prime * result + exercise_type_id;
-		result = prime * result + exerciseid;
 		result = prime * result + reps;
 		result = prime * result + sets;
 		result = prime * result + (int) (user_id ^ (user_id >>> 32));
@@ -97,14 +97,14 @@ public class Exercise implements Serializable {
 				return false;
 		} else if (!date.equals(other.date))
 			return false;
+		if (exercise_id != other.exercise_id)
+			return false;
 		if (exercise_name == null) {
 			if (other.exercise_name != null)
 				return false;
 		} else if (!exercise_name.equals(other.exercise_name))
 			return false;
 		if (exercise_type_id != other.exercise_type_id)
-			return false;
-		if (exerciseid != other.exerciseid)
 			return false;
 		if (reps != other.reps)
 			return false;
@@ -118,14 +118,14 @@ public class Exercise implements Serializable {
 	}
 	@Override
 	public String toString() {
-		return "Exercise [exerciseid=" + exerciseid + ", exercise_name=" + exercise_name + ", sets=" + sets + ", reps="
-				+ reps + ", weight=" + weight + ", date=" + date + ", exercise_type_id=" + exercise_type_id
+		return "Exercise [exercise_id=" + exercise_id + ", exercise_name=" + exercise_name + ", sets=" + sets
+				+ ", reps=" + reps + ", weight=" + weight + ", date=" + date + ", exercise_type_id=" + exercise_type_id
 				+ ", user_id=" + user_id + "]";
 	}
-	public Exercise(int exerciseid, String exercise_name, int sets, int reps, double weight, String date,
+	public Exercise(int exercise_id, String exercise_name, int sets, int reps, double weight, String date,
 			int exercise_type_id, long user_id) {
 		super();
-		this.exerciseid = exerciseid;
+		this.exercise_id = exercise_id;
 		this.exercise_name = exercise_name;
 		this.sets = sets;
 		this.reps = reps;
@@ -138,5 +138,5 @@ public class Exercise implements Serializable {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
+	
 }

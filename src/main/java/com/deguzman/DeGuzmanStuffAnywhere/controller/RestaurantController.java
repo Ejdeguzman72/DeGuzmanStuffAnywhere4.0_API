@@ -65,12 +65,18 @@ public class RestaurantController {
 		return restaurantDaoImpl.findRestaurantsByDescr(descr);
 	}
 
-	@GetMapping("/restaurant/{restaurant_id}")
+	@GetMapping("/restaurant-dto/{restaurant_id}")
 	@CrossOrigin
-	public ResponseEntity<RestaurantInfoDTO> getRestaurantInformationById(@PathVariable int restaurant_id)
+	public ResponseEntity<RestaurantInfoDTO> getRestaurantDTOInfoById(@PathVariable int restaurant_id)
 			throws InvalidRestaurantException {
 		return restaurantDaoImpl.findRestaurantById(restaurant_id);
 	}
+	
+	@GetMapping("/restaurant/{restaurant_id}")
+	public ResponseEntity<Restaurant> getRestaurantInfoById(@PathVariable int restaurant_id) {
+		return restaurantDaoImpl.findRestaurantInfoById(restaurant_id);
+	}
+	
 
 	@GetMapping("/restaurant/name/{name}")
 	@CrossOrigin

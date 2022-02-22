@@ -67,9 +67,16 @@ public class MedicalTrxController {
 
 	@GetMapping("/medical-transaction/{medical_transaction_id}")
 	@CrossOrigin
-	public ResponseEntity<MedicalTrxInfoDTO> getMedicalTrxById(@PathVariable long medical_transaction_id)
+	public ResponseEntity<MedicalTransaction> getMedicalTrxById(@PathVariable long medical_transaction_id)
 			throws ResourceNotFoundException {
 		return medicalTrxDaoImpl.findMedicalTransactionInformationById(medical_transaction_id);
+	}
+	
+	@GetMapping("/medical-transaction-dto/{medical_transaction_id}")
+	@CrossOrigin
+	public ResponseEntity<MedicalTrxInfoDTO> getMedicalTrxDTOById(@PathVariable long medical_transaction_id)
+			throws ResourceNotFoundException {
+		return medicalTrxDaoImpl.findMedicalTransactionInformationDTOById(medical_transaction_id);
 	}
 
 	@GetMapping("/get-medical-trx-count")

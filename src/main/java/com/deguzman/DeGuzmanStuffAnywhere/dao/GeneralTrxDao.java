@@ -18,7 +18,10 @@ public interface GeneralTrxDao {
 
 	public List<GeneralTrxInfoDTO> findTransactionsByType(@PathVariable long transaction_type_id);
 
-	public ResponseEntity<GeneralTrxInfoDTO> findTransactionInformationById(@PathVariable long transaction_id)
+	public ResponseEntity<GeneralTrxInfoDTO> findTransactionInformationDTOById(@PathVariable long transaction_id)
+			throws ResourceNotFoundException;
+	
+	public ResponseEntity<GeneralTransaction> findTransactionInformationById(@PathVariable long transaction_id)
 			throws ResourceNotFoundException;
 
 	public long findCountOfGeneralTransaction();

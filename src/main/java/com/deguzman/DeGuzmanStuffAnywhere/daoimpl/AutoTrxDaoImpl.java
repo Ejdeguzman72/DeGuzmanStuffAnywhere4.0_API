@@ -47,7 +47,7 @@ public class AutoTrxDaoImpl implements AutoTrxDao {
 			+ "	AND AT.TRANSACTION_TYPE_ID = TT.TRANSACTION_TYPE_ID " + "	AND AT.USER_ID = US.USER_ID"
 			+ "   AND AT.USER_ID = ?";
 
-	String GET_AUTO_TRX_INFO_BY_ID = "SELECT AT.AUTO_TRANSACTION_ID, AT.AUTO_TRANSACTION_DATE, AT.AMOUNT, V.MAKE, V.MODEL, V.YEAR, ASH.AUTO_SHOP_NAME, US.NAME, TT.TRANSACTION_TYPE_DESCR "
+	String GET_AUTO_TRX_DTO_INFO_BY_ID = "SELECT AT.AUTO_TRANSACTION_ID, AT.AUTO_TRANSACTION_DATE, AT.AMOUNT, V.MAKE, V.MODEL, V.YEAR, ASH.AUTO_SHOP_NAME, US.NAME, TT.TRANSACTION_TYPE_DESCR "
 			+ "FROM AUTO_TRANSACTIONS AT, AUTO_SHOP ASH, VEHICLE V, TRANSACTION_TYPE TT, USERS US "
 			+ "WHERE AT.AUTO_SHOP_ID = ASH.AUTO_SHOP_ID " + "	AND AT.VEHICLE_ID = V.VEHICLE_ID "
 			+ "	AND AT.TRANSACTION_TYPE_ID = TT.TRANSACTION_TYPE_ID " + "	AND AT.USER_ID = US.USER_ID"
@@ -132,15 +132,25 @@ public class AutoTrxDaoImpl implements AutoTrxDao {
 	}
 
 	@Override
-	public ResponseEntity<AutoTrxInfoDTO> findAutoTranasctionInformationById(@PathVariable long auto_transaction_id)
+	public ResponseEntity<AutoTrxInfoDTO> findAutoTranasctionInformatioDTOnById(@PathVariable long auto_transaction_id)
 			throws InvalidTransactionException {
 
-		AutoTrxInfoDTO autoTrxInfo = jdbcTemplate.queryForObject(GET_AUTO_TRX_INFO_BY_ID,
+		AutoTrxInfoDTO autoTrxInfo = jdbcTemplate.queryForObject(GET_AUTO_TRX_DTO_INFO_BY_ID,
 				BeanPropertyRowMapper.newInstance(AutoTrxInfoDTO.class), auto_transaction_id);
 
 		LOGGER.info("Retrieving transaction based on ID: " + " " + auto_transaction_id);
 
 		return ResponseEntity.ok().body(autoTrxInfo);
+	}
+	
+	@Override
+	public ResponseEntity<AutoTransaction> findAutoTranasctionInformationById(@PathVariable long auto_transaction_id) throws InvalidTransactionException {
+		AutoTransaction transaction = jdbcTemplate.queryForObject(GET_AUTO_TRANSACTION_INFO,
+				BeanPropertyRowMapper.newInstance(AutoTransaction.class), auto_transaction_id);
+		
+		LOGGER.info("Retrieving transaction based on ID: " + " " + auto_transaction_id);
+		
+		return ResponseEntity.ok().body(transaction);
 	}
 
 	@Override

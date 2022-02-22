@@ -17,7 +17,9 @@ public interface ExerciseDao {
 
 	public List<ExerciseInfoDTO> findExerciseInformationByType(@PathVariable int exercise_type_id);
 
-	public ResponseEntity<ExerciseInfoDTO> findExerciseById(@PathVariable int exercise_id);
+	public ResponseEntity<ExerciseInfoDTO> findExerciseDTOById(@PathVariable int exercise_id);
+	
+	public ResponseEntity<Exercise> findExerciseById(@PathVariable int exercise_id);
 
 	public int addExerciseInformation(@RequestBody Exercise exercise);
 

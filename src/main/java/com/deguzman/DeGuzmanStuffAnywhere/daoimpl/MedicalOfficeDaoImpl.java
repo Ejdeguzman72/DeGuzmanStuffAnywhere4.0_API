@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import com.deguzman.DeGuzmanStuffAnywhere.dao.MedicalOfficeDao;
 import com.deguzman.DeGuzmanStuffAnywhere.model.MedicalOffice;
@@ -60,7 +61,7 @@ public class MedicalOfficeDaoImpl implements MedicalOfficeDao {
 	}
 
 	@Override
-	public ResponseEntity<MedicalOffice> findMedicalOfficeInformationById(long medicalOfficeId) {
+	public ResponseEntity<MedicalOffice> findMedicalOfficeInformationById(@PathVariable long medicalOfficeId) {
 		MedicalOffice medicalOffice = jdbcTemplate.queryForObject(GET_ALL_MEDICAL_OFFICE_INFORMATION_BY_ID,
 				BeanPropertyRowMapper.newInstance(MedicalOffice.class), medicalOfficeId);
 

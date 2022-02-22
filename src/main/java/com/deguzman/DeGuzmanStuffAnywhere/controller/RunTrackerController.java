@@ -53,8 +53,14 @@ public class RunTrackerController {
 
 	@GetMapping("/run/{run_id}")
 	@CrossOrigin
-	public ResponseEntity<RunTrackerInfoDTO> getRunTrackerInformationById(@PathVariable long run_id) {
-		return runTrackerDaoImpl.findRunTrackerInformationById(run_id);
+	public ResponseEntity<RunTracker> getRunTrackerInformationById(@PathVariable long run_id) {
+		return runTrackerDaoImpl.findRunTrackerById(run_id);
+	}
+	
+	@GetMapping("/run-dto/{run_id}")
+	@CrossOrigin
+	public ResponseEntity<RunTrackerInfoDTO> getRunTrackerInformationDTOById(@PathVariable long run_id) {
+		return runTrackerDaoImpl.findRunTrackerInformationDTOById(run_id);
 	}
 
 	@GetMapping("run-count")
