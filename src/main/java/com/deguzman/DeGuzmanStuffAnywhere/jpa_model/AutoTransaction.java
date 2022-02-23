@@ -23,7 +23,7 @@ public class AutoTransaction implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 8676869382585836353L;
-	public Long autoTransaction_id;
+	public Long auto_transaction_id;
 	public String autoTransactionDate;
 	public double amount;
 	
@@ -39,10 +39,10 @@ public class AutoTransaction implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "auto_transaction_id")
 	public Long getAutoTransaction_id() {
-		return autoTransaction_id;
+		return auto_transaction_id;
 	}
-	public void setAutoTransaction_id(Long autoTransaction_id) {
-		this.autoTransaction_id = autoTransaction_id;
+	public void setAutoTransaction_id(Long auto_transaction_id) {
+		this.auto_transaction_id = auto_transaction_id;
 	}
 	@Column(name = "auto_transaction_date")
 	public String getAutoTransactionDate() {
@@ -102,7 +102,7 @@ public class AutoTransaction implements Serializable {
 		temp = Double.doubleToLongBits(amount);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
 		result = prime * result + ((autoTransactionDate == null) ? 0 : autoTransactionDate.hashCode());
-		result = prime * result + ((autoTransaction_id == null) ? 0 : autoTransaction_id.hashCode());
+		result = prime * result + ((auto_transaction_id == null) ? 0 : auto_transaction_id.hashCode());
 		result = prime * result + ((vehicle == null) ? 0 : vehicle.hashCode());
 		result = prime * result + ((autoShop == null) ? 0 : autoShop.hashCode());
 		result = prime * result + ((transactionType == null) ? 0 : transactionType.hashCode());
@@ -125,10 +125,10 @@ public class AutoTransaction implements Serializable {
 				return false;
 		} else if (!autoTransactionDate.equals(other.autoTransactionDate))
 			return false;
-		if (autoTransaction_id == null) {
-			if (other.autoTransaction_id != null)
+		if (auto_transaction_id == null) {
+			if (other.auto_transaction_id != null)
 				return false;
-		} else if (!autoTransaction_id.equals(other.autoTransaction_id))
+		} else if (!auto_transaction_id.equals(other.auto_transaction_id))
 			return false;
 		if (vehicle == null) {
 			if (other.vehicle != null)
@@ -154,14 +154,14 @@ public class AutoTransaction implements Serializable {
 	}
 	@Override
 	public String toString() {
-		return "AutoTransaction [autoTransaction_id=" + autoTransaction_id + ", autoTransactionDate="
+		return "AutoTransaction [auto_transaction_id=" + auto_transaction_id + ", autoTransactionDate="
 				+ autoTransactionDate + ", autoShop=" + autoShop + ", amount=" + amount + ", user=" + user
 				+ ", transactionType=" + transactionType + ", vehicle=" + vehicle + "]";
 	}
-	public AutoTransaction(Long autoTransaction_id, String autoTransactionDate, AutoRepairShop autoShop, double amount,
+	public AutoTransaction(Long auto_transaction_id, String autoTransactionDate, AutoRepairShop autoShop, double amount,
 			User user, TransactionType transactionType, Vehicle vehicle) {
 		super();
-		this.autoTransaction_id = autoTransaction_id;
+		this.auto_transaction_id = auto_transaction_id;
 		this.autoTransactionDate = autoTransactionDate;
 		this.autoShop = autoShop;
 		this.amount = amount;

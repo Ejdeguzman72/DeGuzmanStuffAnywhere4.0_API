@@ -25,7 +25,7 @@ public class MedicalTransaction implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 938725339019416975L;
-	public Long medicalTransaction_Id;
+	public Long medical_transaction_id;
 	public String medical_transaction_date;
 	public double amount;
 	
@@ -39,10 +39,10 @@ public class MedicalTransaction implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "medical_transaction_id")
 	public Long getMedicalTransaction_Id() {
-		return medicalTransaction_Id;
+		return medical_transaction_id;
 	}
-	public void setMedicalTransaction_Id(Long medicalTransaction_Id) {
-		this.medicalTransaction_Id = medicalTransaction_Id;
+	public void setMedicalTransaction_Id(Long medical_transaction_id) {
+		this.medical_transaction_id = medical_transaction_id;
 	}
 	@Column(name = "medical_transaction_date")
 	public String getMedicalTransactionDate() {
@@ -93,7 +93,7 @@ public class MedicalTransaction implements Serializable {
 		temp = Double.doubleToLongBits(amount);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
 		result = prime * result + ((facility == null) ? 0 : facility.hashCode());
-		result = prime * result + ((medicalTransaction_Id == null) ? 0 : medicalTransaction_Id.hashCode());
+		result = prime * result + ((medical_transaction_id == null) ? 0 : medical_transaction_id.hashCode());
 		result = prime * result + ((medical_transaction_date == null) ? 0 : medical_transaction_date.hashCode());
 		result = prime * result + ((transactionType == null) ? 0 : transactionType.hashCode());
 		result = prime * result + ((user == null) ? 0 : user.hashCode());
@@ -115,10 +115,10 @@ public class MedicalTransaction implements Serializable {
 				return false;
 		} else if (!facility.equals(other.facility))
 			return false;
-		if (medicalTransaction_Id == null) {
-			if (other.medicalTransaction_Id != null)
+		if (medical_transaction_id == null) {
+			if (other.medical_transaction_id != null)
 				return false;
-		} else if (!medicalTransaction_Id.equals(other.medicalTransaction_Id))
+		} else if (!medical_transaction_id.equals(other.medical_transaction_id))
 			return false;
 		if (medical_transaction_date == null) {
 			if (other.medical_transaction_date != null)
@@ -139,14 +139,14 @@ public class MedicalTransaction implements Serializable {
 	}
 	@Override
 	public String toString() {
-		return "MedicalTransaction [medicalTransaction_Id=" + medicalTransaction_Id + ", medical_transaction_date="
+		return "MedicalTransaction [medical_transaction_id=" + medical_transaction_id + ", medical_transaction_date="
 				+ medical_transaction_date + ", amount=" + amount + ", facility=" + facility + ", transactionType="
 				+ transactionType + ", user=" + user + "]";
 	}
-	public MedicalTransaction(Long medicalTransaction_Id, String medical_transaction_date, double amount,
+	public MedicalTransaction(Long medical_transaction_id, String medical_transaction_date, double amount,
 			MedicalOffice facility, TransactionType transactionType, User user) {
 		super();
-		this.medicalTransaction_Id = medicalTransaction_Id;
+		this.medical_transaction_id = medical_transaction_id;
 		this.medical_transaction_date = medical_transaction_date;
 		this.amount = amount;
 		this.facility = facility;
