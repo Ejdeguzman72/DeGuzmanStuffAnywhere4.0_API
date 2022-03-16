@@ -5,6 +5,8 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -80,6 +82,7 @@ public class AutoTrxDaoImpl implements AutoTrxDao {
 	private static final Logger LOGGER = LoggerFactory.getLogger(AutoTrxDaoImpl.class);
 
 	@Override
+	@Cacheable(value = "autoTransactionList")
 	public List<AutoTrxInfoDTO> findAllAutoTransactionInformation() {
 		List<AutoTrxInfoDTO> autoTrxList = jdbcTemplate.query(GET_ALL_AUTO_TRX_INFORMATION,
 				BeanPropertyRowMapper.newInstance(AutoTrxInfoDTO.class));
@@ -132,6 +135,7 @@ public class AutoTrxDaoImpl implements AutoTrxDao {
 	}
 
 	@Override
+	@Cacheable(value = "autoTrasactionById", key = "#auto_transaction_id")
 	public ResponseEntity<AutoTrxInfoDTO> findAutoTranasctionInformatioDTOnById(@PathVariable long auto_transaction_id)
 			throws InvalidTransactionException {
 
@@ -163,6 +167,7 @@ public class AutoTrxDaoImpl implements AutoTrxDao {
 	}
 
 	@Override
+	@CachePut(value = "autoTransactionList")
 	public int addAutoTransactionInformation(AutoTransaction autoTransaction) throws InvalidAutoShopException,
 			InvalidUserException, InvalidTransactionTypeException, InvalidVehicleException {
 		double amount = autoTransaction.getAmount();
@@ -180,6 +185,7 @@ public class AutoTrxDaoImpl implements AutoTrxDao {
 	}
 
 	@Override
+	@CachePut(value = "autoTrasactionById", key = "#auto_transcation_id")
 	public int updateTransactionInformation(long auto_transaction_id, AutoTransaction autoTransactionDetails)
 			throws InvalidAutoShopException, InvalidVehicleException, InvalidTransactionTypeException,
 			InvalidUserException {
@@ -215,6 +221,7 @@ public class AutoTrxDaoImpl implements AutoTrxDao {
 	}
 
 	@Override
+	@CachePut(value = "autoTrasactionById", key = "#auto_tranasction_id")
 	public int deleteAutoTransactionInformation(long auto_transaction_id) {
 		int count = jdbcTemplate.update(DELETE_AUTO_TRX_BY_ID, auto_transaction_id);
 
@@ -224,6 +231,7 @@ public class AutoTrxDaoImpl implements AutoTrxDao {
 	}
 
 	@Override
+	@CachePut(value = "autoTransactionList")
 	public int deleteAllAutoTransactions() {
 		int count = jdbcTemplate.update(DELETE_ALL_AUTO_TRX);
 

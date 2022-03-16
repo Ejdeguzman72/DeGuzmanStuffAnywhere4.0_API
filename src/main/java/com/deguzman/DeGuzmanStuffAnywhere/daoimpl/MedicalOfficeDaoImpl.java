@@ -5,6 +5,8 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -39,6 +41,7 @@ public class MedicalOfficeDaoImpl implements MedicalOfficeDao {
 	private static final Logger LOGGER = LoggerFactory.getLogger(MedicalOfficeDaoImpl.class);
 
 	@Override
+	@Cacheable(value = "medicalOfficeList")
 	public List<MedicalOffice> findAllMedicalOfficeInformation() {
 		List<MedicalOffice> list = jdbcTemplate.query(GET_ALL_MEDICAL_OFFICE_INFORMATION,
 				BeanPropertyRowMapper.newInstance(MedicalOffice.class));
@@ -61,6 +64,7 @@ public class MedicalOfficeDaoImpl implements MedicalOfficeDao {
 	}
 
 	@Override
+	@Cacheable(value = "medicalOfficeById", key = "#medicalOfficeId")
 	public ResponseEntity<MedicalOffice> findMedicalOfficeInformationById(@PathVariable long medicalOfficeId) {
 		MedicalOffice medicalOffice = jdbcTemplate.queryForObject(GET_ALL_MEDICAL_OFFICE_INFORMATION_BY_ID,
 				BeanPropertyRowMapper.newInstance(MedicalOffice.class), medicalOfficeId);
@@ -80,6 +84,7 @@ public class MedicalOfficeDaoImpl implements MedicalOfficeDao {
 	}
 
 	@Override
+	@CachePut(value = "medicalOfficeList")
 	public int addMedicalOfficeInformation(MedicalOffice medicalOffice) {
 
 		String address = medicalOffice.getAddress();
@@ -95,6 +100,7 @@ public class MedicalOfficeDaoImpl implements MedicalOfficeDao {
 	}
 
 	@Override
+	@CachePut(value = "medicalOfficeById", key = "#medicalOfficeId")
 	public int updateMedicalOfficeInformation(long medicalOfficeId, MedicalOffice officeDetails) {
 
 		int result = 0; 
@@ -126,6 +132,7 @@ public class MedicalOfficeDaoImpl implements MedicalOfficeDao {
 	}
 
 	@Override
+	@CachePut(value = "medicalOfficeById", key = "#medicalOfficeId")
 	public int deleteMedicalOfficeById(long medicalOfficeId) {
 		int count = jdbcTemplate.update(DELETE_MEDICAL_OFFICE_BY_ID, medicalOfficeId);
 
@@ -135,6 +142,7 @@ public class MedicalOfficeDaoImpl implements MedicalOfficeDao {
 	}
 
 	@Override
+	@CachePut(value = "medicalOfficeList")
 	public int deleteAllMedicalOfficeInformation() {
 		int count = jdbcTemplate.update(DELETE_ALL_MEDICAL_OFFICE_INFORMATION);
 

@@ -5,6 +5,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -23,6 +24,7 @@ public class HomeInfoDaoImpl implements HomeInfoDao {
 	private static final Logger LOGGER = LoggerFactory.getLogger(HomeInfoDaoImpl.class);
 
 	@Override
+	@Cacheable(value = "homeInfoList")
 	public List<HomeInfo> getAllHomeInfo() {
 		List<HomeInfo> list = jdbcTemplate.query(GET_HOME_INFO, BeanPropertyRowMapper.newInstance(HomeInfo.class));
 

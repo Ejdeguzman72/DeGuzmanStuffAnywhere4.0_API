@@ -6,6 +6,8 @@ import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -74,6 +76,7 @@ public class RestaurantDaoImpl implements RestaurantDao {
 	private static final Logger LOGGER = LoggerFactory.getLogger(RestaurantDaoImpl.class);
 
 	@Override
+	@Cacheable(value = "restaurantList")
 	public List<RestaurantInfoDTO> findAllRestaurants() {
 		List<RestaurantInfoDTO> restaurantList = jdbcTemplate.query(GET_ALL_RESTAURANT_INFORMATION,
 				BeanPropertyRowMapper.newInstance(RestaurantInfoDTO.class));
@@ -97,6 +100,7 @@ public class RestaurantDaoImpl implements RestaurantDao {
 	}
 
 	@Override
+	@Cacheable(value = "restaurantById", key = "#restaurant_id")
 	public ResponseEntity<RestaurantInfoDTO> findRestaurantById(int restaurant_id) throws InvalidRestaurantException {
 		RestaurantInfoDTO restaurantInfo = jdbcTemplate.queryForObject(GET_RESTAURANT_INFORMATION_DTO_BY_ID,
 				BeanPropertyRowMapper.newInstance(RestaurantInfoDTO.class), restaurant_id);
@@ -160,6 +164,7 @@ public class RestaurantDaoImpl implements RestaurantDao {
 	}
 
 	@Override
+	@CachePut(value = "restaurantList")
 	public int addRestaurantInformation(@RequestBody Restaurant restaurant) throws ResourceNotFoundException, DuplicateRestaurantException {
 
 		String name = restaurant.getName();
@@ -181,6 +186,7 @@ public class RestaurantDaoImpl implements RestaurantDao {
 	}
 
 	@Override
+	@CachePut(value = "restaurantById", key = "#restaurant_id")
 	public int updateRestaurantInformation(int restaurant_id, Restaurant restaurantDetails)
 			throws ResourceNotFoundException {
 
@@ -215,6 +221,7 @@ public class RestaurantDaoImpl implements RestaurantDao {
 	}
 
 	@Override
+	@CachePut(value = "restaurantById", key = "#restaurant_id")
 	public int deleteRestaurantInformation(int restaurant_id) {
 		int count = jdbcTemplate.update(DELETE_RESTAURANT_INFORMATION_BY_ID, restaurant_id);
 
@@ -224,6 +231,7 @@ public class RestaurantDaoImpl implements RestaurantDao {
 	}
 
 	@Override
+	@CachePut(value = "restaurantList")
 	public int deleteAllRestaurantInformation() {
 		int count = jdbcTemplate.update(DELETE_ALL_RESTAURANT_INFORMATION);
 

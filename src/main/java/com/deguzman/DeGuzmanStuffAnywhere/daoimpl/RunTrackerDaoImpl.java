@@ -5,6 +5,8 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -56,6 +58,7 @@ public class RunTrackerDaoImpl implements RunTrackerDao {
 	private static final Logger LOGGER = LoggerFactory.getLogger(RunTrackerDaoImpl.class);
 
 	@Override
+	@Cacheable(value = "runList")
 	public List<RunTrackerInfoDTO> findAllRunTrackerInformation() {
 		List<RunTrackerInfoDTO> list = jdbcTemplate.query(GET_ALL_RUN_TRACKER_INFO,
 				BeanPropertyRowMapper.newInstance(RunTrackerInfoDTO.class));
@@ -78,6 +81,7 @@ public class RunTrackerDaoImpl implements RunTrackerDao {
 	}
 
 	@Override
+	@Cacheable(value = "runById", key = "#run_id")
 	public ResponseEntity<RunTrackerInfoDTO> findRunTrackerInformationDTOById(@PathVariable long run_id) {
 		RunTrackerInfoDTO runTrackerInfo = jdbcTemplate.queryForObject(GET_RUN_TRACKER_INFORMATION_BY_ID,
 				BeanPropertyRowMapper.newInstance(RunTrackerInfoDTO.class), run_id);
@@ -107,6 +111,7 @@ public class RunTrackerDaoImpl implements RunTrackerDao {
 	}
 
 	@Override
+	@CachePut(value = "runList")
 	public int addRunTrackerInformation(RunTracker runTracker) {
 
 		String run_date = runTracker.getRunDate();
@@ -121,6 +126,7 @@ public class RunTrackerDaoImpl implements RunTrackerDao {
 	}
 
 	@Override
+	@CachePut(value = "runById", key = "#run_id")
 	public int updateRunTrackerInformation(long run_id, RunTracker runTrackerDetails) {
 
 		int result = 0;
@@ -151,6 +157,7 @@ public class RunTrackerDaoImpl implements RunTrackerDao {
 	}
 
 	@Override
+	@CachePut(value = "runById", key = "#run_id")
 	public int deleteRunTrackerInformation(@PathVariable long run_id) {
 		int count = jdbcTemplate.update(DELETE_RUN_TRACKER_INFORMATION_BY_ID, run_id);
 
@@ -160,6 +167,7 @@ public class RunTrackerDaoImpl implements RunTrackerDao {
 	}
 
 	@Override
+	@CachePut(value = "runList")
 	public int deleteAllRunTrackerInformation() {
 		int count = jdbcTemplate.queryForObject(DELETE_ALL_RUN_TRACKER_INFORMATION, Integer.class);
 

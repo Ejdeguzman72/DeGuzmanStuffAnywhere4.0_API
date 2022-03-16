@@ -6,6 +6,8 @@ import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -39,6 +41,7 @@ public class SongDaoImpl implements SongDao {
 	private Logger LOGGER = LoggerFactory.getLogger(SongDaoImpl.class);
 
 	@Override
+	@Cacheable(value = "songList")
 	public List<Song> findAllSongInformation() {
 		List<Song> list = jdbcTemplate.query(GET_ALL_SONGS, BeanPropertyRowMapper.newInstance(Song.class));
 
@@ -72,6 +75,7 @@ public class SongDaoImpl implements SongDao {
 	}
 
 	@Override
+	@Cacheable(value = "songById", key = "#song_id")
 	public ResponseEntity<Song> findSongById(int song_id) throws ResourceNotFoundException {
 		Song song = jdbcTemplate.queryForObject(GET_SONG_INFORMATION_BY_ID,
 				BeanPropertyRowMapper.newInstance(Song.class), song_id);
@@ -116,6 +120,7 @@ public class SongDaoImpl implements SongDao {
 	}
 	
 	@Override
+	@CachePut(value = "songList")
 	public int addSongInformation(Song song) throws DuplicateSongTitleException {
 
 		String title = song.getTitle();
@@ -132,6 +137,7 @@ public class SongDaoImpl implements SongDao {
 	}
 
 	@Override
+	@CachePut(value = "songById", key = "#song_id")
 	public int updateSongInformation(int song_id, Song songDetails) {
 
 		int result = 0;
@@ -159,6 +165,7 @@ public class SongDaoImpl implements SongDao {
 	}
 
 	@Override
+	@CachePut(value = "songById", key = "#song_id")
 	public int deleteSongInformation(int song_id) {
 		int count = jdbcTemplate.update(DELETE_SONG_INFORMATION_BY_ID, song_id);
 
@@ -168,6 +175,7 @@ public class SongDaoImpl implements SongDao {
 	}
 
 	@Override
+	@Cacheable(value = "songList")
 	public int deleteAllSongs() {
 		int count = jdbcTemplate.update(DELETE_ALL_SONG_INFORMATION);
 

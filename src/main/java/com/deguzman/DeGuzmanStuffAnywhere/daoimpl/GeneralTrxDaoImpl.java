@@ -5,6 +5,8 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -59,6 +61,7 @@ public class GeneralTrxDaoImpl implements GeneralTrxDao {
 	private static final Logger LOGGER = LoggerFactory.getLogger(GeneralTrxDaoImpl.class);
 
 	@Override
+	@Cacheable(value = "transactionList")
 	public List<GeneralTrxInfoDTO> findAllTransactionInformation() {
 		List<GeneralTrxInfoDTO> generalTrxList = jdbcTemplate.query(GET_ALL_GENERAL_TRX_INFORMATION,
 				BeanPropertyRowMapper.newInstance(GeneralTrxInfoDTO.class));
@@ -95,6 +98,7 @@ public class GeneralTrxDaoImpl implements GeneralTrxDao {
 	}
 
 	@Override
+	@Cacheable(value = "generalTransactionById", key = "#transaction_id")
 	public ResponseEntity<GeneralTrxInfoDTO> findTransactionInformationDTOById(@PathVariable long transaction_id)
 			throws ResourceNotFoundException {
 		GeneralTrxInfoDTO generalTrx = jdbcTemplate.queryForObject(GET_TRANSACTION_INFO_BY_ID,
@@ -127,6 +131,7 @@ public class GeneralTrxDaoImpl implements GeneralTrxDao {
 	}
 
 	@Override
+	@CachePut(value = "transactionList")
 	public int addTransactionInformation(@RequestBody GeneralTransaction transaction) throws ResourceNotFoundException {
 
 		double amount = transaction.getAmount();
@@ -142,6 +147,7 @@ public class GeneralTrxDaoImpl implements GeneralTrxDao {
 	}
 
 	@Override
+	@CachePut(value = "generalTrasactionById", key = "#transaction_id")
 	public int updateTransactionInformation(@PathVariable Long transaction_id, @RequestBody GeneralTransaction transactionDetails) {
 
 		int result = 0;
@@ -173,6 +179,7 @@ public class GeneralTrxDaoImpl implements GeneralTrxDao {
 	}
 
 	@Override
+	@CachePut(value = "generalTrasactionById", key = "#transaction_id")
 	public int deleteTransactionInformation(@PathVariable long transaction_id) {
 		int result = jdbcTemplate.update(DELETE_TRANSACTION_BY_ID, transaction_id);
 
@@ -182,6 +189,7 @@ public class GeneralTrxDaoImpl implements GeneralTrxDao {
 	}
 
 	@Override
+	@CachePut(value = "transactionList")
 	public int deleteAllTransactions() {
 		int result = jdbcTemplate.update(DELETE_ALL_TRANSACTIONS);
 

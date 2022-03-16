@@ -5,6 +5,8 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -48,11 +50,13 @@ public class VehicleDaoImpl implements VehicleDao {
 	private static final Logger LOGGER = LoggerFactory.getLogger(VehicleDaoImpl.class);
 
 	@Override
+	@Cacheable(value = "vehicleList")
 	public List<Vehicle> findAllCarInformation() {
 		return jdbcTemplate.query(GET_ALL_VEHICLE_INFORMATION, BeanPropertyRowMapper.newInstance(Vehicle.class));
 	}
 
 	@Override
+	@Cacheable(value = "vehicleById", key = "#vehicleId")
 	public ResponseEntity<Vehicle> findVehicleInformationById(@PathVariable long vehicleId)
 			throws InvalidVehicleException {
 		Vehicle vehicle = jdbcTemplate.queryForObject(GET_VEHICLE_INFORMATION_BY_ID,
@@ -111,6 +115,7 @@ public class VehicleDaoImpl implements VehicleDao {
 	}
 
 	@Override
+	@CachePut(value = "vehicleList")
 	public int addCarInformation(@RequestBody Vehicle vehicle) {
 
 		String make = vehicle.getMake();
@@ -125,6 +130,7 @@ public class VehicleDaoImpl implements VehicleDao {
 	}
 
 	@Override
+	@CachePut(value = "vehicleById", key = "#vehicleId")
 	public int updateCarInformation(long vehicleId, Vehicle vehicleDetails) {
 
 		int result = 0;
@@ -156,6 +162,7 @@ public class VehicleDaoImpl implements VehicleDao {
 	}
 
 	@Override
+	@CachePut(value = "vehicleById", key = "#vehicleId")
 	public int deleteCarInformation(@PathVariable long vehicleId) {
 		int result = jdbcTemplate.update(DELETE_VEHICLE_INFORMATION_BY_ID, vehicleId);
 
@@ -165,6 +172,7 @@ public class VehicleDaoImpl implements VehicleDao {
 	}
 
 	@Override
+	@CachePut(value = "vehicleList")
 	public int deleteAllVehicleInformation() {
 		int count = jdbcTemplate.update(DELETE_ALL_VEHICLE_INFORMATION);
 

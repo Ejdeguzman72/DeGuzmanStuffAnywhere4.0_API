@@ -5,6 +5,8 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -70,6 +72,7 @@ public class MedicalTrxDaoImpl implements MedicalTrxDao {
 	private static final Logger LOGGER = LoggerFactory.getLogger(MedicalTrxDaoImpl.class);
 
 	@Override
+	@Cacheable(value = "medicalTransactionList")
 	public List<MedicalTrxInfoDTO> findAllMedicalTransactionInformation() {
 		List<MedicalTrxInfoDTO> medicalTrxList = jdbcTemplate.query(GET_ALL_MEDICAL_TRANSACTION_INFO,
 				(rs, rowNum) -> new MedicalTrxInfoDTO(rs.getLong("MEDICAL_TRANSACTION_ID"), rs.getDouble("AMOUNT"),
@@ -126,6 +129,7 @@ public class MedicalTrxDaoImpl implements MedicalTrxDao {
 	}
 
 	@Override
+	@Cacheable(value = "medicalTransactionById", key = "#medical_transaction_id")
 	public ResponseEntity<MedicalTrxInfoDTO> findMedicalTransactionInformationDTOById(
 			@PathVariable long medical_transaction_id) throws ResourceNotFoundException {
 		MedicalTrxInfoDTO medicalTrx = jdbcTemplate.queryForObject(GET_MEDICAL_TRANSACTION_BY_ID,
@@ -157,6 +161,7 @@ public class MedicalTrxDaoImpl implements MedicalTrxDao {
 	}
 
 	@Override
+	@CachePut(value = "medicalTrasactionList")
 	public int addMedicalTransactionInformation(MedicalTransaction medicalTransaction)
 			throws ResourceNotFoundException {
 
@@ -175,6 +180,7 @@ public class MedicalTrxDaoImpl implements MedicalTrxDao {
 	}
 
 	@Override
+	@CachePut(value = "medicalTransactionById", key = "#medical_transaction_id")
 	public int updateMedicalTransaction(long medical_transaction_id, MedicalTransaction medicalTransactionDetails) {
 
 		int result = 0;
@@ -206,6 +212,7 @@ public class MedicalTrxDaoImpl implements MedicalTrxDao {
 	}
 
 	@Override
+	@CachePut(value = "medicalTransactionById", key = "#medical_transaction_id")
 	public int deleteMedicalTraansactionInformation(long medical_transaction_id) {
 		int result = jdbcTemplate.update(DELETE_MEDICAL_TRANSACTION_BY_ID, medical_transaction_id);
 
@@ -215,6 +222,7 @@ public class MedicalTrxDaoImpl implements MedicalTrxDao {
 	}
 
 	@Override
+	@CachePut(value = "medicalTransactionList")
 	public int deleteAllMedicalTransactions() {
 		int result = jdbcTemplate.update(DELETE_ALL_MEDICAL_TRANSACTIONS);
 

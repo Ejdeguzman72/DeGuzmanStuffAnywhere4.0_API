@@ -5,6 +5,8 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -53,6 +55,7 @@ public class UtilityDaoImpl implements UtilityDao {
 	private static final Logger LOGGER = LoggerFactory.getLogger(UtilityDaoImpl.class);
 
 	@Override
+	@Cacheable(value = "utilityList")
 	public List<UtilityInfoDTO> findAllUtilityInformation() {
 		List<UtilityInfoDTO> list = jdbcTemplate.query(GET_ALL_UTILITY_INFORMATION,
 				BeanPropertyRowMapper.newInstance(UtilityInfoDTO.class));
@@ -75,6 +78,7 @@ public class UtilityDaoImpl implements UtilityDao {
 	}
 
 	@Override
+	@Cacheable(value = "utilityById", key = "#utility_id")
 	public ResponseEntity<UtilityInfoDTO> findUtilityInformationById(long utility_id) {
 		UtilityInfoDTO utilityInfo = jdbcTemplate.queryForObject(GET_UTILITY_INFORMATION_BY_ID,
 				BeanPropertyRowMapper.newInstance(UtilityInfoDTO.class), utility_id);
@@ -115,6 +119,7 @@ public class UtilityDaoImpl implements UtilityDao {
 	}
 
 	@Override
+	@CachePut(value = "utilityList")
 	public int addUtilityInformation(@RequestBody Utility utility) {
 
 		int utility_type_id = utility.getUtility_type_id();
@@ -130,12 +135,14 @@ public class UtilityDaoImpl implements UtilityDao {
 	}
 
 	@Override
+	@CachePut(value = "utilityById", key = "#utility_id")
 	public int updateUtilityInformation(long utility_id, Utility utilityDetails) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
+	@CachePut(value = "utilityById", key = "#utility_id")
 	public int deleteUtilityInformation(long utility_id) {
 		int count = jdbcTemplate.update(DELETE_UTILITY_INFORMATION_BY_ID, utility_id);
 
@@ -145,6 +152,7 @@ public class UtilityDaoImpl implements UtilityDao {
 	}
 
 	@Override
+	@CachePut(value = "utilityList")
 	public int deleteAllUtilityInformation() {
 		int count = jdbcTemplate.update(DELETE_ALL_UTILITY_INFORMATION);
 

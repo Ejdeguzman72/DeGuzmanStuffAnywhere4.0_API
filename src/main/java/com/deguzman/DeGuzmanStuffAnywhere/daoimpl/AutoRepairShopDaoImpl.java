@@ -1,11 +1,12 @@
 package com.deguzman.DeGuzmanStuffAnywhere.daoimpl;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -14,12 +15,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.deguzman.DeGuzmanStuffAnywhere.dao.AutoShopDao;
-import com.deguzman.DeGuzmanStuffAnywhere.dto.RestaurantInfoDTO;
 import com.deguzman.DeGuzmanStuffAnywhere.exception.DuplicateAutoShopException;
-import com.deguzman.DeGuzmanStuffAnywhere.exception.DuplicateRestaurantException;
 import com.deguzman.DeGuzmanStuffAnywhere.model.AutoRepairShop;
-import com.deguzman.DeGuzmanStuffAnywhere.model.Vehicle;
-
 @Repository
 public class AutoRepairShopDaoImpl implements AutoShopDao {
 
@@ -41,6 +38,7 @@ public class AutoRepairShopDaoImpl implements AutoShopDao {
 	String DELETE_ALL_AUTO_SHOPS = "DELETE FROM AUTO_SHOP";
 
 	@Override
+	@Cacheable(value = "autoShopList")
 	public List<AutoRepairShop> findAllAutoRepairShopInfo() {
 		List<AutoRepairShop> listAutoRepairShops = jdbcTemplate.query(GET_ALL_AUTO_REPAIR_SHOPS,
 				BeanPropertyRowMapper.newInstance(AutoRepairShop.class));
@@ -51,6 +49,7 @@ public class AutoRepairShopDaoImpl implements AutoShopDao {
 	}
 
 	@Override
+	@Cacheable(value="autoShopById", key="#auto_shop_id")
 	public ResponseEntity<AutoRepairShop> findAutoRepairShopById(@PathVariable int auto_shop_id) {
 		AutoRepairShop autoShop = jdbcTemplate.queryForObject(GET_AUTO_SHOP_BY_ID,
 				BeanPropertyRowMapper.newInstance(AutoRepairShop.class), auto_shop_id);
@@ -92,6 +91,7 @@ public class AutoRepairShopDaoImpl implements AutoShopDao {
 	}
 
 	@Override
+	@CachePut(value = "autoShopList")
 	public int addAutoRepairShopInfo(AutoRepairShop autoShop) throws DuplicateAutoShopException {
 		
 		String autoShopName = autoShop.getAutoShopName();
@@ -122,6 +122,7 @@ public class AutoRepairShopDaoImpl implements AutoShopDao {
 	}
 
 	@Override
+	@CachePut(value = "autoShopById", key = "#auto_shop_id")
 	public int updateAutoShopInfo(@PathVariable int auto_shop_id, @RequestBody AutoRepairShop shopDetails) {
 		
 		int result = 0;
@@ -154,6 +155,7 @@ public class AutoRepairShopDaoImpl implements AutoShopDao {
 	}
 
 	@Override
+	@CachePut(value = "autoShopById", key = "#auto_shop_id")
 	public int deleteAutoRepairShopInfo(@PathVariable int auto_shop_id) {
 		int count = jdbcTemplate.update(DELETE_AUTO_SHOP_INFORMATION_BY_ID, auto_shop_id);
 
@@ -163,6 +165,7 @@ public class AutoRepairShopDaoImpl implements AutoShopDao {
 	}
 
 	@Override
+	@CachePut(value = "autoShopList")
 	public int deleteAllAutoShop() {
 		int count = jdbcTemplate.update(DELETE_ALL_AUTO_SHOPS);
 

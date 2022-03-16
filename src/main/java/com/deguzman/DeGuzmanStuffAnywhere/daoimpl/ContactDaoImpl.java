@@ -6,6 +6,8 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -52,6 +54,7 @@ public class ContactDaoImpl implements ContactDao {
 	String DELETE_ALL_CONTACT_INFO = "DELETE FROM PERSON";
 
 	@Override
+	@Cacheable(value = "contactList")
 	public List<Person> findAllPersonInformation() throws SecurityException, IOException {
 		List<Person> personList = jdbcTemplate.query(GET_ALL_CONTACT_INFO,
 				BeanPropertyRowMapper.newInstance(Person.class));
@@ -62,6 +65,7 @@ public class ContactDaoImpl implements ContactDao {
 	}
 
 	@Override
+	@Cacheable(value = "contactById", key = "#contactById")
 	public ResponseEntity<Person> findPersonById(@PathVariable int personId)
 			throws ResourceNotFoundException, SecurityException, IOException {
 
@@ -107,6 +111,7 @@ public class ContactDaoImpl implements ContactDao {
 	}
 
 	@Override
+	@CachePut(value = "contactList")
 	public int addPersonInformation(@RequestBody Person person) throws SecurityException, IOException {
 
 		String firstname = person.getFirstname();
@@ -129,6 +134,7 @@ public class ContactDaoImpl implements ContactDao {
 	}
 
 	@Override
+	@CachePut(value = "contactById", key = "#personId")
 	public int updatePersonInformation(@PathVariable int personId, @RequestBody Person personDetails)
 			throws SecurityException, IOException {
 
@@ -176,6 +182,7 @@ public class ContactDaoImpl implements ContactDao {
 	}
 
 	@Override
+	@CachePut(value = "contactById", key = "#personId")
 	public int deletePersonInformation(@PathVariable int personId) throws SecurityException, IOException {
 		int count = jdbcTemplate.update(DELETE_CONTACT_INFO_BY_ID, personId);
 
@@ -194,6 +201,7 @@ public class ContactDaoImpl implements ContactDao {
 	}
 
 	@Override
+	@CachePut(value = "contactList")
 	public int deleteAllPersonInformation() {
 		int count = jdbcTemplate.update(DELETE_ALL_CONTACT_INFO);
 

@@ -8,6 +8,8 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -55,6 +57,7 @@ public class ExerciseDaoImpl implements ExerciseDao {
 	private static final Logger LOGGER = LoggerFactory.getLogger(ExerciseDaoImpl.class);
 
 	@Override
+	@Cacheable(value = "exerciseList")
 	public List<ExerciseInfoDTO> findAllExerciseInformation() {
 		List<ExerciseInfoDTO> list = jdbcTemplate.query(GET_ALL_EXERCISE_INFORMATION,
 				BeanPropertyRowMapper.newInstance(ExerciseInfoDTO.class));
@@ -91,6 +94,7 @@ public class ExerciseDaoImpl implements ExerciseDao {
 	}
 
 	@Override
+	@Cacheable(value = "exerciseById", key = "#exercise_id")
 	public ResponseEntity<Exercise> findExerciseById(@PathVariable int exercise_id) {
 		Exercise exerciseInfo = jdbcTemplate.queryForObject(GET_EXERCISE_INFO,
 				BeanPropertyRowMapper.newInstance(Exercise.class), exercise_id);
@@ -111,6 +115,7 @@ public class ExerciseDaoImpl implements ExerciseDao {
 	}
 	
 	@Override
+	@CachePut(value = "exerciseList")
 	public int addExerciseInformation(Exercise exercise) {
 
 		String exerciseName = exercise.getExercise_name();
@@ -129,6 +134,7 @@ public class ExerciseDaoImpl implements ExerciseDao {
 	}
 
 	@Override
+	@CachePut(value = "exerciseById", key = "#exercise_id")
 	public int updateExerciseInformation(@PathVariable int exercise_id, @RequestBody Exercise exerciseDetails) {
 
 		int result = 0;
@@ -164,6 +170,7 @@ public class ExerciseDaoImpl implements ExerciseDao {
 	}
 
 	@Override
+	@CachePut(value = "exerciseById", key = "#exercise_id")
 	public int deleteExerciseInformationById(int exercise_id) {
 		int count = jdbcTemplate.update(DELETE_EXERCISE_INFORMATION_BY_ID, exercise_id);
 
@@ -173,6 +180,7 @@ public class ExerciseDaoImpl implements ExerciseDao {
 	}
 
 	@Override
+	@CachePut(value = "exerciseList")
 	public int deleteAllExercisInformation() {
 		int count = jdbcTemplate.update(DELETE_ALL_EXERCISE_INFORMATION);
 

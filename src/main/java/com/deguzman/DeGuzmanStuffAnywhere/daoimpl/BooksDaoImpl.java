@@ -6,6 +6,8 @@ import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -37,6 +39,7 @@ public class BooksDaoImpl implements BooksDao {
 	private static final Logger LOGGER = LoggerFactory.getLogger(BooksDaoImpl.class);
 
 	@Override
+	@Cacheable(value = "bookList")
 	public List<Books> findAllBooksInformation() {
 		List<Books> booksList = jdbcTemplate.query(GET_ALL_BOOKS, BeanPropertyRowMapper.newInstance(Books.class));
 
@@ -58,6 +61,7 @@ public class BooksDaoImpl implements BooksDao {
 	}
 
 	@Override
+	@Cacheable(value = "bookById", key = "#book_id")
 	public ResponseEntity<Books> findBooksInformationById(@PathVariable int book_id) throws ResourceNotFoundException {
 		Books book = jdbcTemplate.queryForObject(GET_BOOK_INFORMATION_BY_ID,
 				BeanPropertyRowMapper.newInstance(Books.class), book_id);
@@ -68,6 +72,7 @@ public class BooksDaoImpl implements BooksDao {
 	}
 
 	@Override
+	@Cacheable(value = "bookName", key = "#name")
 	public ResponseEntity<Books> findBookInformationByName(@PathVariable String name) {
 		Books book = jdbcTemplate.queryForObject(GET_BOOK_INFORMATION_NAME,
 				BeanPropertyRowMapper.newInstance(Books.class), name);
@@ -87,6 +92,7 @@ public class BooksDaoImpl implements BooksDao {
 	}
 
 	@Override
+	@CachePut(value = "bookList")
 	public int addBooksInformation(@RequestBody Books book) throws DuplicateBookNameException {
 
 		String author = book.getAuthor();
@@ -103,6 +109,7 @@ public class BooksDaoImpl implements BooksDao {
 	}
 
 	@Override
+	@CachePut(value = "bookById", key = "#book_id")
 	public int updateBooksInformation(@PathVariable int book_id, @RequestBody Books book) {
 
 		int result = 0;
@@ -126,6 +133,7 @@ public class BooksDaoImpl implements BooksDao {
 	}
 
 	@Override
+	@CachePut(value = "bookById", key = "#book_id")
 	public int deleteBookInformation(@PathVariable int book_id) {
 		int count = jdbcTemplate.update(DELETE_BOOK_INFORMATION_BY_ID, book_id);
 
@@ -135,6 +143,7 @@ public class BooksDaoImpl implements BooksDao {
 	}
 
 	@Override
+	@CachePut(value = "bookList")
 	public int deleteAllBookInformation() {
 		int count = jdbcTemplate.update(DELETE_ALL_BOOK_INFORMATION);
 
