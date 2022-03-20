@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.deguzman.DeGuzmanStuffAnywhere.daoimpl.SongDaoImpl;
 import com.deguzman.DeGuzmanStuffAnywhere.exception.DuplicateSongTitleException;
-import com.deguzman.DeGuzmanStuffAnywhere.exception.DuplicateTitleException;
 import com.deguzman.DeGuzmanStuffAnywhere.exception.ResourceNotFoundException;
 import com.deguzman.DeGuzmanStuffAnywhere.model.Song;
 import com.deguzman.DeGuzmanStuffAnywhere.service.SongPaginationService;

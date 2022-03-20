@@ -66,6 +66,7 @@ public class Post implements Serializable {
 	public void setUser(User user) {
 		this.user = user;
 	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

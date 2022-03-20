@@ -18,10 +18,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.deguzman.DeGuzmanStuffAnywhere.file_upload_jpa_models.AutoTrxFile;
-import com.deguzman.DeGuzmanStuffAnywhere.file_upload_jpa_models.Photos;
 import com.deguzman.DeGuzmanStuffAnywhere.file_upload_response.ResponseFile;
 import com.deguzman.DeGuzmanStuffAnywhere.file_upload_service.AutoTrxFileStorageService;
-import com.deguzman.DeGuzmanStuffAnywhere.file_upload_service.PhotosStorageService;
 import com.deguzman.DeGuzmanStuffAnywhere.util.ResponseMessage;
 
 @RestController

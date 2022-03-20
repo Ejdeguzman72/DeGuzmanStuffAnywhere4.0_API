@@ -17,10 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.deguzman.DeGuzmanStuffAnywhere.file_upload_jpa_models.Photos;
 import com.deguzman.DeGuzmanStuffAnywhere.file_upload_jpa_models.Video;
 import com.deguzman.DeGuzmanStuffAnywhere.file_upload_response.ResponseFile;
-import com.deguzman.DeGuzmanStuffAnywhere.file_upload_service.PhotosStorageService;
 import com.deguzman.DeGuzmanStuffAnywhere.file_upload_service.VideoStorageService;
 import com.deguzman.DeGuzmanStuffAnywhere.util.ResponseMessage;
 

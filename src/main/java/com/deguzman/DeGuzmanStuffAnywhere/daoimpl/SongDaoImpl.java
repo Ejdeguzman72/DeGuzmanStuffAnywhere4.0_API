@@ -16,9 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import com.deguzman.DeGuzmanStuffAnywhere.dao.SongDao;
 import com.deguzman.DeGuzmanStuffAnywhere.exception.DuplicateSongTitleException;
-import com.deguzman.DeGuzmanStuffAnywhere.exception.DuplicateTitleException;
 import com.deguzman.DeGuzmanStuffAnywhere.exception.ResourceNotFoundException;
-import com.deguzman.DeGuzmanStuffAnywhere.model.Books;
 import com.deguzman.DeGuzmanStuffAnywhere.model.Song;
 
 @Repository
