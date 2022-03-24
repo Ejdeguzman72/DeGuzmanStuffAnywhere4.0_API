@@ -72,7 +72,7 @@ public class MedicalTrxDaoImpl implements MedicalTrxDao {
 	private static final Logger LOGGER = LoggerFactory.getLogger(MedicalTrxDaoImpl.class);
 
 	@Override
-	@Cacheable(value = "medicalTransactionList")
+	@Cacheable(value = "medicalTrasactionList")
 	public List<MedicalTrxInfoDTO> findAllMedicalTransactionInformation() {
 		List<MedicalTrxInfoDTO> medicalTrxList = jdbcTemplate.query(GET_ALL_MEDICAL_TRANSACTION_INFO,
 				(rs, rowNum) -> new MedicalTrxInfoDTO(rs.getLong("MEDICAL_TRANSACTION_ID"), rs.getDouble("AMOUNT"),
@@ -222,7 +222,7 @@ public class MedicalTrxDaoImpl implements MedicalTrxDao {
 	}
 
 	@Override
-	@CachePut(value = "medicalTransactionList")
+	@CachePut(value = "medicalTrasactionList")
 	public int deleteAllMedicalTransactions() {
 		int result = jdbcTemplate.update(DELETE_ALL_MEDICAL_TRANSACTIONS);
 

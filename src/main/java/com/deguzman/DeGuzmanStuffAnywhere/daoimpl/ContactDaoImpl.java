@@ -65,7 +65,7 @@ public class ContactDaoImpl implements ContactDao {
 	}
 
 	@Override
-	@Cacheable(value = "contactById", key = "#contactById")
+	@Cacheable(value = "contactById", key = "#personId")
 	public ResponseEntity<Person> findPersonById(@PathVariable int personId)
 			throws ResourceNotFoundException, SecurityException, IOException {
 
