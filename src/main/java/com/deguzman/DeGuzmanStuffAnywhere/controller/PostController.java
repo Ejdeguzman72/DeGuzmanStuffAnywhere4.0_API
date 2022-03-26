@@ -18,43 +18,40 @@ import org.springframework.web.bind.annotation.RestController;
 import com.deguzman.DeGuzmanStuffAnywhere.daoimpl.PostDaoImpl;
 import com.deguzman.DeGuzmanStuffAnywhere.dto.PostDTO;
 import com.deguzman.DeGuzmanStuffAnywhere.model.Post;
-import com.deguzman.DeGuzmanStuffAnywhere.service.PostsPaginationService;
+import com.deguzman.DeGuzmanStuffAnywhere.service.PostsService;
 
 @RestController
 @RequestMapping("/app/posts")
 @CrossOrigin
 public class PostController {
-
-	@Autowired
-	private PostDaoImpl postDao;
 	
 	@Autowired
-	private PostsPaginationService postsPageService;
+	private PostsService socialMediaService;
 	
 	@GetMapping("/all")
 	public List<PostDTO> getAllPosts() {
-		return postDao.findAllPosts();
+		return socialMediaService.findAllPosts();
 	}
 	
 	@GetMapping("/all-posts")
 	public ResponseEntity<Map<String, Object>> findAllPostsPagination(
 			@RequestParam(required = false) String content, @RequestParam(defaultValue = "0") int page,
 			@RequestParam(defaultValue = "10") int size) {
-		return postsPageService.findAllPostsPagination(content, page, size);
+		return socialMediaService.findAllPostsPagination(content, page, size);
 	}
 	
 	@GetMapping("/user/{user_id}")
 	public List<PostDTO> getPostsByUser(@PathVariable long user_id) {
-		return postDao.findPostsByUser(user_id);
+		return socialMediaService.findPostsByUser(user_id);
 	}
 	
 	@PostMapping("/add-post")
 	public int addPostInformation(@RequestBody Post post) {
-		return postDao.addPost(post);
+		return socialMediaService.addPost(post);
 	}
 	
 	@DeleteMapping("/post/{post_id}")
 	public int deletePostInformation(@PathVariable int post_id) {
-		return postDao.deletePost(post_id);
+		return socialMediaService.deletePost(post_id);
 	}
 }

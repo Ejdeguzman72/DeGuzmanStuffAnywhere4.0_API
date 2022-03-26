@@ -20,7 +20,7 @@ import com.deguzman.DeGuzmanStuffAnywhere.daoimpl.SongDaoImpl;
 import com.deguzman.DeGuzmanStuffAnywhere.exception.DuplicateSongTitleException;
 import com.deguzman.DeGuzmanStuffAnywhere.exception.ResourceNotFoundException;
 import com.deguzman.DeGuzmanStuffAnywhere.model.Song;
-import com.deguzman.DeGuzmanStuffAnywhere.service.SongPaginationService;
+import com.deguzman.DeGuzmanStuffAnywhere.service.SongService;
 
 @RestController
 @RequestMapping("/app/music")
@@ -28,69 +28,66 @@ import com.deguzman.DeGuzmanStuffAnywhere.service.SongPaginationService;
 public class SongController {
 
 	@Autowired
-	private SongDaoImpl songDaoImpl;
-
-	@Autowired
-	private SongPaginationService songPageService;
+	private SongService songService;
 
 	@GetMapping("/all")
 	@CrossOrigin
 	public List<Song> getAllSongInformation() {
-		return songDaoImpl.findAllSongInformation();
+		return songService.findAllSongInformation();
 	}
 
 	@GetMapping("all-songs")
 	@CrossOrigin
 	public ResponseEntity<Map<String, Object>> getAllSongsPagination(@RequestParam(required = false) String title,
 			@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
-		return songPageService.getAllSongsPagination(title, page, size);
+		return songService.getAllSongsPagination(title, page, size);
 	}
 
 	@GetMapping("/song/{song_id}")
 	@CrossOrigin
 	public ResponseEntity<Song> getSongInformationById(@PathVariable int song_id) throws ResourceNotFoundException {
-		return songDaoImpl.findSongById(song_id);
+		return songService.findSongById(song_id);
 	}
 
 	@GetMapping("/song/artist/{artist}")
 	@CrossOrigin
 	public List<Song> getSongInformationByArtist(@PathVariable String artist) {
-		return songDaoImpl.findSongByArtist(artist);
+		return songService.findSongByArtist(artist);
 	}
 
 	@GetMapping("/song/genre/{genre}")
 	@CrossOrigin
 	public List<Song> getSongInformationByGenre(@PathVariable String genre) {
-		return songDaoImpl.findSongsByGenre(genre);
+		return songService.findSongsByGenre(genre);
 	}
 
 	@GetMapping("/count-of-songs")
 	@CrossOrigin
 	public int getCountOfSongs() {
-		return songDaoImpl.findSongCount();
+		return songService.findSongCount();
 	}
 
 	@PostMapping("/add-song-information")
 	@CrossOrigin
 	public int addSongInformation(@RequestBody Song song) throws DuplicateSongTitleException {
-		return songDaoImpl.addSongInformation(song);
+		return songService.addSongInformation(song);
 	}
 	
 	@PutMapping("/song/{song_id}")
 	@CrossOrigin
 	public int updateSongInformation(@PathVariable int song_id, @RequestBody Song songDetails) {
-		return songDaoImpl.updateSongInformation(song_id, songDetails);
+		return songService.updateSongInformation(song_id, songDetails);
 	}
 
 	@DeleteMapping("/song/{song_id}")
 	@CrossOrigin
 	public int deleteSongInformationById(@PathVariable int song_id) {
-		return songDaoImpl.deleteSongInformation(song_id);
+		return songService.deleteSongInformation(song_id);
 	}
 
 	@DeleteMapping("/delete-all-songs")
 	@CrossOrigin
 	public int deleteAllSongs() {
-		return songDaoImpl.deleteAllSongs();
+		return songService.deleteAllSongs();
 	}
 }

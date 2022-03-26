@@ -13,27 +13,37 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.deguzman.DeGuzmanStuffAnywhere.jpa_dao.MedicalTrxJpaDao;
-import com.deguzman.DeGuzmanStuffAnywhere.jpa_model.MedicalTransaction;
+import com.deguzman.DeGuzmanStuffAnywhere.daoimpl.PostDaoImpl;
+import com.deguzman.DeGuzmanStuffAnywhere.dto.PostDTO;
+import com.deguzman.DeGuzmanStuffAnywhere.jpa_dao.PostsJpaDao;
+import com.deguzman.DeGuzmanStuffAnywhere.jpa_model.Post;
 
 @Service
-public class MedicalTrxPaginationService {
+public class PostsService {
 
 	@Autowired
-	private MedicalTrxJpaDao medicalTrxDao;
+	private PostDaoImpl postDaoImpl;
 	
-	public ResponseEntity<Map<String, Object>> getAllTransactionsPagination(@RequestParam(required = false) String paymentDate,
-			@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+	@Autowired
+	private PostsJpaDao postDao;
+	
+	public List<PostDTO> findAllPosts() {
+		return postDaoImpl.findAllPosts();
+	}
+	
+	public ResponseEntity<Map<String, Object>> findAllPostsPagination(
+			@RequestParam(required = false) String content, @RequestParam(defaultValue = "0") int page,
+			@RequestParam(defaultValue = "10") int size) {
 		try {
 
-			List<MedicalTransaction> shop = medicalTrxDao.findAll();
+			List<Post> shop = postDao.findAll();
 
 			Pageable paging = PageRequest.of(page, size);
 
-			Page<MedicalTransaction> pageBooks = null;
+			Page<Post> pageBooks = null;
 
-			if (paymentDate == null) {
-				pageBooks = medicalTrxDao.findAll(paging);
+			if (content == null) {
+				pageBooks = postDao.findAll(paging);
 			} else {
 				// pageBooks = autoShopDao.findByNameContaining(autoShopname, paging);
 			}
@@ -41,7 +51,7 @@ public class MedicalTrxPaginationService {
 			shop = pageBooks.getContent();
 
 			Map<String, Object> response = new HashMap<>();
-			response.put("transactions", shop);
+			response.put("posts", shop);
 			response.put("currentPage", pageBooks.getNumber());
 			response.put("totalItems", pageBooks.getTotalElements());
 			response.put("totalPages", pageBooks.getTotalPages());
@@ -53,5 +63,17 @@ public class MedicalTrxPaginationService {
 			e.printStackTrace();
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
+	}
+	
+	public List<PostDTO> findPostsByUser(long user_id) {
+		return postDaoImpl.findPostsByUser(user_id);
+	}
+	
+	public int addPost(com.deguzman.DeGuzmanStuffAnywhere.model.Post post) {
+		return postDaoImpl.addPost(post);
+	}
+	
+	public int deletePost(int post_id) {
+		return postDaoImpl.deletePost(post_id);
 	}
 }

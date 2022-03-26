@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.deguzman.DeGuzmanStuffAnywhere.daoimpl.MedicalOfficeDaoImpl;
 import com.deguzman.DeGuzmanStuffAnywhere.model.MedicalOffice;
-import com.deguzman.DeGuzmanStuffAnywhere.service.MedicalOfficePaginationService;
+import com.deguzman.DeGuzmanStuffAnywhere.service.MedicalOfficeService;
 
 import org.springframework.web.bind.annotation.RestController;
 
@@ -27,15 +27,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class MedicalOfficeController {
 
 	@Autowired
-	private MedicalOfficeDaoImpl medicalOfficeDaoImpl;
-
-	@Autowired
-	private MedicalOfficePaginationService medOfficePageService;
+	private MedicalOfficeService medOfficeService;
 
 	@GetMapping("/all")
 	@CrossOrigin
 	public List<MedicalOffice> getAllMedicalOfficeInformation() {
-		return medicalOfficeDaoImpl.findAllMedicalOfficeInformation();
+		return medOfficeService.findAllmedicalOfficeInformation();
 	}
 
 	@GetMapping("all-medical-offices")
@@ -43,48 +40,48 @@ public class MedicalOfficeController {
 	public ResponseEntity<Map<String, Object>> getAllMedicalOfficesPagination(
 			@RequestParam(required = false) String name, @RequestParam(defaultValue = "0") int page,
 			@RequestParam(defaultValue = "10") int size) {
-		return medOfficePageService.getAllMedicalOfficesPagination(name, page, size);
+		return medOfficeService.getAllMedicalOfficesPagination(name, page, size);
 	}
 
 	@GetMapping("/medical-office/zip/{zip}")
 	@CrossOrigin
 	public List<MedicalOffice> getAllMedicalOfficeInformationByZipCode(@PathVariable String zip) {
-		return medicalOfficeDaoImpl.findMedicalOfficesByZip(zip);
+		return medOfficeService.findMedicalofficesByZip(zip);
 	}
 
 	@GetMapping("/medical-office/{medicalOfficeId}")
 	@CrossOrigin
 	public ResponseEntity<MedicalOffice> getMedicalOfficeInformationById(@PathVariable long medicalOfficeId) {
-		return medicalOfficeDaoImpl.findMedicalOfficeInformationById(medicalOfficeId);
+		return medOfficeService.findMedicalOfficeInformationById(medicalOfficeId);
 	}
 
 	@GetMapping("/medical-office-count")
 	@CrossOrigin
 	public long getMedicalOfficeCount() {
-		return medicalOfficeDaoImpl.getMedicalOfficeCount();
+		return medOfficeService.getMedicalOfficeCount();
 	}
 
 	@PostMapping("/add-medical-office-information")
 	@CrossOrigin
 	public int addMedicalOfficeInformation(@RequestBody MedicalOffice medicalOffice) {
-		return medicalOfficeDaoImpl.addMedicalOfficeInformation(medicalOffice);
+		return medOfficeService.addMedicalOfficeInformation(medicalOffice);
 	}
 	
 	@PutMapping("/medical-office/{medicalOfficeId}")
 	@CrossOrigin
 	public int updateMedicalOfficeInformation(@PathVariable long medicalOfficeId, @RequestBody MedicalOffice officeDetails) {
-		return medicalOfficeDaoImpl.updateMedicalOfficeInformation(medicalOfficeId, officeDetails);
+		return medOfficeService.updateMedicalOfficeInformation(medicalOfficeId, officeDetails);
 	}
 
 	@DeleteMapping("/medical-office/{medicalOfficeId}")
 	@CrossOrigin
 	public int deleteMedicalOfficeById(@PathVariable long medicalOfficeId) {
-		return medicalOfficeDaoImpl.deleteMedicalOfficeById(medicalOfficeId);
+		return medOfficeService.deleteMedicalOfficeById(medicalOfficeId);
 	}
 
 	@DeleteMapping("/delete-all-medical-offices")
 	@CrossOrigin
 	public int deleteAllMedicalOffices() {
-		return medicalOfficeDaoImpl.deleteAllMedicalOfficeInformation();
+		return medOfficeService.deleteAllMedicalOfficeInformation();
 	}
 }

@@ -20,7 +20,7 @@ import com.deguzman.DeGuzmanStuffAnywhere.daoimpl.GeneralTrxDaoImpl;
 import com.deguzman.DeGuzmanStuffAnywhere.dto.GeneralTrxInfoDTO;
 import com.deguzman.DeGuzmanStuffAnywhere.exception.ResourceNotFoundException;
 import com.deguzman.DeGuzmanStuffAnywhere.model.GeneralTransaction;
-import com.deguzman.DeGuzmanStuffAnywhere.service.GeneralTrxPaginationService;
+import com.deguzman.DeGuzmanStuffAnywhere.service.GeneralTrxService;
 
 @RestController
 @RequestMapping("/app/general-transactions")
@@ -28,77 +28,74 @@ import com.deguzman.DeGuzmanStuffAnywhere.service.GeneralTrxPaginationService;
 public class GeneralTrxController {
 
 	@Autowired
-	private GeneralTrxDaoImpl generalTrxDaoImpl;
-	
-	@Autowired
-	private GeneralTrxPaginationService generatlTrxPageService;
+	private GeneralTrxService generalTrxService;
 
 	@GetMapping("/all")
 	@CrossOrigin
 	public List<GeneralTrxInfoDTO> getAllGeneralTransactionInformation() {
-		return generalTrxDaoImpl.findAllTransactionInformation();
+		return generalTrxService.findAllTransactionInformation();
 	}
 	
 	@GetMapping("/all-transactions")
 	public ResponseEntity<Map<String, Object>> getAllTransactionsPagination(@RequestParam(required = false) String paymentDate,
 			@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
-		return generatlTrxPageService.getAllTransactionsPagination(paymentDate, page, size);
+		return generalTrxService.getAllTransactionsPagination(paymentDate, page, size);
 	}
 
 	@GetMapping("/all/type/{transaction_type_id}")
 	@CrossOrigin
 	public List<GeneralTrxInfoDTO> getTransactionsByType(@PathVariable long transaction_type_id) {
-		return generalTrxDaoImpl.findTransactionsByType(transaction_type_id);
+		return generalTrxService.findTransactionsByType(transaction_type_id);
 	}
 
 	@GetMapping("/all/user/{user_id}")
 	@CrossOrigin
 	public List<GeneralTrxInfoDTO> getTransactionsByUser(@PathVariable long user_id) {
-		return generalTrxDaoImpl.findTransactionsByUser(user_id);
+		return generalTrxService.findTransactionsByUser(user_id);
 	}
 
 	@GetMapping("/transaction-dto/{transaction_id}")
 	@CrossOrigin
 	public ResponseEntity<GeneralTrxInfoDTO> getTrxInformationDTOById(@PathVariable long transaction_id)
 			throws ResourceNotFoundException {
-		return generalTrxDaoImpl.findTransactionInformationDTOById(transaction_id);
+		return generalTrxService.findTranactionInformationDTOById(transaction_id);
 	}
 	
 	@GetMapping("/transaction/{transaction_id}")
 	@CrossOrigin
 	public ResponseEntity<GeneralTransaction> getTrxInformationById(@PathVariable long transaction_id)
 			throws ResourceNotFoundException {
-		return generalTrxDaoImpl.findTransactionInformationById(transaction_id);
+		return generalTrxService.findTransactionInformationById(transaction_id);
 	}
 
 	@GetMapping("/get-transaction-count")
 	@CrossOrigin
 	public long getTransactionCcount() {
-		return generalTrxDaoImpl.findCountOfGeneralTransaction();
+		return generalTrxService.findCountOfGeneralTransacion();
 	}
 
 	@PostMapping("/add-general-transaction-information")
 	@CrossOrigin
 	public int addGeneralTrasactionInformation(@RequestBody GeneralTransaction transaction)
 			throws ResourceNotFoundException {
-		return generalTrxDaoImpl.addTransactionInformation(transaction);
+		return generalTrxService.addTransactionInformation(transaction);
 	}
 	
 	@PutMapping("/transaction/{transaction_id}")
 	@CrossOrigin
 	public int updateTransactionInformation(@PathVariable long transaction_id, @RequestBody GeneralTransaction tranasctionDetails) {
-		return generalTrxDaoImpl.updateTransactionInformation(transaction_id, tranasctionDetails);
+		return generalTrxService.updateTransactionInformation(transaction_id, tranasctionDetails);
 	}
 
 	@DeleteMapping("/transaction/{transaction_id}")
 	@CrossOrigin
 	public int deleteTransactionById(@PathVariable long transaction_id) {
-		return generalTrxDaoImpl.deleteTransactionInformation(transaction_id);
+		return generalTrxService.deleteTransactioninformation(transaction_id);
 	}
 
 	@DeleteMapping("/delete-all-transactions")
 	@CrossOrigin
 	public int deleteAllTransactions() {
-		return generalTrxDaoImpl.deleteAllTransactions();
+		return generalTrxService.deleteAllTransactions();
 	}
 }

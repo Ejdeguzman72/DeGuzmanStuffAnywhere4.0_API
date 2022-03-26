@@ -24,67 +24,64 @@ import com.deguzman.DeGuzmanStuffAnywhere.exception.InvalidTransactionTypeExcept
 import com.deguzman.DeGuzmanStuffAnywhere.exception.InvalidUserException;
 import com.deguzman.DeGuzmanStuffAnywhere.exception.InvalidVehicleException;
 import com.deguzman.DeGuzmanStuffAnywhere.model.AutoTransaction;
-import com.deguzman.DeGuzmanStuffAnywhere.service.AutoTrxPaginationService;
+import com.deguzman.DeGuzmanStuffAnywhere.service.AutoTrxService;
 
 @RestController
 @RequestMapping("/app/auto-transactions")
 @CrossOrigin
 public class AutoTrxController {
-
-	@Autowired
-	private AutoTrxDaoImpl autoTrxDaoImpl;
 	
 	@Autowired
-	private AutoTrxPaginationService autoTrxPageService;
+	private AutoTrxService autoTrxService;
 
 	@GetMapping("/all")
 	@CrossOrigin(origins = "*", maxAge = 3600)
 	public List<AutoTrxInfoDTO> getAllAutoTransactionInformation() {
-		return autoTrxDaoImpl.findAllAutoTransactionInformation();
+		return autoTrxService.findAllAutoTransactionInformation();
 	}
 	
 	@GetMapping("/all-transactions")
 	public ResponseEntity<Map<String, Object>> getAllTransactionsPagination(@RequestParam(required = false) String paymentDate,
 			@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
-		return autoTrxPageService.getAllTransactionsPagination(paymentDate, page, size);
+		return autoTrxService.getAllTransactionsPagination(paymentDate, page, size);
 	}
 
 	@GetMapping("/all/vehicle/{vehicle_id}")
 	@CrossOrigin
 	public List<AutoTrxInfoDTO> getAutoTransactionsByVehicle(@PathVariable long vehicle_id) {
-		return autoTrxDaoImpl.findAutoTransactionsByVehicle(vehicle_id);
+		return autoTrxService.findAutoTransactionsByVehicle(vehicle_id);
 	}
 
 	@GetMapping("/all/users/{user_id}")
 	@CrossOrigin
 	public List<AutoTrxInfoDTO> getAutoTransactionsByUser(@PathVariable long user_id) {
-		return autoTrxDaoImpl.findAutoTransactionsByUser(user_id);
+		return autoTrxService.findAutoTransactionsByUser(user_id);
 	}
 
 	@GetMapping("/all/type/{transaction_type_id}")
 	@CrossOrigin
 	public List<AutoTrxInfoDTO> getAutoTransactionsByType(@PathVariable long transaction_type_id) {
-		return autoTrxDaoImpl.findAutoTransactionsByType(transaction_type_id);
+		return autoTrxService.findAutoTransactionsByType(transaction_type_id);
 	}
 
 	@GetMapping("/auto-transaction-dto/{auto_transaction_id}")
 	@CrossOrigin
 	public ResponseEntity<AutoTrxInfoDTO> getAutoTransactionDTOById(@PathVariable long auto_transaction_id)
 			throws InvalidTransactionException {
-		return autoTrxDaoImpl.findAutoTranasctionInformatioDTOnById(auto_transaction_id);
+		return autoTrxService.findAutoTransactionInformationDTOById(auto_transaction_id);
 	}
 	
 	@GetMapping("/auto-transaction/{auto_transaction_id}")
 	@CrossOrigin
 	public ResponseEntity<AutoTransaction> getAutoTransactionById(@PathVariable long auto_transaction_id)
 			throws InvalidTransactionException {
-		return autoTrxDaoImpl.findAutoTranasctionInformationById(auto_transaction_id);
+		return autoTrxService.findAutoTransactionInformationById(auto_transaction_id);
 	}
 
 	@GetMapping("/auto-transaction-count")
 	@CrossOrigin
 	public long getAutoTransactionCount() {
-		return autoTrxDaoImpl.getCountOfAutoTransactions();
+		return autoTrxService.getCountOfAutoTransactions();
 	}
 
 	@PostMapping("/add-auto-transaction-information")
@@ -92,24 +89,24 @@ public class AutoTrxController {
 	public int addAutoTransactionInformation(@RequestBody AutoTransaction autoTransaction)
 			throws InvalidAutoShopException, InvalidUserException, InvalidTransactionTypeException,
 			InvalidVehicleException {
-		return autoTrxDaoImpl.addAutoTransactionInformation(autoTransaction);
+		return autoTrxService.addAutoTranactionInformation(autoTransaction);
 	}
 	
 	@PutMapping("/auto-transaction/{auto_transaction_id}")
 	@CrossOrigin
 	public int updateAutoTransactionInformation(@PathVariable long auto_transaction_id, @RequestBody AutoTransaction autoTransactionDetails) throws InvalidAutoShopException, InvalidVehicleException, InvalidTransactionTypeException, InvalidUserException {
-		return autoTrxDaoImpl.updateTransactionInformation(auto_transaction_id, autoTransactionDetails);
+		return autoTrxService.updateTransactionInformation(auto_transaction_id, autoTransactionDetails);
 	}
 
 	@DeleteMapping("/auto-transaction/{auto_transaction_id}")
 	@CrossOrigin
 	public int deleteAutoTransactionById(@PathVariable long auto_transaction_id) {
-		return autoTrxDaoImpl.deleteAutoTransactionInformation(auto_transaction_id);
+		return autoTrxService.deleteAutoTransactionInformation(auto_transaction_id);
 	}
 
 	@DeleteMapping("/delete-all-transactions")
 	@CrossOrigin
 	public int deleteAllAutoTransactions() {
-		return autoTrxDaoImpl.deleteAllAutoTransactions();
+		return autoTrxService.deleteAllAutoTransactions();
 	}
 }

@@ -22,95 +22,92 @@ import com.deguzman.DeGuzmanStuffAnywhere.exception.DuplicateRestaurantException
 import com.deguzman.DeGuzmanStuffAnywhere.exception.InvalidRestaurantException;
 import com.deguzman.DeGuzmanStuffAnywhere.exception.ResourceNotFoundException;
 import com.deguzman.DeGuzmanStuffAnywhere.model.Restaurant;
-import com.deguzman.DeGuzmanStuffAnywhere.service.RestaurantInfoPaginationService;
+import com.deguzman.DeGuzmanStuffAnywhere.service.RestaurantInfoService;
 
 @RestController
 @RequestMapping("/app/restaurants")
 @CrossOrigin
 public class RestaurantController {
-
-	@Autowired
-	private RestaurantDaoImpl restaurantDaoImpl;
 	
 	@Autowired
-	private RestaurantInfoPaginationService restaurantPageService;
+	private RestaurantInfoService restaurantInfoService;
 
 	@GetMapping("/all")
 	@CrossOrigin
 	public List<RestaurantInfoDTO> getAllRestaurantInformation() {
-		return restaurantDaoImpl.findAllRestaurants();
+		return restaurantInfoService.findAllRestaurants();
 	}
 	
 	@GetMapping("/all-restaurants")
 	public ResponseEntity<Map<String, Object>> getAllRestaurantsPagination(@RequestParam(required = false) String name,
 			@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
-		return restaurantPageService.getAllRestaurantsPagination(name, page, size);
+		return restaurantInfoService.getAllRestaurantsPagination(name, page, size);
 	}
 
 	@GetMapping("/restaurant/type/{restaurant_type_id}")
 	@CrossOrigin
 	public List<RestaurantInfoDTO> getAllRestaurantInformationByType(@PathVariable int restaurant_type_id) {
-		return restaurantDaoImpl.findAllRestaurantsByType(restaurant_type_id);
+		return restaurantInfoService.findAllRestaurantsByType(restaurant_type_id);
 	}
 
 	@GetMapping("/restaurant/zip/{zip}")
 	@CrossOrigin
 	public List<RestaurantInfoDTO> getAllRestaurantInformationByZip(@PathVariable String zip) {
-		return restaurantDaoImpl.findRestaurantsByZipCode(zip);
+		return restaurantInfoService.findRestaurantByZipCode(zip);
 	}
 
 	@GetMapping("/restaurant/descr/{descr}")
 	@CrossOrigin
 	public List<RestaurantInfoDTO> getAllRestaurantInformationByDescr(@PathVariable String descr) {
-		return restaurantDaoImpl.findRestaurantsByDescr(descr);
+		return restaurantInfoService.findRestaurantsByDescr(descr);
 	}
 
 	@GetMapping("/restaurant-dto/{restaurant_id}")
 	@CrossOrigin
 	public ResponseEntity<RestaurantInfoDTO> getRestaurantDTOInfoById(@PathVariable int restaurant_id)
 			throws InvalidRestaurantException {
-		return restaurantDaoImpl.findRestaurantById(restaurant_id);
+		return restaurantInfoService.findRestaurantById(restaurant_id);
 	}
 	
 	@GetMapping("/restaurant/{restaurant_id}")
-	public ResponseEntity<Restaurant> getRestaurantInfoById(@PathVariable int restaurant_id) {
-		return restaurantDaoImpl.findRestaurantInfoById(restaurant_id);
+	public ResponseEntity<RestaurantInfoDTO> getRestaurantInfoById(@PathVariable int restaurant_id) throws InvalidRestaurantException {
+		return restaurantInfoService.findRestaurantById(restaurant_id);
 	}
 	
 
 	@GetMapping("/restaurant/name/{name}")
 	@CrossOrigin
 	public ResponseEntity<RestaurantInfoDTO> getRestaurantInformationByName(@PathVariable String name) {
-		return restaurantDaoImpl.findRestaurantByName(name);
+		return restaurantInfoService.findRestaurantByName(name);
 	}
 
 	@GetMapping("/restaurant-count")
 	@CrossOrigin
 	public long getRestaurantCount() {
-		return restaurantDaoImpl.getRestaurantCount();
+		return restaurantInfoService.getRestaurantCount();
 	}
 
 	@PostMapping("/add-restaurant-information")
 	@CrossOrigin
 	public int addRestaurantInformation(@RequestBody Restaurant restaurant) throws ResourceNotFoundException, DuplicateRestaurantException {
-		return restaurantDaoImpl.addRestaurantInformation(restaurant);
+		return restaurantInfoService.addRestaurantInformation(restaurant);
 	}
 
 	@PutMapping("/restaurant/{restaurant_id}")
 	@CrossOrigin
 	public int updateRestaurantInformation(@PathVariable int restaurant_id, @RequestBody Restaurant restaurantDetails) throws ResourceNotFoundException {
-		return restaurantDaoImpl.updateRestaurantInformation(restaurant_id, restaurantDetails);
+		return restaurantInfoService.updateRestaurantInformation(restaurant_id, restaurantDetails);
 	}
 	
 	@DeleteMapping("/restaurant/{restaurant_id}")
 	@CrossOrigin
 	public int deleteRestaurantInformationById(@PathVariable int restaurant_id) {
-		return restaurantDaoImpl.deleteRestaurantInformation(restaurant_id);
+		return restaurantInfoService.deleteRestaurantInformation(restaurant_id);
 	}
 
 	@DeleteMapping("/delete-all-restaurant")
 	@CrossOrigin
 	public int deleteAllRestaurantInformation() {
-		return restaurantDaoImpl.deleteAllRestaurantInformation();
+		return restaurantInfoService.deleteAllRestaurantInformation();
 	}
 }

@@ -20,7 +20,7 @@ import com.deguzman.DeGuzmanStuffAnywhere.daoimpl.MedicalTrxDaoImpl;
 import com.deguzman.DeGuzmanStuffAnywhere.dto.MedicalTrxInfoDTO;
 import com.deguzman.DeGuzmanStuffAnywhere.exception.ResourceNotFoundException;
 import com.deguzman.DeGuzmanStuffAnywhere.model.MedicalTransaction;
-import com.deguzman.DeGuzmanStuffAnywhere.service.MedicalTrxPaginationService;
+import com.deguzman.DeGuzmanStuffAnywhere.service.MedicalTrxService;
 
 @RestController
 @RequestMapping("/app/medical-transactions")
@@ -31,7 +31,7 @@ public class MedicalTrxController {
 	private MedicalTrxDaoImpl medicalTrxDaoImpl;
 	
 	@Autowired
-	private MedicalTrxPaginationService medicalTrxPageService;
+	private MedicalTrxService medicalTrxPageService;
 
 	@GetMapping("/all")
 	@CrossOrigin

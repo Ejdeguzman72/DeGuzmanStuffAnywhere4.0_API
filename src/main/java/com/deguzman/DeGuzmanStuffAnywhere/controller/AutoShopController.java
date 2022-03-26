@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.deguzman.DeGuzmanStuffAnywhere.daoimpl.AutoRepairShopDaoImpl;
 import com.deguzman.DeGuzmanStuffAnywhere.exception.DuplicateAutoShopException;
 import com.deguzman.DeGuzmanStuffAnywhere.model.AutoRepairShop;
-import com.deguzman.DeGuzmanStuffAnywhere.service.AutoRepairShopPaginationService;
+import com.deguzman.DeGuzmanStuffAnywhere.service.AutoRepairShopService;
 
 @RestController
 @RequestMapping("/app/auto-repair-shops")
@@ -27,15 +27,12 @@ import com.deguzman.DeGuzmanStuffAnywhere.service.AutoRepairShopPaginationServic
 public class AutoShopController {
 
 	@Autowired
-	private AutoRepairShopDaoImpl autoShopDaoImpl;
-
-	@Autowired
-	private AutoRepairShopPaginationService autoShopService;
+	private AutoRepairShopService autoShopService;
 
 	@GetMapping("/all")
 	@CrossOrigin
 	public List<AutoRepairShop> getAllAutoRepairShopInformation() {
-		return autoShopDaoImpl.findAllAutoRepairShopInfo();
+		return autoShopService.findAllAutoRepairShopInfo();
 	}
 
 	@GetMapping("/all-shops")
@@ -49,49 +46,49 @@ public class AutoShopController {
 	@GetMapping("/repair-shop/{auto_shop_id}")
 	@CrossOrigin
 	public ResponseEntity<AutoRepairShop> getAutoRepairShopInfoById(@PathVariable int auto_shop_id) {
-		return autoShopDaoImpl.findAutoRepairShopById(auto_shop_id);
+		return autoShopService.findAutoRepairShopById(auto_shop_id);
 	}
 
 	@GetMapping("/repair-shop/name/{autoShopName}")
 	@CrossOrigin
 	public ResponseEntity<AutoRepairShop> getAutoRepairShopByName(@PathVariable String autoShopName) {
-		return autoShopDaoImpl.findAutoRepairShopByName(autoShopName);
+		return autoShopService.findAutoRepairShopByName(autoShopName);
 	}
 
 	@GetMapping("/repair-shop/zip/{zip}")
 	@CrossOrigin
 	public List<AutoRepairShop> getAutoRepairShopByZip(@PathVariable String zip) {
-		return autoShopDaoImpl.findAutoRepairShopByZip(zip);
+		return autoShopService.findAutoRepairShopByZip(zip);
 	}
 
 	@GetMapping("/repair-shop/count")
 	@CrossOrigin
 	public long getCountOfAllRepairShops() {
-		return autoShopDaoImpl.getCountOfAutoRepairShops();
+		return autoShopService.getCountOfAutoRepairShops();
 	}
 
 	@PostMapping("/add-auto-shop")
 	@CrossOrigin
 	public int addAutoRepairShopInformation(@RequestBody AutoRepairShop autoShop) throws DuplicateAutoShopException {
-		return autoShopDaoImpl.addAutoRepairShopInfo(autoShop);
+		return autoShopService.addAutoRepairShopInfo(autoShop);
 	}
 
 	@PutMapping("/repair-shop/{auto_shop_id}")
 	@CrossOrigin
 	public int updateAutoRepairShopInformation(@PathVariable int auto_shop_id,
 			@RequestBody AutoRepairShop autoRepairShop) {
-		return autoShopDaoImpl.updateAutoShopInfo(auto_shop_id, autoRepairShop);
+		return autoShopService.updateAutoShopInfo(auto_shop_id, autoRepairShop);
 	}
 
 	@DeleteMapping("/repair-shop/{auto_shop_id}")
 	@CrossOrigin
 	public int deleteAutoShopInformationById(@PathVariable int auto_shop_id) {
-		return autoShopDaoImpl.deleteAutoRepairShopInfo(auto_shop_id);
+		return autoShopService.deleteAutoRepairShopInfo(auto_shop_id);
 	}
 
 	@DeleteMapping("/delete-all")
 	@CrossOrigin
 	public int deleteAllAutoRepairShopInformation() {
-		return autoShopDaoImpl.deleteAllAutoShop();
+		return autoShopService.deleteAllAutoShops();
 	}
 }

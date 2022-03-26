@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.deguzman.DeGuzmanStuffAnywhere.daoimpl.UtilityDaoImpl;
 import com.deguzman.DeGuzmanStuffAnywhere.dto.UtilityInfoDTO;
 import com.deguzman.DeGuzmanStuffAnywhere.model.Utility;
+import com.deguzman.DeGuzmanStuffAnywhere.service.UtilityService;
 
 @RestController
 @RequestMapping("/app/utility-information")
@@ -22,59 +23,59 @@ import com.deguzman.DeGuzmanStuffAnywhere.model.Utility;
 public class UtilityController {
 
 	@Autowired
-	private UtilityDaoImpl utilityDaoImpl;
+	private UtilityService utilityService;
 
 	@GetMapping("/all")
 	@CrossOrigin
 	public List<UtilityInfoDTO> getAllUtilityInformation() {
-		return utilityDaoImpl.findAllUtilityInformation();
+		return utilityService.findAllUtilityInformation();
 	}
 
 	@GetMapping("/dueDate")
 	@CrossOrigin
 	public List<UtilityInfoDTO> getUtilityInformationByDueDate(@PathVariable String dueDate) {
-		return utilityDaoImpl.findUtilityInformationByDueDate(dueDate);
+		return utilityService.findUtilityInformationByDueDate(dueDate);
 	}
 
 	@GetMapping("/utility/{utility_id}")
 	@CrossOrigin
 	public ResponseEntity<UtilityInfoDTO> getUtilityInformationById(@PathVariable long utility_id) {
-		return utilityDaoImpl.findUtilityInformationById(utility_id);
+		return utilityService.findUtilityInformationById(utility_id);
 	}
 
 	@GetMapping("/utility/name/{name}")
 	@CrossOrigin
 	public ResponseEntity<UtilityInfoDTO> getUtilityInformationByName(@PathVariable String name) {
-		return utilityDaoImpl.findUtilityInformationByName(name);
+		return utilityService.findUtilityInformationByName(name);
 	}
 
 	@GetMapping("/utility/utility-type/{utility_type_id}")
 	@CrossOrigin
 	public ResponseEntity<UtilityInfoDTO> getUtilityInformationByType(@PathVariable int utility_type_id) {
-		return utilityDaoImpl.findUtilityInformationByType(utility_type_id);
+		return utilityService.findUtilityInformationByType(utility_type_id);
 	}
 
 	@GetMapping("/get-utility-count")
 	@CrossOrigin
 	public long getCountOfUtilities() {
-		return utilityDaoImpl.findUtilityCount();
+		return utilityService.findUtilityCount();
 	}
 
 	@GetMapping("/add-utility-information")
 	@CrossOrigin
 	public int addUtilityInformation(@RequestBody Utility utility) {
-		return utilityDaoImpl.addUtilityInformation(utility);
+		return utilityService.addUtilityInformation(utility);
 	}
 
 	@DeleteMapping("/utility/{utility_id}")
 	@CrossOrigin
 	public int deleteUtilityInformationById(@PathVariable long utility_id) {
-		return utilityDaoImpl.deleteUtilityInformation(utility_id);
+		return utilityService.deleteUtilityInformation(utility_id);
 	}
 
 	@DeleteMapping("/delete-all-utilties")
 	@CrossOrigin
 	public int deleteAllUtilityInformation() {
-		return utilityDaoImpl.deleteAllUtilityInformation();
+		return utilityService.deleteAllUtilityInformation();
 	}
 }

@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.deguzman.DeGuzmanStuffAnywhere.daoimpl.RunTrackerDaoImpl;
 import com.deguzman.DeGuzmanStuffAnywhere.dto.RunTrackerInfoDTO;
 import com.deguzman.DeGuzmanStuffAnywhere.model.RunTracker;
-import com.deguzman.DeGuzmanStuffAnywhere.service.RunTrackerPaginationService;
+import com.deguzman.DeGuzmanStuffAnywhere.service.RunTrackerService;
 
 @RestController
 @RequestMapping("/app/run-tracker-app")
@@ -30,7 +30,7 @@ public class RunTrackerController {
 	private RunTrackerDaoImpl runTrackerDaoImpl;
 	
 	@Autowired
-	private RunTrackerPaginationService runTrackerPageService;
+	private RunTrackerService runTrackerPageService;
 
 	@GetMapping("/all")
 	@CrossOrigin

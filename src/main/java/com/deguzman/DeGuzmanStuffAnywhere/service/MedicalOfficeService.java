@@ -13,14 +13,22 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.deguzman.DeGuzmanStuffAnywhere.daoimpl.MedicalOfficeDaoImpl;
 import com.deguzman.DeGuzmanStuffAnywhere.jpa_dao.MedicalOfficeJpaDao;
 import com.deguzman.DeGuzmanStuffAnywhere.jpa_model.MedicalOffice;
 
 @Service
-public class MedicalOfficePaginationService {
+public class MedicalOfficeService {
 
 	@Autowired
+	private MedicalOfficeDaoImpl medicalOfficeDaoImpl;
+	
+	@Autowired
 	private MedicalOfficeJpaDao medOfficeJpaDao;
+	
+	public List<com.deguzman.DeGuzmanStuffAnywhere.model.MedicalOffice> findAllmedicalOfficeInformation() {
+		return medicalOfficeDaoImpl.findAllMedicalOfficeInformation();
+	}
 
 	public ResponseEntity<Map<String, Object>> getAllMedicalOfficesPagination(
 			@RequestParam(required = false) String name, @RequestParam(defaultValue = "0") int page,
@@ -54,5 +62,34 @@ public class MedicalOfficePaginationService {
 			e.printStackTrace();
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
+	}
+	
+	public List<com.deguzman.DeGuzmanStuffAnywhere.model.MedicalOffice> findMedicalofficesByZip(String zip) {
+		return medicalOfficeDaoImpl.findMedicalOfficesByZip(zip);
+	}
+	
+	public long getMedicalOfficeCount() {
+		return medicalOfficeDaoImpl.getMedicalOfficeCount();
+	}
+	
+	public int addMedicalOfficeInformation(com.deguzman.DeGuzmanStuffAnywhere.model.MedicalOffice medicalOffice) {
+		return medicalOfficeDaoImpl.addMedicalOfficeInformation(medicalOffice);
+	}
+	
+	public int updateMedicalOfficeInformation(long medicalOfficeId, com.deguzman.DeGuzmanStuffAnywhere.model.MedicalOffice officeDetails) {
+		return medicalOfficeDaoImpl.updateMedicalOfficeInformation(medicalOfficeId, officeDetails);
+	}
+	
+	public int deleteMedicalOfficeById(long medicalOfficeId) {
+		return medicalOfficeDaoImpl.deleteMedicalOfficeById(medicalOfficeId);
+	}
+	
+	public int deleteAllMedicalOfficeInformation() {
+		return medicalOfficeDaoImpl.deleteAllMedicalOfficeInformation();
+	}
+
+	public ResponseEntity<com.deguzman.DeGuzmanStuffAnywhere.model.MedicalOffice> findMedicalOfficeInformationById(
+			long medicalOfficeId) {
+		return medicalOfficeDaoImpl.findMedicalOfficeInformationById(medicalOfficeId);
 	}
 }
