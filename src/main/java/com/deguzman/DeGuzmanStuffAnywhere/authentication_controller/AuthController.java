@@ -31,6 +31,7 @@ import com.deguzman.DeGuzmanStuffAnywhere.authentication_payload_response.Messag
 import com.deguzman.DeGuzmanStuffAnywhere.authentication_repository.RoleRepository;
 import com.deguzman.DeGuzmanStuffAnywhere.authentication_repository.UserRepository;
 import com.deguzman.DeGuzmanStuffAnywhere.authentication_services.UserDetailsImpl;
+import com.deguzman.DeGuzmanStuffAnywhere.email_service.EmailService;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -48,6 +49,9 @@ public class AuthController {
 
   @Autowired
   PasswordEncoder encoder;
+  
+  @Autowired
+  private EmailService emailService;
 
   @Autowired
   JwtUtils jwtUtils;
@@ -74,7 +78,7 @@ public class AuthController {
   }
 
   @PostMapping("/signup")
-  public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
+  public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) throws Exception {
     if (userRepository.existsByUsername(signUpRequest.getUsername())) {
       return ResponseEntity
           .badRequest()
@@ -123,6 +127,10 @@ public class AuthController {
     }
 
     user.setRoles(roles);
+    
+    
+    emailService.sendEmail(user.getUsername(), user.getEmail());
+    
     userRepository.save(user);
 
     return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
