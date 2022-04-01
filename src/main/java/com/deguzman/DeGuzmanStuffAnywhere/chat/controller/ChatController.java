@@ -11,8 +11,8 @@ import com.deguzman.DeGuzmanStuffAnywhere.chat.model.Message;
 @RestController
 public class ChatController {
 
-	@MessageMapping("/chat.sendMessage")
-	@SendTo("/topic/public")
+	@MessageMapping("/chat")
+	@SendTo("/topic/messages")
 	public Message sendMessage(@Payload Message message) {
 		return message;
 	}
