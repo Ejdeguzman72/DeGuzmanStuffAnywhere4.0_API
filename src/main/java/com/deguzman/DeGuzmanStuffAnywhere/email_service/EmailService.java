@@ -15,7 +15,7 @@ public class EmailService {
 	
 	public void sendEmail(String username, String email) throws Exception {
 		
-		String emailTextBody = "Welcome to DeGuzmanStuffAnywhere: " + username + "." + "Upon receipt of this email, please log in to application";
+		String emailTextBody = "Welcome to DeGuzmanStuffAnywhere: " + username + "." + "Upon receipt of this email, please log in to application" + " at " + "http://localhost:3000/#/login";
 		
 		String emailTextSubject = "Welcome to DSA";
 		
