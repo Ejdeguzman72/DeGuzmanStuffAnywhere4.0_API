@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.deguzman.DeGuzmanStuffAnywhere.daoimpl.MedicalOfficeDaoImpl;
+import com.deguzman.DeGuzmanStuffAnywhere.exception.DuplicateOfficeException;
 import com.deguzman.DeGuzmanStuffAnywhere.jpa_dao.MedicalOfficeJpaDao;
 import com.deguzman.DeGuzmanStuffAnywhere.jpa_model.MedicalOffice;
 
@@ -72,7 +73,7 @@ public class MedicalOfficeService {
 		return medicalOfficeDaoImpl.getMedicalOfficeCount();
 	}
 	
-	public int addMedicalOfficeInformation(com.deguzman.DeGuzmanStuffAnywhere.model.MedicalOffice medicalOffice) {
+	public int addMedicalOfficeInformation(com.deguzman.DeGuzmanStuffAnywhere.model.MedicalOffice medicalOffice) throws DuplicateOfficeException {
 		return medicalOfficeDaoImpl.addMedicalOfficeInformation(medicalOffice);
 	}
 	

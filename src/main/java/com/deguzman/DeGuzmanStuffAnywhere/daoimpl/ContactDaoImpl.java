@@ -2,6 +2,7 @@ package com.deguzman.DeGuzmanStuffAnywhere.daoimpl;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.deguzman.DeGuzmanStuffAnywhere.dao.ContactDao;
+import com.deguzman.DeGuzmanStuffAnywhere.exception.DuplicateContactException;
 import com.deguzman.DeGuzmanStuffAnywhere.exception.ResourceNotFoundException;
 import com.deguzman.DeGuzmanStuffAnywhere.model.Person;
 
@@ -112,7 +114,7 @@ public class ContactDaoImpl implements ContactDao {
 
 	@Override
 	@CachePut(value = "contactList")
-	public int addPersonInformation(@RequestBody Person person) throws SecurityException, IOException {
+	public int addPersonInformation(@RequestBody Person person) throws SecurityException, IOException, DuplicateContactException {
 
 		String firstname = person.getFirstname();
 		String middleInitial = person.getMiddleInitial();
@@ -126,6 +128,10 @@ public class ContactDaoImpl implements ContactDao {
 		String birthdate = person.getBirthdate();
 		String phone = person.getPhone();
 		String email = person.getEmail();
+		
+		if (checkDuplicateContact(phone)) {
+			throw new DuplicateContactException("Phone Number already exists!");
+		}
 
 		LOGGER.info("Adding Person Information for " + firstname + " " + lastname);
 
@@ -209,5 +215,20 @@ public class ContactDaoImpl implements ContactDao {
 
 		return count;
 	}
-
+	
+	public boolean checkDuplicateContact(String phone) throws SecurityException, IOException {
+		
+		List<Person> personList = findAllPersonInformation();
+		List<String> phoneList;
+		boolean result = false;
+		
+		phoneList = personList.stream().map(Person::getPhone).collect(Collectors.toList());
+		
+		if (phoneList.contains(phone)) {
+			result = true;
+		}
+		
+		return result;
+	}
+ 
 }

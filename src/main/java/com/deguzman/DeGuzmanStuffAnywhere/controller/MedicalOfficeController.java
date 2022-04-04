@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.deguzman.DeGuzmanStuffAnywhere.daoimpl.MedicalOfficeDaoImpl;
+import com.deguzman.DeGuzmanStuffAnywhere.exception.DuplicateOfficeException;
 import com.deguzman.DeGuzmanStuffAnywhere.model.MedicalOffice;
 import com.deguzman.DeGuzmanStuffAnywhere.service.MedicalOfficeService;
 
@@ -63,7 +64,7 @@ public class MedicalOfficeController {
 
 	@PostMapping("/add-medical-office-information")
 	@CrossOrigin
-	public int addMedicalOfficeInformation(@RequestBody MedicalOffice medicalOffice) {
+	public int addMedicalOfficeInformation(@RequestBody MedicalOffice medicalOffice) throws DuplicateOfficeException {
 		return medOfficeService.addMedicalOfficeInformation(medicalOffice);
 	}
 	

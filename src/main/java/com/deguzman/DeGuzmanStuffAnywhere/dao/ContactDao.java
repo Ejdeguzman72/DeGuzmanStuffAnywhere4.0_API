@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import com.deguzman.DeGuzmanStuffAnywhere.exception.DuplicateContactException;
 import com.deguzman.DeGuzmanStuffAnywhere.exception.ResourceNotFoundException;
 import com.deguzman.DeGuzmanStuffAnywhere.model.Person;
 
@@ -25,7 +26,7 @@ public interface ContactDao {
 
 	public long getCountOfPersonInformation();
 
-	public int addPersonInformation(@RequestBody Person person) throws SecurityException, IOException;
+	public int addPersonInformation(@RequestBody Person person) throws SecurityException, IOException, DuplicateContactException;
 
 	public int updatePersonInformation(@PathVariable int personId, @RequestBody Person personDetails)
 			throws SecurityException, IOException;

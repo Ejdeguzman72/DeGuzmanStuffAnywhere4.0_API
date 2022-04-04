@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.deguzman.DeGuzmanStuffAnywhere.daoimpl.ContactDaoImpl;
+import com.deguzman.DeGuzmanStuffAnywhere.exception.DuplicateContactException;
 import com.deguzman.DeGuzmanStuffAnywhere.exception.ResourceNotFoundException;
 import com.deguzman.DeGuzmanStuffAnywhere.jpa_dao.PersonJpaDao;
 import com.deguzman.DeGuzmanStuffAnywhere.jpa_model.Person;
@@ -87,7 +88,7 @@ public class ContactService {
 		return contactDaoImpl.getCountOfPersonInformation();
 	}
 	
-	public int addPersonInformation(@RequestBody com.deguzman.DeGuzmanStuffAnywhere.model.Person person) throws SecurityException, IOException {
+	public int addPersonInformation(@RequestBody com.deguzman.DeGuzmanStuffAnywhere.model.Person person) throws SecurityException, IOException, DuplicateContactException {
 		return contactDaoImpl.addPersonInformation(person);
 	}
 	

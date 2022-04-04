@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import com.deguzman.DeGuzmanStuffAnywhere.exception.DuplicateOfficeException;
 import com.deguzman.DeGuzmanStuffAnywhere.model.MedicalOffice;
 
 public interface MedicalOfficeDao {
@@ -18,7 +19,7 @@ public interface MedicalOfficeDao {
 
 	public int getMedicalOfficeCount();
 
-	public int addMedicalOfficeInformation(@RequestBody MedicalOffice medicalOffice);
+	public int addMedicalOfficeInformation(@RequestBody MedicalOffice medicalOffice) throws DuplicateOfficeException;
 
 	public int updateMedicalOfficeInformation(@PathVariable long medicalOfficeId,
 			@RequestBody MedicalOffice medicalOffice);

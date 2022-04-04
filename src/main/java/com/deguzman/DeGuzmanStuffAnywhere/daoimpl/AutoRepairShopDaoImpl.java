@@ -1,6 +1,9 @@
 package com.deguzman.DeGuzmanStuffAnywhere.daoimpl;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -176,11 +179,13 @@ public class AutoRepairShopDaoImpl implements AutoShopDao {
 	
 	public boolean checkAutoShops(String autoShopName) {
 
+		List<AutoRepairShop> shopList = findAllAutoRepairShopInfo();
+		List<String> namesList;
 		boolean duplicate = false;
 		
-		List<AutoRepairShop> autoShopList = findAllAutoRepairShopInfo();
+		namesList = shopList.stream().map(AutoRepairShop::getAutoShopName).collect(Collectors.toList());
 		
-		if (autoShopList.contains(autoShopName)) {
+		if (namesList.contains(autoShopName)) {
 			duplicate = true;
 		}
 		

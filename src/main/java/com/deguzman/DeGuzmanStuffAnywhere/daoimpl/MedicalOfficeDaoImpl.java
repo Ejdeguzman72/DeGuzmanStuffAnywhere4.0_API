@@ -1,6 +1,7 @@
 package com.deguzman.DeGuzmanStuffAnywhere.daoimpl;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -149,6 +150,20 @@ public class MedicalOfficeDaoImpl implements MedicalOfficeDao {
 		LOGGER.info("Deleting All Medical Office Information...");
 
 		return count;
+	}
+	
+	public boolean checkDuplicateOffice(String name) {
+		List<MedicalOffice> officeList = findAllMedicalOfficeInformation();
+		List<String> nameList;
+		boolean result = false;
+		
+		nameList = officeList.stream().map(MedicalOffice::getName).collect(Collectors.toList());
+		
+		if (nameList.contains(name)) {
+			result = true;
+		}
+		
+		return result;
 	}
 
 }
