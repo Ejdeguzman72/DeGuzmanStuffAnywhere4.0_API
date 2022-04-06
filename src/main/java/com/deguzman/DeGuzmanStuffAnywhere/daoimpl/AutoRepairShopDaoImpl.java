@@ -97,18 +97,11 @@ public class AutoRepairShopDaoImpl implements AutoShopDao {
 	@CachePut(value = "autoShopList")
 	public int addAutoRepairShopInfo(AutoRepairShop autoShop) throws DuplicateAutoShopException {
 		
-		String autoShopName = autoShop.getAutoShopName();
-		
-		if (checkAutoShops(autoShopName)) {
-			throw new DuplicateAutoShopException("Duplicate Auto Repair Shop");
-		}
-		
+		String autoShopName = autoShop.getAutoShopName();		
 		String address = autoShop.getAddress();
 		String city = autoShop.getCity();
 		String state = autoShop.getState();
 		String zip = autoShop.getZip();
-		
-		
 		
 		int count = jdbcTemplate.update(ADD_AUTO_SHOP_INFORMATION, new Object[] {
 				autoShopName,
@@ -117,6 +110,10 @@ public class AutoRepairShopDaoImpl implements AutoShopDao {
 				state,
 				zip
 		});
+		
+		if (checkAutoShops(autoShop)) {
+			throw new DuplicateAutoShopException("Duplicate Auto Repair Shop");
+		}
 
 		LOGGER.info("Inserted Auto Repair Shop Information: " + autoShop.getAutoShopName() + "...");
 
@@ -177,15 +174,28 @@ public class AutoRepairShopDaoImpl implements AutoShopDao {
 		return count;
 	}
 	
-	public boolean checkAutoShops(String autoShopName) {
+	public boolean checkAutoShops(AutoRepairShop shop) {
 
 		List<AutoRepairShop> shopList = findAllAutoRepairShopInfo();
 		List<String> namesList;
+		List<String> addressList;
+		List<String> cityList;
+		List<String> stateList;
+		List<String> zipList;
 		boolean duplicate = false;
 		
 		namesList = shopList.stream().map(AutoRepairShop::getAutoShopName).collect(Collectors.toList());
+		addressList = shopList.stream().map(AutoRepairShop::getAddress).collect(Collectors.toList());
+		cityList = shopList.stream().map(AutoRepairShop::getCity).collect(Collectors.toList());
+		stateList = shopList.stream().map(AutoRepairShop::getState).collect(Collectors.toList());
+		zipList = shopList.stream().map(AutoRepairShop::getZip).collect(Collectors.toList());
 		
-		if (namesList.contains(autoShopName)) {
+		
+		if (namesList.contains(shop.autoShopName) &&
+				addressList.contains(shop.address) &&
+				cityList.contains(shop.city) &&
+				stateList.contains(shop.state) &&
+				zipList.contains(shop.zip)) {
 			duplicate = true;
 		}
 		

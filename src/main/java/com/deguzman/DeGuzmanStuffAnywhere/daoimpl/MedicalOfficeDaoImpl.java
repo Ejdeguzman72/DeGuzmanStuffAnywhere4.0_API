@@ -15,6 +15,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import com.deguzman.DeGuzmanStuffAnywhere.dao.MedicalOfficeDao;
+import com.deguzman.DeGuzmanStuffAnywhere.exception.DuplicateOfficeException;
 import com.deguzman.DeGuzmanStuffAnywhere.model.MedicalOffice;
 
 @Repository
@@ -86,7 +87,7 @@ public class MedicalOfficeDaoImpl implements MedicalOfficeDao {
 
 	@Override
 	@CachePut(value = "medicalOfficeList")
-	public int addMedicalOfficeInformation(MedicalOffice medicalOffice) {
+	public int addMedicalOfficeInformation(MedicalOffice medicalOffice) throws DuplicateOfficeException {
 
 		String address = medicalOffice.getAddress();
 		String city = medicalOffice.getCity();
@@ -94,8 +95,13 @@ public class MedicalOfficeDaoImpl implements MedicalOfficeDao {
 		String state = medicalOffice.getState();
 		String zip = medicalOffice.getZip();
 
+		if (checkDuplicateOffice(medicalOffice)) {
+			throw new DuplicateOfficeException("Medical Office already exists");
+		}
+		
 		LOGGER.info("Added Medical Office information: " + medicalOfficeName);
 
+		
 		return jdbcTemplate.update(ADD_MEDICAL_OFFICE_INFORMATION,
 				new Object[] { address, city, medicalOfficeName, state, zip });
 	}
@@ -152,14 +158,26 @@ public class MedicalOfficeDaoImpl implements MedicalOfficeDao {
 		return count;
 	}
 	
-	public boolean checkDuplicateOffice(String name) {
+	public boolean checkDuplicateOffice(MedicalOffice office) {
 		List<MedicalOffice> officeList = findAllMedicalOfficeInformation();
 		List<String> nameList;
+		List<String> addressList;
+		List<String> cityList;
+		List<String> stateList;
+		List<String> zipList;
 		boolean result = false;
 		
 		nameList = officeList.stream().map(MedicalOffice::getName).collect(Collectors.toList());
+		addressList = officeList.stream().map(MedicalOffice::getAddress).collect(Collectors.toList());
+		cityList = officeList.stream().map(MedicalOffice::getCity).collect(Collectors.toList());
+		stateList = officeList.stream().map(MedicalOffice::getState).collect(Collectors.toList());
+		zipList = officeList.stream().map(MedicalOffice::getZip).collect(Collectors.toList());
 		
-		if (nameList.contains(name)) {
+		if (nameList.contains(office.name) &&
+				addressList.contains(office.address) &&
+				cityList.contains(office.city) &&
+				stateList.contains(office.state) &&
+				zipList.contains(office.zip)) {
 			result = true;
 		}
 		
