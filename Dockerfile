@@ -1,8 +1,12 @@
-FROM openjdk:11-jdk-alpine
-RUN addgroup -S spring && adduser -S spring -G spring
-USER spring:spring
-ARG DEPENDENCY=target/dependency
-COPY ${DEPENDENCY}/BOOT-INF/lib /app/lib
-COPY ${DEPENDENCY}/META-INF /app/META-INF
-COPY ${DEPENDENCY}/BOOT-INF/classes /app
-ENTRYPOINT ["java","-cp","app:app/lib/*","DeGuzmanStuffAnywhere"]
+# For Java 11
+FROM adoptopenjdk/openjdk11:alpine-jre
+
+#changed the working directory to /opt/app
+WORKDIR /opt/app
+
+ARG JAR_FILE=target/DeGuzmanStuffAnywhere-0.0.1-SNAPSHOT.jar
+
+COPY ${JAR_FILE} app.jar
+
+ENTRYPOINT ["java", "-jar", "app.jar"]
+
