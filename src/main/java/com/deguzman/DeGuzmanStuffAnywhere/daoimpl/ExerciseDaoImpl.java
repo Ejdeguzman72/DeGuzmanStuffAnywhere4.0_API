@@ -118,7 +118,7 @@ public class ExerciseDaoImpl implements ExerciseDao {
 	@CachePut(value = "exerciseList")
 	public int addExerciseInformation(Exercise exercise) {
 
-		String exerciseName = exercise.getExercise_name();
+		String exerciseName = exercise.getExerciseName();
 		int sets = exercise.getSets();
 		int reps = exercise.getReps();
 		double weight = exercise.getWeight();
@@ -143,7 +143,7 @@ public class ExerciseDaoImpl implements ExerciseDao {
 				BeanPropertyRowMapper.newInstance(Exercise.class), exercise_id);
 		
 		if (exercise != null) {
-			exercise.setExercise_name(exerciseDetails.getExercise_name());
+			exercise.setExerciseName(exerciseDetails.getExerciseName());
 			exercise.setSets(exerciseDetails.getSets());
 			exercise.setReps(exerciseDetails.getReps());
 			exercise.setWeight(exerciseDetails.getWeight());
@@ -153,7 +153,7 @@ public class ExerciseDaoImpl implements ExerciseDao {
 			exercise.setExercise_id(exercise_id);
 			
 			result = jdbcTemplate.update(UPDATE_EXERCISE_INFORMATION, new Object[] {
-				exercise.getExercise_name(),
+				exercise.getExerciseName(),
 				exercise.getSets(),
 				exercise.getReps(),
 				exercise.getWeight(),

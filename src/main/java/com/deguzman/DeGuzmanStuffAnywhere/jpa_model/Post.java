@@ -1,6 +1,7 @@
 package com.deguzman.DeGuzmanStuffAnywhere.jpa_model;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -28,7 +29,7 @@ public class Post implements Serializable {
 	private static final long serialVersionUID = -6929244243457370294L;
 	private int postId;
 	private String content;
-	private Date createdDate;
+	private LocalDate createdDate;
 	
 	public User user;
 	
@@ -51,10 +52,10 @@ public class Post implements Serializable {
 	}
 	
 	@Column(name = "createdDate")
-	public Date getCreatedDate() {
+	public LocalDate getCreatedDate() {
 		return createdDate;
 	}
-	public void setCreatedDate(Date createdDate) {
+	public void setCreatedDate(LocalDate createdDate) {
 		this.createdDate = createdDate;
 	}
 	
@@ -103,7 +104,7 @@ public class Post implements Serializable {
 	public String toString() {
 		return "Post [postId=" + postId + ", content=" + content + ", createdDate=" + createdDate + "]";
 	}
-	public Post(int postId, String content, Date createdDate) {
+	public Post(int postId, String content, LocalDate createdDate) {
 		super();
 		this.postId = postId;
 		this.content = content;

@@ -9,24 +9,25 @@ public class Exercise implements Serializable {
 	 */
 	private static final long serialVersionUID = -1101615341293557860L;
 	public int exercise_id;
-	public String exercise_name;
+	public String exerciseName;
 	public int sets;
 	public int reps;
 	public double weight;
 	public String date;
 	public int exercise_type_id;
 	public long user_id;
+	
 	public int getExercise_id() {
 		return exercise_id;
 	}
 	public void setExercise_id(int exercise_id) {
 		this.exercise_id = exercise_id;
 	}
-	public String getExercise_name() {
-		return exercise_name;
+	public String getExerciseName() {
+		return exerciseName;
 	}
-	public void setExercise_name(String exercise_name) {
-		this.exercise_name = exercise_name;
+	public void setExerciseName(String exerciseName) {
+		this.exerciseName = exerciseName;
 	}
 	public int getSets() {
 		return sets;
@@ -72,8 +73,8 @@ public class Exercise implements Serializable {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((date == null) ? 0 : date.hashCode());
+		result = prime * result + ((exerciseName == null) ? 0 : exerciseName.hashCode());
 		result = prime * result + exercise_id;
-		result = prime * result + ((exercise_name == null) ? 0 : exercise_name.hashCode());
 		result = prime * result + exercise_type_id;
 		result = prime * result + reps;
 		result = prime * result + sets;
@@ -97,12 +98,12 @@ public class Exercise implements Serializable {
 				return false;
 		} else if (!date.equals(other.date))
 			return false;
-		if (exercise_id != other.exercise_id)
-			return false;
-		if (exercise_name == null) {
-			if (other.exercise_name != null)
+		if (exerciseName == null) {
+			if (other.exerciseName != null)
 				return false;
-		} else if (!exercise_name.equals(other.exercise_name))
+		} else if (!exerciseName.equals(other.exerciseName))
+			return false;
+		if (exercise_id != other.exercise_id)
 			return false;
 		if (exercise_type_id != other.exercise_type_id)
 			return false;
@@ -118,15 +119,15 @@ public class Exercise implements Serializable {
 	}
 	@Override
 	public String toString() {
-		return "Exercise [exercise_id=" + exercise_id + ", exercise_name=" + exercise_name + ", sets=" + sets
-				+ ", reps=" + reps + ", weight=" + weight + ", date=" + date + ", exercise_type_id=" + exercise_type_id
+		return "Exercise [exercise_id=" + exercise_id + ", exerciseName=" + exerciseName + ", sets=" + sets + ", reps="
+				+ reps + ", weight=" + weight + ", date=" + date + ", exercise_type_id=" + exercise_type_id
 				+ ", user_id=" + user_id + "]";
 	}
-	public Exercise(int exercise_id, String exercise_name, int sets, int reps, double weight, String date,
+	public Exercise(int exercise_id, String exerciseName, int sets, int reps, double weight, String date,
 			int exercise_type_id, long user_id) {
 		super();
 		this.exercise_id = exercise_id;
-		this.exercise_name = exercise_name;
+		this.exerciseName = exerciseName;
 		this.sets = sets;
 		this.reps = reps;
 		this.weight = weight;
