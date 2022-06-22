@@ -72,7 +72,7 @@ public class ExerciseDaoImpl implements ExerciseDao {
 		List<ExerciseInfoDTO> exerciseListUser = jdbcTemplate.query(GET_EXERCISE_INFORMATION_BY_USER,
 				(rs, rowNum) -> new ExerciseInfoDTO(rs.getInt("EXERCISE_ID"), rs.getString("EXERCISE_NAME"),
 						rs.getInt("SETS"), rs.getInt("REPS"), rs.getDouble("WEIGHT"), rs.getString("DATE"),
-						rs.getString("EXERCISE_TYPE_NAME"), rs.getString("NAME")),
+						rs.getString("EXERCISE_TYPE_NAME"), rs.getString("USERNAME")),
 				user_id);
 
 		LOGGER.info("Retrieved Exercise Information by User ID: " + " " + user_id);
@@ -85,7 +85,7 @@ public class ExerciseDaoImpl implements ExerciseDao {
 		List<ExerciseInfoDTO> exerciseListType = jdbcTemplate.query(GET_EXERCISE_INFORMATION_BY_USER,
 				(rs, rowNum) -> new ExerciseInfoDTO(rs.getInt("EXERCISE_ID"), rs.getString("EXERCISE_NAME"),
 						rs.getInt("SETS"), rs.getInt("REPS"), rs.getDouble("WEIGHT"), rs.getString("DATE"),
-						rs.getString("EXERCISE_TYPE_NAME"), rs.getString("NAME")),
+						rs.getString("EXERCISE_TYPE_NAME"), rs.getString("USERNAME")),
 				exercise_type_id);
 
 		LOGGER.info("Retrieved Exercise Information by Exercise Type ID: " + " " + exercise_type_id);

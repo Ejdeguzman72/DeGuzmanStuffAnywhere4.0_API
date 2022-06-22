@@ -97,7 +97,7 @@ public class AutoTrxDaoImpl implements AutoTrxDao {
 		List<AutoTrxInfoDTO> autoTrxListVehicle = jdbcTemplate.query(GET_ALL_AUTO_TRX_INFO_BY_VEHICLE,
 				(rs, rowNum) -> new AutoTrxInfoDTO(rs.getLong("AUTO_TRANSACTION_ID"), rs.getDouble("AMOUNT"),
 						rs.getString("AUTO_TRANSACTION_DATE"), rs.getString("MAKE"), rs.getString("MODEL"),
-						rs.getString("YEAR"), rs.getString("AUTO_SHOP_NAME"), rs.getString("NAME"),
+						rs.getString("YEAR"), rs.getString("AUTO_SHOP_NAME"), rs.getString("USERNAME"),
 						rs.getString("TRANSACTION_TYPE_DESCR")),
 				vehicle_id);
 
@@ -111,7 +111,7 @@ public class AutoTrxDaoImpl implements AutoTrxDao {
 		List<AutoTrxInfoDTO> autoTrxListUser = jdbcTemplate.query(GET_ALL_AUTO_TRX_BY_USER,
 				(rs, rowNum) -> new AutoTrxInfoDTO(rs.getLong("AUTO_TRANSACTION_ID"), rs.getDouble("AMOUNT"),
 						rs.getString("AUTO_TRANSACTION_DATE"), rs.getString("MAKE"), rs.getString("MODEL"),
-						rs.getString("YEAR"), rs.getString("AUTO_SHOP_NAME"), rs.getString("NAME"),
+						rs.getString("YEAR"), rs.getString("AUTO_SHOP_NAME"), rs.getString("USERNAME"),
 						rs.getString("TRANSACTION_TYPE_DESCR")),
 				user_id);
 
@@ -125,7 +125,7 @@ public class AutoTrxDaoImpl implements AutoTrxDao {
 		List<AutoTrxInfoDTO> autoTrxListType = jdbcTemplate.query(GET_ALL_AUTO_TRX_INFO_BY_TYPE,
 				(rs, rowNum) -> new AutoTrxInfoDTO(rs.getLong("AUTO_TRANSACTION_ID"), rs.getDouble("AMOUNT"),
 						rs.getString("AUTO_TRANSACTION_DATE"), rs.getString("MAKE"), rs.getString("MODEL"),
-						rs.getString("YEAR"), rs.getString("AUTO_SHOP_NAME"), rs.getString("NAME"),
+						rs.getString("YEAR"), rs.getString("AUTO_SHOP_NAME"), rs.getString("USERNAME"),
 						rs.getString("TRANSACTION_TYPE_DESCR")),
 				transaction_type_id);
 

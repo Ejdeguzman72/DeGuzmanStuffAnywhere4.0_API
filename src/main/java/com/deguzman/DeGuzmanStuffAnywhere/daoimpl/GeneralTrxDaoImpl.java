@@ -76,7 +76,7 @@ public class GeneralTrxDaoImpl implements GeneralTrxDao {
 		List<GeneralTrxInfoDTO> generalTrxListUser = jdbcTemplate.query(GET_ALL_GENERAL_TRANSACTION_INFO_BY_USER,
 				(rs, rowNum) -> new GeneralTrxInfoDTO(rs.getLong("TRANSACTION_ID"), rs.getDouble("AMOUNT"),
 						rs.getString("ENTITY"), rs.getString("PAYMENT_DATE"), rs.getString("TRANSACTION_TYPE_DESCR"),
-						rs.getString("NAME")),
+						rs.getString("USERNAME")),
 				user_id);
 
 		LOGGER.info("Retrieving list of transactions with user_id: " + user_id);
@@ -89,7 +89,7 @@ public class GeneralTrxDaoImpl implements GeneralTrxDao {
 		List<GeneralTrxInfoDTO> generalTrxListType = jdbcTemplate.query(GET_ALL_GENERAL_TRANSACTION_INFO_BY_TYPE,
 				(rs, rowNum) -> new GeneralTrxInfoDTO(rs.getLong("TRANSACTION_ID"), rs.getDouble("AMOUNT"),
 						rs.getString("ENTITY"), rs.getString("PAYMENT_DATE"), rs.getString("TRANSACTION_TYPE_DESCR"),
-						rs.getString("NAME")),
+						rs.getString("USERNAME")),
 				transaction_type_id);
 
 		LOGGER.info("Retriving list of transactions with transaction_type_id: " + transaction_type_id);

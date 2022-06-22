@@ -72,7 +72,7 @@ public class RunTrackerDaoImpl implements RunTrackerDao {
 	public List<RunTrackerInfoDTO> findRunTrackerInformationByUser(@PathVariable long user_id) {
 		List<RunTrackerInfoDTO> runListUser = jdbcTemplate.query(GET_RUN_TRACKER_BY_USER,
 				(rs, rowNum) -> new RunTrackerInfoDTO(rs.getInt("RUN_ID"), rs.getString("RUN_DATE"),
-						rs.getDouble("RUN_DISTANCE"), rs.getString("RUN_TIME"), rs.getString("NAME")),
+						rs.getDouble("RUN_DISTANCE"), rs.getString("RUN_TIME"), rs.getString("USERNAME")),
 				user_id);
 
 		LOGGER.info("Retrieving all run information based on user_id: " + user_id);
