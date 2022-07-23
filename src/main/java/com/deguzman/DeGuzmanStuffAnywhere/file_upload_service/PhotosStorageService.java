@@ -1,7 +1,15 @@
 package com.deguzman.DeGuzmanStuffAnywhere.file_upload_service;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.time.LocalDate;
 import java.util.stream.Stream;
 
 import org.slf4j.Logger;
@@ -24,21 +32,36 @@ public class PhotosStorageService {
 	private static final Logger LOGGER = LoggerFactory.getLogger(PhotosStorageService.class);
 	
 	public Photos store(MultipartFile file) throws IOException {
-		String filename = StringUtils.cleanPath(file.getOriginalFilename());
+		LocalDate submissionDate = LocalDate.now();
+		String filename = StringUtils.cleanPath(submissionDate + " " + file.getOriginalFilename());
 		File uploadFile = new File(filename);
-		String path = uploadFile.getAbsolutePath();
-		Photos photo = new Photos(filename, path,file.getContentType(), file.getBytes());
+		String path = "./uploads" + "/photos/" + uploadFile;
+		
+		Path targetPath = Paths.get(path);
+		
+		if (!Files.exists(targetPath)) {
+			File photoUploadsDirectory = new File("./uploads/photos");
+			
+			photoUploadsDirectory.mkdirs();
+		}
+		
+		InputStream inputStreamFile = file.getInputStream();
+		
+		Files.copy(inputStreamFile, Paths.get(path), StandardCopyOption.REPLACE_EXISTING);
+		
+		Photos photo = new Photos(filename, path,file.getContentType(), file.getBytes());		
+		
 		
 		LOGGER.info("Uploaded file: " + filename);
 		
 		return photoDao.save(photo);
 	}
 	
-	public Photos getPhoto(@PathVariable int photoId) {
+	public Photos getPhoto(String photoId) {
 		
 		LOGGER.info("Retrieved file: " + photoId);
 		
-		return photoDao.findById(photoId).get();
+		return photoDao.getById(photoId);
 	}
 	
 	public Stream<Photos> getAllPhotos() {

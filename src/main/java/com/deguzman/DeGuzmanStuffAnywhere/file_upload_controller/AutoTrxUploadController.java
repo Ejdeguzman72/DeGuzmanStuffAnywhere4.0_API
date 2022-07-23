@@ -63,8 +63,8 @@ public class AutoTrxUploadController {
 	    return ResponseEntity.status(HttpStatus.OK).body(files);
 	  }
 
-	  @GetMapping("/files/{id}")
-	  public ResponseEntity<byte[]> getFile(@PathVariable int fileId) {
+	  @GetMapping("/files/{fileId}")
+	  public ResponseEntity<byte[]> getFile(@PathVariable String fileId) {
 	    AutoTrxFile fileDB = autoTrxFileService.getFile(fileId);
 
 	    return ResponseEntity.ok()

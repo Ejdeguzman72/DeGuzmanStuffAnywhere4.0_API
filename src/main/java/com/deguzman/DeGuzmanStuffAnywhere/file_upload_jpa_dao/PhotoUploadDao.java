@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.deguzman.DeGuzmanStuffAnywhere.file_upload_jpa_models.Photos;
 
 @Repository
-public interface PhotoUploadDao extends JpaRepository<Photos,Integer> {
+public interface PhotoUploadDao extends JpaRepository<Photos,String> {
 
 }

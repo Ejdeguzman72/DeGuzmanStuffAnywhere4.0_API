@@ -63,8 +63,8 @@ public class VideoUploadController {
 	    return ResponseEntity.status(HttpStatus.OK).body(files);
 	  }
 
-	  @GetMapping("/files/{id}")
-	  public ResponseEntity<byte[]> getFile(@PathVariable int photoId) {
+	  @GetMapping("/files/{photoId}")
+	  public ResponseEntity<byte[]> getFile(@PathVariable String photoId) {
 	    Video fileDB = videoService.getVideo(photoId);
 
 	    return ResponseEntity.ok()

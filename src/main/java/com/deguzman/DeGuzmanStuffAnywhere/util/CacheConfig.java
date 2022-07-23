@@ -2,17 +2,23 @@ package com.deguzman.DeGuzmanStuffAnywhere.util;
 
 import java.util.Arrays;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.concurrent.ConcurrentMapCache;
 import org.springframework.cache.support.SimpleCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 
 @Configuration
 @EnableCaching
+@EnableScheduling
 public class CacheConfig {
+	
+	@Autowired
+	private CacheManager cacheManager;
 
 	private String AUTO_SHOP_LIST = "autoShopList";
 	private String AUTO_SHOP_PAGINATON_LIST = "autoShopPaginationList";
@@ -147,8 +153,10 @@ public class CacheConfig {
 		return dsaCacheManager;
 	}
 
-	@Scheduled(fixedRate = 6000)
-	public void evictAllcachesAtIntervals() {
-		evictAllcachesAtIntervals();
+	@Scheduled(fixedRate = 600)
+	public void clearCacheSchedule() {
+		for (String name:cacheManager.getCacheNames()) {
+			cacheManager.getCache(name).clear();
+		}
 	}
 }

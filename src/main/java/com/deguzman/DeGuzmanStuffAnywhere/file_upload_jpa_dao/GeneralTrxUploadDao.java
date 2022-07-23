@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.deguzman.DeGuzmanStuffAnywhere.file_upload_jpa_models.GeneralTrxFile;
 
 @Repository
-public interface GeneralTrxUploadDao extends JpaRepository<GeneralTrxFile, Integer>{
+public interface GeneralTrxUploadDao extends JpaRepository<GeneralTrxFile, String>{
 
 }

@@ -64,7 +64,7 @@ public class MedicalTrxUploadController {
 	  }
 
 	  @GetMapping("/files/{id}")
-	  public ResponseEntity<byte[]> getFile(@PathVariable int fileId) {
+	  public ResponseEntity<byte[]> getFile(@PathVariable String fileId) {
 	    MedicalTrxFile fileDB = medicalTrxFileService.getFile(fileId);
 
 	    return ResponseEntity.ok()

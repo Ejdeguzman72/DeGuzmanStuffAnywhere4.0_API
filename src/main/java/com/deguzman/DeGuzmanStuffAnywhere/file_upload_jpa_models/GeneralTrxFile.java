@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.GenericGenerator;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 @Entity
@@ -25,8 +26,8 @@ public class GeneralTrxFile {
 	private byte[] data;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "file_id")
+	@GeneratedValue(generator = "uuid")
+	@GenericGenerator(name = "uuid", strategy = "uuid2")
 	public String getFileId() {
 		return fileId;
 	}
