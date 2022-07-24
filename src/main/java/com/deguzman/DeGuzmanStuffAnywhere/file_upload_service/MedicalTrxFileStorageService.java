@@ -7,6 +7,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.time.LocalDateTime;
 import java.util.stream.Stream;
 
 import org.slf4j.Logger;
@@ -28,6 +29,7 @@ public class MedicalTrxFileStorageService {
 	private static final Logger LOGGER = LoggerFactory.getLogger(MedicalTrxFileStorageService.class);
 	
 	public MedicalTrxFile store(MultipartFile file) throws IOException {
+		LocalDateTime dateTime = LocalDateTime.now();
 		String filename = StringUtils.cleanPath(file.getOriginalFilename());
 		File uploadFile = new File(filename);
 		String path = "./uploads/medical-transactions/" + uploadFile;
