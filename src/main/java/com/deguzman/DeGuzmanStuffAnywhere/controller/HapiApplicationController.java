@@ -23,12 +23,10 @@ public class HapiApplicationController {
 		
 		
 		if (p.isAlive()) {
-			result = "Python script has ran...";
+			result = "HAPI Applicatiopn has ran...";
 		} else {
-			result = "Python script was not able to run";
+			result = "Failed to start HAPI application...";
 		}
-		
-		
 		return ResponseEntity.ok().body(result);
 	}
 }
