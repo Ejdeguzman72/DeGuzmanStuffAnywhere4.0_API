@@ -19,6 +19,21 @@ import com.deguzman.DeGuzmanStuffAnywhere.daoimpl.AutoRepairShopDaoImpl;
 import com.deguzman.DeGuzmanStuffAnywhere.exception.DuplicateAutoShopException;
 import com.deguzman.DeGuzmanStuffAnywhere.jpa_dao.AutoRepairShopJpaDao;
 import com.deguzman.DeGuzmanStuffAnywhere.jpa_model.AutoRepairShop;
+import com.deguzman.DeGuzmanStuffAnywhere.util.AppConstants;
+import com.deguzman.domain.AutoShopAddRequest;
+import com.deguzman.domain.AutoShopAddResponse;
+import com.deguzman.domain.AutoShopCountResponse;
+import com.deguzman.domain.AutoShopDeleteAllResponse;
+import com.deguzman.domain.AutoShopDeleteByIdRequest;
+import com.deguzman.domain.AutoShopDeleteByIdResponse;
+import com.deguzman.domain.AutoShopListResponse;
+import com.deguzman.domain.AutoShopSearchByIdRequest;
+import com.deguzman.domain.AutoShopSearchByNameRequest;
+import com.deguzman.domain.AutoShopSearchByZipRequest;
+import com.deguzman.domain.AutoShopSearchResponse;
+import com.deguzman.domain.AutoShopSearchZipResponse;
+import com.deguzman.domain.AutoShopUpdateRequest;
+import com.deguzman.domain.AutoShopUpdateResponse;
 
 @Service
 public class AutoRepairShopService {
@@ -29,8 +44,17 @@ public class AutoRepairShopService {
 	@Autowired
 	private AutoRepairShopJpaDao autoShopDao;
 
-	public List<com.deguzman.DeGuzmanStuffAnywhere.model.AutoRepairShop> findAllAutoRepairShopInfo() {
-		return autoRepairShopDaoImpl.findAllAutoRepairShopInfo();
+	public AutoShopListResponse findAllAutoRepairShopInfo() {
+		AutoShopListResponse response = new AutoShopListResponse();
+		List<com.deguzman.DeGuzmanStuffAnywhere.model.AutoRepairShop> list = autoRepairShopDaoImpl.findAllAutoRepairShopInfo();
+		
+		response.setList(list);
+		response.setSize(list.size());
+		response.setDescription(AppConstants.GET_AUTOSHOP_LIST_DESCR);
+		response.setStatusCode(String.valueOf(AppConstants.HTTP_STATUS_OK));
+		response.setMessage(AppConstants.GET_AUTOSHOP_LIST_MSG);
+		
+		return response;
 	}
 	
 	public ResponseEntity<Map<String, Object>> getAllAutoShopsPagination(
@@ -67,36 +91,114 @@ public class AutoRepairShopService {
 		}
 	}
 	
-	public ResponseEntity<com.deguzman.DeGuzmanStuffAnywhere.model.AutoRepairShop> findAutoRepairShopByName(@PathVariable String autoShopName) {
-		return autoRepairShopDaoImpl.findAutoRepairShopByName(autoShopName);
+	public AutoShopSearchResponse findAutoRepairShopById(AutoShopSearchByIdRequest request) {
+		AutoShopSearchResponse response = new AutoShopSearchResponse();
+		com.deguzman.DeGuzmanStuffAnywhere.model.AutoRepairShop autoShop = autoRepairShopDaoImpl.findAutoRepairShopById(request.getAutoShopId());
+		
+		response.setAutoShop(autoShop);
+		response.setDescription(AppConstants.GET_AUTO_SHOP_BY_ID_DESCR);
+		response.setStatusCode(String.valueOf(AppConstants.HTTP_STATUS_OK));
+		response.setMessage(AppConstants.GET_AUTO_SHOP_BY_ID_MSG);
+		
+		return response;
 	}
 	
-	public List<com.deguzman.DeGuzmanStuffAnywhere.model.AutoRepairShop> findAutoRepairShopByZip(@PathVariable String zip) {
-		return autoRepairShopDaoImpl.findAutoRepairShopByZip(zip);
+	public AutoShopSearchResponse findAutoRepairShopByName(AutoShopSearchByNameRequest request) {
+		AutoShopSearchResponse response = new AutoShopSearchResponse();
+		com.deguzman.DeGuzmanStuffAnywhere.model.AutoRepairShop autoShop = autoRepairShopDaoImpl.findAutoRepairShopByName(request.getName());
+		
+		response.setAutoShop(autoShop);
+		response.setDescription(AppConstants.GET_AUTO_SHOP_BY_NAME_DESCR);
+		response.setStatusCode(String.valueOf(AppConstants.HTTP_STATUS_OK));
+		response.setMessage(AppConstants.GET_AUTO_SHOP_BY_NAME_MSG);
+		
+		return response;
 	}
 	
-	public long getCountOfAutoRepairShops() {
-		return autoRepairShopDaoImpl.getCountOfAutoRepairShops();
+	public AutoShopSearchZipResponse findAutoRepairShopByZip(AutoShopSearchByZipRequest request) {
+		AutoShopSearchZipResponse response = new AutoShopSearchZipResponse();
+		List<com.deguzman.DeGuzmanStuffAnywhere.model.AutoRepairShop> list = autoRepairShopDaoImpl.findAutoRepairShopByZip(request.getZip());
+		
+		response.setList(list);
+		response.setSize(list.size());
+		response.setDescription(AppConstants.GET_AUTO_SHOP_BY_ZIP_DESCR);
+		response.setStatusCode(String.valueOf(AppConstants.HTTP_STATUS_OK));
+		response.setMessage(AppConstants.GET_AUTO_SHOP_BY_ZIP_MSG);
+		
+		return response;
 	}
 	
-	public int addAutoRepairShopInfo(com.deguzman.DeGuzmanStuffAnywhere.model.AutoRepairShop autoShop) throws DuplicateAutoShopException {
-		return autoRepairShopDaoImpl.addAutoRepairShopInfo(autoShop);
+	public AutoShopCountResponse getCountOfAutoRepairShops() {
+		AutoShopCountResponse response = new AutoShopCountResponse();
+		com.deguzman.DeGuzmanStuffAnywhere.model.AutoRepairShop autoShop = new com.deguzman.DeGuzmanStuffAnywhere.model.AutoRepairShop();
+		long count = autoRepairShopDaoImpl.getCountOfAutoRepairShops();
+		
+		response.setCount(count);
+		response.setDescription(AppConstants.GET_AUTO_SHOP_COUNT_DESCR);
+		response.setStatusCode(String.valueOf(AppConstants.HTTP_STATUS_OK));
+		response.setMessage(AppConstants.GET_AUTO_SHOP_COUNT_MSG);
+		
+		return response;
 	}
 	
-	public int updateAutoShopInfo(@PathVariable int auto_shop_id, @RequestBody com.deguzman.DeGuzmanStuffAnywhere.model.AutoRepairShop shopDetails) {
-		return autoRepairShopDaoImpl.updateAutoShopInfo(auto_shop_id, shopDetails);
+	public AutoShopAddResponse addAutoRepairShopInfo(AutoShopAddRequest request) throws DuplicateAutoShopException {
+		AutoShopAddResponse response = new AutoShopAddResponse();
+		com.deguzman.DeGuzmanStuffAnywhere.model.AutoRepairShop autoShop = new com.deguzman.DeGuzmanStuffAnywhere.model.AutoRepairShop();
+		int recordsAdded = autoRepairShopDaoImpl.addAutoRepairShopInfo(request);
+		
+		autoShop.setAutoShopName(request.getAutoShopName());
+		autoShop.setAddress(request.getAddress());
+		autoShop.setCity(request.getCity());
+		autoShop.setState(request.getState());
+		autoShop.setZip(request.getZip());
+		
+		response.setAutoShop(autoShop);
+		response.setRecordsAdded(recordsAdded);
+		response.setDescription(AppConstants.ADD_AUTOSHOP_INFORMATION_DESCR);
+		response.setStatusCode(String.valueOf(AppConstants.HTTP_STATUS_OK));
+		response.setMessage(AppConstants.ADD_AUTOSHOP_INFORMATION_MSG);
+		
+		return response;
 	}
 	
-	public int deleteAutoRepairShopInfo(@PathVariable int auto_shop_id) {
-		return autoRepairShopDaoImpl.deleteAutoRepairShopInfo(auto_shop_id);
+	public AutoShopUpdateResponse updateAutoShopInfo(AutoShopUpdateRequest request) {
+		AutoShopUpdateResponse response = new AutoShopUpdateResponse();
+		com.deguzman.DeGuzmanStuffAnywhere.model.AutoRepairShop autoShop = autoRepairShopDaoImpl.findAutoRepairShopById(request.getAuto_shop_id());
+		int recordsUpdated = autoRepairShopDaoImpl.updateAutoShopInfo(request.getAuto_shop_id(), request);
+		
+		response.setAutoShop(autoShop);
+		response.setUpdatedCount(recordsUpdated);
+		response.setDescription(AppConstants.UPDATE_AUTOSHOP_INFORMATION_DESCR);
+		response.setStatusCode(String.valueOf(AppConstants.HTTP_STATUS_OK));
+		response.setMessage(AppConstants.UPDATE_AUTOSHOP_INFORMATION_MSG);
+		
+		return response;
 	}
 	
-	public int deleteAllAutoShops() {
-		return autoRepairShopDaoImpl.deleteAllAutoShop();
+	public AutoShopDeleteByIdResponse deleteAutoRepairShopInfo(AutoShopDeleteByIdRequest request) {
+		AutoShopDeleteByIdResponse response = new AutoShopDeleteByIdResponse();
+		com.deguzman.DeGuzmanStuffAnywhere.model.AutoRepairShop autoShop = autoRepairShopDaoImpl.findAutoRepairShopById(request.getAutoShopId());
+		int recordsDeleted = autoRepairShopDaoImpl.deleteAutoRepairShopInfo(request.getAutoShopId());
+		
+		response.setAutoShop(autoShop);
+		response.setDeleted(recordsDeleted);
+		response.setDescription(AppConstants.DELETE_AUTOSHOP_INFORMATION_DESCR);
+		response.setStatusCode(String.valueOf(AppConstants.HTTP_STATUS_OK));
+		response.setMessage(AppConstants.DELETE_AUTSHOP_INFORMATION_MSG);
+		
+		return response;
+	}
+	
+	public AutoShopDeleteAllResponse deleteAllAutoShops() {
+		AutoShopDeleteAllResponse response = new AutoShopDeleteAllResponse();
+		int deletedRecords = autoRepairShopDaoImpl.deleteAllAutoShop();
+		
+		response.setDeleted(deletedRecords);
+		response.setDescription(AppConstants.DELETE_ALL_AUTOSHOP_INFORMATION_DESCR);
+		response.setStatusCode(String.valueOf(AppConstants.HTTP_STATUS_OK));
+		response.setMessage(AppConstants.DELETE_ALL_AUTOSHOP_INFORMATION_MSG);
+		
+		return response;
 	}
 
-	public ResponseEntity<com.deguzman.DeGuzmanStuffAnywhere.model.AutoRepairShop> findAutoRepairShopById(
-			int auto_shop_id) {
-		return autoRepairShopDaoImpl.findAutoRepairShopById(auto_shop_id);
-	}
 }

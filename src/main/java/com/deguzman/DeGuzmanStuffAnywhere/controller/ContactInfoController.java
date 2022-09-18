@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -22,80 +23,107 @@ import com.deguzman.DeGuzmanStuffAnywhere.exception.DuplicateContactException;
 import com.deguzman.DeGuzmanStuffAnywhere.exception.ResourceNotFoundException;
 import com.deguzman.DeGuzmanStuffAnywhere.model.Person;
 import com.deguzman.DeGuzmanStuffAnywhere.service.ContactService;
+import com.deguzman.DeGuzmanStuffAnywhere.util.AppConstants;
+import com.deguzman.DeGuzmanStuffAnywhere.util.UriConstants;
+import com.deguzman.domain.ContactAddRequest;
+import com.deguzman.domain.ContactAddResponse;
+import com.deguzman.domain.ContactCountResponse;
+import com.deguzman.domain.ContactDeleteAllResponse;
+import com.deguzman.domain.ContactDeleteByIdRequest;
+import com.deguzman.domain.ContactDeleteResponse;
+import com.deguzman.domain.ContactListResponse;
+import com.deguzman.domain.ContactSearchByEmailRequest;
+import com.deguzman.domain.ContactSearchByIdRequest;
+import com.deguzman.domain.ContactSearchByLastnameRequest;
+import com.deguzman.domain.ContactSearchByPhoneRequest;
+import com.deguzman.domain.ContactSearchResponse;
+import com.deguzman.domain.ContactUpdateRequest;
+import com.deguzman.domain.ContactUpdateResponse;
+import com.deguzman.domain.SuccessResponse;
 
 @RestController
-@RequestMapping("/app/person-info")
 @CrossOrigin
 public class ContactInfoController {
 
 	@Autowired
 	private ContactService contactInfoService;
 
-	@GetMapping("/all")
+	@GetMapping(value = UriConstants.URI_GET_CONTACT_LIST)
 	@CrossOrigin
-	public List<Person> getAllPersonInfo() throws SecurityException, IOException {
-		return contactInfoService.findAllPersonInformation();
+	public ResponseEntity<SuccessResponse<ContactListResponse>> getAllPersonInfo() throws SecurityException, IOException {
+		ContactListResponse response = contactInfoService.findAllPersonInformation();
+		
+		return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);
 	}
 
-	@GetMapping("/all-contacts")
+	@GetMapping(value = UriConstants.URI_GET_CONTACT_LIST_PAGINATION)
 	@CrossOrigin
 	public ResponseEntity<Map<String, Object>> getAllPersonsPagination(@RequestParam(required = false) String firstname,
 			@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
 		return contactInfoService.getAllPersonsPagination(firstname, page, size);
 	}
 
-	@GetMapping("/person/{personId}")
+	@GetMapping(value = UriConstants.URI_GET_CONTACT_BY_ID)
 	@CrossOrigin
-	public ResponseEntity<Person> getPersonInformationById(@PathVariable int personId)
+	public ResponseEntity<SuccessResponse<ContactSearchResponse>> getPersonInformationById(@RequestBody ContactSearchByIdRequest request)
 			throws ResourceNotFoundException, SecurityException, IOException {
-		return contactInfoService.findPersonById(personId);
+		ContactSearchResponse response = contactInfoService.findPersonById(request);
+		return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);
 	}
 
-	@GetMapping("/person/lastname/{lastname}")
+	@GetMapping(value = UriConstants.URI_GET_CONTACT_BY_LASTNAME)
 	@CrossOrigin
-	public ResponseEntity<Person> getPersonInformationByLastname(@PathVariable String lastname) {
-		return contactInfoService.findPersonByLastname(lastname);
+	public ResponseEntity<SuccessResponse<ContactSearchResponse>> getPersonInformationByLastname(@RequestBody ContactSearchByLastnameRequest request) {
+		ContactSearchResponse response =  contactInfoService.findPersonByLastname(request);
+		return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);
 	}
 
-	@GetMapping("/person/email/{email}")
+	@GetMapping(value = UriConstants.URI_GET_CONTACT_BY_EMAIL)
 	@CrossOrigin
-	public ResponseEntity<Person> getPersonInformationByEmail(@PathVariable String email) {
-		return contactInfoService.findPersonByEmail(email);
+	public ResponseEntity<SuccessResponse<ContactSearchResponse>> getPersonInformationByEmail(@RequestBody ContactSearchByEmailRequest request) {
+		ContactSearchResponse response = contactInfoService.findPersonByEmail(request);
+		return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);
 	}
 
-	@GetMapping("/person/phone/{phone}")
+	@GetMapping(value = UriConstants.URI_GET_CONTACT_BY_PHONE)
 	@CrossOrigin
-	public ResponseEntity<Person> getPersonInformationByPhone(@PathVariable String phone) {
-		return contactInfoService.findPersonByPhone(phone);
+	public ResponseEntity<SuccessResponse<ContactSearchResponse>> getPersonInformationByPhone(@RequestBody ContactSearchByPhoneRequest request) {
+		ContactSearchResponse response = contactInfoService.findPersonByPhone(request);
+		return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);
 	}
 
-	@GetMapping("/count")
+	@GetMapping(value = UriConstants.URI_GET_CONTACT_COUNT)
 	@CrossOrigin
-	public long getCountOfPersonInfo() {
-		return contactInfoService.getCountofPersonInformation();
+	public ResponseEntity<SuccessResponse<ContactCountResponse>> getCountOfPersonInfo() {
+		ContactCountResponse response= contactInfoService.getCountofPersonInformation();
+		return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);
 	}
 
-	@PostMapping("/add-person-information")
+	@PostMapping(value = UriConstants.URI_ADD_CONTACT_INFORMATION)
 	@CrossOrigin
-	public int saveContactInformation(@RequestBody Person personInfo) throws SecurityException, IOException, DuplicateContactException {
-		return contactInfoService.addPersonInformation(personInfo);
+	public ResponseEntity<SuccessResponse<ContactAddResponse>> saveContactInformation(@RequestBody ContactAddRequest request) throws SecurityException, IOException, DuplicateContactException {
+		ContactAddResponse response = contactInfoService.addPersonInformation(request);
+		return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);
 	}
 	
-	@PutMapping("/person/{personId}")
+	@PutMapping(value = UriConstants.URI_UPDATE_CONTACT_INFORMATION)
 	@CrossOrigin
-	public int updateContactInformation(@PathVariable int personId, @RequestBody Person personDetails) throws SecurityException, IOException {
-		return contactInfoService.updatePersonInformation(personId, personDetails);
+	public ResponseEntity<SuccessResponse<ContactUpdateResponse>> updateContactInformation(@RequestBody ContactUpdateRequest request) throws SecurityException, IOException, ResourceNotFoundException {
+		ContactUpdateResponse response = contactInfoService.updatePersonInformation(request);
+		return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);
 	}
 
-	@DeleteMapping("/delete-all")
+	@DeleteMapping(value = UriConstants.URI_DELETE_ALL_CONTACT_INFORMATION)
 	@CrossOrigin
-	public int deleteAllContactInformation() {
-		return contactInfoService.deleteAllPersonInformation();
+	public ResponseEntity<SuccessResponse<ContactDeleteAllResponse>> deleteAllContactInformation() {
+		ContactDeleteAllResponse response = contactInfoService.deleteAllPersonInformation();
+		return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);
 	}
 
-	@DeleteMapping("/person/{personId}")
+	@DeleteMapping(value = UriConstants.URI_DELETE_CONTACT_INFORMATION)
 	@CrossOrigin
-	public int deleteContactInformation(@PathVariable int personId) throws SecurityException, IOException {
-		return contactInfoService.deletePersonInformation(personId);
+	public ResponseEntity<SuccessResponse<ContactDeleteResponse>> deleteContactInformation(@RequestBody ContactDeleteByIdRequest request) throws SecurityException, IOException, ResourceNotFoundException {
+		ContactDeleteResponse response = contactInfoService.deletePersonInformation(request);
+		return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);
 	}
 }

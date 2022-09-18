@@ -1,6 +1,7 @@
 package com.deguzman.DeGuzmanStuffAnywhere.service;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,8 +13,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.deguzman.DeGuzmanStuffAnywhere.daoimpl.ContactDaoImpl;
@@ -21,6 +20,21 @@ import com.deguzman.DeGuzmanStuffAnywhere.exception.DuplicateContactException;
 import com.deguzman.DeGuzmanStuffAnywhere.exception.ResourceNotFoundException;
 import com.deguzman.DeGuzmanStuffAnywhere.jpa_dao.PersonJpaDao;
 import com.deguzman.DeGuzmanStuffAnywhere.jpa_model.Person;
+import com.deguzman.DeGuzmanStuffAnywhere.util.AppConstants;
+import com.deguzman.domain.ContactAddRequest;
+import com.deguzman.domain.ContactAddResponse;
+import com.deguzman.domain.ContactCountResponse;
+import com.deguzman.domain.ContactDeleteAllResponse;
+import com.deguzman.domain.ContactDeleteByIdRequest;
+import com.deguzman.domain.ContactDeleteResponse;
+import com.deguzman.domain.ContactListResponse;
+import com.deguzman.domain.ContactSearchByEmailRequest;
+import com.deguzman.domain.ContactSearchByIdRequest;
+import com.deguzman.domain.ContactSearchByLastnameRequest;
+import com.deguzman.domain.ContactSearchByPhoneRequest;
+import com.deguzman.domain.ContactSearchResponse;
+import com.deguzman.domain.ContactUpdateRequest;
+import com.deguzman.domain.ContactUpdateResponse;
 
 @Service
 public class ContactService {
@@ -31,8 +45,18 @@ public class ContactService {
 	@Autowired
 	private PersonJpaDao personJpaDao;
 
-	public List<com.deguzman.DeGuzmanStuffAnywhere.model.Person> findAllPersonInformation() throws IOException {
-		return contactDaoImpl.findAllPersonInformation();
+	public ContactListResponse findAllPersonInformation() throws IOException {
+		ContactListResponse response = new ContactListResponse();
+		List<com.deguzman.DeGuzmanStuffAnywhere.model.Person> list = new ArrayList<>();
+		
+		list = contactDaoImpl.findAllPersonInformation();
+		response.setList(list);
+		response.setSize(list.size());
+		response.setDescription(AppConstants.GET_CONTACT_LIST_DESCR);
+		response.setStatusCode(String.valueOf(AppConstants.HTTP_STATUS_OK));
+		response.setMessage(AppConstants.GET_CONTACT_LIST_MSG);
+		
+		return response;
 	}
 	
 	public ResponseEntity<Map<String, Object>> getAllPersonsPagination(@RequestParam(required = false) String firstname,
@@ -68,39 +92,129 @@ public class ContactService {
 		}
 	}
 	
-	public ResponseEntity<com.deguzman.DeGuzmanStuffAnywhere.model.Person> findPersonById(@PathVariable int personId) throws ResourceNotFoundException, SecurityException, IOException {
-		return contactDaoImpl.findPersonById(personId);
+	public ContactSearchResponse findPersonById(ContactSearchByIdRequest request) throws ResourceNotFoundException, SecurityException, IOException {
+		ContactSearchResponse response = new ContactSearchResponse();
+		com.deguzman.DeGuzmanStuffAnywhere.model.Person person = contactDaoImpl.findPersonById(request.getPersonId());
+		response.setPerson(person);
+		response.setDescription(AppConstants.FIND_CONTACT_BY_ID_DESCR);
+		response.setStatusCode(String.valueOf(AppConstants.HTTP_STATUS_OK));
+		response.setMessage(AppConstants.FIND_CONTACT_BY_ID_MSG);
+		
+		return response;
+		
 	}
 	
-	public ResponseEntity<com.deguzman.DeGuzmanStuffAnywhere.model.Person> findPersonByLastname(@PathVariable String lastname) {
-		return contactDaoImpl.findPersonByLastName(lastname);
+	public ContactSearchResponse findPersonByLastname(ContactSearchByLastnameRequest request) {
+		ContactSearchResponse response = new ContactSearchResponse();
+		com.deguzman.DeGuzmanStuffAnywhere.model.Person person = contactDaoImpl.findPersonByLastName(request.getLastname());
+		response.setPerson(person);
+		response.setDescription(AppConstants.FIND_CONTACT_BY_LASTNAME_DESCR);
+		response.setStatusCode(String.valueOf(AppConstants.HTTP_STATUS_OK));
+		response.setMessage(AppConstants.FIND_CONTACT_BY_LASTNAME_MSG);
+		
+		return response;
 	}
 	
-	public ResponseEntity<com.deguzman.DeGuzmanStuffAnywhere.model.Person> findPersonByEmail(@PathVariable String email) {
-		return contactDaoImpl.findPersonByEmail(email);
+	public ContactSearchResponse findPersonByEmail(ContactSearchByEmailRequest request) {
+		ContactSearchResponse response = new ContactSearchResponse();
+		com.deguzman.DeGuzmanStuffAnywhere.model.Person person = contactDaoImpl.findPersonByEmail(request.getEmail());
+		response.setPerson(person);
+		response.setDescription(AppConstants.GET_CONTACT_BY_EMAIL_DESCR);
+		response.setStatusCode(String.valueOf(AppConstants.HTTP_STATUS_OK));
+		response.setMessage(AppConstants.GET_CONTACT_BY_EMAIL_MSG);
+		
+		return response;
 	}
 	
-	public ResponseEntity<com.deguzman.DeGuzmanStuffAnywhere.model.Person> findPersonByPhone(String phone) {
-		return contactDaoImpl.findPersonByPhone(phone);
+	public ContactSearchResponse findPersonByPhone(ContactSearchByPhoneRequest request) {
+		ContactSearchResponse response = new ContactSearchResponse();
+		com.deguzman.DeGuzmanStuffAnywhere.model.Person person = contactDaoImpl.findPersonByPhone(request.getPhone());
+		response.setPerson(person);
+		response.setDescription(AppConstants.GET_CONTACT_BY_PHONE_DESCR);
+		response.setStatusCode(String.valueOf(AppConstants.HTTP_STATUS_OK));
+		response.setMessage(AppConstants.GET_CONTACT_BY_PHONE_MSG);
+		
+		return response;
 	}
 	
-	public long getCountofPersonInformation() {
-		return contactDaoImpl.getCountOfPersonInformation();
+	public ContactCountResponse getCountofPersonInformation() {
+		ContactCountResponse response = new ContactCountResponse();
+		long result = contactDaoImpl.getCountOfPersonInformation();
+		
+		response.setCount(result);
+		response.setDescription(AppConstants.GET_CONTACT_COUNT_DESCR);
+		response.setStatusCode(String.valueOf(AppConstants.HTTP_STATUS_OK));
+		response.setMessage(AppConstants.GET_CONTACT_COUNT_MSG);
+		
+		return response;
 	}
 	
-	public int addPersonInformation(@RequestBody com.deguzman.DeGuzmanStuffAnywhere.model.Person person) throws SecurityException, IOException, DuplicateContactException {
-		return contactDaoImpl.addPersonInformation(person);
+	public ContactAddResponse addPersonInformation(ContactAddRequest request) throws SecurityException, IOException, DuplicateContactException {
+		ContactAddResponse response = new ContactAddResponse();
+		com.deguzman.DeGuzmanStuffAnywhere.model.Person person = new com.deguzman.DeGuzmanStuffAnywhere.model.Person();
+		
+		person.setFirstname(request.getFirstname());
+		person.setMiddleInitial(request.getMiddleInitial());
+		person.setLastname(request.getLastname());
+		person.setAge(request.getAge());
+		person.setAddress01(request.getAddress01());
+		person.setAddress02(request.getAddress02());
+		person.setCity(request.getCity());
+		person.setState(request.getState());
+		person.setZipcode(request.getZipcode());
+		person.setPhone(request.getPhone());
+		person.setEmail(request.getEmail());
+		person.setBirthdate(request.getBirthdate());
+		
+		int result = contactDaoImpl.addPersonInformation(request);
+		
+		response.setPerson(person);
+		response.setRecordsAdded(result);
+		response.setDescription(AppConstants.ADD_CONTACT_INFORMATION_DESCR);
+		response.setStatusCode(String.valueOf(AppConstants.HTTP_STATUS_OK));
+		response.setMessage(AppConstants.ADD_CONTACT_INFORMATION_MSG);
+		
+		return response;
 	}
 	
-	public int updatePersonInformation(@PathVariable int personId, @RequestBody com.deguzman.DeGuzmanStuffAnywhere.model.Person personDetails) throws SecurityException, IOException {
-		return contactDaoImpl.updatePersonInformation(personId, personDetails);
+	public ContactUpdateResponse updatePersonInformation(ContactUpdateRequest request) throws SecurityException, IOException, ResourceNotFoundException {
+		ContactUpdateResponse response = new ContactUpdateResponse();
+		com.deguzman.DeGuzmanStuffAnywhere.model.Person person = contactDaoImpl.findPersonById(request.getPersonId());
+		int updatedRecords = contactDaoImpl.updatePersonInformation(request.getPersonId(), request);
+		
+		response.setPerson(person);
+		response.setUpdatedCount(updatedRecords);
+		response.setDescription(AppConstants.UPDATE_CONTACT_INFORMATION_DESCR);
+		response.setStatusCode(String.valueOf(AppConstants.HTTP_STATUS_OK));
+		response.setMessage(AppConstants.UPDATE_CONTACT_INFORMATION_MSG);
+		
+		return response;
+		
 	}
 	
-	public int deletePersonInformation(@PathVariable int personId) throws SecurityException, IOException {
-		return contactDaoImpl.deletePersonInformation(personId);
+	public ContactDeleteResponse deletePersonInformation(ContactDeleteByIdRequest request) throws SecurityException, IOException, ResourceNotFoundException {
+		ContactDeleteResponse response = new ContactDeleteResponse();
+		com.deguzman.DeGuzmanStuffAnywhere.model.Person person = contactDaoImpl.findPersonById(request.getPersonId());
+		int deletedRecords = contactDaoImpl.deletePersonInformation(request.getPersonId());
+		
+		response.setPerson(person);
+		response.setDeleted(deletedRecords);
+		response.setDescription(AppConstants.DELETE_CONTACT_INFORMATION_DESCR);
+		response.setStatusCode(String.valueOf(AppConstants.HTTP_STATUS_OK));
+		response.setMessage(AppConstants.DELETE_CONTACT_INFORMATION_MSG);
+		
+		return response;
 	}
 	
-	public int deleteAllPersonInformation() {
-		return contactDaoImpl.deleteAllPersonInformation();
+	public ContactDeleteAllResponse deleteAllPersonInformation() {
+		ContactDeleteAllResponse response = new ContactDeleteAllResponse();
+		int deletedRecords = contactDaoImpl.deleteAllPersonInformation();
+		
+		response.setDeleted(deletedRecords);
+		response.setDescription(AppConstants.DELETE_ALL_CONTACT_INFORMATION_DESCR);
+		response.setStatusCode(String.valueOf(AppConstants.HTTP_STATUS_OK));
+		response.setMessage(AppConstants.DELETE_ALL_CONTACT_INFORMATION_MSG);
+		
+		return response;
 	}
 }

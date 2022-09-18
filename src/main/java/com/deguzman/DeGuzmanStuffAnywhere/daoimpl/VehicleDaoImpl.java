@@ -58,17 +58,17 @@ public class VehicleDaoImpl implements VehicleDao {
 
 	@Override
 	@Cacheable(value = "vehicleById", key = "#vehicleId")
-	public ResponseEntity<Vehicle> findVehicleInformationById(@PathVariable long vehicleId)
+	public Vehicle findVehicleInformationById(long vehicleId)
 			throws InvalidVehicleException {
 		Vehicle vehicle = jdbcTemplate.queryForObject(GET_VEHICLE_INFORMATION_BY_ID,
 				BeanPropertyRowMapper.newInstance(Vehicle.class), vehicleId);
 		LOGGER.info(
 				"Retrieved Vehicle Info: " + vehicle.getMake() + " " + vehicle.getModel() + " " + vehicle.getYear());
-		return ResponseEntity.ok().body(vehicle);
+		return vehicle;
 	}
 
 	@Override
-	public List<Vehicle> findVehicleInformatioByMake(@PathVariable String make) {
+	public List<Vehicle> findVehicleInformatioByMake(String make) {
 		List<Vehicle> vehicleListMake = jdbcTemplate.query(GET_VEHICLE_INFORMATION_BY_MAKE,
 				(rs, rowNum) -> new Vehicle(rs.getLong("VEHICLE_ID"), rs.getString("MAKE"), rs.getString("MODEL"),
 						rs.getString("YEAR"), rs.getInt("CAPACITY"), rs.getString("TRANSMISSION")),
@@ -80,7 +80,7 @@ public class VehicleDaoImpl implements VehicleDao {
 	}
 
 	@Override
-	public List<Vehicle> findVehicleInformationByModel(@PathVariable String model) {
+	public List<Vehicle> findVehicleInformationByModel(String model) {
 		List<Vehicle> vehicleListMake = jdbcTemplate.query(GET_VEHICLE_INFORMATION_BY_MODEL,
 				(rs, rowNum) -> new Vehicle(rs.getLong("VEHICLE_ID"), rs.getString("MAKE"), rs.getString("MODEL"),
 						rs.getString("YEAR"), rs.getInt("CAPACITY"), rs.getString("TRANSMISSION")),
@@ -92,7 +92,7 @@ public class VehicleDaoImpl implements VehicleDao {
 	}
 
 	@Override
-	public List<Vehicle> findVehicleInformationByYear(@PathVariable String year) {
+	public List<Vehicle> findVehicleInformationByYear(String year) {
 		List<Vehicle> vehicleListMake = jdbcTemplate.query(GET_VEHICLE_INFORMATION_BY_YEAR,
 				(rs, rowNum) -> new Vehicle(rs.getLong("VEHICLE_ID"), rs.getString("MAKE"), rs.getString("MODEL"),
 						rs.getString("YEAR"), rs.getInt("CAPACITY"), rs.getString("TRANSMISSION")),
@@ -104,7 +104,7 @@ public class VehicleDaoImpl implements VehicleDao {
 	}
 
 	@Override
-	public List<Vehicle> findVehicleInformationByTransmission(@PathVariable String transmission) {
+	public List<Vehicle> findVehicleInformationByTransmission(String transmission) {
 		List<Vehicle> vehicleListMake = jdbcTemplate.query(GET_VEHICLE_INFORMATION_BY_TRANSMISSION,
 				(rs, rowNum) -> new Vehicle(rs.getLong("VEHICLE_ID"), rs.getString("MAKE"), rs.getString("MODEL"),
 						rs.getString("YEAR"), rs.getInt("CAPACITY"), rs.getString("TRANSMISSION")),
@@ -164,7 +164,7 @@ public class VehicleDaoImpl implements VehicleDao {
 
 	@Override
 	@CachePut(value = "vehicleById", key = "#vehicleId")
-	public int deleteCarInformation(@PathVariable long vehicleId) {
+	public int deleteCarInformation(long vehicleId) {
 		int result = jdbcTemplate.update(DELETE_VEHICLE_INFORMATION_BY_ID, vehicleId);
 
 		LOGGER.info("Deleting Vehicle Information by ID: " + vehicleId);

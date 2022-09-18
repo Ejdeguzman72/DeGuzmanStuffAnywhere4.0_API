@@ -19,6 +19,8 @@ import com.deguzman.DeGuzmanStuffAnywhere.daoimpl.VehicleDaoImpl;
 import com.deguzman.DeGuzmanStuffAnywhere.exception.InvalidVehicleException;
 import com.deguzman.DeGuzmanStuffAnywhere.jpa_dao.VehicleJpaDao;
 import com.deguzman.DeGuzmanStuffAnywhere.jpa_model.Vehicle;
+import com.deguzman.DeGuzmanStuffAnywhere.util.AppConstants;
+import com.deguzman.domain.VehicleListResponse;
 
 @Service
 public class VehicleService {
@@ -29,8 +31,15 @@ public class VehicleService {
 	@Autowired
 	private VehicleJpaDao vehicleJpaDao;
 	
-	public List<com.deguzman.DeGuzmanStuffAnywhere.model.Vehicle> findAllVehicleInformation() {
-		return vehicleDaoImpl.findAllCarInformation();
+	public VehicleListResponse findAllVehicleInformation() {
+		VehicleListResponse response = new VehicleListResponse();
+		List<com.deguzman.DeGuzmanStuffAnywhere.model.Vehicle> list = vehicleDaoImpl.findAllCarInformation();
+		response.setList(list);
+		response.setSize(list.size());
+		response.setDescription(AppConstants.GET_VEHICLE_LIST_DESCR);
+		response.setStatusCode(String.valueOf(AppConstants.HTTP_STATUS_OK));
+		response.setMessage(AppConstants.GET_VEHICLE_LIST_MSG);
+		
 	}
 
 	public ResponseEntity<Map<String, Object>> getAllVehiclesPagination(@RequestParam(required = false) String model,

@@ -9,7 +9,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -68,7 +67,7 @@ public class ContactDaoImpl implements ContactDao {
 
 	@Override
 	@Cacheable(value = "contactById", key = "#personId")
-	public ResponseEntity<Person> findPersonById(@PathVariable int personId)
+	public Person findPersonById(int personId)
 			throws ResourceNotFoundException, SecurityException, IOException {
 
 		Person personInfo = jdbcTemplate.queryForObject(GET_CONTACT_INFO_BY_ID,
@@ -76,40 +75,40 @@ public class ContactDaoImpl implements ContactDao {
 
 		LOGGER.info("Retrieved Person Info: " + personInfo.getFirstname() + " " + personInfo.getLastname());
 
-		return ResponseEntity.ok().body(personInfo);
+		return personInfo;
 	}
 
 	@Override
-	public ResponseEntity<Person> findPersonByLastName(@PathVariable String lastname) {
+	public Person findPersonByLastName(@PathVariable String lastname) {
 
 		Person person = jdbcTemplate.queryForObject(GET_CONTACT_INFO_BY_LASTNAME,
 				BeanPropertyRowMapper.newInstance(Person.class), lastname);
 
 		LOGGER.info("Retrieved Person with Last Name: " + lastname);
 
-		return ResponseEntity.ok().body(person);
+		return person;
 	}
 
 	@Override
-	public ResponseEntity<Person> findPersonByEmail(String email) {
+	public Person findPersonByEmail(String email) {
 
 		Person person = jdbcTemplate.queryForObject(GET_CONTACT_INFO_BY_EMAIL,
 				BeanPropertyRowMapper.newInstance(Person.class), email);
 
 		LOGGER.info("Retrieved person with email: " + email);
 
-		return ResponseEntity.ok().body(person);
+		return person;
 	}
 
 	@Override
-	public ResponseEntity<Person> findPersonByPhone(String phone) {
+	public Person findPersonByPhone(String phone) {
 
 		Person person = jdbcTemplate.queryForObject(GET_CONTACT_INFO_BY_PHONE,
 				BeanPropertyRowMapper.newInstance(Person.class), phone);
 
 		LOGGER.info("Retrived person with phone: " + phone);
 
-		return ResponseEntity.ok().body(person);
+		return person;
 	}
 
 	@Override
@@ -141,9 +140,9 @@ public class ContactDaoImpl implements ContactDao {
 
 	@Override
 	@CachePut(value = "contactById", key = "#personId")
-	public int updatePersonInformation(@PathVariable int personId, @RequestBody Person personDetails)
+	public int updatePersonInformation(int personId, Person personDetails)
 			throws SecurityException, IOException {
-
+		System.out.println(personId + " PersonID");
 		int result = 0;
 
 		Person person = jdbcTemplate.queryForObject(GET_CONTACT_INFO_BY_ID,
