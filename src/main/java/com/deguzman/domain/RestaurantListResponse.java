@@ -1,12 +1,15 @@
 package com.deguzman.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import com.deguzman.DeGuzmanStuffAnywhere.model.Vehicle;
+import com.deguzman.DeGuzmanStuffAnywhere.model.Restaurant;
 
-public class VehicleSearchResponse {
+public class RestaurantListResponse {
 
-	public Vehicle vehicle;
+	List<Restaurant> list = new ArrayList<>();
+	
+	int size;
 	
 	String message;
 	
@@ -14,12 +17,20 @@ public class VehicleSearchResponse {
 	
 	String description;
 
-	public Vehicle getVehicle() {
-		return vehicle;
+	public List<Restaurant> getList() {
+		return list;
 	}
 
-	public void setVehicle(Vehicle vehicle) {
-		this.vehicle = vehicle;
+	public void setList(List<Restaurant> list) {
+		this.list = list;
+	}
+
+	public int getSize() {
+		return size;
+	}
+
+	public void setSize(int size) {
+		this.size = size;
 	}
 
 	public String getMessage() {
@@ -45,4 +56,5 @@ public class VehicleSearchResponse {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	
 }

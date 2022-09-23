@@ -1,12 +1,12 @@
 package com.deguzman.domain;
 
-import java.util.List;
+import com.deguzman.DeGuzmanStuffAnywhere.model.Exercise;
 
-import com.deguzman.DeGuzmanStuffAnywhere.model.Vehicle;
+public class ExerciseAddResponse {
 
-public class VehicleSearchResponse {
-
-	public Vehicle vehicle;
+	public Exercise exercise;
+	
+	public int recordsAdded;
 	
 	String message;
 	
@@ -14,12 +14,20 @@ public class VehicleSearchResponse {
 	
 	String description;
 
-	public Vehicle getVehicle() {
-		return vehicle;
+	public Exercise getExercise() {
+		return exercise;
 	}
 
-	public void setVehicle(Vehicle vehicle) {
-		this.vehicle = vehicle;
+	public void setExercise(Exercise exercise) {
+		this.exercise = exercise;
+	}
+
+	public int getRecordsAdded() {
+		return recordsAdded;
+	}
+
+	public void setRecordsAdded(int recordsAdded) {
+		this.recordsAdded = recordsAdded;
 	}
 
 	public String getMessage() {

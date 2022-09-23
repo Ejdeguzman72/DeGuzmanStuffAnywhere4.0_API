@@ -1,25 +1,23 @@
 package com.deguzman.domain;
 
-import java.util.List;
+import com.deguzman.DeGuzmanStuffAnywhere.model.MedicalOffice;
 
-import com.deguzman.DeGuzmanStuffAnywhere.model.Vehicle;
+public class MedicalOfficeSearchResponse {
 
-public class VehicleSearchResponse {
-
-	public Vehicle vehicle;
+	public MedicalOffice medicalOffice;
 	
-	String message;
+	public String message;
 	
-	String statusCode;
+	public String statusCode;
 	
-	String description;
+	public String description;
 
-	public Vehicle getVehicle() {
-		return vehicle;
+	public MedicalOffice getMedicalOffice() {
+		return medicalOffice;
 	}
 
-	public void setVehicle(Vehicle vehicle) {
-		this.vehicle = vehicle;
+	public void setMedicalOffice(MedicalOffice medicalOffice) {
+		this.medicalOffice = medicalOffice;
 	}
 
 	public String getMessage() {
@@ -45,4 +43,5 @@ public class VehicleSearchResponse {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	
 }

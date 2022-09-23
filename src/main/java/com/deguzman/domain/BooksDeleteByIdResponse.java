@@ -1,25 +1,33 @@
 package com.deguzman.domain;
 
-import java.util.List;
+import com.deguzman.DeGuzmanStuffAnywhere.model.Books;
 
-import com.deguzman.DeGuzmanStuffAnywhere.model.Vehicle;
+public class BooksDeleteByIdResponse {
 
-public class VehicleSearchResponse {
-
-	public Vehicle vehicle;
+	public Books books;
 	
+	public Integer deleted;
+
 	String message;
-	
+
 	String statusCode;
-	
+
 	String description;
 
-	public Vehicle getVehicle() {
-		return vehicle;
+	public Books getBooks() {
+		return books;
 	}
 
-	public void setVehicle(Vehicle vehicle) {
-		this.vehicle = vehicle;
+	public void setBooks(Books books) {
+		this.books = books;
+	}
+
+	public Integer getDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(Integer deleted) {
+		this.deleted = deleted;
 	}
 
 	public String getMessage() {
@@ -45,4 +53,5 @@ public class VehicleSearchResponse {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	
 }

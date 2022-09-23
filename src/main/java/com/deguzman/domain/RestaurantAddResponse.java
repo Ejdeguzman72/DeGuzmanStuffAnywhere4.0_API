@@ -1,12 +1,12 @@
 package com.deguzman.domain;
 
-import java.util.List;
+import com.deguzman.DeGuzmanStuffAnywhere.model.Restaurant;
 
-import com.deguzman.DeGuzmanStuffAnywhere.model.Vehicle;
+public class RestaurantAddResponse {
 
-public class VehicleSearchResponse {
-
-	public Vehicle vehicle;
+	public Restaurant restaurant;
+	
+	public int recordsAdded;
 	
 	String message;
 	
@@ -14,12 +14,20 @@ public class VehicleSearchResponse {
 	
 	String description;
 
-	public Vehicle getVehicle() {
-		return vehicle;
+	public Restaurant getRestaurant() {
+		return restaurant;
 	}
 
-	public void setVehicle(Vehicle vehicle) {
-		this.vehicle = vehicle;
+	public void setRestaurant(Restaurant restaurant) {
+		this.restaurant = restaurant;
+	}
+
+	public int getRecordsAdded() {
+		return recordsAdded;
+	}
+
+	public void setRecordsAdded(int recordsAdded) {
+		this.recordsAdded = recordsAdded;
 	}
 
 	public String getMessage() {

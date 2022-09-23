@@ -1,25 +1,25 @@
 package com.deguzman.domain;
 
-import java.util.List;
+import com.deguzman.DeGuzmanStuffAnywhere.model.AutoRepairShop;
+import com.deguzman.DeGuzmanStuffAnywhere.model.Books;
 
-import com.deguzman.DeGuzmanStuffAnywhere.model.Vehicle;
+public class BookSearchResponse {
 
-public class VehicleSearchResponse {
-
-	public Vehicle vehicle;
+	public Books book;
 	
-	String message;
+	public String message;
 	
-	String statusCode;
+	public String statusCode;
 	
-	String description;
+	public String description;
 
-	public Vehicle getVehicle() {
-		return vehicle;
+
+	public Books getBook() {
+		return book;
 	}
 
-	public void setVehicle(Vehicle vehicle) {
-		this.vehicle = vehicle;
+	public void setBook(Books book) {
+		this.book = book;
 	}
 
 	public String getMessage() {
@@ -45,4 +45,5 @@ public class VehicleSearchResponse {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	
 }

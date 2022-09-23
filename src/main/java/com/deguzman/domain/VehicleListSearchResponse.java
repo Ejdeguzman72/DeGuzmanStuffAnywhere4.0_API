@@ -4,9 +4,11 @@ import java.util.List;
 
 import com.deguzman.DeGuzmanStuffAnywhere.model.Vehicle;
 
-public class VehicleSearchResponse {
+public class VehicleListSearchResponse {
 
-	public Vehicle vehicle;
+	public List<Vehicle> vehicle;
+	
+	public int size;
 	
 	String message;
 	
@@ -14,12 +16,20 @@ public class VehicleSearchResponse {
 	
 	String description;
 
-	public Vehicle getVehicle() {
+	public List<Vehicle> getVehicle() {
 		return vehicle;
 	}
 
-	public void setVehicle(Vehicle vehicle) {
+	public void setVehicle(List<Vehicle> vehicle) {
 		this.vehicle = vehicle;
+	}
+
+	public int getSize() {
+		return size;
+	}
+
+	public void setSize(int size) {
+		this.size = size;
 	}
 
 	public String getMessage() {

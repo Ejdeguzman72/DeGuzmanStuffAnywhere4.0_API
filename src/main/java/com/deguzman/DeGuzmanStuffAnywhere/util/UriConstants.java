@@ -31,13 +31,26 @@ public class UriConstants {
 	public static final String URI_GET_VEHICLE_LIST = "/app/vehicles/all";
 	public static final String URI_GET_VEHICEL_LIST_PAGINATION = "/app/vehicles/all-vehicles";
 	public static final String URI_GET_VEHICLE_BY_ID = "/app/vehicles/search/vehicle";
-	public static final String URI_GET_VEHICLE_BY_YEAR = "/app/auto-repair-shops/repair-shop/search/name";
-	public static final String URI_GET_VEHICLE_BY_MAKE = "/app/auto-repair-shops/repair-shop/search/zip";
-	public static final String URI_GET_VEHICLE_BY_MODEL = "/app/auto-repair-shops/repair-shop/search/zip";
-	public static final String URI_GET_VEHICLE_BY_TRANSMISSION = "/app/auto-repair-shops/repair-shop/search/zip";
-	public static final String URI_GET_VEHICLE_COUNT = "/app/auto-repair-shops/repair-shop/count";
+	public static final String URI_GET_VEHICLE_BY_YEAR = "/app/vehicles/vehicle/search/year";
+	public static final String URI_GET_VEHICLE_BY_MAKE = "/app/vehicles/vehicle/search/make";
+	public static final String URI_GET_VEHICLE_BY_MODEL = "/app/vehicles/vehicle/search/model";
+	public static final String URI_GET_VEHICLE_BY_TRANSMISSION = "/app/vehicles/vehicle/search/transmission";
+	public static final String URI_GET_VEHICLE_COUNT = "/app/vehicles/vehicle/count";
 	public static final String URI_ADD_VEHICLE_INFORMATION = "/app/vehicles/add-vehicle-information";
 	public static final String URI_UPDATE_VEHICLE_INFORMATION = "/app/vehicles/vehicle";
 	public static final String URI_DELETE_ALL_VEHICLE_INFORMATION = "/app/vehicles/vehicle";
 	public static final String URI_DELETE_VEHICLE_INFORMATION = "/app/vehicles/delete-all-vehicles";
+	
+	// URI Restaurant Endpoints 
+	public static final String URI_GET_RESTAURANT_LIST = "/app/restaurants/all";
+	public static final String URI_GET_RESTAURANT_LIST_PAGINATION = "/app/restaurants/all-restaurants";
+	public static final String URI_GET_RESTAURANT_BY_ID = "/app/restaurants/search/restaurant";
+	public static final String URI_GET_RESTAURANT_BY_ZIP = "/app/restaurants/restaurant/search/zip";
+	public static final String URI_GET_RESTAURANT_BY_NAME = "/app/vehicles/vehicle/search/name";
+	public static final String URI_GET_VEHICLE_BY_TYPE = "/app/vehicles/vehicle/search/type";
+	public static final String URI_GET_RESTAURANT_COUNT = "/app/vehicles/vehicle/count";
+	public static final String URI_ADD_RESTAURANT_INFORMATION = "/app/restaurants/add-restaurant-information";
+	public static final String URI_UPDATE_RESTAURANT_INFORMATION = "/app/restaurants/restaurant";
+	public static final String URI_DELETE_ALL_RESTAURANT_INFORMATION = "/app/restaurants/restaurant";
+	public static final String URI_DELETE_RESTAURANT_INFORMATION = "/app/restaurants/delete-all-restaurants";
 }

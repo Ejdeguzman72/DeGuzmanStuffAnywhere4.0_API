@@ -2,11 +2,13 @@ package com.deguzman.domain;
 
 import java.util.List;
 
-import com.deguzman.DeGuzmanStuffAnywhere.model.Vehicle;
+import com.deguzman.DeGuzmanStuffAnywhere.model.MedicalOffice;
 
-public class VehicleSearchResponse {
+public class MedicalOfficeListSearchResponse {
 
-	public Vehicle vehicle;
+	public List<MedicalOffice> vehicle;
+	
+	public int size;
 	
 	String message;
 	
@@ -14,12 +16,21 @@ public class VehicleSearchResponse {
 	
 	String description;
 
-	public Vehicle getVehicle() {
+
+	public List<MedicalOffice> getVehicle() {
 		return vehicle;
 	}
 
-	public void setVehicle(Vehicle vehicle) {
+	public void setVehicle(List<MedicalOffice> vehicle) {
 		this.vehicle = vehicle;
+	}
+
+	public int getSize() {
+		return size;
+	}
+
+	public void setSize(int size) {
+		this.size = size;
 	}
 
 	public String getMessage() {

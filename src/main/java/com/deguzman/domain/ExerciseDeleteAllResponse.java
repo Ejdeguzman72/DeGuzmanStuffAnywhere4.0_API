@@ -1,25 +1,22 @@
 package com.deguzman.domain;
 
-import java.util.List;
+public class ExerciseDeleteAllResponse {
 
-import com.deguzman.DeGuzmanStuffAnywhere.model.Vehicle;
+	public Integer deleted;
 
-public class VehicleSearchResponse {
+	public String message;
 
-	public Vehicle vehicle;
+	public String statusCode;
+
+	public String description;
 	
-	String message;
 	
-	String statusCode;
-	
-	String description;
-
-	public Vehicle getVehicle() {
-		return vehicle;
+	public Integer getDeleted() {
+		return deleted;
 	}
 
-	public void setVehicle(Vehicle vehicle) {
-		this.vehicle = vehicle;
+	public void setDeleted(Integer deleted) {
+		this.deleted = deleted;
 	}
 
 	public String getMessage() {
