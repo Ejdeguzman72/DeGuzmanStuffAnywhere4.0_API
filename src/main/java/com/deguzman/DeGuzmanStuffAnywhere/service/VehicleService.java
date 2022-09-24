@@ -20,21 +20,21 @@ import com.deguzman.DeGuzmanStuffAnywhere.exception.InvalidVehicleException;
 import com.deguzman.DeGuzmanStuffAnywhere.jpa_dao.VehicleJpaDao;
 import com.deguzman.DeGuzmanStuffAnywhere.jpa_model.Vehicle;
 import com.deguzman.DeGuzmanStuffAnywhere.util.AppConstants;
-import com.deguzman.domain.VehicleAddRequest;
-import com.deguzman.domain.VehicleAddResponse;
-import com.deguzman.domain.VehicleDeleteAllResponse;
-import com.deguzman.domain.VehicleDeleteByIdRequest;
-import com.deguzman.domain.VehicleDeleteByIdResponse;
-import com.deguzman.domain.VehicleListResponse;
-import com.deguzman.domain.VehicleListSearchResponse;
-import com.deguzman.domain.VehicleSearchByIdRequest;
-import com.deguzman.domain.VehicleSearchByMakeRequest;
-import com.deguzman.domain.VehicleSearchByModelRequest;
-import com.deguzman.domain.VehicleSearchByTransmissionRequest;
-import com.deguzman.domain.VehicleSearchByYearRequest;
-import com.deguzman.domain.VehicleSearchResponse;
-import com.deguzman.domain.VehicleUpdateRequest;
-import com.deguzman.domain.VehicleUpdateResponse;
+import com.deguzman.domain_entity.VehicleAddRequest;
+import com.deguzman.domain_entity.VehicleAddResponse;
+import com.deguzman.domain_entity.VehicleDeleteAllResponse;
+import com.deguzman.domain_entity.VehicleDeleteByIdRequest;
+import com.deguzman.domain_entity.VehicleDeleteByIdResponse;
+import com.deguzman.domain_entity.VehicleListResponse;
+import com.deguzman.domain_entity.VehicleListSearchResponse;
+import com.deguzman.domain_entity.VehicleSearchByIdRequest;
+import com.deguzman.domain_entity.VehicleSearchByMakeRequest;
+import com.deguzman.domain_entity.VehicleSearchByModelRequest;
+import com.deguzman.domain_entity.VehicleSearchByTransmissionRequest;
+import com.deguzman.domain_entity.VehicleSearchByYearRequest;
+import com.deguzman.domain_entity.VehicleSearchResponse;
+import com.deguzman.domain_entity.VehicleUpdateRequest;
+import com.deguzman.domain_entity.VehicleUpdateResponse;
 
 @Service
 public class VehicleService {

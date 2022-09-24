@@ -20,20 +20,20 @@ import com.deguzman.DeGuzmanStuffAnywhere.exception.DuplicateAutoShopException;
 import com.deguzman.DeGuzmanStuffAnywhere.jpa_dao.AutoRepairShopJpaDao;
 import com.deguzman.DeGuzmanStuffAnywhere.jpa_model.AutoRepairShop;
 import com.deguzman.DeGuzmanStuffAnywhere.util.AppConstants;
-import com.deguzman.domain.AutoShopAddRequest;
-import com.deguzman.domain.AutoShopAddResponse;
-import com.deguzman.domain.AutoShopCountResponse;
-import com.deguzman.domain.AutoShopDeleteAllResponse;
-import com.deguzman.domain.AutoShopDeleteByIdRequest;
-import com.deguzman.domain.AutoShopDeleteByIdResponse;
-import com.deguzman.domain.AutoShopListResponse;
-import com.deguzman.domain.AutoShopSearchByIdRequest;
-import com.deguzman.domain.AutoShopSearchByNameRequest;
-import com.deguzman.domain.AutoShopSearchByZipRequest;
-import com.deguzman.domain.AutoShopSearchResponse;
-import com.deguzman.domain.AutoShopSearchZipResponse;
-import com.deguzman.domain.AutoShopUpdateRequest;
-import com.deguzman.domain.AutoShopUpdateResponse;
+import com.deguzman.domain_entity.AutoShopAddRequest;
+import com.deguzman.domain_entity.AutoShopAddResponse;
+import com.deguzman.domain_entity.AutoShopCountResponse;
+import com.deguzman.domain_entity.AutoShopDeleteAllResponse;
+import com.deguzman.domain_entity.AutoShopDeleteByIdRequest;
+import com.deguzman.domain_entity.AutoShopDeleteByIdResponse;
+import com.deguzman.domain_entity.AutoShopListResponse;
+import com.deguzman.domain_entity.AutoShopSearchByIdRequest;
+import com.deguzman.domain_entity.AutoShopSearchByNameRequest;
+import com.deguzman.domain_entity.AutoShopSearchByZipRequest;
+import com.deguzman.domain_entity.AutoShopSearchResponse;
+import com.deguzman.domain_entity.AutoShopSearchZipResponse;
+import com.deguzman.domain_entity.AutoShopUpdateRequest;
+import com.deguzman.domain_entity.AutoShopUpdateResponse;
 
 @Service
 public class AutoRepairShopService {
