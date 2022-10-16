@@ -23,6 +23,18 @@ import com.deguzman.DeGuzmanStuffAnywhere.exception.InvalidUserException;
 import com.deguzman.DeGuzmanStuffAnywhere.exception.InvalidVehicleException;
 import com.deguzman.DeGuzmanStuffAnywhere.jpa_dao.AutoTrxJpaDao;
 import com.deguzman.DeGuzmanStuffAnywhere.jpa_model.AutoTransaction;
+import com.deguzman.DeGuzmanStuffAnywhere.util.AppConstants;
+import com.deguzman.domain_entity.AutoShopDeleteByIdRequest;
+import com.deguzman.domain_entity.AutoShopDeleteByIdResponse;
+import com.deguzman.domain_financial.AutoTransactionAddRequest;
+import com.deguzman.domain_financial.AutoTransactionAddResponse;
+import com.deguzman.domain_financial.AutoTransactionDeleteByIdResponse;
+import com.deguzman.domain_financial.AutoTransactionUpdateRequest;
+import com.deguzman.domain_financial.AutoTransactionUpdateResponse;
+import com.deguzman.domain_financial.AutoTrxListResponse;
+import com.deguzman.domain_financial.AutoTrxSearchResponse;
+import com.deguzman.domain_financial.TransactionDeleteAllResponse;
+import com.deguzman.domain_financial.TransactionDeleteByIdRequest;
 
 
 @Service
@@ -34,8 +46,17 @@ public class AutoTrxService {
 	@Autowired
 	private AutoTrxJpaDao autoTrxDao;
 	
-	public List<AutoTrxInfoDTO> findAllAutoTransactionInformation() {
-		return autoTrxDaoImpl.findAllAutoTransactionInformation();
+	public AutoTrxListResponse findAllAutoTransactionInformation() {
+		AutoTrxListResponse response = new AutoTrxListResponse();
+		List<AutoTrxInfoDTO> list =  autoTrxDaoImpl.findAllAutoTransactionInformation();
+		
+		response.setList(list);
+		response.setSize(list.size());
+		response.setDescription(AppConstants.GET_AUTO_TRX_LIST_DESCR);
+		response.setStatusCode(String.valueOf(AppConstants.HTTP_STATUS_OK));
+		response.setMessage(AppConstants.GET_AUTO_TRX_LIST_MSG);
+		
+		return response;
 	}
 	
 	public ResponseEntity<Map<String, Object>> getAllTransactionsPagination(@RequestParam(required = false) String paymentDate,
@@ -71,20 +92,57 @@ public class AutoTrxService {
 		}
 	}
 	
-	public List<AutoTrxInfoDTO> findAutoTransactionsByVehicle(long vehicle_id) {
-		return autoTrxDaoImpl.findAutoTransactionsByVehicle(vehicle_id);
+	public AutoTrxListResponse findAutoTransactionsByVehicle(long vehicle_id) {
+		AutoTrxListResponse response = new AutoTrxListResponse();
+		List<AutoTrxInfoDTO> list = autoTrxDaoImpl.findAutoTransactionsByVehicle(vehicle_id);
+		
+		response.setList(list);
+		response.setSize(list.size());
+		response.setDescription(AppConstants.GET_AUTO_TRX_LIST_BY_VEHICLE_DESCR);
+		response.setStatusCode(String.valueOf(AppConstants.HTTP_STATUS_OK));
+		response.setMessage(AppConstants.GET_AUTO_TRX_LIST_BY_VEHICLE_MSG);
+		
+		return response;
+		
 	}
 	
-	public List<AutoTrxInfoDTO> findAutoTransactionsByUser(long user_id) {
-		return autoTrxDaoImpl.findAutoTransactionsByUser(user_id);
+	public AutoTrxListResponse findAutoTransactionsByUser(long user_id) {
+		AutoTrxListResponse response = new AutoTrxListResponse();
+		List<AutoTrxInfoDTO> list = autoTrxDaoImpl.findAutoTransactionsByUser(user_id);
+		
+		response.setList(list);
+		response.setSize(list.size());
+		response.setDescription(AppConstants.GET_AUTO_TRX_LIST_BY_USER_DESCR);
+		response.setStatusCode(String.valueOf(AppConstants.HTTP_STATUS_OK));
+		response.setMessage(AppConstants.GET_AUTO_TRX_LIST_BY_USER_MSG);
+		
+		return response;
 	}
 	
-	public List<AutoTrxInfoDTO> findAutoTransactionsByType(long transaction_type_id) {
-		return autoTrxDaoImpl.findAutoTransactionsByType(transaction_type_id);
+	public AutoTrxListResponse findAutoTransactionsByType(long transaction_type_id) {
+		AutoTrxListResponse response = new AutoTrxListResponse();
+		List<AutoTrxInfoDTO> list = autoTrxDaoImpl.findAutoTransactionsByType(transaction_type_id);
+		
+		response.setList(list);
+		response.setSize(list.size());
+		response.setDescription(AppConstants.GET_AUTO_TRX_LIST_BY_TYPE_DESCR);
+		response.setStatusCode(String.valueOf(AppConstants.HTTP_STATUS_OK));
+		response.setMessage(AppConstants.GET_AUTO_TRX_LIST_BY_TYPE_MSG);
+		
+		return response;
 	}
 	
-	public ResponseEntity<AutoTrxInfoDTO> findAutoTransactionInformationDTOById(@PathVariable long auto_shop_id) throws InvalidTransactionException {
-		return autoTrxDaoImpl.findAutoTranasctionInformatioDTOnById(auto_shop_id);
+	public AutoTrxSearchResponse findAutoTransactionInformationDTOById(long auto_transaction_id) throws InvalidTransactionException {
+		AutoTrxSearchResponse response = new AutoTrxSearchResponse();
+		AutoTrxInfoDTO autoTrx = autoTrxDaoImpl.findAutoTranasctionInformatioDTOnById(auto_transaction_id);
+		
+		response.setTransaction(autoTrx);
+		response.setDescription(AppConstants.FIND_AUTO_TRX_BY_ID_DESCR);
+		response.setStatusCode(String.valueOf(AppConstants.HTTP_STATUS_OK));
+		response.setMessage(AppConstants.FIND_AUTO_TRX_BY_ID_MSG);
+		
+		return response;
+		
 	}
 	
 	public ResponseEntity<com.deguzman.DeGuzmanStuffAnywhere.model.AutoTransaction> findAutoTransactionInformationById(@PathVariable long auto_transaction_id) throws InvalidTransactionException {
@@ -95,19 +153,64 @@ public class AutoTrxService {
 		return autoTrxDaoImpl.getCountOfAutoTransactions();
 	}
 	
-	public int addAutoTranactionInformation(com.deguzman.DeGuzmanStuffAnywhere.model.AutoTransaction autoTransaction) throws InvalidAutoShopException, InvalidUserException, InvalidTransactionTypeException, InvalidVehicleException {
-		return autoTrxDaoImpl.addAutoTransactionInformation(autoTransaction);
+	public AutoTransactionAddResponse addAutoTranactionInformation(AutoTransactionAddRequest request) throws InvalidAutoShopException, InvalidUserException, InvalidTransactionTypeException, InvalidVehicleException {
+		AutoTransactionAddResponse response = new AutoTransactionAddResponse();
+		com.deguzman.DeGuzmanStuffAnywhere.model.AutoTransaction autoTrx = new com.deguzman.DeGuzmanStuffAnywhere.model.AutoTransaction();
+		int recordsAdded = autoTrxDaoImpl.addAutoTransactionInformation(request);
+		 
+		autoTrx.setAuto_transaction_date(request.getAuto_transaction_date());
+		autoTrx.setAmount(request.getAmount());
+		autoTrx.setAuto_shop_id(request.getAuto_shop_id());
+		autoTrx.setTransaction_type_id(request.getTransaction_type_id());
+		autoTrx.setVehicle_id(request.getVehicle_id());
+		autoTrx.setUser_id(request.getUser_id());
+		 
+		response.setTransaction(autoTrx);
+		response.setRecordsAdded(recordsAdded);
+		response.setDescription(AppConstants.ADD_AUTO_TRX_INFORMATION_DESCR);
+		response.setStatusCode(String.valueOf(AppConstants.HTTP_STATUS_OK));
+		response.setMessage(AppConstants.ADD_AUTO_TRX_INFORMATION_MSG);
+			
+		return response;
+		 
 	}
 	
-	public int updateTransactionInformation(long auto_transaction_id, com.deguzman.DeGuzmanStuffAnywhere.model.AutoTransaction autoTransactionDetails) throws InvalidAutoShopException, InvalidVehicleException, InvalidTransactionTypeException, InvalidUserException {
-		return autoTrxDaoImpl.updateTransactionInformation(auto_transaction_id, autoTransactionDetails);
+	public AutoTransactionUpdateResponse updateTransactionInformation(AutoTransactionUpdateRequest request) throws InvalidAutoShopException, InvalidVehicleException, InvalidTransactionTypeException, InvalidUserException {
+		AutoTransactionUpdateResponse response = new AutoTransactionUpdateResponse();
+		com.deguzman.DeGuzmanStuffAnywhere.model.AutoTransaction autoTrx = new com.deguzman.DeGuzmanStuffAnywhere.model.AutoTransaction();
+		int recordsUpdated = autoTrxDaoImpl.updateTransactionInformation(request.getAuto_transaction_id(), request);
+		
+		response.setTransaction(autoTrx);
+		response.setUpdatedCount(recordsUpdated);
+		response.setDescription(AppConstants.UPDATE_AUTO_TRX_INFORMATION_DESCR);
+		response.setStatusCode(String.valueOf(AppConstants.HTTP_STATUS_OK));
+		response.setMessage(AppConstants.UPDATE_AUTO_TRX_INFORMATION_MSG);
+		
+		return response;
 	}
 	
-	public int deleteAutoTransactionInformation(long auto_transaction_id) {
-		return autoTrxDaoImpl.deleteAutoTransactionInformation(auto_transaction_id);
+	public AutoTransactionDeleteByIdResponse deleteAutoTransactionInformation(AutoShopDeleteByIdRequest request) {
+		AutoTransactionDeleteByIdResponse response = new AutoTransactionDeleteByIdResponse();
+		com.deguzman.DeGuzmanStuffAnywhere.model.AutoTransaction autoTrx = new com.deguzman.DeGuzmanStuffAnywhere.model.AutoTransaction(); 
+		int recordsDeleted = autoTrxDaoImpl.deleteAutoTransactionInformation(request.getAutoShopId());
+		
+		response.setDeleted(recordsDeleted);
+		response.setDescription(AppConstants.DELETE_AUTO_TRX_INFORMATION_DESCR);
+		response.setStatusCode(String.valueOf(AppConstants.HTTP_STATUS_OK));
+		response.setMessage(AppConstants.DELETE_AUTO_TRX_INFORMATION_MSG);
+		
+		return response;
 	}
 	
-	public int deleteAllAutoTransactions() {
-		return autoTrxDaoImpl.deleteAllAutoTransactions();
+	public TransactionDeleteAllResponse deleteAllAutoTransactions() {
+		TransactionDeleteAllResponse response = new TransactionDeleteAllResponse();
+		int deletedRecords = autoTrxDaoImpl.deleteAllAutoTransactions();
+		
+		response.setDeleted(deletedRecords);
+		response.setDescription(AppConstants.DELETE_ALL_AUTO_TRX_INFORMATION_DESCR);
+		response.setStatusCode(String.valueOf(AppConstants.HTTP_STATUS_OK));
+		response.setMessage(AppConstants.DELETE_ALL_AUTO_TRX_INFORMATION_MSG);
+		
+		return response;
 	}
 }

@@ -136,7 +136,7 @@ public class AutoTrxDaoImpl implements AutoTrxDao {
 
 	@Override
 	@Cacheable(value = "autoTrasactionById", key = "#auto_transaction_id")
-	public ResponseEntity<AutoTrxInfoDTO> findAutoTranasctionInformatioDTOnById(@PathVariable long auto_transaction_id)
+	public AutoTrxInfoDTO findAutoTranasctionInformatioDTOnById(@PathVariable long auto_transaction_id)
 			throws InvalidTransactionException {
 
 		AutoTrxInfoDTO autoTrxInfo = jdbcTemplate.queryForObject(GET_AUTO_TRX_DTO_INFO_BY_ID,
@@ -144,7 +144,7 @@ public class AutoTrxDaoImpl implements AutoTrxDao {
 
 		LOGGER.info("Retrieving transaction based on ID: " + " " + auto_transaction_id);
 
-		return ResponseEntity.ok().body(autoTrxInfo);
+		return autoTrxInfo;
 	}
 	
 	@Override

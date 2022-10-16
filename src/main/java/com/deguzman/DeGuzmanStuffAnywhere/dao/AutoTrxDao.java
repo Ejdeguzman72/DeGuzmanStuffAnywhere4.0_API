@@ -18,13 +18,13 @@ public interface AutoTrxDao {
 
 	public List<AutoTrxInfoDTO> findAllAutoTransactionInformation();
 
-	public List<AutoTrxInfoDTO> findAutoTransactionsByVehicle(@PathVariable long vehicle_id);
+	public List<AutoTrxInfoDTO> findAutoTransactionsByVehicle(long vehicle_id);
 
-	public List<AutoTrxInfoDTO> findAutoTransactionsByUser(@PathVariable long user_id);
+	public List<AutoTrxInfoDTO> findAutoTransactionsByUser(long user_id);
 
-	public List<AutoTrxInfoDTO> findAutoTransactionsByType(@PathVariable long transaction_type_id);
+	public List<AutoTrxInfoDTO> findAutoTransactionsByType(long transaction_type_id);
 
-	public ResponseEntity<AutoTransaction> findAutoTranasctionInformationById(@PathVariable long auto_transaction_id)
+	public ResponseEntity<AutoTransaction> findAutoTranasctionInformationById(long auto_transaction_id)
 			throws InvalidTransactionException;
 
 	public long getCountOfAutoTransactions();
@@ -41,7 +41,7 @@ public interface AutoTrxDao {
 
 	public int deleteAllAutoTransactions();
 
-	ResponseEntity<AutoTrxInfoDTO> findAutoTranasctionInformatioDTOnById(long auto_transaction_id)
+	public AutoTrxInfoDTO findAutoTranasctionInformatioDTOnById(long auto_transaction_id)
 			throws InvalidTransactionException;
 
 }

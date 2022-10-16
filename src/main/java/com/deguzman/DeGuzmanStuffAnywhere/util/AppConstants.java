@@ -6,6 +6,46 @@ public class AppConstants {
 
 	public static final HttpStatus HTTP_STATUS_OK = HttpStatus.OK;
 	
+	public static final String GET_AUTO_TRX_LIST_DESCR = "GET AUTO TRX LIST";
+	
+	public static final String GET_AUTO_TRX_LIST_MSG = "Retrieving all automotive transactions from database";
+	
+	public static String FIND_AUTO_TRX_BY_ID_DESCR = "FIND AUTO_TRX BY ID";
+	
+	public static String FIND_AUTO_TRX_BY_ID_MSG = "Searching automotive transactions with ID";
+	
+	public static String GET_AUTO_TRX_LIST_BY_VEHICLE_DESCR = "GET AUTO_TRX LIST BY VEHICLE";
+	
+	public static String GET_AUTO_TRX_LIST_BY_VEHICLE_MSG = "Retrieving all vehicle information from database by vehicle";
+	
+	public static String GET_AUTO_TRX_LIST_BY_USER_DESCR = "GET AUTO_TRX LIST BY CAR USER";
+	
+	public static String GET_AUTO_TRX_LIST_BY_USER_MSG = "Retrieving all vehicle information from database by user";
+	
+	public static String GET_AUTO_TRX_LIST_BY_TYPE_DESCR = "GET AUTO_TRX LIST BY TRANSACTION TYPE";
+	
+	public static String GET_AUTO_TRX_LIST_BY_TYPE_MSG = "Retrieving all vehicle information from database by transaction type";
+	
+	public static String ADD_AUTO_TRX_INFORMATION_DESCR = "ADD AUTO_TRX";
+	
+	public static String ADD_AUTO_TRX_INFORMATION_MSG = "Inserting new automotive transaction information";
+	
+	public static String GET_AUTO_TRX_COUNT_DESCR = "GET AUTO_TRX COUNT";
+	
+	public static String GET_AUTO_TRX_COUNT_MSG = "Retrieving the record count of all auto transaction information";
+	
+	public static String UPDATE_AUTO_TRX_INFORMATION_DESCR = "UPDATE AUTO_TRX";
+	
+	public static String UPDATE_AUTO_TRX_INFORMATION_MSG = "Updating automotive transaction information";
+	
+	public static String DELETE_AUTO_TRX_INFORMATION_DESCR = "DELETE AUTO_TRX";
+	
+	public static String DELETE_AUTO_TRX_INFORMATION_MSG = "Deleteing automotive transaction information by transactionId";
+	
+	public static String DELETE_ALL_AUTO_TRX_INFORMATION_DESCR = "DELETE ALL AUTO_TRX";
+	
+	public static String DELETE_ALL_AUTO_TRX_INFORMATION_MSG = "Deleteing all automotive transactions";
+	
 	public static String GET_CONTACT_LIST_DESCR = "GET CONTACT LIST";
 	
 	public static String GET_CONTACT_LIST_MSG = "Retrieving all contacts from database";
