@@ -2,14 +2,14 @@ package com.deguzman.domain_entity;
 
 public class RestaurantSearchByZipRequest {
 
-	public String name;
+	public String zip;
 
-	public String getName() {
-		return name;
+	public String getZip() {
+		return zip;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setZip(String zip) {
+		this.zip = zip;
 	}
 	
 }

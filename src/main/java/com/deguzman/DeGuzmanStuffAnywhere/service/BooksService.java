@@ -1,5 +1,6 @@
 package com.deguzman.DeGuzmanStuffAnywhere.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,6 +21,19 @@ import com.deguzman.DeGuzmanStuffAnywhere.exception.DuplicateBookNameException;
 import com.deguzman.DeGuzmanStuffAnywhere.exception.ResourceNotFoundException;
 import com.deguzman.DeGuzmanStuffAnywhere.jpa_dao.BooksJpaDao;
 import com.deguzman.DeGuzmanStuffAnywhere.jpa_model.Books;
+import com.deguzman.DeGuzmanStuffAnywhere.util.AppConstants;
+import com.deguzman.domain.BookSearchByAuthorRequest;
+import com.deguzman.domain.BookSearchByIdRequest;
+import com.deguzman.domain.BookSearchByTitleRequest;
+import com.deguzman.domain.BookSearchResponse;
+import com.deguzman.domain.BooksAddRequest;
+import com.deguzman.domain.BooksAddResponse;
+import com.deguzman.domain.BooksDeleteAllResponse;
+import com.deguzman.domain.BooksDeleteByIdRequest;
+import com.deguzman.domain.BooksDeleteByIdResponse;
+import com.deguzman.domain.BooksListResponse;
+import com.deguzman.domain.BooksUpdateRequest;
+import com.deguzman.domain.BooksUpdateResponse;
 
 @Service
 public class BooksService {
@@ -30,8 +44,18 @@ public class BooksService {
 	@Autowired
 	private BooksDaoImpl booksDaoImpl;
 
-	public List<com.deguzman.DeGuzmanStuffAnywhere.model.Books> findAllBookInformation() {
-		return booksDaoImpl.findAllBooksInformation();
+	public BooksListResponse findAllBookInformation() {
+		BooksListResponse response = new BooksListResponse();
+		List<com.deguzman.DeGuzmanStuffAnywhere.model.Books> list = new ArrayList();
+		
+		list = booksDaoImpl.findAllBooksInformation();
+		response.setList(list);
+		response.setSize(list.size());
+		response.setDescription(AppConstants.GET_BOOKS_LIST_DESCR);
+		response.setStatusCode(String.valueOf(AppConstants.HTTP_STATUS_OK));
+		response.setMessage(AppConstants.GET_BOOKS_LIST_MSG);
+		
+		return response;
 	}
 	
 	public ResponseEntity<Map<String, Object>> getAllBooksPagination(@RequestParam(required = false) String title,
@@ -67,35 +91,104 @@ public class BooksService {
 		}
 	}
 	
-	public List<com.deguzman.DeGuzmanStuffAnywhere.model.Books> findAllBooksByAuthor(@PathVariable String author) {
-		return booksDaoImpl.findAllBooksByAuthor(author);
+	public BooksListResponse findAllBooksByAuthor(BookSearchByAuthorRequest request) {
+		BooksListResponse response = new BooksListResponse();
+		List<com.deguzman.DeGuzmanStuffAnywhere.model.Books> list = new ArrayList();
+		
+		list = booksDaoImpl.findAllBooksByAuthor(request.getAuthor());
+		response.setList(list);
+		response.setSize(list.size());
+		response.setDescription(AppConstants.GET_BOOK_LIST_BY_AUTHOR_DESCR);
+		response.setStatusCode(String.valueOf(AppConstants.HTTP_STATUS_OK));
+		response.setMessage(AppConstants.GET_BOOK_LIST_BY_AUTHOR_MSG);
+		
+		return response;
 	}
 	
-	public ResponseEntity<com.deguzman.DeGuzmanStuffAnywhere.model.Books> findBookInfomrationById(@PathVariable int book_id) throws ResourceNotFoundException {
-		return booksDaoImpl.findBooksInformationById(book_id);
+	public BookSearchResponse findBookInfomrationById(BookSearchByIdRequest request) throws ResourceNotFoundException {
+		BookSearchResponse response = new BookSearchResponse();
+		com.deguzman.DeGuzmanStuffAnywhere.model.Books book = booksDaoImpl.findBooksInformationById(request.getBookId());
+		
+		response.setBook(book);
+		response.setDescription(AppConstants.FIND_BOOK_BY_ID_DESCR);
+		response.setStatusCode(String.valueOf(AppConstants.HTTP_STATUS_OK));
+		response.setMessage(AppConstants.FIND_BOOK_BY_ID_MSG);
+		
+		return response;
 	}
 	
-	public ResponseEntity<com.deguzman.DeGuzmanStuffAnywhere.model.Books> findBookInformationByName(@PathVariable String name) {
-		return booksDaoImpl.findBookInformationByName(name);
+	public BookSearchResponse findBookInformationByName(BookSearchByTitleRequest request) {
+		BookSearchResponse response = new BookSearchResponse();
+		com.deguzman.DeGuzmanStuffAnywhere.model.Books book = booksDaoImpl.findBookInformationByName(request.getTitle());
+		
+		response.setBook(book);
+		response.setDescription(AppConstants.FIND_BOOK_BY_TITLE_DESCR);
+		response.setStatusCode(String.valueOf(AppConstants.HTTP_STATUS_OK));
+		response.setMessage(AppConstants.FIND_BOOK_BY_TITLE_MSG);
+		
+		return response;
 	}
 	
 	public long getBookCount() {
 		return booksDaoImpl.getBookCount();
 	}
 	
-	public int addBooksInformation(com.deguzman.DeGuzmanStuffAnywhere.model.Books book) throws DuplicateBookNameException {
-		return booksDaoImpl.addBooksInformation(book);
+	public BooksAddResponse addBooksInformation(BooksAddRequest request) throws DuplicateBookNameException {
+		BooksAddResponse response = new BooksAddResponse();
+		com.deguzman.DeGuzmanStuffAnywhere.model.Books book = new com.deguzman.DeGuzmanStuffAnywhere.model.Books();
+		
+		book.setTitle(request.getTitle());
+		book.setAuthor(request.getAuthor());
+		book.setDescr(request.getDescr());
+		
+		int result = booksDaoImpl.addBooksInformation(request);
+		
+		response.setBooks(book);
+		response.setRecordsAdded(result);
+		response.setDescription(AppConstants.ADD_BOOK_INFORMATION_DESCR);
+		response.setStatusCode(String.valueOf(AppConstants.HTTP_STATUS_OK));
+		response.setMessage(AppConstants.ADD_BOOK_INFORMATION_MSG);
+		
+		return response;
 	}
 	
-	public int updateBooksInformation(@PathVariable int book_id, @RequestBody com.deguzman.DeGuzmanStuffAnywhere.model.Books book) {
-		return booksDaoImpl.updateBooksInformation(book_id, book);
+	public BooksUpdateResponse updateBooksInformation(BooksUpdateRequest request) {
+		BooksUpdateResponse response = new BooksUpdateResponse(); 
+		com.deguzman.DeGuzmanStuffAnywhere.model.Books book = new com.deguzman.DeGuzmanStuffAnywhere.model.Books();
+		int updatedRecords = booksDaoImpl.updateBooksInformation(request.getBook_id(), request);
+		
+		response.setBooks(book);
+		response.setUpdatedCount(updatedRecords);
+		response.setDescription(AppConstants.UPDATE_BOOK_INFORMATION_DESCR);
+		response.setStatusCode(String.valueOf(AppConstants.HTTP_STATUS_OK));
+		response.setMessage(AppConstants.UPDATE_BOOK_INFORMATION_MSG);
+		
+		return response;
 	}
 	
-	public int deleteBookInformation(@PathVariable int book_id) {
-		return booksDaoImpl.deleteBookInformation(book_id);
+	public BooksDeleteByIdResponse deleteBookInformation(BooksDeleteByIdRequest request) throws ResourceNotFoundException {
+		BooksDeleteByIdResponse response = new BooksDeleteByIdResponse();
+		com.deguzman.DeGuzmanStuffAnywhere.model.Books book = booksDaoImpl.findBooksInformationById(request.getBookId());
+		int deletedRecords = booksDaoImpl.deleteBookInformation(request.getBookId());
+		
+		response.setBooks(book);
+		response.setDeleted(deletedRecords);
+		response.setDescription(AppConstants.DELETE_BOOK_INFORMATION_DESCR);
+		response.setStatusCode(String.valueOf(AppConstants.HTTP_STATUS_OK));
+		response.setMessage(AppConstants.DELETE_BOOK_INFORMATION_MSG);
+		
+		return response;
 	}
 	
-	public int deleteAllBookInformation() {
-		return booksDaoImpl.deleteAllBookInformation();
+	public BooksDeleteAllResponse deleteAllBookInformation() {
+		BooksDeleteAllResponse response = new BooksDeleteAllResponse();
+		int deletedRecords = booksDaoImpl.deleteAllBookInformation();
+		
+		response.setDeleted(deletedRecords);
+		response.setDescription(AppConstants.DELETE_ALL_BOOK_INFORMATION_DESCR);
+		response.setStatusCode(String.valueOf(AppConstants.HTTP_STATUS_OK));
+		response.setMessage(AppConstants.DELETE_ALL_BOOK_INFORMATION_MSG);
+		
+		return response;
 	}
 }

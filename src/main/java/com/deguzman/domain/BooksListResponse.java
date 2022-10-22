@@ -2,11 +2,11 @@ package com.deguzman.domain;
 
 import java.util.List;
 
-import com.deguzman.DeGuzmanStuffAnywhere.model.AutoRepairShop;
+import com.deguzman.DeGuzmanStuffAnywhere.model.Books;
 
 public class BooksListResponse {
 
-	public List<AutoRepairShop> list;
+	public List<Books> list;
 	
 	public int size;
 	
@@ -16,11 +16,11 @@ public class BooksListResponse {
 	
 	public String description;
 
-	public List<AutoRepairShop> getList() {
+	public List<Books> getList() {
 		return list;
 	}
 
-	public void setList(List<AutoRepairShop> list) {
+	public void setList(List<Books> list) {
 		this.list = list;
 	}
 
@@ -56,7 +56,7 @@ public class BooksListResponse {
 		this.description = description;
 	}
 
-	public BooksListResponse(List<AutoRepairShop> list, int size, String message, String statusCode,
+	public BooksListResponse(List<Books> list, int size, String message, String statusCode,
 			String description) {
 		super();
 		this.list = list;

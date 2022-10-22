@@ -3,11 +3,12 @@ package com.deguzman.domain_entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.deguzman.DeGuzmanStuffAnywhere.dto.RestaurantInfoDTO;
 import com.deguzman.DeGuzmanStuffAnywhere.model.Restaurant;
 
 public class RestaurantListResponse {
 
-	List<Restaurant> list = new ArrayList<>();
+	List<RestaurantInfoDTO> list = new ArrayList<>();
 	
 	int size;
 	
@@ -17,11 +18,11 @@ public class RestaurantListResponse {
 	
 	String description;
 
-	public List<Restaurant> getList() {
+	public List<RestaurantInfoDTO> getList() {
 		return list;
 	}
 
-	public void setList(List<Restaurant> list) {
+	public void setList(List<RestaurantInfoDTO> list) {
 		this.list = list;
 	}
 

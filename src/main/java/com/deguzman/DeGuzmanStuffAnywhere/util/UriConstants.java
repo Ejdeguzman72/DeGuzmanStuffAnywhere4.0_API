@@ -27,6 +27,17 @@ public class UriConstants {
 	public static final String URI_UPDATE_AUTOSHOP_INFORMATION = "/app/auto-repair-shops/repair-shop";
 	public static final String URI_DELETE_ALL_AUTOSHOP_INFORMATION = "/app/auto-repair-shops/repair-shop";
 	public static final String URI_DELETE_AUTOSHOP_INFORMATION = "/app/auto-repair-shops/delete-all";
+	
+	// Books Information URI endpoints 
+	public static final String URI_GET_BOOKS_LIST = "/app/books/all";
+	public static final String URI_GET_BOOKS_LIST_PAGINATION = "/app/books/all-books";
+	public static final String URI_GET_BOOKS_BY_ID = "/app/books/book";
+	public static final String URI_GET_BOOKS_BY_TITLE = "/app/books/book/search/title";
+	public static final String URI_GET_BOOKS_BY_AUTHOR = "/app/books/book/search/author";
+	public static final String URI_ADD_BOOKS_INFORMATION = "/app/books/add-book-information";
+	public static final String URI_UPDATE_BOOKS_INFORMATION = "/app/books/book";
+	public static final String URI_DELETE_BOOKS_INFORMATION = "/app/books/book";
+	public static final String URI_DELETE_ALL_BOOKS_INFORMATION = "/app/books/delete-all";
 
 	// URI Contact endpoints
 	public static final String URI_GET_CONTACT_LIST = "/app/person-info/all";
@@ -58,11 +69,13 @@ public class UriConstants {
 	// URI Restaurant Endpoints
 	public static final String URI_GET_RESTAURANT_LIST = "/app/restaurants/all";
 	public static final String URI_GET_RESTAURANT_LIST_PAGINATION = "/app/restaurants/all-restaurants";
-	public static final String URI_GET_RESTAURANT_BY_ID = "/app/restaurants/search/restaurant";
+	public static final String URI_GET_RESTAURANT_BY_ID = "/app/restaurants/restaurant";
+	public static final String URI_GET_RESTAURANT_INFO_DTO_BY_ID = "/app/restaurants/restaurant-dto";
 	public static final String URI_GET_RESTAURANT_BY_ZIP = "/app/restaurants/restaurant/search/zip";
-	public static final String URI_GET_RESTAURANT_BY_NAME = "/app/vehicles/vehicle/search/name";
-	public static final String URI_GET_VEHICLE_BY_TYPE = "/app/vehicles/vehicle/search/type";
-	public static final String URI_GET_RESTAURANT_COUNT = "/app/vehicles/vehicle/count";
+	public static final String URI_GET_RESTAURANT_BY_NAME = "/app/restaurants/restaurant/search/name";
+	public static final String URI_GET_RESTAURANT_BY_DESCR = "/app/restaurants/restaurant/descr";
+	public static final String URI_GET_VEHICLE_BY_TYPE = "/app/restaurants/restaurant/search/type";
+	public static final String URI_GET_RESTAURANT_COUNT = "/app/restaurants/restaurant/count";
 	public static final String URI_ADD_RESTAURANT_INFORMATION = "/app/restaurants/add-restaurant-information";
 	public static final String URI_UPDATE_RESTAURANT_INFORMATION = "/app/restaurants/restaurant";
 	public static final String URI_DELETE_ALL_RESTAURANT_INFORMATION = "/app/restaurants/restaurant";

@@ -16,9 +16,9 @@ public interface BooksDao {
 
 	public List<Books> findAllBooksByAuthor(String author);
 
-	public ResponseEntity<Books> findBooksInformationById(@PathVariable int book_id) throws ResourceNotFoundException;
+	public Books findBooksInformationById(@PathVariable int book_id) throws ResourceNotFoundException;
 
-	public ResponseEntity<Books> findBookInformationByName(String title);
+	public Books findBookInformationByName(String title);
 
 	public long getBookCount();
 

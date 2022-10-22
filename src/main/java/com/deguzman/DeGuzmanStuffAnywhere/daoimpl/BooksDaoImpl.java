@@ -62,24 +62,24 @@ public class BooksDaoImpl implements BooksDao {
 
 	@Override
 	@Cacheable(value = "bookById", key = "#book_id")
-	public ResponseEntity<Books> findBooksInformationById(@PathVariable int book_id) throws ResourceNotFoundException {
+	public Books findBooksInformationById(@PathVariable int book_id) throws ResourceNotFoundException {
 		Books book = jdbcTemplate.queryForObject(GET_BOOK_INFORMATION_BY_ID,
 				BeanPropertyRowMapper.newInstance(Books.class), book_id);
 
 		LOGGER.info("Retrieved Book Information By ID: " + book_id);
 
-		return ResponseEntity.ok().body(book);
+		return book;
 	}
 
 	@Override
 	@Cacheable(value = "bookName", key = "#name")
-	public ResponseEntity<Books> findBookInformationByName(@PathVariable String name) {
+	public Books findBookInformationByName(@PathVariable String name) {
 		Books book = jdbcTemplate.queryForObject(GET_BOOK_INFORMATION_NAME,
 				BeanPropertyRowMapper.newInstance(Books.class), name);
 
 		LOGGER.info("Retrived Book Information: " + " " + book.getTitle() + " " + book.getAuthor());
 
-		return ResponseEntity.ok().body(book);
+		return book;
 	}
 
 	@Override

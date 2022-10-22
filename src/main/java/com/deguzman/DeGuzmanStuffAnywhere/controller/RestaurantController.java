@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -12,102 +13,122 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.deguzman.DeGuzmanStuffAnywhere.daoimpl.RestaurantDaoImpl;
 import com.deguzman.DeGuzmanStuffAnywhere.dto.RestaurantInfoDTO;
 import com.deguzman.DeGuzmanStuffAnywhere.exception.DuplicateRestaurantException;
 import com.deguzman.DeGuzmanStuffAnywhere.exception.InvalidRestaurantException;
 import com.deguzman.DeGuzmanStuffAnywhere.exception.ResourceNotFoundException;
-import com.deguzman.DeGuzmanStuffAnywhere.model.Restaurant;
 import com.deguzman.DeGuzmanStuffAnywhere.service.RestaurantInfoService;
+import com.deguzman.DeGuzmanStuffAnywhere.util.UriConstants;
+import com.deguzman.domain.SuccessResponse;
+import com.deguzman.domain_entity.RestaurantAddRequest;
+import com.deguzman.domain_entity.RestaurantAddResponse;
+import com.deguzman.domain_entity.RestaurantDeleteAllResponse;
+import com.deguzman.domain_entity.RestaurantDeleteByIdRequest;
+import com.deguzman.domain_entity.RestaurantDeleteByIdResponse;
+import com.deguzman.domain_entity.RestaurantListResponse;
+import com.deguzman.domain_entity.RestaurantSearchByIdRequest;
+import com.deguzman.domain_entity.RestaurantSearchByTypeRequest;
+import com.deguzman.domain_entity.RestaurantSearchByZipRequest;
+import com.deguzman.domain_entity.RestaurantSearchResponse;
+import com.deguzman.domain_entity.RestaurantUpdateRequest;
+import com.deguzman.domain_entity.RestaurantUpdateResponse;
 
 @RestController
-@RequestMapping("/app/restaurants")
 @CrossOrigin
 public class RestaurantController {
 	
 	@Autowired
 	private RestaurantInfoService restaurantInfoService;
 
-	@GetMapping("/all")
+	@GetMapping(value = UriConstants.URI_GET_RESTAURANT_LIST)
 	@CrossOrigin
-	public List<RestaurantInfoDTO> getAllRestaurantInformation() {
-		return restaurantInfoService.findAllRestaurants();
+	public ResponseEntity<SuccessResponse<RestaurantListResponse>> getAllRestaurantInformation() {
+		RestaurantListResponse response = restaurantInfoService.findAllRestaurants();
+		return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);
 	}
 	
-	@GetMapping("/all-restaurants")
+	@GetMapping(value = UriConstants.URI_GET_RESTAURANT_LIST_PAGINATION)
 	public ResponseEntity<Map<String, Object>> getAllRestaurantsPagination(@RequestParam(required = false) String name,
 			@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
 		return restaurantInfoService.getAllRestaurantsPagination(name, page, size);
 	}
 
-	@GetMapping("/restaurant/type/{restaurant_type_id}")
+	@GetMapping(value = UriConstants.URI_GET_VEHICLE_BY_TYPE)
 	@CrossOrigin
-	public List<RestaurantInfoDTO> getAllRestaurantInformationByType(@PathVariable int restaurant_type_id) {
-		return restaurantInfoService.findAllRestaurantsByType(restaurant_type_id);
+	public ResponseEntity<SuccessResponse<RestaurantListResponse>> getAllRestaurantInformationByType(@RequestBody RestaurantSearchByTypeRequest request) {
+		RestaurantListResponse response = restaurantInfoService.findAllRestaurantsByType(request);
+		return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);
 	}
 
-	@GetMapping("/restaurant/zip/{zip}")
+	@GetMapping(value = UriConstants.URI_GET_RESTAURANT_BY_ZIP)
 	@CrossOrigin
-	public List<RestaurantInfoDTO> getAllRestaurantInformationByZip(@PathVariable String zip) {
-		return restaurantInfoService.findRestaurantByZipCode(zip);
+	public ResponseEntity<SuccessResponse<RestaurantListResponse>> getAllRestaurantInformationByZip(@RequestBody RestaurantSearchByZipRequest request) {
+		RestaurantListResponse response = restaurantInfoService.findRestaurantByZipCode(request);
+		return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);
 	}
 
-	@GetMapping("/restaurant/descr/{descr}")
+	@GetMapping(value = UriConstants.URI_GET_RESTAURANT_BY_DESCR)
 	@CrossOrigin
 	public List<RestaurantInfoDTO> getAllRestaurantInformationByDescr(@PathVariable String descr) {
 		return restaurantInfoService.findRestaurantsByDescr(descr);
 	}
 
-	@GetMapping("/restaurant-dto/{restaurant_id}")
+	@GetMapping(value = UriConstants.URI_GET_RESTAURANT_INFO_DTO_BY_ID)
 	@CrossOrigin
-	public ResponseEntity<RestaurantInfoDTO> getRestaurantDTOInfoById(@PathVariable int restaurant_id)
+	public ResponseEntity<SuccessResponse<RestaurantSearchResponse>> getRestaurantDTOInfoById(@RequestBody RestaurantSearchByIdRequest request)
 			throws InvalidRestaurantException {
-		return restaurantInfoService.findRestaurantById(restaurant_id);
+		RestaurantSearchResponse response = restaurantInfoService.findRestaurantById(request);
+		return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);
 	}
 	
-	@GetMapping("/restaurant/{restaurant_id}")
-	public ResponseEntity<RestaurantInfoDTO> getRestaurantInfoById(@PathVariable int restaurant_id) throws InvalidRestaurantException {
-		return restaurantInfoService.findRestaurantById(restaurant_id);
+	@GetMapping(value = UriConstants.URI_GET_RESTAURANT_BY_ID)
+	public ResponseEntity<SuccessResponse<RestaurantSearchResponse>> getRestaurantInfoById(@RequestBody RestaurantSearchByIdRequest request) throws InvalidRestaurantException {
+		RestaurantSearchResponse response = restaurantInfoService.findRestaurantById(request);
+		return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);
 	}
 	
 
-	@GetMapping("/restaurant/name/{name}")
+	@GetMapping(value = UriConstants.URI_GET_RESTAURANT_BY_NAME)
 	@CrossOrigin
-	public ResponseEntity<RestaurantInfoDTO> getRestaurantInformationByName(@PathVariable String name) {
-		return restaurantInfoService.findRestaurantByName(name);
+	public ResponseEntity<SuccessResponse<RestaurantSearchResponse>> getRestaurantInformationByName(@PathVariable String name) {
+		RestaurantSearchResponse response = restaurantInfoService.findRestaurantByName(name);
+		return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);
 	}
 
-	@GetMapping("/restaurant-count")
+	@GetMapping(value = UriConstants.URI_GET_RESTAURANT_COUNT)
 	@CrossOrigin
 	public long getRestaurantCount() {
 		return restaurantInfoService.getRestaurantCount();
 	}
 
-	@PostMapping("/add-restaurant-information")
+	@PostMapping(value = UriConstants.URI_ADD_RESTAURANT_INFORMATION)
 	@CrossOrigin
-	public int addRestaurantInformation(@RequestBody Restaurant restaurant) throws ResourceNotFoundException, DuplicateRestaurantException {
-		return restaurantInfoService.addRestaurantInformation(restaurant);
+	public ResponseEntity<SuccessResponse<RestaurantAddResponse>> addRestaurantInformation(@RequestBody RestaurantAddRequest request) throws ResourceNotFoundException, DuplicateRestaurantException {
+		RestaurantAddResponse response = restaurantInfoService.addRestaurantInformation(request);
+		return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);
 	}
 
-	@PutMapping("/restaurant/{restaurant_id}")
+	@PutMapping(value = UriConstants.URI_UPDATE_RESTAURANT_INFORMATION)
 	@CrossOrigin
-	public int updateRestaurantInformation(@PathVariable int restaurant_id, @RequestBody Restaurant restaurantDetails) throws ResourceNotFoundException {
-		return restaurantInfoService.updateRestaurantInformation(restaurant_id, restaurantDetails);
+	public ResponseEntity<SuccessResponse<RestaurantUpdateResponse>> updateRestaurantInformation(@RequestBody RestaurantUpdateRequest request) throws ResourceNotFoundException {
+		RestaurantUpdateResponse response = restaurantInfoService.updateRestaurantInformation(request);
+		return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);
 	}
 	
-	@DeleteMapping("/restaurant/{restaurant_id}")
+	@DeleteMapping(value = UriConstants.URI_DELETE_ALL_RESTAURANT_INFORMATION)
 	@CrossOrigin
-	public int deleteRestaurantInformationById(@PathVariable int restaurant_id) {
-		return restaurantInfoService.deleteRestaurantInformation(restaurant_id);
+	public ResponseEntity<SuccessResponse<RestaurantDeleteByIdResponse>> deleteRestaurantInformationById(@RequestBody RestaurantDeleteByIdRequest request) {
+		RestaurantDeleteByIdResponse response = restaurantInfoService.deleteRestaurantInformation(request);
+		return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);
 	}
 
-	@DeleteMapping("/delete-all-restaurant")
+	@DeleteMapping(value = UriConstants.URI_DELETE_RESTAURANT_INFORMATION)
 	@CrossOrigin
-	public int deleteAllRestaurantInformation() {
-		return restaurantInfoService.deleteAllRestaurantInformation();
+	public ResponseEntity<SuccessResponse<RestaurantDeleteAllResponse>> deleteAllRestaurantInformation() {
+		RestaurantDeleteAllResponse response = restaurantInfoService.deleteAllRestaurantInformation();
+		return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);
 	}
 }

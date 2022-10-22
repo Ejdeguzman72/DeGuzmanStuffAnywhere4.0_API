@@ -1,10 +1,11 @@
 package com.deguzman.domain_entity;
 
+import com.deguzman.DeGuzmanStuffAnywhere.dto.RestaurantInfoDTO;
 import com.deguzman.DeGuzmanStuffAnywhere.model.Restaurant;
 
 public class RestaurantSearchResponse {
 
-	Restaurant restaurant;
+	RestaurantInfoDTO restaurant;
 	
 	String message;
 	
@@ -12,11 +13,11 @@ public class RestaurantSearchResponse {
 	
 	String description;
 
-	public Restaurant getRestaurant() {
+	public RestaurantInfoDTO getRestaurant() {
 		return restaurant;
 	}
 
-	public void setRestaurant(Restaurant restaurant) {
+	public void setRestaurant(RestaurantInfoDTO restaurant) {
 		this.restaurant = restaurant;
 	}
 

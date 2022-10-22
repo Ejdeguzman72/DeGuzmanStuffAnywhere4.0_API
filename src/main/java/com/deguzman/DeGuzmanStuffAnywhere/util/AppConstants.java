@@ -6,6 +6,8 @@ public class AppConstants {
 
 	public static final HttpStatus HTTP_STATUS_OK = HttpStatus.OK;
 	
+	// Automotive transaction descr and msgs
+	
 	public static final String GET_AUTO_TRX_LIST_DESCR = "GET AUTO TRX LIST";
 	
 	public static final String GET_AUTO_TRX_LIST_MSG = "Retrieving all automotive transactions from database";
@@ -45,6 +47,44 @@ public class AppConstants {
 	public static String DELETE_ALL_AUTO_TRX_INFORMATION_DESCR = "DELETE ALL AUTO_TRX";
 	
 	public static String DELETE_ALL_AUTO_TRX_INFORMATION_MSG = "Deleteing all automotive transactions";
+	
+	
+	// Books descr and msgs
+	
+	public static String GET_BOOKS_LIST_DESCR = "GET BOOKS LIST";
+	
+	public static String GET_BOOKS_LIST_MSG = "Retrieving all books from database";
+	
+	public static String FIND_BOOK_BY_ID_DESCR = "FIND BOOK BY ID";
+	
+	public static String FIND_BOOK_BY_ID_MSG = "Searching book information with ID";
+	
+	public static String GET_BOOK_LIST_BY_AUTHOR_DESCR = "GET BOOK LIST BY AUTHOR";
+	
+	public static String GET_BOOK_LIST_BY_AUTHOR_MSG = "Retrieving all book information from database by author";
+	
+	public static String FIND_BOOK_BY_TITLE_DESCR = "FIND BOOK BY TITLE";
+	
+	public static String FIND_BOOK_BY_TITLE_MSG = "Searching book information by title";
+	
+	public static String ADD_BOOK_INFORMATION_DESCR = "ADD BOOK INFORMATION";
+	
+	public static String ADD_BOOK_INFORMATION_MSG = "Inserting new book information";
+	
+	public static String UPDATE_BOOK_INFORMATION_DESCR = "UPDATE BOOK INFO";
+	
+	public static String UPDATE_BOOK_INFORMATION_MSG = "Updating automotive transaction information";
+	
+	public static String DELETE_BOOK_INFORMATION_DESCR = "DELETE BOOK BY BOOKID";
+	
+	public static String DELETE_BOOK_INFORMATION_MSG = "Deleteing book information by bookId";
+	
+	public static String DELETE_ALL_BOOK_INFORMATION_DESCR = "DELETE ALL BOOK INFORMATION";
+	
+	public static String DELETE_ALL_BOOK_INFORMATION_MSG = "Deleteing all book information";
+	
+	
+	// Contact Information descr and msgs
 	
 	public static String GET_CONTACT_LIST_DESCR = "GET CONTACT LIST";
 	
@@ -86,6 +126,8 @@ public class AppConstants {
 	
 	public static String DELETE_ALL_CONTACT_INFORMATION_MSG = "Deleteing contact information by personId";
 	
+	// Auto Repair Shop description and msgs
+	
 	public static String GET_AUTOSHOP_LIST_DESCR = "GET AUTOSHOP LIST";
 	
 	public static String GET_AUTOSHOP_LIST_MSG = "Retrieving all automotive repair shops from database";
@@ -121,6 +163,8 @@ public class AppConstants {
 	public static String DELETE_ALL_AUTOSHOP_INFORMATION_DESCR = "DELETE ALL AUTOSHOP INFORMATION";
 	
 	public static String DELETE_ALL_AUTOSHOP_INFORMATION_MSG = "Deleteing automotive repair shop information by autoShopId";
+	
+	// Vehicle description and msgs
 	
 	public static String GET_VEHICLE_LIST_DESCR = "GET VEHICLE LIST";
 	
@@ -161,6 +205,8 @@ public class AppConstants {
 	public static String DELETE_ALL_VEHICLE_INFORMATION_DESCR = "DELETE ALL VEHICLE INFORMATION";
 	
 	public static String DELETE_ALL_VEHICLE_INFORMATION_MSG = "Deleting all vehicle information based on ID";
+	
+	// Restaurant descriptions and msgs
 	
 	public static String GET_RESTAURANT_LIST_DESCR = "GET RESTAURANT LIST";
 	

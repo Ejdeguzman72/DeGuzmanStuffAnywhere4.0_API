@@ -21,10 +21,10 @@ public interface RestaurantDao {
 
 	public List<RestaurantInfoDTO> findRestaurantsByDescr(@PathVariable String descr);
 
-	public ResponseEntity<RestaurantInfoDTO> findRestaurantById(@PathVariable int restaurant_id)
+	public RestaurantInfoDTO findRestaurantById(@PathVariable int restaurant_id)
 			throws InvalidRestaurantException;
 
-	public ResponseEntity<RestaurantInfoDTO> findRestaurantByName(@PathVariable String name);
+	public RestaurantInfoDTO findRestaurantByName(@PathVariable String name);
 
 	public long getRestaurantCount();
 

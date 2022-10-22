@@ -100,21 +100,21 @@ public class RestaurantDaoImpl implements RestaurantDao {
 
 	@Override
 	@Cacheable(value = "restaurantById", key = "#restaurant_id")
-	public ResponseEntity<RestaurantInfoDTO> findRestaurantById(int restaurant_id) throws InvalidRestaurantException {
+	public RestaurantInfoDTO findRestaurantById(int restaurant_id) throws InvalidRestaurantException {
 		RestaurantInfoDTO restaurantInfo = jdbcTemplate.queryForObject(GET_RESTAURANT_INFORMATION_DTO_BY_ID,
 				BeanPropertyRowMapper.newInstance(RestaurantInfoDTO.class), restaurant_id);
 
 		LOGGER.info("Retrieved Restaurant Information: " + " " + restaurantInfo.getName());
 
-		return ResponseEntity.ok().body(restaurantInfo);
+		return restaurantInfo;
 	}
 	
-	public ResponseEntity<Restaurant> findRestaurantInfoById(@PathVariable int restaurant_id) {
+	public Restaurant findRestaurantInfoById(@PathVariable int restaurant_id) {
 		Restaurant restaurant = jdbcTemplate.queryForObject(GET_RESTAURANT_INFO_BY_ID , BeanPropertyRowMapper.newInstance(Restaurant.class), restaurant_id);
 		
 		LOGGER.info("Retrieved Restaurant Information: " + " " + restaurant.getName());
 		
-		return ResponseEntity.ok().body(restaurant);
+		return restaurant;
 	}
 
 	@Override
@@ -144,13 +144,13 @@ public class RestaurantDaoImpl implements RestaurantDao {
 	}
 
 	@Override
-	public ResponseEntity<RestaurantInfoDTO> findRestaurantByName(String name) {
+	public RestaurantInfoDTO findRestaurantByName(String name) {
 		RestaurantInfoDTO restaurant = jdbcTemplate.queryForObject(GET_RESTAURANT_INFORMATION_BY_NAME,
 				BeanPropertyRowMapper.newInstance(RestaurantInfoDTO.class), name);
 
 		LOGGER.info("Retrieved Restaurant Information: " + " " + restaurant.getName());
 
-		return ResponseEntity.ok().body(restaurant);
+		return restaurant;
 	}
 
 	@Override
