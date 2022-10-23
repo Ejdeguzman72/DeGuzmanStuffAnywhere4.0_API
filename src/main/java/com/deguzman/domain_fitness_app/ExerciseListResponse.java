@@ -3,12 +3,13 @@ package com.deguzman.domain_fitness_app;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.deguzman.DeGuzmanStuffAnywhere.dto.ExerciseInfoDTO;
 import com.deguzman.DeGuzmanStuffAnywhere.model.Exercise;
 import com.deguzman.DeGuzmanStuffAnywhere.model.Person;
 
 public class ExerciseListResponse {
 	
-	List<Exercise> list = new ArrayList<>();
+	List<ExerciseInfoDTO> list = new ArrayList<>();
 	
 	int size;
 	
@@ -19,11 +20,11 @@ public class ExerciseListResponse {
 	String description;
 
 
-	public List<Exercise> getList() {
+	public List<ExerciseInfoDTO> getList() {
 		return list;
 	}
 
-	public void setList(List<Exercise> list) {
+	public void setList(List<ExerciseInfoDTO> list) {
 		this.list = list;
 	}
 

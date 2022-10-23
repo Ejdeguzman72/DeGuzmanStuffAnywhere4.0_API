@@ -13,13 +13,13 @@ public interface ExerciseDao {
 
 	public List<ExerciseInfoDTO> findAllExerciseInformation();
 
-	public List<ExerciseInfoDTO> findExerciseInformationByUser(@PathVariable long user_id);
+	public List<ExerciseInfoDTO> findExerciseInformationByUser(long user_id);
 
-	public List<ExerciseInfoDTO> findExerciseInformationByType(@PathVariable int exercise_type_id);
+	public List<ExerciseInfoDTO> findExerciseInformationByType(int exercise_type_id);
 
-	public ResponseEntity<ExerciseInfoDTO> findExerciseDTOById(@PathVariable int exercise_id);
+	public ExerciseInfoDTO findExerciseDTOById(int exercise_id);
 	
-	public ResponseEntity<Exercise> findExerciseById(@PathVariable int exercise_id);
+	public Exercise findExerciseById(int exercise_id);
 
 	public int addExerciseInformation(@RequestBody Exercise exercise);
 

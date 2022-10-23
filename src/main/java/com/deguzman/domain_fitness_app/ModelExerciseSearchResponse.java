@@ -3,9 +3,9 @@ package com.deguzman.domain_fitness_app;
 import com.deguzman.DeGuzmanStuffAnywhere.dto.ExerciseInfoDTO;
 import com.deguzman.DeGuzmanStuffAnywhere.model.Exercise;
 
-public class ExerciseSearchResponse {
+public class ModelExerciseSearchResponse {
 
-	public ExerciseInfoDTO exercise;
+	public Exercise exercise;
 	
 	String message;
 	
@@ -13,12 +13,12 @@ public class ExerciseSearchResponse {
 	
 	String description;
 
-	public ExerciseInfoDTO getExercise() {
+	public Exercise getExercise() {
 		return exercise;
 	}
 
-	public void setExercise(ExerciseInfoDTO exercise) {
-		this.exercise = exercise;
+	public void setExercise(Exercise exercise2) {
+		this.exercise = exercise2;
 	}
 
 	public String getMessage() {

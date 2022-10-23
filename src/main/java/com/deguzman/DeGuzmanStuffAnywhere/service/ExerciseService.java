@@ -19,6 +19,20 @@ import com.deguzman.DeGuzmanStuffAnywhere.daoimpl.ExerciseDaoImpl;
 import com.deguzman.DeGuzmanStuffAnywhere.dto.ExerciseInfoDTO;
 import com.deguzman.DeGuzmanStuffAnywhere.jpa_dao.ExerciseJpaDao;
 import com.deguzman.DeGuzmanStuffAnywhere.jpa_model.Exercise;
+import com.deguzman.DeGuzmanStuffAnywhere.util.AppConstants;
+import com.deguzman.domain_fitness_app.ExerciseAddRequest;
+import com.deguzman.domain_fitness_app.ExerciseAddResponse;
+import com.deguzman.domain_fitness_app.ExerciseDeleteAllResponse;
+import com.deguzman.domain_fitness_app.ExerciseDeleteByIdRequest;
+import com.deguzman.domain_fitness_app.ExerciseDeleteByIdResponse;
+import com.deguzman.domain_fitness_app.ExerciseListResponse;
+import com.deguzman.domain_fitness_app.ExerciseSearchByIdRequest;
+import com.deguzman.domain_fitness_app.ExerciseSearchByTypeRequest;
+import com.deguzman.domain_fitness_app.ExerciseSearchByUserRequest;
+import com.deguzman.domain_fitness_app.ExerciseSearchResponse;
+import com.deguzman.domain_fitness_app.ExerciseUpdateRequest;
+import com.deguzman.domain_fitness_app.ExerciseUpdateResponse;
+import com.deguzman.domain_fitness_app.ModelExerciseSearchResponse;
 
 @Service
 public class ExerciseService {
@@ -29,8 +43,18 @@ public class ExerciseService {
 	@Autowired
 	private ExerciseJpaDao exerciseDao;
 	
-	public List<ExerciseInfoDTO> findAllExerciseInformation() {
-		return exerciseDaoImpl.findAllExerciseInformation();
+	public ExerciseListResponse findAllExerciseInformation() {
+		ExerciseListResponse response = new ExerciseListResponse();
+		List<ExerciseInfoDTO> list = exerciseDaoImpl.findAllExerciseInformation();
+		
+		list = exerciseDaoImpl.findAllExerciseInformation();
+		response.setList(list);
+		response.setSize(list.size());
+		response.setDescription(AppConstants.GET_EXERCISE_LIST_DESCR);
+		response.setStatusCode(String.valueOf(AppConstants.HTTP_STATUS_OK));
+		response.setMessage(AppConstants.GET_EXERCISE_LIST_MSG);
+		
+		return response;
 	}
 	
 	public ResponseEntity<Map<String, Object>> getAllExercisePagination(@RequestParam(required = false) String exerciseName,
@@ -66,35 +90,117 @@ public class ExerciseService {
 		}
 	}
 	
-	public List<ExerciseInfoDTO> findExerciseInformationByUser(@PathVariable long user_id) {
-		return exerciseDaoImpl.findExerciseInformationByUser(user_id);
+	public ExerciseListResponse findExerciseInformationByUser(ExerciseSearchByUserRequest request) {
+		ExerciseListResponse response = new ExerciseListResponse();
+		List<ExerciseInfoDTO> list = exerciseDaoImpl.findExerciseInformationByUser(request.getUserId());
+		
+		response.setList(list);
+		response.setSize(list.size());
+		response.setSize(list.size());
+		response.setDescription(AppConstants.GET_EXERCISE_LIST_BY_USER_DESCR);
+		response.setStatusCode(String.valueOf(AppConstants.HTTP_STATUS_OK));
+		response.setMessage(AppConstants.GET_EXERCISE_LIST_BY_USER_MSG);
+		
+		return response;
 	}
 	
-	public List<ExerciseInfoDTO> findExerciseInformationByType(int exercise_type_id) {
-		return exerciseDaoImpl.findExerciseInformationByType(exercise_type_id);
+	public ExerciseListResponse findExerciseInformationByType(ExerciseSearchByTypeRequest request) {
+		ExerciseListResponse response = new ExerciseListResponse();
+		List<ExerciseInfoDTO> list = exerciseDaoImpl.findExerciseInformationByUser(request.getExerciseTypeId());
+		
+		response.setList(list);
+		response.setSize(list.size());
+		response.setSize(list.size());
+		response.setDescription(AppConstants.GET_EXERCISE_LIST_BY_TYPE_DESCR);
+		response.setStatusCode(String.valueOf(AppConstants.HTTP_STATUS_OK));
+		response.setMessage(AppConstants.GET_EXERCISE_LIST_BY_TYPE_MSG);
+		
+		return response;
 	}
 	
-	public ResponseEntity<ExerciseInfoDTO> findExerciseDTOById(@PathVariable int exercise_id) {
-		return exerciseDaoImpl.findExerciseDTOById(exercise_id);
+	public ExerciseSearchResponse findExerciseDTOById(ExerciseSearchByIdRequest request) {
+		ExerciseSearchResponse response = new ExerciseSearchResponse();
+		ExerciseInfoDTO exercise = exerciseDaoImpl.findExerciseDTOById(request.getExerciseId());
+		
+		response.setExercise(exercise);
+		response.setDescription(AppConstants.GET_EXERCISE_BY_ID_DESCR);
+		response.setStatusCode(String.valueOf(AppConstants.HTTP_STATUS_OK));
+		response.setMessage(AppConstants.GET_EXERCISE_BY_ID_MSG);
+		
+		return response;
 	}
 	
-	public int addExerciseInformation(com.deguzman.DeGuzmanStuffAnywhere.model.Exercise exercise) {
-		return exerciseDaoImpl.addExerciseInformation(exercise);
+	public ExerciseAddResponse addExerciseInformation(ExerciseAddRequest request) {
+		ExerciseAddResponse response = new ExerciseAddResponse();
+		com.deguzman.DeGuzmanStuffAnywhere.model.Exercise exercise = new com.deguzman.DeGuzmanStuffAnywhere.model.Exercise();
+		exercise.setExerciseName(request.getExerciseName());
+		exercise.setWeight(request.getWeight());
+		exercise.setSets(request.getSets());
+		exercise.setDate(request.getDate());
+		exercise.setExercise_type_id(request.getExercise_type_id());
+		exercise.setReps(request.getReps());
+		exercise.setUser_id(request.getUser_id());
+		
+		int recordsAdded = exerciseDaoImpl.addExerciseInformation(request);
+		
+		response.setExercise(exercise);
+		response.setRecordsAdded(recordsAdded);
+		response.setDescription(AppConstants.ADD_EXERCISE_INFORMATION_DESCR);
+		response.setStatusCode(String.valueOf(AppConstants.HTTP_STATUS_OK));
+		response.setMessage(AppConstants.ADD_EXERCISE_INFORMATION_MSG);
+		
+		return response;
+		
 	}
 	
-	public int updateExerciseInformation(@PathVariable int exercise_id, @RequestBody com.deguzman.DeGuzmanStuffAnywhere.model.Exercise exerciseDetails) {
-		return exerciseDaoImpl.updateExerciseInformation(exercise_id, exerciseDetails);
+	public ExerciseUpdateResponse updateExerciseInformation(ExerciseUpdateRequest request) {
+		ExerciseUpdateResponse response = new ExerciseUpdateResponse();
+		com.deguzman.DeGuzmanStuffAnywhere.model.Exercise exercise = exerciseDaoImpl.findExerciseById(request.getExercise_id());
+		int updatedRecords = exerciseDaoImpl.updateExerciseInformation(request.getExercise_id(), request);
+		
+		response.setExercise(exercise);
+		response.setUpdatedCount(updatedRecords);
+		response.setDescription(AppConstants.UPDATE_EXERCISE_INFORMATION_DESCR);
+		response.setStatusCode(String.valueOf(AppConstants.HTTP_STATUS_OK));
+		response.setMessage(AppConstants.UPDATE_EXERCISE_INFORMATION_MSG);
+		
+		return response;
 	}
 	
-	public int deleteExerciseInformationbyId(int exercise_id) {
-		return exerciseDaoImpl.deleteExerciseInformationById(exercise_id);
+	public ExerciseDeleteByIdResponse deleteExerciseInformationbyId(ExerciseDeleteByIdRequest request) {
+		ExerciseDeleteByIdResponse response = new ExerciseDeleteByIdResponse();
+		com.deguzman.DeGuzmanStuffAnywhere.model.Exercise exercise = exerciseDaoImpl.findExerciseById(request.getExerciseId());
+		int deletedRecords = exerciseDaoImpl.deleteExerciseInformationById(request.getExerciseId());
+		
+		response.setExercise(exercise);
+		response.setDeleted(deletedRecords);
+		response.setDescription(AppConstants.DELETE_EXERCISE_INFORMATION_DESCR);
+		response.setStatusCode(String.valueOf(AppConstants.HTTP_STATUS_OK));
+		response.setMessage(AppConstants.DELETE_EXERCISE_INFORMATION_MSG);
+		
+		return response;
 	}
 	
-	public int deleteAllExerciseInformation() {
-		return exerciseDaoImpl.deleteAllExercisInformation();
+	public ExerciseDeleteAllResponse deleteAllExerciseInformation() {
+		ExerciseDeleteAllResponse response = new ExerciseDeleteAllResponse();
+		int deletedRecords =  exerciseDaoImpl.deleteAllExercisInformation();
+		
+		response.setDeleted(deletedRecords);
+		response.setDescription(AppConstants.DELETE_ALL_EXERCISE_INFORMATION_DESCR);
+		response.setStatusCode(String.valueOf(AppConstants.HTTP_STATUS_OK));
+		response.setMessage(AppConstants.DELETE_ALL_EXERCISE_INFORMATION_MSG);
+		
+		return response;
 	}
 
-	public ResponseEntity<com.deguzman.DeGuzmanStuffAnywhere.model.Exercise> findExerciseById(int exercise_id) {
-		return exerciseDaoImpl.findExerciseById(exercise_id);
+	public ModelExerciseSearchResponse findExerciseById(ExerciseSearchByIdRequest request) {
+		ModelExerciseSearchResponse response = new ModelExerciseSearchResponse();
+		com.deguzman.DeGuzmanStuffAnywhere.model.Exercise exercise = exerciseDaoImpl.findExerciseById(request.getExerciseId());
+		response.setExercise(exercise);
+		response.setDescription(AppConstants.GET_EXERCISE_BY_ID_DESCR);
+		response.setStatusCode(String.valueOf(AppConstants.HTTP_STATUS_OK));
+		response.setMessage(AppConstants.GET_EXERCISE_BY_ID_MSG);
+		
+		return response;
 	}
 }

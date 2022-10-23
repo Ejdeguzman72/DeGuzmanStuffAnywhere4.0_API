@@ -30,6 +30,7 @@ import com.deguzman.domain_entity.RestaurantDeleteByIdRequest;
 import com.deguzman.domain_entity.RestaurantDeleteByIdResponse;
 import com.deguzman.domain_entity.RestaurantListResponse;
 import com.deguzman.domain_entity.RestaurantSearchByIdRequest;
+import com.deguzman.domain_entity.RestaurantSearchByNameRequest;
 import com.deguzman.domain_entity.RestaurantSearchByTypeRequest;
 import com.deguzman.domain_entity.RestaurantSearchByZipRequest;
 import com.deguzman.domain_entity.RestaurantSearchResponse;
@@ -93,8 +94,8 @@ public class RestaurantController {
 
 	@GetMapping(value = UriConstants.URI_GET_RESTAURANT_BY_NAME)
 	@CrossOrigin
-	public ResponseEntity<SuccessResponse<RestaurantSearchResponse>> getRestaurantInformationByName(@PathVariable String name) {
-		RestaurantSearchResponse response = restaurantInfoService.findRestaurantByName(name);
+	public ResponseEntity<SuccessResponse<RestaurantSearchResponse>> getRestaurantInformationByName(@RequestBody RestaurantSearchByNameRequest request) {
+		RestaurantSearchResponse response = restaurantInfoService.findRestaurantByName(request);
 		return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);
 	}
 

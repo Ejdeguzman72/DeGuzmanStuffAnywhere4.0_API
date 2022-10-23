@@ -68,7 +68,7 @@ public class ExerciseDaoImpl implements ExerciseDao {
 	}
 
 	@Override
-	public List<ExerciseInfoDTO> findExerciseInformationByUser(@PathVariable long user_id) {
+	public List<ExerciseInfoDTO> findExerciseInformationByUser(long user_id) {
 		List<ExerciseInfoDTO> exerciseListUser = jdbcTemplate.query(GET_EXERCISE_INFORMATION_BY_USER,
 				(rs, rowNum) -> new ExerciseInfoDTO(rs.getInt("EXERCISE_ID"), rs.getString("EXERCISE_NAME"),
 						rs.getInt("SETS"), rs.getInt("REPS"), rs.getDouble("WEIGHT"), rs.getString("DATE"),
@@ -95,23 +95,23 @@ public class ExerciseDaoImpl implements ExerciseDao {
 
 	@Override
 	@Cacheable(value = "exerciseById", key = "#exercise_id")
-	public ResponseEntity<Exercise> findExerciseById(@PathVariable int exercise_id) {
+	public Exercise findExerciseById(int exercise_id) {
 		Exercise exerciseInfo = jdbcTemplate.queryForObject(GET_EXERCISE_INFO,
 				BeanPropertyRowMapper.newInstance(Exercise.class), exercise_id);
 
 		LOGGER.info("Retrieved Exercise information by exercise_id: " + " " + exercise_id);
 
-		return ResponseEntity.ok().body(exerciseInfo);
+		return exerciseInfo;
 	}
 	
 	@Override
-	public ResponseEntity<ExerciseInfoDTO> findExerciseDTOById(@PathVariable int exercise_id) {
+	public ExerciseInfoDTO findExerciseDTOById(int exercise_id) {
 		ExerciseInfoDTO exerciseInfo = jdbcTemplate.queryForObject(GET_EXERCISE_INFORMATION_BY_ID,
 				BeanPropertyRowMapper.newInstance(ExerciseInfoDTO.class), exercise_id);
 
 		LOGGER.info("Retrieved Exercise information by exercise_id: " + " " + exercise_id);
 
-		return ResponseEntity.ok().body(exerciseInfo);
+		return exerciseInfo;
 	}
 	
 	@Override
@@ -135,7 +135,7 @@ public class ExerciseDaoImpl implements ExerciseDao {
 
 	@Override
 	@CachePut(value = "exerciseById", key = "#exercise_id")
-	public int updateExerciseInformation(@PathVariable int exercise_id, @RequestBody Exercise exerciseDetails) {
+	public int updateExerciseInformation(int exercise_id, Exercise exerciseDetails) {
 
 		int result = 0;
 		

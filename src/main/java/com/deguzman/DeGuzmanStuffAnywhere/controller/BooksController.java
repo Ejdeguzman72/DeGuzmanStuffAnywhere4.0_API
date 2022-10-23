@@ -35,7 +35,6 @@ import com.deguzman.domain.SuccessResponse;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/app/books")
 @CrossOrigin(origins = "*", maxAge = 3600)
 public class BooksController {
 	

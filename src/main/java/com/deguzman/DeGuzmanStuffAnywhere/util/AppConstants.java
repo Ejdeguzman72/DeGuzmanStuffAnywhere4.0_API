@@ -48,6 +48,43 @@ public class AppConstants {
 	
 	public static String DELETE_ALL_AUTO_TRX_INFORMATION_MSG = "Deleteing all automotive transactions";
 	
+	// Auto Repair Shop description and msgs
+	
+	public static String GET_AUTOSHOP_LIST_DESCR = "GET AUTOSHOP LIST";
+		
+	public static String GET_AUTOSHOP_LIST_MSG = "Retrieving all automotive repair shops from database";
+		
+	public static String GET_AUTO_SHOP_BY_ID_DESCR = "GET AUTOSHOP BY ID";
+		
+	public static String GET_AUTO_SHOP_BY_ID_MSG = "Retrieving Automotive Repair Shop by ID Number";
+		
+	public static String GET_AUTO_SHOP_BY_NAME_DESCR = "GET AUTOSHOP BY Name";
+		
+	public static String GET_AUTO_SHOP_BY_NAME_MSG = "Retrieving Automotive Repair Shop by Name";
+		
+	public static String GET_AUTO_SHOP_BY_ZIP_DESCR = "GET AUTOSHOP BY Zip";
+		
+	public static String GET_AUTO_SHOP_BY_ZIP_MSG = "Retrieving Automotive Repair Shop by Zip";
+		
+	public static String GET_AUTO_SHOP_COUNT_DESCR = "GET AUTOSHOP COUNT";
+	
+	public static String GET_AUTO_SHOP_COUNT_MSG = "Retrieving count of automotive repair shops listed in the application";
+		
+	public static String ADD_AUTOSHOP_INFORMATION_DESCR = "ADD AUTOSHOP INFORMATION";
+		
+	public static String ADD_AUTOSHOP_INFORMATION_MSG = "Inserting new autmotive repair shop information";
+		
+	public static String UPDATE_AUTOSHOP_INFORMATION_DESCR = "UPDATE AUTOSHOP INFORMATION";
+		
+	public static String UPDATE_AUTOSHOP_INFORMATION_MSG = "Updating automotive repair shop information based on ID";
+		
+	public static String DELETE_AUTOSHOP_INFORMATION_DESCR = "DELETE AUTOSHOP INFORMATION";
+		
+	public static String DELETE_AUTSHOP_INFORMATION_MSG = "Deleteing automotive repair shop information by autoShopId";
+		
+	public static String DELETE_ALL_AUTOSHOP_INFORMATION_DESCR = "DELETE ALL AUTOSHOP INFORMATION";
+		
+	public static String DELETE_ALL_AUTOSHOP_INFORMATION_MSG = "Deleteing automotive repair shop information by autoShopId";
 	
 	// Books descr and msgs
 	
@@ -126,43 +163,38 @@ public class AppConstants {
 	
 	public static String DELETE_ALL_CONTACT_INFORMATION_MSG = "Deleteing contact information by personId";
 	
-	// Auto Repair Shop description and msgs
+	// Exercise Information description and messages
+	public static String GET_EXERCISE_LIST_DESCR = "GET EXERCISE LIST";
 	
-	public static String GET_AUTOSHOP_LIST_DESCR = "GET AUTOSHOP LIST";
+	public static String GET_EXERCISE_LIST_MSG = "Retrieving all exercise information from database";
 	
-	public static String GET_AUTOSHOP_LIST_MSG = "Retrieving all automotive repair shops from database";
+	public static String GET_EXERCISE_BY_ID_DESCR = "GET EXERCISE LIST";
 	
-	public static String GET_AUTO_SHOP_BY_ID_DESCR = "GET AUTOSHOP BY ID";
+	public static String GET_EXERCISE_BY_ID_MSG = "Retrieving all exercise information from database";
 	
-	public static String GET_AUTO_SHOP_BY_ID_MSG = "Retrieving Automotive Repair Shop by ID Number";
+	public static String GET_EXERCISE_LIST_BY_USER_DESCR = "GET EXERCISE LIST BY USER";
 	
-	public static String GET_AUTO_SHOP_BY_NAME_DESCR = "GET AUTOSHOP BY Name";
+	public static String GET_EXERCISE_LIST_BY_USER_MSG = "Retrieving all exercise information from database by user";
 	
-	public static String GET_AUTO_SHOP_BY_NAME_MSG = "Retrieving Automotive Repair Shop by Name";
+	public static String GET_EXERCISE_LIST_BY_TYPE_DESCR = "GET EXERCISE LIST BY TRANSACTION TYPE";
 	
-	public static String GET_AUTO_SHOP_BY_ZIP_DESCR = "GET AUTOSHOP BY Zip";
+	public static String GET_EXERCISE_LIST_BY_TYPE_MSG = "Retrieving all exercise information from database by transaction type";
 	
-	public static String GET_AUTO_SHOP_BY_ZIP_MSG = "Retrieving Automotive Repair Shop by Zip";
+	public static String ADD_EXERCISE_INFORMATION_DESCR = "ADD EXERCISE INFORMATION";
 	
-	public static String GET_AUTO_SHOP_COUNT_DESCR = "GET AUTOSHOP COUNT";
+	public static String ADD_EXERCISE_INFORMATION_MSG = "Inserting new exercise information";
 	
-	public static String GET_AUTO_SHOP_COUNT_MSG = "Retrieving count of automotive repair shops listed in the application";
+	public static String UPDATE_EXERCISE_INFORMATION_DESCR = "UPDATE EXERCISE INFORMATION";
 	
-	public static String ADD_AUTOSHOP_INFORMATION_DESCR = "ADD AUTOSHOP INFORMATION";
+	public static String UPDATE_EXERCISE_INFORMATION_MSG = "Updating exercise information based on ID";
 	
-	public static String ADD_AUTOSHOP_INFORMATION_MSG = "Inserting new autmotive repair shop information";
+	public static String DELETE_EXERCISE_INFORMATION_DESCR = "DELETE EXERCISE INFORMATION";
 	
-	public static String UPDATE_AUTOSHOP_INFORMATION_DESCR = "UPDATE AUTOSHOP INFORMATION";
+	public static String DELETE_EXERCISE_INFORMATION_MSG = "Deleting exercise information based on ID";
 	
-	public static String UPDATE_AUTOSHOP_INFORMATION_MSG = "Updating automotive repair shop information based on ID";
+	public static String DELETE_ALL_EXERCISE_INFORMATION_DESCR = "DELETE ALL EXERCISE INFORMATION";
 	
-	public static String DELETE_AUTOSHOP_INFORMATION_DESCR = "DELETE AUTOSHOP INFORMATION";
-	
-	public static String DELETE_AUTSHOP_INFORMATION_MSG = "Deleteing automotive repair shop information by autoShopId";
-	
-	public static String DELETE_ALL_AUTOSHOP_INFORMATION_DESCR = "DELETE ALL AUTOSHOP INFORMATION";
-	
-	public static String DELETE_ALL_AUTOSHOP_INFORMATION_MSG = "Deleteing automotive repair shop information by autoShopId";
+	public static String DELETE_ALL_EXERCISE_INFORMATION_MSG = "Deleting all exercise information based on ID";
 	
 	// Vehicle description and msgs
 	

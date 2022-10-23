@@ -6,7 +6,7 @@ public class UriConstants {
 	public static final String URI_GET_AUTO_TRX_LIST = "/app/auto-transactions/all";
 	public static final String URI_GET_AUTO_TRX_LIST_PAGINATION = "/app/auto-transactions/all-transactions";
 	public static final String URI_GET_AUTO_TRX_BY_ID = "/app/auto-transactions/search/auto-transaction";
-	public static final String URI_GET_AUTO_TRX_DTO_BY_ID = "/app/auto-transactions/searchsdfsdf/auto-transaction-dto";
+	public static final String URI_GET_AUTO_TRX_DTO_BY_ID = "/app/auto-transactions/search/auto-transaction-dto";
 	public static final String URI_GET_AUTO_TRX_BY_VEHICLE = "/app/auto-transactions/auto-transaction/search/vehicle";
 	public static final String URI_GET_AUTO_TRX_BY_USER = "/app/auto-transactions/auto-transaction/search/user";
 	public static final String URI_GET_AUTO_TRX_BY_TYPE = "/app/auto-transactions/auto-transaction/search/type";
@@ -51,6 +51,19 @@ public class UriConstants {
 	public static final String URI_UPDATE_CONTACT_INFORMATION = "/app/person-info/person";
 	public static final String URI_DELETE_ALL_CONTACT_INFORMATION = "/app/person-info/delete-all";
 	public static final String URI_DELETE_CONTACT_INFORMATION = "/app/person-info/person";
+	
+	// URI Exercise endpoints
+	public static final String URI_GET_EXERCISE_LIST = "/app/gym-tracker/all";
+	public static final String URI_GET_EXERCISE_LIST_PAGINATION = "/app/gym-tracker/all-exercises";
+	public static final String URI_GET_EXERCISE_BY_ID = "/app/gym-tracker/search/exercise";
+	public static final String URI_GET_EXERCISE_DTO_BY_ID = "/app/gym-tracker/search/exercise-dto";
+	public static final String URI_GET_EXERCISE_BY_USER = "/app/gym-tracker/exercise/search/user";
+	public static final String URI_GET_EXERCISE_BY_TYPE = "/app/gym-tracker/exercise/search/type";
+	public static final String URI_GET_EXERCISE_COUNT = "/app/gym-tracker/exercise/count";
+	public static final String URI_ADD_EXERCISE_INFORMATION = "/app/gym-tracker/add-exercise-information";
+	public static final String URI_UPDATE_EXERCISE_INFORMATION = "/app/gym-tracker/search/exercise";
+	public static final String URI_DELETE_EXERCISE_INFORMATION = "/app/gym-tracker/search/exercise";
+	public static final String URI_DELETE_ALL_EXERCISE_INFORMATION = "/app/gym-tracker/exercise/delete-all";
 
 	// URI Vehicle Endpoints
 	public static final String URI_GET_VEHICLE_LIST = "/app/vehicles/all";

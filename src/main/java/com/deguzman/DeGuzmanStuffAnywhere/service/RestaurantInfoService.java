@@ -29,6 +29,7 @@ import com.deguzman.domain_entity.RestaurantDeleteByIdRequest;
 import com.deguzman.domain_entity.RestaurantDeleteByIdResponse;
 import com.deguzman.domain_entity.RestaurantListResponse;
 import com.deguzman.domain_entity.RestaurantSearchByIdRequest;
+import com.deguzman.domain_entity.RestaurantSearchByNameRequest;
 import com.deguzman.domain_entity.RestaurantSearchByTypeRequest;
 import com.deguzman.domain_entity.RestaurantSearchByZipRequest;
 import com.deguzman.domain_entity.RestaurantSearchResponse;
@@ -137,9 +138,9 @@ public class RestaurantInfoService {
 		return restaurantDaoImpl.findRestaurantsByDescr(descr);
 	}
 	
-	public RestaurantSearchResponse findRestaurantByName(String name) {
+	public RestaurantSearchResponse findRestaurantByName(RestaurantSearchByNameRequest request) {
 		RestaurantSearchResponse response = new RestaurantSearchResponse();
-		RestaurantInfoDTO restaurant = restaurantDaoImpl.findRestaurantByName(name);
+		RestaurantInfoDTO restaurant = restaurantDaoImpl.findRestaurantByName(request.getName());
 		
 		response.setRestaurant(restaurant);
 		response.setDescription(AppConstants.GET_RESTAURANT_LIST_BY_NAME_DESCR);

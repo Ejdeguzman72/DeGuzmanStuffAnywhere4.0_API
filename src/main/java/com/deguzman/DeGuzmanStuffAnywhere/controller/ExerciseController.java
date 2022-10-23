@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -20,73 +21,97 @@ import com.deguzman.DeGuzmanStuffAnywhere.daoimpl.ExerciseDaoImpl;
 import com.deguzman.DeGuzmanStuffAnywhere.dto.ExerciseInfoDTO;
 import com.deguzman.DeGuzmanStuffAnywhere.model.Exercise;
 import com.deguzman.DeGuzmanStuffAnywhere.service.ExerciseService;
+import com.deguzman.DeGuzmanStuffAnywhere.util.UriConstants;
+import com.deguzman.domain.SuccessResponse;
+import com.deguzman.domain_entity.AutoShopListResponse;
+import com.deguzman.domain_fitness_app.ExerciseAddRequest;
+import com.deguzman.domain_fitness_app.ExerciseAddResponse;
+import com.deguzman.domain_fitness_app.ExerciseDeleteAllResponse;
+import com.deguzman.domain_fitness_app.ExerciseDeleteByIdRequest;
+import com.deguzman.domain_fitness_app.ExerciseDeleteByIdResponse;
+import com.deguzman.domain_fitness_app.ExerciseListResponse;
+import com.deguzman.domain_fitness_app.ExerciseSearchByIdRequest;
+import com.deguzman.domain_fitness_app.ExerciseSearchByTypeRequest;
+import com.deguzman.domain_fitness_app.ExerciseSearchByUserRequest;
+import com.deguzman.domain_fitness_app.ExerciseSearchResponse;
+import com.deguzman.domain_fitness_app.ExerciseUpdateRequest;
+import com.deguzman.domain_fitness_app.ExerciseUpdateResponse;
+import com.deguzman.domain_fitness_app.ModelExerciseSearchResponse;
 
 @RestController
-@RequestMapping("/app/gym-tracker")
 @CrossOrigin
 public class ExerciseController {
 	
 	@Autowired
 	private ExerciseService exerciseInfoService;
 
-	@GetMapping("/all")
+	@GetMapping(value = UriConstants.URI_GET_EXERCISE_LIST)
 	@CrossOrigin
-	public List<ExerciseInfoDTO> getAllExerciseInformation() {
-		return exerciseInfoService.findAllExerciseInformation();
+	public ResponseEntity<SuccessResponse<ExerciseListResponse>> getAllExerciseInformation() {
+		ExerciseListResponse response = exerciseInfoService.findAllExerciseInformation();
+		return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);
 	}
 	
-	@GetMapping("/all-exercises")
+	@GetMapping(value = UriConstants.URI_GET_EXERCISE_LIST_PAGINATION)
 	@CrossOrigin
 	public ResponseEntity<Map<String, Object>> getAllExercisePagination(@RequestParam(required = false) String exerciseName,
 			@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
 		return exerciseInfoService.getAllExercisePagination(exerciseName, page, size);
 	}
 
-	@GetMapping("/all/name/{user_id}")
+	@GetMapping(value = UriConstants.URI_GET_EXERCISE_BY_USER)
 	@CrossOrigin
-	public List<ExerciseInfoDTO> getExerciseInformationByUser(@PathVariable long user_id) {
-		return exerciseInfoService.findExerciseInformationByUser(user_id);
+	public ResponseEntity<SuccessResponse<ExerciseListResponse>> getExerciseInformationByUser(@RequestBody ExerciseSearchByUserRequest request) {
+		ExerciseListResponse response = exerciseInfoService.findExerciseInformationByUser(request);
+		return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);
 	}
 
-	@GetMapping("/all/exercise-type/{exercise_type_id}")
+	@GetMapping(value = UriConstants.URI_GET_EXERCISE_BY_TYPE)
 	@CrossOrigin
-	public List<ExerciseInfoDTO> getExerciseInformationbyType(@PathVariable int exercise_type_id) {
-		return exerciseInfoService.findExerciseInformationByType(exercise_type_id);
+	public ResponseEntity<SuccessResponse<ExerciseListResponse>> getExerciseInformationbyType(@RequestBody ExerciseSearchByTypeRequest request) {
+		ExerciseListResponse response = exerciseInfoService.findExerciseInformationByType(request);
+		return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);
 	}
 
-	@GetMapping("/exercise/{exercise_id}")
+	@GetMapping(value = UriConstants.URI_GET_EXERCISE_BY_ID)
 	@CrossOrigin
-	public ResponseEntity<Exercise> getExerciseById(@PathVariable int exercise_id) {
-		return exerciseInfoService.findExerciseById(exercise_id);
+	public ResponseEntity<SuccessResponse<ModelExerciseSearchResponse>> getExerciseById(@RequestBody ExerciseSearchByIdRequest request) {
+		ModelExerciseSearchResponse response = exerciseInfoService.findExerciseById(request);
+		return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);
 	}
 	
-	@GetMapping("/exercise-dto/{exercise_id}")
+	@GetMapping(value = UriConstants.URI_GET_EXERCISE_DTO_BY_ID)
 	@CrossOrigin
-	public ResponseEntity<ExerciseInfoDTO> getExerciseDTOById(@PathVariable int exercise_id) {
-		return exerciseInfoService.findExerciseDTOById(exercise_id);
+	public ResponseEntity<SuccessResponse<ExerciseSearchResponse>> getExerciseDTOById(@RequestBody ExerciseSearchByIdRequest request) {
+		ExerciseSearchResponse response = exerciseInfoService.findExerciseDTOById(request);
+		return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);
 	}
 
-	@PostMapping("/add-exercise-information")
+	@PostMapping(value = UriConstants.URI_ADD_EXERCISE_INFORMATION)
 	@CrossOrigin
-	public int addExerciseInformation(@RequestBody Exercise exercise) {
-		return exerciseInfoService.addExerciseInformation(exercise);
+	public ResponseEntity<SuccessResponse<ExerciseAddResponse>> addExerciseInformation(@RequestBody ExerciseAddRequest request) {
+		ExerciseAddResponse response = exerciseInfoService.addExerciseInformation(request);
+		return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);
 	}
 	
-	@PutMapping("/exercise/{exercise_id}")
+	@PutMapping(value = UriConstants.URI_UPDATE_EXERCISE_INFORMATION)
 	@CrossOrigin
-	public int updateExerciseInformation(@PathVariable int exercise_id, @RequestBody Exercise exerciseDetails) {
-		return exerciseInfoService.updateExerciseInformation(exercise_id, exerciseDetails);
+	public ResponseEntity<SuccessResponse<ExerciseUpdateResponse>> updateExerciseInformation(@RequestBody ExerciseUpdateRequest request) {
+		ExerciseUpdateResponse response = exerciseInfoService.updateExerciseInformation(request);
+		return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);
 	}
 
-	@DeleteMapping("/exercise/{exercise_id}")
+	@DeleteMapping(value = UriConstants.URI_DELETE_EXERCISE_INFORMATION)
 	@CrossOrigin
-	public int deleteExerciseById(@PathVariable int exercise_id) {
-		return exerciseInfoService.deleteExerciseInformationbyId(exercise_id);
+	public ResponseEntity<SuccessResponse<ExerciseDeleteByIdResponse>> deleteExerciseById(@RequestBody ExerciseDeleteByIdRequest request) {
+		ExerciseDeleteByIdResponse response = exerciseInfoService.deleteExerciseInformationbyId(request);
+		return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);
 	}
 
-	@DeleteMapping("/delete-all-exercises")
+	@DeleteMapping(value = UriConstants.URI_DELETE_ALL_EXERCISE_INFORMATION)
 	@CrossOrigin
-	public int deleteAllExercises() {
-		return exerciseInfoService.deleteAllExerciseInformation();
+	public ResponseEntity<SuccessResponse<ExerciseDeleteAllResponse>> deleteAllExercises() {
+		ExerciseDeleteAllResponse response = exerciseInfoService.deleteAllExerciseInformation();
+		return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);
 	}
 }

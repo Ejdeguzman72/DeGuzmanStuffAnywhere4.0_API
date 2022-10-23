@@ -51,7 +51,7 @@ public class BooksDaoImpl implements BooksDao {
 	@Override
 	public List<Books> findAllBooksByAuthor(@PathVariable String author) {
 		List<Books> booksListAuthor = jdbcTemplate.query(GET_BOOK_INFORMATION_BY_AUTHOR,
-				(rs, rowNum) -> new Books(rs.getInt("BOOK_ID"), rs.getString("NAME"), rs.getString("DESCR"),
+				(rs, rowNum) -> new Books(rs.getInt("BOOK_ID"), rs.getString("TITLE"), rs.getString("DESCR"),
 						rs.getString("AUTHOR")),
 				author);
 
