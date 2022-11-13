@@ -163,7 +163,9 @@ public class AppConstants {
 	
 	public static String DELETE_ALL_CONTACT_INFORMATION_MSG = "Deleteing contact information by personId";
 	
+	
 	// Exercise Information description and messages
+	
 	public static String GET_EXERCISE_LIST_DESCR = "GET EXERCISE LIST";
 	
 	public static String GET_EXERCISE_LIST_MSG = "Retrieving all exercise information from database";
@@ -195,6 +197,82 @@ public class AppConstants {
 	public static String DELETE_ALL_EXERCISE_INFORMATION_DESCR = "DELETE ALL EXERCISE INFORMATION";
 	
 	public static String DELETE_ALL_EXERCISE_INFORMATION_MSG = "Deleting all exercise information based on ID";
+	
+	// General Transactions descriptions and messages
+	
+	public static final String GET_GENERAL_TRX_LIST_DESCR = "GET GENERAL_TRX LIST";
+	
+	public static final String GET_GENERAL_TRX_LIST_MSG = "Retrieving all general transactions from database";
+	
+	public static String FIND_GENERAL_TRX_BY_ID_DESCR = "FIND GENERAL_TRX BY ID";
+	
+	public static String FIND_GENERAL_TRX_BY_ID_MSG = "Searching general transactions with ID";
+	
+	public static String GET_GENERAL_TRX_LIST_BY_USER_DESCR = "GET GENERAL_TRX LIST BY CAR USER";
+	
+	public static String GET_GENERAL_TRX_LIST_BY_USER_MSG = "Retrieving all general transaction information from database by user";
+	
+	public static String GET_GENERAL_TRX_LIST_BY_TYPE_DESCR = "GET GENERAL_TRX LIST BY TRANSACTION TYPE";
+	
+	public static String GET_GENERAL_TRX_LIST_BY_TYPE_MSG = "Retrieving all general transaction information from database by transaction type";
+	
+	public static String ADD_GENERAL_TRX_INFORMATION_DESCR = "ADD GENERAL_TRX";
+	
+	public static String ADD_GENERAL_TRX_INFORMATION_MSG = "Inserting new general transaction information";
+	
+	public static String GET_GENERAL_TRX_COUNT_DESCR = "GET GENERAL_TRX COUNT";
+	
+	public static String GET_GENERAL_TRX_COUNT_MSG = "Retrieving the record count of all general transaction information";
+	
+	public static String UPDATE_GENERAL_TRX_INFORMATION_DESCR = "UPDATE GENERAL_TRX";
+	
+	public static String UPDATE_GENERAL_TRX_INFORMATION_MSG = "Updating general transaction information";
+	
+	public static String DELETE_GENERAL_TRX_INFORMATION_DESCR = "DELETE GENERAL_TRX";
+	
+	public static String DELETE_GENERAL_TRX_INFORMATION_MSG = "Deleteing general transaction information by transactionId";
+	
+	public static String DELETE_ALL_GENERAL_TRX_INFORMATION_DESCR = "DELETE ALL GENERAL_TRX";
+	
+	public static String DELETE_ALL_GENERAL_TRX_INFORMATION_MSG = "Deleteing all general transactions";
+	
+	// Medical Office description and msgs
+	
+	public static String GET_MEDICAL_OFFICE_LIST_DESCR = "GET MEDICAL OFFICE LIST";
+			
+	public static String GET_MEDICAL_OFFICE_LIST_MSG = "Retrieving all medical offices from database";
+			
+	public static String GET_MEDICAL_OFFICE_BY_ID_DESCR = "GET AUTOSHOP BY ID";
+			
+	public static String GET_MEDICAL_OFFICE_BY_ID_MSG = "Retrieving Automotive Repair Shop by ID Number";
+			
+	public static String GET_MEDICAL_OFFICE_BY_NAME_DESCR = "GET AUTOSHOP BY Name";
+			
+	public static String GET_MEDICAL_OFFICE_BY_NAME_MSG = "Retrieving Automotive Repair Shop by Name";
+			
+	public static String GET_MEDICAL_OFFICE_BY_ZIP_DESCR = "GET AUTOSHOP BY Zip";
+			
+	public static String GET_MEDICAL_OFFICE_BY_ZIP_MSG = "Retrieving Automotive Repair Shop by Zip";
+			
+	public static String GET_MEDICAL_OFFICE_COUNT_DESCR = "GET AUTOSHOP COUNT";
+		
+	public static String GET_MEDICAL_OFFICE_COUNT_MSG = "Retrieving count of automotive repair shops listed in the application";
+			
+	public static String ADD_MEDICAL_OFFICE_INFORMATION_DESCR = "ADD AUTOSHOP INFORMATION";
+			
+	public static String ADD_MEDICAL_OFFICE_INFORMATION_MSG = "Inserting new autmotive repair shop information";
+			
+	public static String UPDATE_MEDICAL_OFFICE_INFORMATION_DESCR = "UPDATE AUTOSHOP INFORMATION";
+			
+	public static String UPDATE_MEDICAL_OFFICE_INFORMATION_MSG = "Updating automotive repair shop information based on ID";
+			
+	public static String DELETE_MEDICAL_OFFICE_INFORMATION_DESCR = "DELETE AUTOSHOP INFORMATION";
+			
+	public static String DELETE_MEDICAL_OFFICE_INFORMATION_MSG = "Deleteing automotive repair shop information by autoShopId";
+			
+	public static String DELETE_ALL_MEDICAL_OFFICE_INFORMATION_DESCR = "DELETE ALL AUTOSHOP INFORMATION";
+			
+	public static String DELETE_ALL_MEDICAL_OFFICE_INFORMATION_MSG = "Deleteing automotive repair shop information by autoShopId";
 	
 	// Vehicle description and msgs
 	

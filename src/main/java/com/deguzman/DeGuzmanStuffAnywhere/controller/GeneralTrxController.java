@@ -1,9 +1,9 @@
 package com.deguzman.DeGuzmanStuffAnywhere.controller;
 
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -12,90 +12,108 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.deguzman.DeGuzmanStuffAnywhere.daoimpl.GeneralTrxDaoImpl;
-import com.deguzman.DeGuzmanStuffAnywhere.dto.GeneralTrxInfoDTO;
 import com.deguzman.DeGuzmanStuffAnywhere.exception.ResourceNotFoundException;
 import com.deguzman.DeGuzmanStuffAnywhere.model.GeneralTransaction;
 import com.deguzman.DeGuzmanStuffAnywhere.service.GeneralTrxService;
+import com.deguzman.DeGuzmanStuffAnywhere.util.UriConstants;
+import com.deguzman.domain.SuccessResponse;
+import com.deguzman.domain_financial.GeneralTransactionAddRequest;
+import com.deguzman.domain_financial.GeneralTransactionAddResponse;
+import com.deguzman.domain_financial.GeneralTransactionDeleteByIdResponse;
+import com.deguzman.domain_financial.GeneralTransactionUpdateRequest;
+import com.deguzman.domain_financial.GeneralTransactionUpdateResponse;
+import com.deguzman.domain_financial.GeneralTrxListResponse;
+import com.deguzman.domain_financial.GeneralTrxSearchByIdRequest;
+import com.deguzman.domain_financial.GeneralTrxSearchByTypeRequest;
+import com.deguzman.domain_financial.GeneralTrxSearchByUserRequest;
+import com.deguzman.domain_financial.GeneratlTrxDTOSearchResponse;
+import com.deguzman.domain_financial.TransactionDeleteAllResponse;
+import com.deguzman.domain_financial.TransactionDeleteByIdRequest;
 
 @RestController
-@RequestMapping("/app/general-transactions")
 @CrossOrigin
 public class GeneralTrxController {
 
 	@Autowired
 	private GeneralTrxService generalTrxService;
 
-	@GetMapping("/all")
+	@GetMapping(value = UriConstants.URI_GET_GENERAL_TRX_LIST)
 	@CrossOrigin
-	public List<GeneralTrxInfoDTO> getAllGeneralTransactionInformation() {
-		return generalTrxService.findAllTransactionInformation();
+	public ResponseEntity<SuccessResponse<GeneralTrxListResponse>> getAllGeneralTransactionInformation() {
+		GeneralTrxListResponse response = generalTrxService.findAllTransactionInformation();
+		return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);
 	}
 	
-	@GetMapping("/all-transactions")
+	@GetMapping(value = UriConstants.URI_GET_GENERAL_TRX_LIST_PAGINATION)
 	public ResponseEntity<Map<String, Object>> getAllTransactionsPagination(@RequestParam(required = false) String paymentDate,
 			@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
 		return generalTrxService.getAllTransactionsPagination(paymentDate, page, size);
 	}
 
-	@GetMapping("/all/type/{transaction_type_id}")
+	@GetMapping(value = UriConstants.URI_GET_GENERAL_TRX_BY_TYPE)
 	@CrossOrigin
-	public List<GeneralTrxInfoDTO> getTransactionsByType(@PathVariable long transaction_type_id) {
-		return generalTrxService.findTransactionsByType(transaction_type_id);
+	public ResponseEntity<SuccessResponse<GeneralTrxListResponse>> getTransactionsByType(@RequestBody GeneralTrxSearchByTypeRequest request) {
+		GeneralTrxListResponse response = generalTrxService.findTransactionsByType(request);
+		return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);
 	}
 
-	@GetMapping("/all/user/{user_id}")
+	@GetMapping(value = UriConstants.URI_GET_GENERAL_TRX_BY_USER)
 	@CrossOrigin
-	public List<GeneralTrxInfoDTO> getTransactionsByUser(@PathVariable long user_id) {
-		return generalTrxService.findTransactionsByUser(user_id);
+	public ResponseEntity<SuccessResponse<GeneralTrxListResponse>> getTransactionsByUser(@RequestBody GeneralTrxSearchByUserRequest request) {
+		GeneralTrxListResponse response = generalTrxService.findTransactionsByUser(request);
+		return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);
 	}
 
-	@GetMapping("/transaction-dto/{transaction_id}")
+	@GetMapping(value = UriConstants.URI_GET_GENERAL_TRX_DTO_BY_ID)
 	@CrossOrigin
-	public ResponseEntity<GeneralTrxInfoDTO> getTrxInformationDTOById(@PathVariable long transaction_id)
+	public ResponseEntity<SuccessResponse<GeneratlTrxDTOSearchResponse>> getTrxInformationDTOById(@RequestBody GeneralTrxSearchByIdRequest request)
 			throws ResourceNotFoundException {
-		return generalTrxService.findTranactionInformationDTOById(transaction_id);
+		GeneratlTrxDTOSearchResponse response = generalTrxService.findTranactionInformationDTOById(request);
+		return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);
 	}
 	
-	@GetMapping("/transaction/{transaction_id}")
+	@GetMapping(value = UriConstants.URI_GET_GENERAL_TRX_BY_ID)
 	@CrossOrigin
-	public ResponseEntity<GeneralTransaction> getTrxInformationById(@PathVariable long transaction_id)
+	public GeneralTransaction getTrxInformationById(@PathVariable long transaction_id)
 			throws ResourceNotFoundException {
 		return generalTrxService.findTransactionInformationById(transaction_id);
 	}
 
-	@GetMapping("/get-transaction-count")
+	@GetMapping(value = UriConstants.URI_GET_GENERAL_TRX_COUNT)
 	@CrossOrigin
 	public long getTransactionCcount() {
 		return generalTrxService.findCountOfGeneralTransacion();
 	}
 
-	@PostMapping("/add-general-transaction-information")
+	@PostMapping(value = UriConstants.URI_ADD_GENERAL_TRX_INFORMATION)
 	@CrossOrigin
-	public int addGeneralTrasactionInformation(@RequestBody GeneralTransaction transaction)
+	public ResponseEntity<SuccessResponse<GeneralTransactionAddResponse>> addGeneralTrasactionInformation(@RequestBody GeneralTransactionAddRequest request)
 			throws ResourceNotFoundException {
-		return generalTrxService.addTransactionInformation(transaction);
+		GeneralTransactionAddResponse response = generalTrxService.addTransactionInformation(request);
+		return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);
 	}
 	
-	@PutMapping("/transaction/{transaction_id}")
+	@PutMapping(value = UriConstants.URI_UPDATE_GENERAL_TRX_INFORMATION)
 	@CrossOrigin
-	public int updateTransactionInformation(@PathVariable long transaction_id, @RequestBody GeneralTransaction tranasctionDetails) {
-		return generalTrxService.updateTransactionInformation(transaction_id, tranasctionDetails);
+	public ResponseEntity<SuccessResponse<GeneralTransactionUpdateResponse>> updateTransactionInformation(@RequestBody GeneralTransactionUpdateRequest request) throws ResourceNotFoundException {
+		GeneralTransactionUpdateResponse response = generalTrxService.updateTransactionInformation(request);
+		return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);
 	}
 
-	@DeleteMapping("/transaction/{transaction_id}")
+	@DeleteMapping(value = UriConstants.URI_DELETE_GENERAL_TRX_INFORMATION)
 	@CrossOrigin
-	public int deleteTransactionById(@PathVariable long transaction_id) {
-		return generalTrxService.deleteTransactioninformation(transaction_id);
+	public ResponseEntity<SuccessResponse<GeneralTransactionDeleteByIdResponse>> deleteTransactionById(@RequestBody TransactionDeleteByIdRequest request) {
+		GeneralTransactionDeleteByIdResponse response = generalTrxService.deleteTransactioninformation(request);
+		return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);
 	}
 
-	@DeleteMapping("/delete-all-transactions")
+	@DeleteMapping(value = UriConstants.URI_DELETE_ALL_GENERAL_TRX_INFORMATION)
 	@CrossOrigin
-	public int deleteAllTransactions() {
-		return generalTrxService.deleteAllTransactions();
+	public ResponseEntity<SuccessResponse<TransactionDeleteAllResponse>> deleteAllTransactions() {
+		TransactionDeleteAllResponse response = generalTrxService.deleteAllTransactions();
+		return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);
 	}
 }

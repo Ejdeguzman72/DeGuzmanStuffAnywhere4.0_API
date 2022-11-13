@@ -14,6 +14,14 @@ public class MedicalOfficeUpdateResponse {
 
 	String description;
 
+	public MedicalOffice getMedicalOffice() {
+		return medicalOffice;
+	}
+
+	public void setMedicalOffice(MedicalOffice medicalOffice) {
+		this.medicalOffice = medicalOffice;
+	}
+
 	public Integer getUpdatedCount() {
 		return updatedCount;
 	}

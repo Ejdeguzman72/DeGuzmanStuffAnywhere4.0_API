@@ -8,7 +8,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -67,13 +66,13 @@ public class MedicalOfficeDaoImpl implements MedicalOfficeDao {
 
 	@Override
 	@Cacheable(value = "medicalOfficeById", key = "#medicalOfficeId")
-	public ResponseEntity<MedicalOffice> findMedicalOfficeInformationById(@PathVariable long medicalOfficeId) {
+	public MedicalOffice findMedicalOfficeInformationById(long medicalOfficeId) {
 		MedicalOffice medicalOffice = jdbcTemplate.queryForObject(GET_ALL_MEDICAL_OFFICE_INFORMATION_BY_ID,
 				BeanPropertyRowMapper.newInstance(MedicalOffice.class), medicalOfficeId);
 
 		LOGGER.info("Retrieved Medical Office Information: " + " " + medicalOffice.getName());
 
-		return ResponseEntity.ok().body(medicalOffice);
+		return medicalOffice;
 	}
 
 	@Override

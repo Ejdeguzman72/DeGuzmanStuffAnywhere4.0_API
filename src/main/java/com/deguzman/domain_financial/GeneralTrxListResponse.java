@@ -4,9 +4,11 @@ import java.util.List;
 
 import javax.transaction.Transaction;
 
+import com.deguzman.DeGuzmanStuffAnywhere.dto.GeneralTrxInfoDTO;
+
 public class GeneralTrxListResponse {
 
-	public List<Transaction> list;
+	public List<GeneralTrxInfoDTO> list;
 	
 	public int size;
 	
@@ -16,12 +18,12 @@ public class GeneralTrxListResponse {
 	
 	public String description;
 
-	public List<Transaction> getList() {
+	public List<GeneralTrxInfoDTO> getList() {
 		return list;
 	}
 
-	public void setList(List<Transaction> list) {
-		this.list = list;
+	public void setList(List<GeneralTrxInfoDTO> list2) {
+		this.list = list2;
 	}
 
 	public int getSize() {

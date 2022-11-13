@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -19,24 +20,39 @@ import com.deguzman.DeGuzmanStuffAnywhere.daoimpl.MedicalOfficeDaoImpl;
 import com.deguzman.DeGuzmanStuffAnywhere.exception.DuplicateOfficeException;
 import com.deguzman.DeGuzmanStuffAnywhere.model.MedicalOffice;
 import com.deguzman.DeGuzmanStuffAnywhere.service.MedicalOfficeService;
+import com.deguzman.DeGuzmanStuffAnywhere.util.UriConstants;
+import com.deguzman.domain.SuccessResponse;
+import com.deguzman.domain_entity.MedicalOfficeAddRequest;
+import com.deguzman.domain_entity.MedicalOfficeAddResponse;
+import com.deguzman.domain_entity.MedicalOfficeDeleteAllResponse;
+import com.deguzman.domain_entity.MedicalOfficeDeleteByIdRequest;
+import com.deguzman.domain_entity.MedicalOfficeDeleteByIdResponse;
+import com.deguzman.domain_entity.MedicalOfficeListResponse;
+import com.deguzman.domain_entity.MedicalOfficeListSearchResponse;
+import com.deguzman.domain_entity.MedicalOfficeSearchByIdRequest;
+import com.deguzman.domain_entity.MedicalOfficeSearchByZipRequest;
+import com.deguzman.domain_entity.MedicalOfficeSearchResponse;
+import com.deguzman.domain_entity.MedicalOfficeUpdateRequest;
+import com.deguzman.domain_entity.MedicalOfficeUpdateResponse;
+import com.deguzman.domain_financial.GeneratlTrxDTOSearchResponse;
 
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/app/medical-offices")
 @CrossOrigin
 public class MedicalOfficeController {
 
 	@Autowired
 	private MedicalOfficeService medOfficeService;
 
-	@GetMapping("/all")
+	@GetMapping(value = UriConstants.URI_GET_MEDICAL_OFFICE_LIST)
 	@CrossOrigin
-	public List<MedicalOffice> getAllMedicalOfficeInformation() {
-		return medOfficeService.findAllmedicalOfficeInformation();
+	public ResponseEntity<SuccessResponse<MedicalOfficeListResponse>> getAllMedicalOfficeInformation() {
+		MedicalOfficeListResponse response = medOfficeService.findAllmedicalOfficeInformation();
+		return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);
 	}
 
-	@GetMapping("all-medical-offices")
+	@GetMapping(value = UriConstants.URI_GET_MEDICAL_OFFICE_LIST_PAGINATION)
 	@CrossOrigin
 	public ResponseEntity<Map<String, Object>> getAllMedicalOfficesPagination(
 			@RequestParam(required = false) String name, @RequestParam(defaultValue = "0") int page,
@@ -44,45 +60,51 @@ public class MedicalOfficeController {
 		return medOfficeService.getAllMedicalOfficesPagination(name, page, size);
 	}
 
-	@GetMapping("/medical-office/zip/{zip}")
+	@GetMapping(value = UriConstants.URI_GET_MEDICAL_OFFICE_BY_ZIP)
 	@CrossOrigin
-	public List<MedicalOffice> getAllMedicalOfficeInformationByZipCode(@PathVariable String zip) {
-		return medOfficeService.findMedicalofficesByZip(zip);
+	public ResponseEntity<SuccessResponse<MedicalOfficeListResponse>> getAllMedicalOfficeInformationByZipCode(@RequestBody MedicalOfficeSearchByZipRequest request) {
+		MedicalOfficeListResponse response = medOfficeService.findMedicalofficesByZip(request);
+		return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);
 	}
 
-	@GetMapping("/medical-office/{medicalOfficeId}")
+	@GetMapping(value = UriConstants.URI_GET_MEDICAL_OFFICE_BY_ID)
 	@CrossOrigin
-	public ResponseEntity<MedicalOffice> getMedicalOfficeInformationById(@PathVariable long medicalOfficeId) {
-		return medOfficeService.findMedicalOfficeInformationById(medicalOfficeId);
+	public ResponseEntity<SuccessResponse<MedicalOfficeSearchResponse>> getMedicalOfficeInformationById(@RequestBody MedicalOfficeSearchByIdRequest request) {
+		MedicalOfficeSearchResponse response = medOfficeService.findMedicalOfficeInformationById(request);
+		return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);
 	}
 
-	@GetMapping("/medical-office-count")
+	@GetMapping(value = UriConstants.URI_GET_MEDICAL_OFFICE_COUNT)
 	@CrossOrigin
 	public long getMedicalOfficeCount() {
 		return medOfficeService.getMedicalOfficeCount();
 	}
 
-	@PostMapping("/add-medical-office-information")
+	@PostMapping(value = UriConstants.URI_ADD_MEDICAL_OFFICE_INFORMATION)
 	@CrossOrigin
-	public int addMedicalOfficeInformation(@RequestBody MedicalOffice medicalOffice) throws DuplicateOfficeException {
-		return medOfficeService.addMedicalOfficeInformation(medicalOffice);
+	public ResponseEntity<SuccessResponse<MedicalOfficeAddResponse>> addMedicalOfficeInformation(@RequestBody MedicalOfficeAddRequest request) throws DuplicateOfficeException {
+		MedicalOfficeAddResponse response = medOfficeService.addMedicalOfficeInformation(request);
+		return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);
 	}
 	
-	@PutMapping("/medical-office/{medicalOfficeId}")
+	@PutMapping(value = UriConstants.URI_UPDATE_MEDICAL_OFFICE_INFORMATION)
 	@CrossOrigin
-	public int updateMedicalOfficeInformation(@PathVariable long medicalOfficeId, @RequestBody MedicalOffice officeDetails) {
-		return medOfficeService.updateMedicalOfficeInformation(medicalOfficeId, officeDetails);
+	public ResponseEntity<SuccessResponse<MedicalOfficeUpdateResponse>> updateMedicalOfficeInformation(@RequestBody MedicalOfficeUpdateRequest request) {
+		MedicalOfficeUpdateResponse response = medOfficeService.updateMedicalOfficeInformation(request);
+		return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);
 	}
 
-	@DeleteMapping("/medical-office/{medicalOfficeId}")
+	@DeleteMapping(value = UriConstants.URI_DELETE_MEDICAL_OFFICE_INFORMATION)
 	@CrossOrigin
-	public int deleteMedicalOfficeById(@PathVariable long medicalOfficeId) {
-		return medOfficeService.deleteMedicalOfficeById(medicalOfficeId);
+	public ResponseEntity<SuccessResponse<MedicalOfficeDeleteByIdResponse>> deleteMedicalOfficeById(@RequestBody MedicalOfficeDeleteByIdRequest request) {
+		MedicalOfficeDeleteByIdResponse response = medOfficeService.deleteMedicalOfficeById(request);
+		return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);
 	}
 
-	@DeleteMapping("/delete-all-medical-offices")
+	@DeleteMapping(value = UriConstants.URI_DELETE_ALL_MEDICAL_OFFICE_INFORMATION)
 	@CrossOrigin
-	public int deleteAllMedicalOffices() {
-		return medOfficeService.deleteAllMedicalOfficeInformation();
+	public ResponseEntity<SuccessResponse<MedicalOfficeDeleteAllResponse>> deleteAllMedicalOffices() {
+		MedicalOfficeDeleteAllResponse response = medOfficeService.deleteAllMedicalOfficeInformation();
+		return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);
 	}
 }

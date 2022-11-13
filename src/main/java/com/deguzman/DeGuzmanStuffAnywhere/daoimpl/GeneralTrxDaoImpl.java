@@ -72,7 +72,7 @@ public class GeneralTrxDaoImpl implements GeneralTrxDao {
 	}
 
 	@Override
-	public List<GeneralTrxInfoDTO> findTransactionsByUser(@PathVariable long user_id) {
+	public List<GeneralTrxInfoDTO> findTransactionsByUser(long user_id) {
 		List<GeneralTrxInfoDTO> generalTrxListUser = jdbcTemplate.query(GET_ALL_GENERAL_TRANSACTION_INFO_BY_USER,
 				(rs, rowNum) -> new GeneralTrxInfoDTO(rs.getLong("TRANSACTION_ID"), rs.getDouble("AMOUNT"),
 						rs.getString("ENTITY"), rs.getString("PAYMENT_DATE"), rs.getString("TRANSACTION_TYPE_DESCR"),
@@ -85,7 +85,7 @@ public class GeneralTrxDaoImpl implements GeneralTrxDao {
 	}
 
 	@Override
-	public List<GeneralTrxInfoDTO> findTransactionsByType(@PathVariable long transaction_type_id) {
+	public List<GeneralTrxInfoDTO> findTransactionsByType(long transaction_type_id) {
 		List<GeneralTrxInfoDTO> generalTrxListType = jdbcTemplate.query(GET_ALL_GENERAL_TRANSACTION_INFO_BY_TYPE,
 				(rs, rowNum) -> new GeneralTrxInfoDTO(rs.getLong("TRANSACTION_ID"), rs.getDouble("AMOUNT"),
 						rs.getString("ENTITY"), rs.getString("PAYMENT_DATE"), rs.getString("TRANSACTION_TYPE_DESCR"),
@@ -99,25 +99,25 @@ public class GeneralTrxDaoImpl implements GeneralTrxDao {
 
 	@Override
 	@Cacheable(value = "generalTransactionById", key = "#transaction_id")
-	public ResponseEntity<GeneralTrxInfoDTO> findTransactionInformationDTOById(@PathVariable long transaction_id)
+	public GeneralTrxInfoDTO findTransactionInformationDTOById(long transaction_id)
 			throws ResourceNotFoundException {
 		GeneralTrxInfoDTO generalTrx = jdbcTemplate.queryForObject(GET_TRANSACTION_INFO_BY_ID,
 				BeanPropertyRowMapper.newInstance(GeneralTrxInfoDTO.class), transaction_id);
 
 		LOGGER.info("Retrieving transaction with ID: " + transaction_id);
 
-		return ResponseEntity.ok().body(generalTrx);
+		return generalTrx;
 	}
 	
 	@Override
-	public ResponseEntity<GeneralTransaction> findTransactionInformationById(@PathVariable long transaction_id)
+	public GeneralTransaction findTransactionInformationById(long transaction_id)
 			throws ResourceNotFoundException {
 		GeneralTransaction transaction = jdbcTemplate.queryForObject(GET_TRANSASCTION_INFO,
 				BeanPropertyRowMapper.newInstance(GeneralTransaction.class), transaction_id);
 		
 		LOGGER.info("Retrieving transaction with ID: " + transaction_id);
 		
-		return ResponseEntity.ok().body(transaction);
+		return transaction;
 		
 	}
 
@@ -132,7 +132,7 @@ public class GeneralTrxDaoImpl implements GeneralTrxDao {
 
 	@Override
 	@CachePut(value = "transactionList")
-	public int addTransactionInformation(@RequestBody GeneralTransaction transaction) throws ResourceNotFoundException {
+	public int addTransactionInformation(GeneralTransaction transaction) throws ResourceNotFoundException {
 
 		double amount = transaction.getAmount();
 		String entity = transaction.getEntity();
@@ -148,7 +148,7 @@ public class GeneralTrxDaoImpl implements GeneralTrxDao {
 
 	@Override
 	@CachePut(value = "generalTrasactionById", key = "#transaction_id")
-	public int updateTransactionInformation(@PathVariable Long transaction_id, @RequestBody GeneralTransaction transactionDetails) {
+	public int updateTransactionInformation(Long transaction_id, @RequestBody GeneralTransaction transactionDetails) {
 
 		int result = 0;
 		
@@ -180,7 +180,7 @@ public class GeneralTrxDaoImpl implements GeneralTrxDao {
 
 	@Override
 	@CachePut(value = "generalTrasactionById", key = "#transaction_id")
-	public int deleteTransactionInformation(@PathVariable long transaction_id) {
+	public int deleteTransactionInformation(long transaction_id) {
 		int result = jdbcTemplate.update(DELETE_TRANSACTION_BY_ID, transaction_id);
 
 		LOGGER.info("Deleting transaction with ID: " + transaction_id);

@@ -4,9 +4,9 @@ import javax.transaction.Transaction;
 
 import com.deguzman.DeGuzmanStuffAnywhere.dto.GeneralTrxInfoDTO;
 
-public class GeneratlTrxSearchResponse {
+public class GeneratlTrxDTOSearchResponse {
 
-	public Transaction transaction;
+	public GeneralTrxInfoDTO transaction;
 	
 	public String message;
 	
@@ -14,11 +14,11 @@ public class GeneratlTrxSearchResponse {
 	
 	public String description;
 
-	public Transaction getTransaction() {
+	public GeneralTrxInfoDTO getTransaction() {
 		return transaction;
 	}
 
-	public void setTransaction(Transaction transaction) {
+	public void setTransaction(GeneralTrxInfoDTO transaction) {
 		this.transaction = transaction;
 	}
 

@@ -64,6 +64,19 @@ public class UriConstants {
 	public static final String URI_UPDATE_EXERCISE_INFORMATION = "/app/gym-tracker/search/exercise";
 	public static final String URI_DELETE_EXERCISE_INFORMATION = "/app/gym-tracker/search/exercise";
 	public static final String URI_DELETE_ALL_EXERCISE_INFORMATION = "/app/gym-tracker/exercise/delete-all";
+	
+	// General Transactions URI endpoints
+	public static final String URI_GET_GENERAL_TRX_LIST = "/app/general-transactions/all";
+	public static final String URI_GET_GENERAL_TRX_LIST_PAGINATION = "/app/general-transactions/all-transactions";
+	public static final String URI_GET_GENERAL_TRX_BY_ID = "/app/general-transactions/search/general-transaction";
+	public static final String URI_GET_GENERAL_TRX_DTO_BY_ID = "/app/general-transactions/search/general-transaction-dto";
+	public static final String URI_GET_GENERAL_TRX_BY_USER = "/app/general-transactions/general-transaction/search/user";
+	public static final String URI_GET_GENERAL_TRX_BY_TYPE = "/app/general-transactions/general-transaction/search/type";
+	public static final String URI_GET_GENERAL_TRX_COUNT = "/app/general-transactions/general-transaction/count";
+	public static final String URI_ADD_GENERAL_TRX_INFORMATION = "/app/general-transactions/add-general-transaction-information";
+	public static final String URI_UPDATE_GENERAL_TRX_INFORMATION = "/app/general-transactions/general-transaction";
+	public static final String URI_DELETE_GENERAL_TRX_INFORMATION = "/app/general-transactions/general-transaction";
+	public static final String URI_DELETE_ALL_GENERAL_TRX_INFORMATION = "/app/general-transactions/delete-all";
 
 	// URI Vehicle Endpoints
 	public static final String URI_GET_VEHICLE_LIST = "/app/vehicles/all";
@@ -78,6 +91,18 @@ public class UriConstants {
 	public static final String URI_UPDATE_VEHICLE_INFORMATION = "/app/vehicles/vehicle";
 	public static final String URI_DELETE_ALL_VEHICLE_INFORMATION = "/app/vehicles/vehicle";
 	public static final String URI_DELETE_VEHICLE_INFORMATION = "/app/vehicles/delete-all-vehicles";
+	
+	// Medical Office URI Endpoints
+	public static final String URI_GET_MEDICAL_OFFICE_LIST = "/app/medical-offices/all";
+	public static final String URI_GET_MEDICAL_OFFICE_LIST_PAGINATION = "/app/medical-offices/all-medical-offices";
+	public static final String URI_GET_MEDICAL_OFFICE_BY_ID = "/app/medical-offices/search/medical-office";
+	public static final String URI_GET_MEDICAL_OFFICE_BY_NAME = "/app/medical-offices/medical-office/search/name";
+	public static final String URI_GET_MEDICAL_OFFICE_BY_ZIP = "/app/medical-offices/medical-office/search/zip";
+	public static final String URI_GET_MEDICAL_OFFICE_COUNT = "/app/medical-offices/medical-office/count";
+	public static final String URI_ADD_MEDICAL_OFFICE_INFORMATION = "/app/medical-offices/add-medical-office";
+	public static final String URI_UPDATE_MEDICAL_OFFICE_INFORMATION = "/app/medical-offices/medical-office";
+	public static final String URI_DELETE_ALL_MEDICAL_OFFICE_INFORMATION = "/app/medical-offices/medical-office";
+	public static final String URI_DELETE_MEDICAL_OFFICE_INFORMATION = "/app/medical-offices/delete-all";
 
 	// URI Restaurant Endpoints
 	public static final String URI_GET_RESTAURANT_LIST = "/app/restaurants/all";

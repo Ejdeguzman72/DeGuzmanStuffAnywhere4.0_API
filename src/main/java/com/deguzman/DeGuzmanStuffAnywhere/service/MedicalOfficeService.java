@@ -17,18 +17,39 @@ import com.deguzman.DeGuzmanStuffAnywhere.daoimpl.MedicalOfficeDaoImpl;
 import com.deguzman.DeGuzmanStuffAnywhere.exception.DuplicateOfficeException;
 import com.deguzman.DeGuzmanStuffAnywhere.jpa_dao.MedicalOfficeJpaDao;
 import com.deguzman.DeGuzmanStuffAnywhere.jpa_model.MedicalOffice;
+import com.deguzman.DeGuzmanStuffAnywhere.util.AppConstants;
+import com.deguzman.domain_entity.MedicalOfficeAddRequest;
+import com.deguzman.domain_entity.MedicalOfficeAddResponse;
+import com.deguzman.domain_entity.MedicalOfficeDeleteAllResponse;
+import com.deguzman.domain_entity.MedicalOfficeDeleteByIdRequest;
+import com.deguzman.domain_entity.MedicalOfficeDeleteByIdResponse;
+import com.deguzman.domain_entity.MedicalOfficeListResponse;
+import com.deguzman.domain_entity.MedicalOfficeSearchByIdRequest;
+import com.deguzman.domain_entity.MedicalOfficeSearchByZipRequest;
+import com.deguzman.domain_entity.MedicalOfficeSearchResponse;
+import com.deguzman.domain_entity.MedicalOfficeUpdateRequest;
+import com.deguzman.domain_entity.MedicalOfficeUpdateResponse;
 
 @Service
 public class MedicalOfficeService {
 
 	@Autowired
-	private MedicalOfficeDaoImpl medicalOfficeDaoImpl;
+	private static MedicalOfficeDaoImpl medicalOfficeDaoImpl;
 	
 	@Autowired
 	private MedicalOfficeJpaDao medOfficeJpaDao;
 	
-	public List<com.deguzman.DeGuzmanStuffAnywhere.model.MedicalOffice> findAllmedicalOfficeInformation() {
-		return medicalOfficeDaoImpl.findAllMedicalOfficeInformation();
+	public MedicalOfficeListResponse findAllmedicalOfficeInformation() {
+		MedicalOfficeListResponse response = new MedicalOfficeListResponse();
+		List<com.deguzman.DeGuzmanStuffAnywhere.model.MedicalOffice> list = medicalOfficeDaoImpl.findAllMedicalOfficeInformation();
+		
+		response.setList(list);
+		response.setSize(list.size());
+		response.setDescription(AppConstants.GET_MEDICAL_OFFICE_LIST_DESCR);
+		response.setStatusCode(String.valueOf(AppConstants.HTTP_STATUS_OK));
+		response.setMessage(AppConstants.GET_MEDICAL_OFFICE_LIST_MSG);
+		
+		return response;
 	}
 
 	public ResponseEntity<Map<String, Object>> getAllMedicalOfficesPagination(
@@ -65,32 +86,92 @@ public class MedicalOfficeService {
 		}
 	}
 	
-	public List<com.deguzman.DeGuzmanStuffAnywhere.model.MedicalOffice> findMedicalofficesByZip(String zip) {
-		return medicalOfficeDaoImpl.findMedicalOfficesByZip(zip);
+	public MedicalOfficeListResponse findMedicalofficesByZip(MedicalOfficeSearchByZipRequest request) {
+		MedicalOfficeListResponse response = new MedicalOfficeListResponse();
+		List<com.deguzman.DeGuzmanStuffAnywhere.model.MedicalOffice> list = medicalOfficeDaoImpl.findMedicalOfficesByZip(request.getZip());
+		
+		response.setList(list);
+		response.setSize(list.size());
+		response.setDescription(AppConstants.GET_MEDICAL_OFFICE_BY_ZIP_DESCR);
+		response.setStatusCode(String.valueOf(AppConstants.HTTP_STATUS_OK));
+		response.setMessage(AppConstants.GET_MEDICAL_OFFICE_BY_ZIP_MSG);
+		
+		return response;
 	}
 	
 	public long getMedicalOfficeCount() {
 		return medicalOfficeDaoImpl.getMedicalOfficeCount();
 	}
 	
-	public int addMedicalOfficeInformation(com.deguzman.DeGuzmanStuffAnywhere.model.MedicalOffice medicalOffice) throws DuplicateOfficeException {
-		return medicalOfficeDaoImpl.addMedicalOfficeInformation(medicalOffice);
+	public MedicalOfficeAddResponse addMedicalOfficeInformation(MedicalOfficeAddRequest request) throws DuplicateOfficeException {
+		MedicalOfficeAddResponse response = new MedicalOfficeAddResponse();
+		com.deguzman.DeGuzmanStuffAnywhere.model.MedicalOffice medicalOffice = new com.deguzman.DeGuzmanStuffAnywhere.model.MedicalOffice();
+		
+		medicalOffice.setName(request.getName());
+		medicalOffice.setAddress(request.getAddress());
+		medicalOffice.setCity(request.getCity());
+		medicalOffice.setState(request.getState());
+		medicalOffice.setZip(request.getZip());
+		
+		int recordsAdded = medicalOfficeDaoImpl.addMedicalOfficeInformation(request);
+		
+		response.setMedicalOffice(medicalOffice);
+		response.setRecordsAdded(recordsAdded);
+		response.setDescription(AppConstants.ADD_MEDICAL_OFFICE_INFORMATION_DESCR);
+		response.setStatusCode(String.valueOf(AppConstants.HTTP_STATUS_OK));
+		response.setMessage(AppConstants.ADD_MEDICAL_OFFICE_INFORMATION_MSG);
+			
+		return response;
+		
 	}
 	
-	public int updateMedicalOfficeInformation(long medicalOfficeId, com.deguzman.DeGuzmanStuffAnywhere.model.MedicalOffice officeDetails) {
-		return medicalOfficeDaoImpl.updateMedicalOfficeInformation(medicalOfficeId, officeDetails);
+	public MedicalOfficeUpdateResponse updateMedicalOfficeInformation(MedicalOfficeUpdateRequest request) {
+		MedicalOfficeUpdateResponse response = new MedicalOfficeUpdateResponse();
+		com.deguzman.DeGuzmanStuffAnywhere.model.MedicalOffice medicalOffice = medicalOfficeDaoImpl.findMedicalOfficeInformationById(request.getMedicalOfficeId());
+		int recordsUpdated = medicalOfficeDaoImpl.updateMedicalOfficeInformation(request.getMedicalOfficeId(), request);
+		
+		response.setMedicalOffice(medicalOffice);
+		response.setUpdatedCount(recordsUpdated);
+		response.setDescription(AppConstants.UPDATE_MEDICAL_OFFICE_INFORMATION_DESCR);
+		response.setStatusCode(String.valueOf(AppConstants.HTTP_STATUS_OK));
+		response.setMessage(AppConstants.UPDATE_MEDICAL_OFFICE_INFORMATION_MSG);
+		
+		return response;
 	}
 	
-	public int deleteMedicalOfficeById(long medicalOfficeId) {
-		return medicalOfficeDaoImpl.deleteMedicalOfficeById(medicalOfficeId);
+	public MedicalOfficeDeleteByIdResponse deleteMedicalOfficeById(MedicalOfficeDeleteByIdRequest request) {
+		MedicalOfficeDeleteByIdResponse response = new MedicalOfficeDeleteByIdResponse();
+		int recordsDeleted = medicalOfficeDaoImpl.deleteMedicalOfficeById(request.getMedicalOfficeId());
+		
+		response.setDeleted(recordsDeleted);
+		response.setDescription(AppConstants.DELETE_MEDICAL_OFFICE_INFORMATION_DESCR);
+		response.setStatusCode(String.valueOf(AppConstants.HTTP_STATUS_OK));
+		response.setMessage(AppConstants.DELETE_MEDICAL_OFFICE_INFORMATION_MSG);
+		
+		return response;
 	}
 	
-	public int deleteAllMedicalOfficeInformation() {
-		return medicalOfficeDaoImpl.deleteAllMedicalOfficeInformation();
+	public MedicalOfficeDeleteAllResponse deleteAllMedicalOfficeInformation() {
+		MedicalOfficeDeleteAllResponse response = new MedicalOfficeDeleteAllResponse();
+		int recordsDeleted = medicalOfficeDaoImpl.deleteAllMedicalOfficeInformation();
+		
+		response.setDeleted(recordsDeleted);
+		response.setDescription(AppConstants.DELETE_ALL_MEDICAL_OFFICE_INFORMATION_DESCR);
+		response.setStatusCode(String.valueOf(AppConstants.HTTP_STATUS_OK));
+		response.setMessage(AppConstants.DELETE_ALL_MEDICAL_OFFICE_INFORMATION_MSG);
+		
+		return response;
 	}
 
-	public ResponseEntity<com.deguzman.DeGuzmanStuffAnywhere.model.MedicalOffice> findMedicalOfficeInformationById(
-			long medicalOfficeId) {
-		return medicalOfficeDaoImpl.findMedicalOfficeInformationById(medicalOfficeId);
+	public MedicalOfficeSearchResponse findMedicalOfficeInformationById(MedicalOfficeSearchByIdRequest request) {
+		MedicalOfficeSearchResponse response = new MedicalOfficeSearchResponse();
+		com.deguzman.DeGuzmanStuffAnywhere.model.MedicalOffice medicalOffice = medicalOfficeDaoImpl.findMedicalOfficeInformationById(request.getOfficeId());
+		
+		response.setMedicalOffice(medicalOffice);
+		response.setDescription(AppConstants.GET_MEDICAL_OFFICE_BY_ID_DESCR);
+		response.setStatusCode(String.valueOf(AppConstants.HTTP_STATUS_OK));
+		response.setMessage(AppConstants.GET_MEDICAL_OFFICE_BY_ID_MSG);
+		
+		return response;
 	}
 }
