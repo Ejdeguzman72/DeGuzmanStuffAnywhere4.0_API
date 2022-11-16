@@ -1,6 +1,5 @@
 package com.deguzman.DeGuzmanStuffAnywhere.controller;
 
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,16 +8,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.deguzman.DeGuzmanStuffAnywhere.daoimpl.MedicalOfficeDaoImpl;
 import com.deguzman.DeGuzmanStuffAnywhere.exception.DuplicateOfficeException;
-import com.deguzman.DeGuzmanStuffAnywhere.model.MedicalOffice;
 import com.deguzman.DeGuzmanStuffAnywhere.service.MedicalOfficeService;
 import com.deguzman.DeGuzmanStuffAnywhere.util.UriConstants;
 import com.deguzman.domain.SuccessResponse;
@@ -28,13 +23,11 @@ import com.deguzman.domain_entity.MedicalOfficeDeleteAllResponse;
 import com.deguzman.domain_entity.MedicalOfficeDeleteByIdRequest;
 import com.deguzman.domain_entity.MedicalOfficeDeleteByIdResponse;
 import com.deguzman.domain_entity.MedicalOfficeListResponse;
-import com.deguzman.domain_entity.MedicalOfficeListSearchResponse;
 import com.deguzman.domain_entity.MedicalOfficeSearchByIdRequest;
 import com.deguzman.domain_entity.MedicalOfficeSearchByZipRequest;
 import com.deguzman.domain_entity.MedicalOfficeSearchResponse;
 import com.deguzman.domain_entity.MedicalOfficeUpdateRequest;
 import com.deguzman.domain_entity.MedicalOfficeUpdateResponse;
-import com.deguzman.domain_financial.GeneratlTrxDTOSearchResponse;
 
 import org.springframework.web.bind.annotation.RestController;
 

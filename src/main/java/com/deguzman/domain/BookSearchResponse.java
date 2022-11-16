@@ -1,6 +1,5 @@
 package com.deguzman.domain;
 
-import com.deguzman.DeGuzmanStuffAnywhere.model.AutoRepairShop;
 import com.deguzman.DeGuzmanStuffAnywhere.model.Books;
 
 public class BookSearchResponse {

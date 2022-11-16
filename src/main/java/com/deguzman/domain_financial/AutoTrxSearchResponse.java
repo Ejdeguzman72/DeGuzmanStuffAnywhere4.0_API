@@ -2,7 +2,6 @@ package com.deguzman.domain_financial;
 
 
 import com.deguzman.DeGuzmanStuffAnywhere.dto.AutoTrxInfoDTO;
-import com.deguzman.DeGuzmanStuffAnywhere.model.AutoTransaction;
 
 public class AutoTrxSearchResponse {
 

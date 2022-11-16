@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.deguzman.DeGuzmanStuffAnywhere.daoimpl.UtilityDaoImpl;
 import com.deguzman.DeGuzmanStuffAnywhere.dto.UtilityInfoDTO;
 import com.deguzman.DeGuzmanStuffAnywhere.model.Utility;
 import com.deguzman.DeGuzmanStuffAnywhere.service.UtilityService;

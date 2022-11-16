@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.deguzman.DeGuzmanStuffAnywhere.daoimpl.PostDaoImpl;
 import com.deguzman.DeGuzmanStuffAnywhere.dto.PostDTO;
 import com.deguzman.DeGuzmanStuffAnywhere.model.Post;
 import com.deguzman.DeGuzmanStuffAnywhere.service.PostsService;

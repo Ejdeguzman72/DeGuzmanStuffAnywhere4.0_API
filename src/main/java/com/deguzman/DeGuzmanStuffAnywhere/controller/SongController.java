@@ -1,93 +1,110 @@
 package com.deguzman.DeGuzmanStuffAnywhere.controller;
 
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.deguzman.DeGuzmanStuffAnywhere.daoimpl.SongDaoImpl;
 import com.deguzman.DeGuzmanStuffAnywhere.exception.DuplicateSongTitleException;
 import com.deguzman.DeGuzmanStuffAnywhere.exception.ResourceNotFoundException;
-import com.deguzman.DeGuzmanStuffAnywhere.model.Song;
 import com.deguzman.DeGuzmanStuffAnywhere.service.SongService;
+import com.deguzman.DeGuzmanStuffAnywhere.util.UriConstants;
+import com.deguzman.domain.MusicAddRequest;
+import com.deguzman.domain.MusicAddResponse;
+import com.deguzman.domain.MusicDeleteAllResponse;
+import com.deguzman.domain.MusicDeleteByIdRequest;
+import com.deguzman.domain.MusicDeleteByIdResponse;
+import com.deguzman.domain.MusicListResponse;
+import com.deguzman.domain.MusicSearchByArtistRequest;
+import com.deguzman.domain.MusicSearchByGenreRequest;
+import com.deguzman.domain.MusicSearchByIdRequest;
+import com.deguzman.domain.MusicSearchResponse;
+import com.deguzman.domain.MusicUpdateRequest;
+import com.deguzman.domain.MusicUpdateResponse;
+import com.deguzman.domain.SuccessResponse;
 
 @RestController
-@RequestMapping("/app/music")
 @CrossOrigin
 public class SongController {
 
 	@Autowired
 	private SongService songService;
 
-	@GetMapping("/all")
+	@GetMapping(value = UriConstants.URI_GET_SONG_LIST)
 	@CrossOrigin
-	public List<Song> getAllSongInformation() {
-		return songService.findAllSongInformation();
+	public ResponseEntity<SuccessResponse<MusicListResponse>> getAllSongInformation() {
+		MusicListResponse response = songService.findAllSongInformation();
+		return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);
 	}
 
-	@GetMapping("all-songs")
+	@GetMapping(value = UriConstants.URI_GET_SONG_LIST_PAGINATION)
 	@CrossOrigin
 	public ResponseEntity<Map<String, Object>> getAllSongsPagination(@RequestParam(required = false) String title,
 			@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
 		return songService.getAllSongsPagination(title, page, size);
 	}
 
-	@GetMapping("/song/{song_id}")
+	@GetMapping(value = UriConstants.URI_GET_SONG_BY_ID)
 	@CrossOrigin
-	public ResponseEntity<Song> getSongInformationById(@PathVariable int song_id) throws ResourceNotFoundException {
-		return songService.findSongById(song_id);
+	public ResponseEntity<SuccessResponse<MusicSearchResponse>> getSongInformationById(@RequestBody MusicSearchByIdRequest request) throws ResourceNotFoundException {
+		MusicSearchResponse response = songService.findSongById(request);
+		return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);
 	}
 
-	@GetMapping("/song/artist/{artist}")
+	@GetMapping(value = UriConstants.URI_GET_SONG_BY_ARTIST)
 	@CrossOrigin
-	public List<Song> getSongInformationByArtist(@PathVariable String artist) {
-		return songService.findSongByArtist(artist);
+	public ResponseEntity<SuccessResponse<MusicListResponse>> getSongInformationByArtist(@RequestBody MusicSearchByArtistRequest request) {
+		MusicListResponse response = songService.findSongByArtist(request);
+		return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);
 	}
 
-	@GetMapping("/song/genre/{genre}")
+	@GetMapping(value = UriConstants.URI_GET_SONG_BY_GENRE)
 	@CrossOrigin
-	public List<Song> getSongInformationByGenre(@PathVariable String genre) {
-		return songService.findSongsByGenre(genre);
+	public ResponseEntity<SuccessResponse<MusicListResponse>> getSongInformationByGenre(@RequestBody MusicSearchByGenreRequest request) {
+		MusicListResponse response = songService.findSongsByGenre(request);
+		return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);
 	}
 
-	@GetMapping("/count-of-songs")
+	@GetMapping(value = UriConstants.URI_GET_SONG_COUNT)
 	@CrossOrigin
 	public int getCountOfSongs() {
 		return songService.findSongCount();
 	}
 
-	@PostMapping("/add-song-information")
+	@PostMapping(value = UriConstants.URI_ADD_SONG_INFORMATION)
 	@CrossOrigin
-	public int addSongInformation(@RequestBody Song song) throws DuplicateSongTitleException {
-		return songService.addSongInformation(song);
+	public ResponseEntity<SuccessResponse<MusicAddResponse>> addSongInformation(@RequestBody MusicAddRequest request) throws DuplicateSongTitleException {
+		MusicAddResponse response = songService.addSongInformation(request);
+		return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);
 	}
 	
-	@PutMapping("/song/{song_id}")
+	@PutMapping(value = UriConstants.URI_UPDATE_SONG_INFORMATION)
 	@CrossOrigin
-	public int updateSongInformation(@PathVariable int song_id, @RequestBody Song songDetails) {
-		return songService.updateSongInformation(song_id, songDetails);
+	public ResponseEntity<SuccessResponse<MusicUpdateResponse>> updateSongInformation(@RequestBody MusicUpdateRequest request) throws ResourceNotFoundException {
+		MusicUpdateResponse response = songService.updateSongInformation(request);
+		return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);
 	}
 
-	@DeleteMapping("/song/{song_id}")
+	@DeleteMapping(value = UriConstants.URI_DELETE_SONG_INFORMATION)
 	@CrossOrigin
-	public int deleteSongInformationById(@PathVariable int song_id) {
-		return songService.deleteSongInformation(song_id);
+	public ResponseEntity<SuccessResponse<MusicDeleteByIdResponse>> deleteSongInformationById(@RequestBody MusicDeleteByIdRequest request) {
+		MusicDeleteByIdResponse response = songService.deleteSongInformation(request);
+		return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);
 	}
 
-	@DeleteMapping("/delete-all-songs")
+	@DeleteMapping(value = UriConstants.URI_DELETE_ALL_SONG_INFORMATION)
 	@CrossOrigin
-	public int deleteAllSongs() {
-		return songService.deleteAllSongs();
+	public ResponseEntity<SuccessResponse<MusicDeleteAllResponse>> deleteAllSongs() {
+		MusicDeleteAllResponse response = songService.deleteAllSongs();
+		return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);
 	}
 }

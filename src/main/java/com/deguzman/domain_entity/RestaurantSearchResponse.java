@@ -1,7 +1,6 @@
 package com.deguzman.domain_entity;
 
 import com.deguzman.DeGuzmanStuffAnywhere.dto.RestaurantInfoDTO;
-import com.deguzman.DeGuzmanStuffAnywhere.model.Restaurant;
 
 public class RestaurantSearchResponse {
 

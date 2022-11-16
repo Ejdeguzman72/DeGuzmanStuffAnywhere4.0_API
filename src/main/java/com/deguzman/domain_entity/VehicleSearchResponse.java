@@ -1,7 +1,5 @@
 package com.deguzman.domain_entity;
 
-import java.util.List;
-
 import com.deguzman.DeGuzmanStuffAnywhere.model.Vehicle;
 
 public class VehicleSearchResponse {

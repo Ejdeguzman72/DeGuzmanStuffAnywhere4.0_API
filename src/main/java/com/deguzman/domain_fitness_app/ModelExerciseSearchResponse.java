@@ -1,6 +1,5 @@
 package com.deguzman.domain_fitness_app;
 
-import com.deguzman.DeGuzmanStuffAnywhere.dto.ExerciseInfoDTO;
 import com.deguzman.DeGuzmanStuffAnywhere.model.Exercise;
 
 public class ModelExerciseSearchResponse {

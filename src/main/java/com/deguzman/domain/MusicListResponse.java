@@ -2,12 +2,11 @@ package com.deguzman.domain;
 
 import java.util.List;
 
-import com.deguzman.DeGuzmanStuffAnywhere.model.AutoRepairShop;
-import com.deguzman.DeGuzmanStuffAnywhere.model.Books;
+import com.deguzman.DeGuzmanStuffAnywhere.model.Song;
 
 public class MusicListResponse {
 
-	public List<Books> list;
+	public List<Song> list;
 	
 	public int size;
 	
@@ -17,11 +16,11 @@ public class MusicListResponse {
 	
 	public String description;
 
-	public List<Books> getList() {
+	public List<Song> getList() {
 		return list;
 	}
 
-	public void setList(List<Books> list) {
+	public void setList(List<Song> list) {
 		this.list = list;
 	}
 

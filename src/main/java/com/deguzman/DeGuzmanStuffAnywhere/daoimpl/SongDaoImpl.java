@@ -8,7 +8,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -74,23 +73,23 @@ public class SongDaoImpl implements SongDao {
 
 	@Override
 	@Cacheable(value = "songById", key = "#song_id")
-	public ResponseEntity<Song> findSongById(int song_id) throws ResourceNotFoundException {
+	public Song findSongById(int song_id) throws ResourceNotFoundException {
 		Song song = jdbcTemplate.queryForObject(GET_SONG_INFORMATION_BY_ID,
 				BeanPropertyRowMapper.newInstance(Song.class), song_id);
 
 		LOGGER.info("Retrieved Song Information: " + song.getTitle() + " " + song.getArtist());
 
-		return ResponseEntity.ok().body(song);
+		return song;
 	}
 
 	@Override
-	public ResponseEntity<Song> findSongByTitle(String title) {
+	public Song findSongByTitle(String title) {
 		Song song = jdbcTemplate.queryForObject(GET_SONG_INFORMATION_BY_TITLE,
 				BeanPropertyRowMapper.newInstance(Song.class), title);
 
 		LOGGER.info("Retrieved Song Information: " + " " + song.getTitle() + " " + song.getArtist());
 
-		return ResponseEntity.ok().body(song);
+		return song;
 	}
 
 	@Override

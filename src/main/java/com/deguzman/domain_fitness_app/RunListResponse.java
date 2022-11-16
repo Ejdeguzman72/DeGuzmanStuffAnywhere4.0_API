@@ -3,7 +3,6 @@ package com.deguzman.domain_fitness_app;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.deguzman.DeGuzmanStuffAnywhere.model.Restaurant;
 import com.deguzman.DeGuzmanStuffAnywhere.model.RunTracker;
 
 public class RunListResponse {

@@ -2,7 +2,6 @@ package com.deguzman.DeGuzmanStuffAnywhere.dao;
 
 import java.util.List;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -14,19 +13,19 @@ public interface SongDao {
 
 	public List<Song> findAllSongInformation();
 
-	public List<Song> findSongByArtist(@PathVariable String artist);
+	public List<Song> findSongByArtist(String artist);
 
-	public List<Song> findSongsByGenre(@PathVariable String genre);
+	public List<Song> findSongsByGenre(String genre);
 
-	public ResponseEntity<Song> findSongById(@PathVariable int song_id) throws ResourceNotFoundException;
+	public Song findSongById(int song_id) throws ResourceNotFoundException;
 
-	public ResponseEntity<Song> findSongByTitle(@PathVariable String title);
+	public Song findSongByTitle(@PathVariable String title);
 
 	public int findSongCount();
 
-	public int addSongInformation(@RequestBody Song song) throws DuplicateSongTitleException;
+	public int addSongInformation(Song song) throws DuplicateSongTitleException;
 
-	public int updateSongInformation(@PathVariable int song_id, @RequestBody Song songDetails);
+	public int updateSongInformation(int song_id, @RequestBody Song songDetails);
 
 	public int deleteSongInformation(int song_id);
 

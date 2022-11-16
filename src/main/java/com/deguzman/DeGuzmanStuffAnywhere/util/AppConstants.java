@@ -353,4 +353,42 @@ public class AppConstants {
 	public static String DELETE_ALL_RESTAURANT_INFORMATION_DESCR = "DELETE ALL RESTAURANT INFORMATION";
 	
 	public static String DELETE_ALL_RESTAURANT_INFORMATION_MSG = "Deleting all restaurant information based on ID";
+	
+	// Music Information Library messages and description 
+	
+	public static String GET_MUSIC_LIST_DESCR = "GET MUSIC LIST";
+	
+	public static String GET_MUSIC_LIST_MSG = "Retrieving all music information from database";
+	
+	public static String GET_MUSIC_BY_ID_DESCR = "GET MUSIC BY ID";
+	
+	public static String GET_MUSIC_BY_ID_MSG = "Retrieving all music information from database based off restaurantId";
+	
+	public static String GET_MUSIC_BY_GENRE_DESCR = "GET MUSIC BY GENRE";
+	
+	public static String GET_MUSIC_BY_GENRE_MSG = "Retrieving all music information from database based off genre";
+	
+	public static String GET_MUSIC_LIST_BY_TITLE_DESCR = "GET MUSIC BY TITLE";
+	
+	public static String GET_MUSIC_LIST_BY_TITLE_MSG = "Retrieving music information from database by title";
+	
+	public static String GET_MUSIC_LIST_BY_ARTIST_DESCR = "GET MUSIC LIST BY ARTIST";
+	
+	public static String GET_MUSIC_LIST_BY_ARTIST_MSG = "Retrieving music information from database by artist";
+	
+	public static String ADD_MUSIC_INFORMATION_DESCR = "ADD MUSIC INFORMATION";
+	
+	public static String ADD_MUSIC_INFORMATION_MSG = "Inserting new music information";
+	
+	public static String UPDATE_MUSIC_INFORMATION_DESCR = "UPDATE MUSIC INFORMATION";
+	
+	public static String UPDATE_MUSIC_INFORMATION_MSG = "Updating music information based on ID";
+	
+	public static String DELETE_MUSIC_INFORMATION_DESCR = "DELETE MUSIC INFORMATION";
+	
+	public static String DELETE_MUSIC_INFORMATION_MSG = "Deleting music information based on ID";
+	
+	public static String DELETE_ALL_MUSIC_INFORMATION_DESCR = "DELETE ALL MUSIC INFORMATION";
+	
+	public static String DELETE_ALL_MUSIC_INFORMATION_MSG = "Deleting all music information based on ID";
 }

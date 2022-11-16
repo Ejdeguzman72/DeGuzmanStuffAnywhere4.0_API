@@ -2,8 +2,6 @@ package com.deguzman.domain_social_media;
 
 import java.util.List;
 
-import com.deguzman.DeGuzmanStuffAnywhere.model.AutoRepairShop;
-import com.deguzman.DeGuzmanStuffAnywhere.model.Books;
 import com.deguzman.DeGuzmanStuffAnywhere.model.Post;
 
 public class SocialMediaListResponse {

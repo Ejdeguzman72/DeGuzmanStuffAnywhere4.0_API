@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.deguzman.DeGuzmanStuffAnywhere.dto.ExerciseInfoDTO;
-import com.deguzman.DeGuzmanStuffAnywhere.model.Exercise;
-import com.deguzman.DeGuzmanStuffAnywhere.model.Person;
 
 public class ExerciseListResponse {
 	

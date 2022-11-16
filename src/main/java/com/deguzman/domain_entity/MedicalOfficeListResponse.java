@@ -2,7 +2,6 @@ package com.deguzman.domain_entity;
 
 import java.util.List;
 
-import com.deguzman.DeGuzmanStuffAnywhere.model.AutoRepairShop;
 import com.deguzman.DeGuzmanStuffAnywhere.model.MedicalOffice;
 
 public class MedicalOfficeListResponse {

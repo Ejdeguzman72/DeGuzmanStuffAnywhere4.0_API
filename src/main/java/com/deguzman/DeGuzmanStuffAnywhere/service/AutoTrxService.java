@@ -25,7 +25,6 @@ import com.deguzman.DeGuzmanStuffAnywhere.jpa_dao.AutoTrxJpaDao;
 import com.deguzman.DeGuzmanStuffAnywhere.jpa_model.AutoTransaction;
 import com.deguzman.DeGuzmanStuffAnywhere.util.AppConstants;
 import com.deguzman.domain_entity.AutoShopDeleteByIdRequest;
-import com.deguzman.domain_entity.AutoShopDeleteByIdResponse;
 import com.deguzman.domain_financial.AutoTransactionAddRequest;
 import com.deguzman.domain_financial.AutoTransactionAddResponse;
 import com.deguzman.domain_financial.AutoTransactionDeleteByIdResponse;
@@ -34,7 +33,6 @@ import com.deguzman.domain_financial.AutoTransactionUpdateResponse;
 import com.deguzman.domain_financial.AutoTrxListResponse;
 import com.deguzman.domain_financial.AutoTrxSearchResponse;
 import com.deguzman.domain_financial.TransactionDeleteAllResponse;
-import com.deguzman.domain_financial.TransactionDeleteByIdRequest;
 
 
 @Service

@@ -1,19 +1,15 @@
 package com.deguzman.DeGuzmanStuffAnywhere.webcam;
 
 import java.awt.Dimension;
-import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
-import javax.swing.JFrame;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.github.sarxos.webcam.Webcam;
-import com.github.sarxos.webcam.WebcamPanel;
 import com.github.sarxos.webcam.WebcamResolution;
 import com.xuggle.mediatool.IMediaWriter;
 import com.xuggle.mediatool.ToolFactory;

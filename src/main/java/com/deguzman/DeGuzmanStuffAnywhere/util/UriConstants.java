@@ -118,4 +118,17 @@ public class UriConstants {
 	public static final String URI_UPDATE_RESTAURANT_INFORMATION = "/app/restaurants/restaurant";
 	public static final String URI_DELETE_ALL_RESTAURANT_INFORMATION = "/app/restaurants/restaurant";
 	public static final String URI_DELETE_RESTAURANT_INFORMATION = "/app/restaurants/delete-all-restaurants";
+	
+	// URI Song Endpoints 
+	public static final String URI_GET_SONG_LIST = "/app/restaurants/all";
+	public static final String URI_GET_SONG_LIST_PAGINATION = "/app/music/all-songs";
+	public static final String URI_GET_SONG_BY_ID = "/app/music/song/";
+	public static final String URI_GET_SONG_BY_TITLE = "/app/music/song/search/title";
+	public static final String URI_GET_SONG_BY_GENRE = "/app/music/song/genre";
+	public static final String URI_GET_SONG_BY_ARTIST = "/app/music/song/search/artist";
+	public static final String URI_GET_SONG_COUNT = "/app/music/song/count";
+	public static final String URI_ADD_SONG_INFORMATION = "/app/music/add-song-information";
+	public static final String URI_UPDATE_SONG_INFORMATION = "/app/music/song";
+	public static final String URI_DELETE_ALL_SONG_INFORMATION = "/app/music/delete-all";
+	public static final String URI_DELETE_SONG_INFORMATION = "/app/music/song";
 }

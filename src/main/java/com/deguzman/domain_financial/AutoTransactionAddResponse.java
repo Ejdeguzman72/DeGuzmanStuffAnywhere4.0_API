@@ -1,7 +1,6 @@
 package com.deguzman.domain_financial;
 
 import com.deguzman.DeGuzmanStuffAnywhere.model.AutoTransaction;
-import com.deguzman.DeGuzmanStuffAnywhere.model.GeneralTransaction;
 
 public class AutoTransactionAddResponse {
 

@@ -1,7 +1,5 @@
 package com.deguzman.domain_financial;
 
-import javax.transaction.Transaction;
-
 import com.deguzman.DeGuzmanStuffAnywhere.dto.GeneralTrxInfoDTO;
 
 public class GeneratlTrxDTOSearchResponse {

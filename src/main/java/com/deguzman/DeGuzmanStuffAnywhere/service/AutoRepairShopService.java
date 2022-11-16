@@ -11,8 +11,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.deguzman.DeGuzmanStuffAnywhere.daoimpl.AutoRepairShopDaoImpl;
@@ -130,7 +128,6 @@ public class AutoRepairShopService {
 	
 	public AutoShopCountResponse getCountOfAutoRepairShops() {
 		AutoShopCountResponse response = new AutoShopCountResponse();
-		com.deguzman.DeGuzmanStuffAnywhere.model.AutoRepairShop autoShop = new com.deguzman.DeGuzmanStuffAnywhere.model.AutoRepairShop();
 		long count = autoRepairShopDaoImpl.getCountOfAutoRepairShops();
 		
 		response.setCount(count);

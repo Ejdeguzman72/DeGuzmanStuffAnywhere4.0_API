@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.deguzman.DeGuzmanStuffAnywhere.dto.RestaurantInfoDTO;
-import com.deguzman.DeGuzmanStuffAnywhere.model.Restaurant;
 
 public class RestaurantListResponse {
 

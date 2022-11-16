@@ -2,8 +2,6 @@ package com.deguzman.domain_financial;
 
 import java.util.List;
 
-import javax.transaction.Transaction;
-
 import com.deguzman.DeGuzmanStuffAnywhere.dto.GeneralTrxInfoDTO;
 
 public class GeneralTrxListResponse {

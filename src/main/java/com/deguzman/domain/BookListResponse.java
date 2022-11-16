@@ -2,7 +2,6 @@ package com.deguzman.domain;
 
 import java.util.List;
 
-import com.deguzman.DeGuzmanStuffAnywhere.model.AutoRepairShop;
 import com.deguzman.DeGuzmanStuffAnywhere.model.Books;
 
 public class BookListResponse {
