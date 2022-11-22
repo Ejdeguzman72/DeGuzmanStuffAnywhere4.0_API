@@ -1,5 +1,6 @@
 package com.deguzman.DeGuzmanStuffAnywhere.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +20,16 @@ import com.deguzman.DeGuzmanStuffAnywhere.dto.MedicalTrxInfoDTO;
 import com.deguzman.DeGuzmanStuffAnywhere.exception.ResourceNotFoundException;
 import com.deguzman.DeGuzmanStuffAnywhere.jpa_dao.MedicalTrxJpaDao;
 import com.deguzman.DeGuzmanStuffAnywhere.jpa_model.MedicalTransaction;
+import com.deguzman.DeGuzmanStuffAnywhere.util.AppConstants;
+import com.deguzman.domain_entity.MedicalOfficeUpdateResponse;
+import com.deguzman.domain_financial.MedicalTransactionAddRequest;
+import com.deguzman.domain_financial.MedicalTransactionAddResponse;
+import com.deguzman.domain_financial.MedicalTrxListResponse;
+import com.deguzman.domain_financial.MedicalTrxSearchByIdRequest;
+import com.deguzman.domain_financial.MedicalTrxSearchByOfficeRequest;
+import com.deguzman.domain_financial.MedicalTrxSearchByTypeRequest;
+import com.deguzman.domain_financial.MedicalTrxSearchByUserRequest;
+import com.deguzman.domain_financial.MedicallTrxSearchResponse;
 
 @Service
 public class MedicalTrxService {
@@ -29,8 +40,18 @@ public class MedicalTrxService {
 	@Autowired
 	private MedicalTrxJpaDao medicalTrxDao;
 	
-	public List<MedicalTrxInfoDTO> findAllMedicalTransactionInformation() {
-		return medicalTrxDaoImpl.findAllMedicalTransactionInformation();
+	public MedicalTrxListResponse findAllMedicalTransactionInformation() {
+		MedicalTrxListResponse response = new MedicalTrxListResponse(); 
+		List<MedicalTrxInfoDTO> list = new ArrayList<>();
+		
+		list = medicalTrxDaoImpl.findAllMedicalTransactionInformation();
+		response.setList(list);
+		response.setSize(list.size());
+		response.setDescription(AppConstants.GET_MEDICAL_TRX_LIST_DESCR);
+		response.setStatusCode(String.valueOf(AppConstants.HTTP_STATUS_OK));
+		response.setMessage(AppConstants.GET_MEDICAL_TRX_LIST_MSG);
+		
+		return response;
 	}
 	
 	public ResponseEntity<Map<String, Object>> getAllTransactionsPagination(@RequestParam(required = false) String paymentDate,
@@ -66,31 +87,86 @@ public class MedicalTrxService {
 		}
 	}
 	
-	public List<MedicalTrxInfoDTO> findAllMedicalTranactionsByFacility(@PathVariable int facility_id) {
-		return medicalTrxDaoImpl.findMedicalTransactionsByFacility(facility_id);
+	public MedicalTrxListResponse findAllMedicalTranactionsByFacility(MedicalTrxSearchByOfficeRequest request) {
+		MedicalTrxListResponse response = new MedicalTrxListResponse(); 
+		List<MedicalTrxInfoDTO> list = new ArrayList<>();
+		
+		list = medicalTrxDaoImpl.findMedicalTransactionsByFacility(request.getOfficeId());
+		response.setList(list);
+		response.setSize(list.size());
+		response.setDescription(AppConstants.GET_MEDICAL_TRX_LIST_DESCR);
+		response.setStatusCode(String.valueOf(AppConstants.HTTP_STATUS_OK));
+		response.setMessage(AppConstants.GET_MEDICAL_TRX_LIST_MSG);
+		
+		return response;
 	}
 	
-	public List<MedicalTrxInfoDTO> findMedicalTransactionsByType(@PathVariable long transaction_type_id) {
-		return medicalTrxDaoImpl.findMedicalTransactionsByType(transaction_type_id);
+	public MedicalTrxListResponse findMedicalTransactionsByType(MedicalTrxSearchByTypeRequest request) {
+		MedicalTrxListResponse response = new MedicalTrxListResponse(); 
+		List<MedicalTrxInfoDTO> list = new ArrayList<>();
+		
+		list = medicalTrxDaoImpl.findMedicalTransactionsByType(request.getTranactionTypeId());
+		response.setList(list);
+		response.setSize(list.size());
+		response.setDescription(AppConstants.GET_MEDICAL_TRX_LIST_BY_TYPE_DESCR);
+		response.setStatusCode(String.valueOf(AppConstants.HTTP_STATUS_OK));
+		response.setMessage(AppConstants.GET_MEDICAL_TRX_LIST_BY_TYPE_MSG);
+		
+		return response;
 	}
 	
-	public List<MedicalTrxInfoDTO> findmedicalTransactionsByUser(@PathVariable long user_id) {
-		return medicalTrxDaoImpl.findAllMedicalTransactionbyUser(user_id);
+	public MedicalTrxListResponse findmedicalTransactionsByUser(MedicalTrxSearchByUserRequest request) {
+		MedicalTrxListResponse response = new MedicalTrxListResponse(); 
+		List<MedicalTrxInfoDTO> list = new ArrayList<>();
+		
+		list = medicalTrxDaoImpl.findAllMedicalTransactionbyUser(request.getUserId());
+		response.setList(list);
+		response.setSize(list.size());
+		response.setDescription(AppConstants.GET_MEDICAL_TRX_LIST_BY_USER_DESCR);
+		response.setStatusCode(String.valueOf(AppConstants.HTTP_STATUS_OK));
+		response.setMessage(AppConstants.GET_MEDICAL_TRX_LIST_BY_USER_MSG);
+		
+		return response;
 	}
 	
-	public ResponseEntity<MedicalTrxInfoDTO> findMedicalTransasctionInformationDTOById(@PathVariable long medical_transaction_id) throws ResourceNotFoundException {
-		return medicalTrxDaoImpl.findMedicalTransactionInformationDTOById(medical_transaction_id);
+	public MedicallTrxSearchResponse findMedicalTransasctionInformationDTOById(MedicalTrxSearchByIdRequest request) throws ResourceNotFoundException {
+		MedicallTrxSearchResponse response = new MedicallTrxSearchResponse();
+		MedicalTrxInfoDTO transaction = medicalTrxDaoImpl.findMedicalTransactionInformationDTOById(request.getTranactionId());
+		
+		response.setTransaction(transaction);
+		response.setDescription(AppConstants.FIND_MEDICAL_TRX_BY_ID_DESCR);
+		response.setStatusCode(String.valueOf(AppConstants.HTTP_STATUS_OK));
+		response.setMessage(AppConstants.FIND_MEDICAL_TRX_BY_ID_MSG);
+		
+		return response;
 	}
 	
 	public long getCountOfMedicalTransactions() {
 		return medicalTrxDaoImpl.getCountOfMedicalTransactions();
 	}
 	
-	public int addMedicalTranactionInformation(com.deguzman.DeGuzmanStuffAnywhere.model.MedicalTransaction medicalTransaction) throws ResourceNotFoundException {
-		return medicalTrxDaoImpl.addMedicalTransactionInformation(medicalTransaction);
+	public MedicalTransactionAddResponse addMedicalTranactionInformation(MedicalTransactionAddRequest request) throws ResourceNotFoundException {
+		MedicalTransactionAddResponse response = new MedicalTransactionAddResponse();
+		com.deguzman.DeGuzmanStuffAnywhere.model.MedicalTransaction transaction = new com.deguzman.DeGuzmanStuffAnywhere.model.MedicalTransaction();
+		
+		transaction.setAmount(request.getAmount());
+		transaction.setMedical_office_id(request.getMedical_office_id());
+		transaction.setMedical_transaction_date(request.getMedical_transaction_date());
+		transaction.setTransaction_type_id(request.getTransaction_type_id());
+		transaction.setUser_id(request.getUser_id());
+		
+		int result = medicalTrxDaoImpl.addMedicalTransactionInformation(request);
+		
+		response.setTransaction(transaction);
+		response.setRecordsAdded(result);
+		response.setDescription(AppConstants.ADD_MEDICAL_TRX_INFORMATION_DESCR);
+		response.setStatusCode(String.valueOf(AppConstants.HTTP_STATUS_OK));
+		response.setMessage(AppConstants.ADD_MEDICAL_TRX_INFORMATION_MSG);
+		
+		return response;
 	}
 	
-	public int updateMedicalTransaction(long medical_transaction_id, com.deguzman.DeGuzmanStuffAnywhere.model.MedicalTransaction medicalTransactionDetails) {
+	public MedicalTransactionUpdateResponse updateMedicalTransaction(long medical_transaction_id, com.deguzman.DeGuzmanStuffAnywhere.model.MedicalTransaction medicalTransactionDetails) {
 		return medicalTrxDaoImpl.updateMedicalTransaction(medical_transaction_id, medicalTransactionDetails);
 	}
 	
@@ -102,3 +178,4 @@ public class MedicalTrxService {
 		return medicalTrxDaoImpl.deleteAllMedicalTransactions();
 	}
 }
+

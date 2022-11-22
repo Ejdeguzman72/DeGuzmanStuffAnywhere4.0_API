@@ -2,11 +2,12 @@ package com.deguzman.domain_financial;
 
 import java.util.List;
 
+import com.deguzman.DeGuzmanStuffAnywhere.dto.MedicalTrxInfoDTO;
 import com.deguzman.DeGuzmanStuffAnywhere.model.MedicalTransaction;
 
 public class MedicalTrxListResponse {
 
-	public List<MedicalTransaction> list;
+	public List<MedicalTrxInfoDTO> list;
 	
 	public int size;
 	
@@ -16,11 +17,11 @@ public class MedicalTrxListResponse {
 	
 	public String description;
 
-	public List<MedicalTransaction> getList() {
+	public List<MedicalTrxInfoDTO> getList() {
 		return list;
 	}
 
-	public void setList(List<MedicalTransaction> list) {
+	public void setList(List<MedicalTrxInfoDTO> list) {
 		this.list = list;
 	}
 

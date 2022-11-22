@@ -274,6 +274,45 @@ public class AppConstants {
 			
 	public static String DELETE_ALL_MEDICAL_OFFICE_INFORMATION_MSG = "Deleteing automotive repair shop information by autoShopId";
 	
+	
+	// Medical Trx Descriptions and Messages
+	public static final String GET_MEDICAL_TRX_LIST_DESCR = "GET MEDICAL_TRX LIST";
+	
+	public static final String GET_MEDICAL_TRX_LIST_MSG = "Retrieving all medical transactions from database";
+	
+	public static String FIND_MEDICAL_TRX_BY_ID_DESCR = "FIND MEDICAL_TRX BY ID";
+	
+	public static String FIND_MEDICAL_TRX_BY_ID_MSG = "Searching medical transactions with ID";
+	
+	public static String GET_MEDICAL_TRX_LIST_BY_USER_DESCR = "GET MEDICAL_TRX LIST BY CAR USER";
+	
+	public static String GET_MEDICAL_TRX_LIST_BY_USER_MSG = "Retrieving all medical transaction information from database by user";
+	
+	public static String GET_MEDICAL_TRX_LIST_BY_TYPE_DESCR = "GET MEDICAL_TRX LIST BY TRANSACTION TYPE";
+	
+	public static String GET_MEDICAL_TRX_LIST_BY_TYPE_MSG = "Retrieving all medical transaction information from database by transaction type";
+	
+	public static String ADD_MEDICAL_TRX_INFORMATION_DESCR = "ADD MEDICAL_TRX";
+	
+	public static String ADD_MEDICAL_TRX_INFORMATION_MSG = "Inserting new medical transaction information";
+	
+	public static String GET_MEDICAL_TRX_COUNT_DESCR = "GET MEDICAL_TRX COUNT";
+	
+	public static String GET_MEDICAL_TRX_COUNT_MSG = "Retrieving the record count of all medical transaction information";
+	
+	public static String UPDATE_MEDICAL_TRX_INFORMATION_DESCR = "UPDATE MEDICAL_TRX";
+	
+	public static String UPDATE_MEDICAL_TRX_INFORMATION_MSG = "Updating medical transaction information";
+	
+	public static String DELETE_MEDICAL_TRX_INFORMATION_DESCR = "DELETE MEDICAL_TRX";
+	
+	public static String DELETE_MEDICAL_TRX_INFORMATION_MSG = "Deleteing medical transaction information by transactionId";
+	
+	public static String DELETE_ALL_MEDICAL_TRX_INFORMATION_DESCR = "DELETE ALL MEDICAL_TRX";
+	
+	public static String DELETE_ALL_MEDICAL_TRX_INFORMATION_MSG = "Deleteing all medical transactions";
+	
+	
 	// Vehicle description and msgs
 	
 	public static String GET_VEHICLE_LIST_DESCR = "GET VEHICLE LIST";

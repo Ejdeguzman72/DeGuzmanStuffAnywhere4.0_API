@@ -20,7 +20,7 @@ public interface MedicalTrxDao {
 
 	public List<MedicalTrxInfoDTO> findAllMedicalTransactionbyUser(@PathVariable long user_id);
 
-	public ResponseEntity<MedicalTrxInfoDTO> findMedicalTransactionInformationDTOById(
+	public MedicalTrxInfoDTO findMedicalTransactionInformationDTOById(
 			@PathVariable long medical_transaction_id) throws ResourceNotFoundException;
 	
 	public ResponseEntity<MedicalTransaction> findMedicalTransactionInformationById(

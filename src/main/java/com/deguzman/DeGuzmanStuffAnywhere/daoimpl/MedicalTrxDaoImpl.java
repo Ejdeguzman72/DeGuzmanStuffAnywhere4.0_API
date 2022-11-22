@@ -130,14 +130,14 @@ public class MedicalTrxDaoImpl implements MedicalTrxDao {
 
 	@Override
 	@Cacheable(value = "medicalTransactionById", key = "#medical_transaction_id")
-	public ResponseEntity<MedicalTrxInfoDTO> findMedicalTransactionInformationDTOById(
+	public MedicalTrxInfoDTO findMedicalTransactionInformationDTOById(
 			@PathVariable long medical_transaction_id) throws ResourceNotFoundException {
 		MedicalTrxInfoDTO medicalTrx = jdbcTemplate.queryForObject(GET_MEDICAL_TRANSACTION_BY_ID,
 				BeanPropertyRowMapper.newInstance(MedicalTrxInfoDTO.class), medical_transaction_id);
 
 		LOGGER.info("Retrieving Medical Transaction by ID: " + medical_transaction_id);
 
-		return ResponseEntity.ok().body(medicalTrx);
+		return medicalTrx;
 	}
 
 	@Override

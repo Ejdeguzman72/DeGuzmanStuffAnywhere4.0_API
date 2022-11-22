@@ -1,23 +1,33 @@
 package com.deguzman.domain_financial;
 
-import com.deguzman.DeGuzmanStuffAnywhere.dto.MedicalTrxInfoDTO;
+import com.deguzman.DeGuzmanStuffAnywhere.model.GeneralTransaction;
 
-public class MedicallTrxSearchResponse {
+public class MedicalTransactionUpdateResponse {
 
-	public MedicalTrxInfoDTO transaction;
-	
-	public String message;
-	
-	public String statusCode;
-	
-	public String description;
+	public GeneralTransaction transaction;
 
-	public MedicalTrxInfoDTO getTransaction() {
+	public Integer updatedCount;
+
+	String message;
+
+	String statusCode;
+
+	String description;
+
+	public GeneralTransaction getTransaction() {
 		return transaction;
 	}
 
-	public void setTransaction(MedicalTrxInfoDTO transaction) {
+	public void setTransaction(GeneralTransaction transaction) {
 		this.transaction = transaction;
+	}
+
+	public Integer getUpdatedCount() {
+		return updatedCount;
+	}
+
+	public void setUpdatedCount(Integer updatedCount) {
+		this.updatedCount = updatedCount;
 	}
 
 	public String getMessage() {
@@ -43,5 +53,5 @@ public class MedicallTrxSearchResponse {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
+
 }
