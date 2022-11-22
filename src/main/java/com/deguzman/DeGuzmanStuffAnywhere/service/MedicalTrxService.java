@@ -12,7 +12,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.deguzman.DeGuzmanStuffAnywhere.daoimpl.MedicalTrxDaoImpl;
@@ -21,15 +20,19 @@ import com.deguzman.DeGuzmanStuffAnywhere.exception.ResourceNotFoundException;
 import com.deguzman.DeGuzmanStuffAnywhere.jpa_dao.MedicalTrxJpaDao;
 import com.deguzman.DeGuzmanStuffAnywhere.jpa_model.MedicalTransaction;
 import com.deguzman.DeGuzmanStuffAnywhere.util.AppConstants;
-import com.deguzman.domain_entity.MedicalOfficeUpdateResponse;
 import com.deguzman.domain_financial.MedicalTransactionAddRequest;
 import com.deguzman.domain_financial.MedicalTransactionAddResponse;
+import com.deguzman.domain_financial.MedicalTransactionDeleteByIdResponse;
+import com.deguzman.domain_financial.MedicalTransactionUpdateRequest;
+import com.deguzman.domain_financial.MedicalTransactionUpdateResponse;
 import com.deguzman.domain_financial.MedicalTrxListResponse;
 import com.deguzman.domain_financial.MedicalTrxSearchByIdRequest;
 import com.deguzman.domain_financial.MedicalTrxSearchByOfficeRequest;
 import com.deguzman.domain_financial.MedicalTrxSearchByTypeRequest;
 import com.deguzman.domain_financial.MedicalTrxSearchByUserRequest;
 import com.deguzman.domain_financial.MedicallTrxSearchResponse;
+import com.deguzman.domain_financial.TransactionDeleteAllResponse;
+import com.deguzman.domain_financial.TransactionDeleteByIdRequest;
 
 @Service
 public class MedicalTrxService {
@@ -166,16 +169,44 @@ public class MedicalTrxService {
 		return response;
 	}
 	
-	public MedicalTransactionUpdateResponse updateMedicalTransaction(long medical_transaction_id, com.deguzman.DeGuzmanStuffAnywhere.model.MedicalTransaction medicalTransactionDetails) {
-		return medicalTrxDaoImpl.updateMedicalTransaction(medical_transaction_id, medicalTransactionDetails);
+	public MedicalTransactionUpdateResponse updateMedicalTransaction(MedicalTransactionUpdateRequest request) throws ResourceNotFoundException {
+		MedicalTransactionUpdateResponse response = new MedicalTransactionUpdateResponse();
+		com.deguzman.DeGuzmanStuffAnywhere.model.MedicalTransaction transaction = medicalTrxDaoImpl.findMedicalTransactionInformationById(request.getMedical_transaction_id());
+		int recordsUpdated = medicalTrxDaoImpl.updateMedicalTransaction(request.getMedical_transaction_id(), request);
+		
+		response.setTransaction(transaction);
+		response.setUpdatedCount(recordsUpdated);
+		response.setDescription(AppConstants.UPDATE_MEDICAL_TRX_INFORMATION_DESCR);
+		response.setStatusCode(String.valueOf(AppConstants.HTTP_STATUS_OK));
+		response.setMessage(AppConstants.UPDATE_MEDICAL_TRX_INFORMATION_MSG);
+		
+		return response;
 	}
 	
-	public int deleteMedicalTransactionInformation(long medical_transaction_id) {
-		return medicalTrxDaoImpl.deleteMedicalTraansactionInformation(medical_transaction_id);
+	public MedicalTransactionDeleteByIdResponse deleteMedicalTransactionInformation(TransactionDeleteByIdRequest request) {
+		MedicalTransactionDeleteByIdResponse response = new MedicalTransactionDeleteByIdResponse();
+		com.deguzman.DeGuzmanStuffAnywhere.model.MedicalTransaction transaction = new com.deguzman.DeGuzmanStuffAnywhere.model.MedicalTransaction();
+		int recordsDeleted = medicalTrxDaoImpl.deleteMedicalTraansactionInformation(request.getTransactionId());
+		
+		response.setDeleted(recordsDeleted);
+		response.setTransaction(transaction);
+		response.setDescription(AppConstants.DELETE_MEDICAL_TRX_INFORMATION_DESCR);
+		response.setStatusCode(String.valueOf(AppConstants.HTTP_STATUS_OK));
+		response.setMessage(AppConstants.DELETE_MEDICAL_TRX_INFORMATION_MSG);
+		
+		return response;
 	}
 	
-	public int deleteAllMedicalTransactions() {
-		return medicalTrxDaoImpl.deleteAllMedicalTransactions();
+	public TransactionDeleteAllResponse deleteAllMedicalTransactions() {
+		TransactionDeleteAllResponse response = new TransactionDeleteAllResponse();
+		int recordsDeleted = medicalTrxDaoImpl.deleteAllMedicalTransactions();
+		
+		response.setDeleted(recordsDeleted);
+		response.setDescription(AppConstants.DELETE_ALL_MEDICAL_TRX_INFORMATION_DESCR);
+		response.setStatusCode(String.valueOf(AppConstants.HTTP_STATUS_OK));
+		response.setMessage(AppConstants.DELETE_ALL_MEDICAL_TRX_INFORMATION_MSG);
+		
+		return response;
 	}
 }
 

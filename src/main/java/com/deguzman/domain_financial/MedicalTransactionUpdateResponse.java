@@ -1,10 +1,10 @@
 package com.deguzman.domain_financial;
 
-import com.deguzman.DeGuzmanStuffAnywhere.model.GeneralTransaction;
+import com.deguzman.DeGuzmanStuffAnywhere.model.MedicalTransaction;
 
 public class MedicalTransactionUpdateResponse {
 
-	public GeneralTransaction transaction;
+	public MedicalTransaction transaction;
 
 	public Integer updatedCount;
 
@@ -14,11 +14,11 @@ public class MedicalTransactionUpdateResponse {
 
 	String description;
 
-	public GeneralTransaction getTransaction() {
+	public MedicalTransaction getTransaction() {
 		return transaction;
 	}
 
-	public void setTransaction(GeneralTransaction transaction) {
+	public void setTransaction(MedicalTransaction transaction) {
 		this.transaction = transaction;
 	}
 

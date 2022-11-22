@@ -2,7 +2,6 @@ package com.deguzman.DeGuzmanStuffAnywhere.dao;
 
 import java.util.List;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -23,7 +22,7 @@ public interface MedicalTrxDao {
 	public MedicalTrxInfoDTO findMedicalTransactionInformationDTOById(
 			@PathVariable long medical_transaction_id) throws ResourceNotFoundException;
 	
-	public ResponseEntity<MedicalTransaction> findMedicalTransactionInformationById(
+	public MedicalTransaction findMedicalTransactionInformationById(
 			@PathVariable long medical_transaction_id) throws ResourceNotFoundException;
 
 	public long getCountOfMedicalTransactions();

@@ -7,7 +7,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -141,14 +140,14 @@ public class MedicalTrxDaoImpl implements MedicalTrxDao {
 	}
 
 	@Override
-	public ResponseEntity<MedicalTransaction> findMedicalTransactionInformationById(
+	public MedicalTransaction findMedicalTransactionInformationById(
 			@PathVariable long medical_transaction_id) throws ResourceNotFoundException {
 		MedicalTransaction medicalTrx = jdbcTemplate.queryForObject(GET_MEDICAL_TRANSACTION_INFO,
 				BeanPropertyRowMapper.newInstance(MedicalTransaction.class), medical_transaction_id);
 
 		LOGGER.info("Retrieving Medical Transaction by ID: " + medical_transaction_id);
 
-		return ResponseEntity.ok().body(medicalTrx);
+		return medicalTrx;
 	}
 	
 	@Override

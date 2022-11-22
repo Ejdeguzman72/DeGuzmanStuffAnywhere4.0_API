@@ -103,6 +103,20 @@ public class UriConstants {
 	public static final String URI_UPDATE_MEDICAL_OFFICE_INFORMATION = "/app/medical-offices/medical-office";
 	public static final String URI_DELETE_ALL_MEDICAL_OFFICE_INFORMATION = "/app/medical-offices/medical-office";
 	public static final String URI_DELETE_MEDICAL_OFFICE_INFORMATION = "/app/medical-offices/delete-all";
+	
+	// General Transactions URI endpoints
+	public static final String URI_GET_MEDICAL_TRX_LIST = "/app/medical-transactions/all";
+	public static final String URI_GET_MEDICAL_TRX_LIST_PAGINATION = "/app/medical-transactions/all-transactions";
+	public static final String URI_GET_MEDICAL_TRX_BY_ID = "/app/medical-transactions/search/medical-transaction";
+	public static final String URI_GET_MEDICAL_TRX_DTO_BY_ID = "/app/medical-transactions/search/medical-transaction-dto";
+	public static final String URI_GET_MEDICAL_TRX_BY_USER = "/app/medical-transactions/medical-transaction/search/user";
+	public static final String URI_GET_MEDICAL_TRX_BY_TYPE = "/app/medical-transactions/medical-transaction/search/type";
+	public static final String URI_GET_MEDICAL_TRX_BY_FACILITY = "/app/medical-transactions/medical-transaction/search/facility";
+	public static final String URI_GET_MEDICAL_TRX_COUNT = "/app/medical-transactions/medical-transaction/count";
+	public static final String URI_ADD_MEDICAL_TRX_INFORMATION = "/app/medical-transactions/add-medical-transaction-information";
+	public static final String URI_UPDATE_MEDICAL_TRX_INFORMATION = "/app/medical-transactions/general-transaction";
+	public static final String URI_DELETE_MEDICAL_TRX_INFORMATION = "/app/medical-transactions/medical-transaction";
+	public static final String URI_DELETE_ALL_MEDICAL_TRX_INFORMATION = "/app/medical-transactions/delete-all";
 
 	// URI Restaurant Endpoints
 	public static final String URI_GET_RESTAURANT_LIST = "/app/restaurants/all";
