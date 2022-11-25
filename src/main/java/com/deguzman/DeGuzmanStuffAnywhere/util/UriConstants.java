@@ -65,7 +65,17 @@ public class UriConstants {
 	public static final String URI_DELETE_EXERCISE_INFORMATION = "/app/gym-tracker/search/exercise";
 	public static final String URI_DELETE_ALL_EXERCISE_INFORMATION = "/app/gym-tracker/exercise/delete-all";
 	
-	// General Transactions URI endpoints
+	// URI Exercise Type Endpoints
+	public static final String URI_GET_EXERCISE_TYPE_LIST = "/app/exercise-type/all";
+	public static final String URI_GET_EXERCISE_TYPE_BY_ID = "/app/exercise-type/type/{exercise_type_id}";
+	
+	// URI Home Info endpoint
+	public static final String URI_GET_HOME_INFO = "/app/home-info/all";
+	
+	// URI RUN HAPI APP
+	public static final String URI_RUN_HAPI_APP = "/app/hapi-app/run-application";
+	
+	// URI General Transactions endpoints
 	public static final String URI_GET_GENERAL_TRX_LIST = "/app/general-transactions/all";
 	public static final String URI_GET_GENERAL_TRX_LIST_PAGINATION = "/app/general-transactions/all-transactions";
 	public static final String URI_GET_GENERAL_TRX_BY_ID = "/app/general-transactions/search/general-transaction";
@@ -133,6 +143,19 @@ public class UriConstants {
 	public static final String URI_DELETE_ALL_RESTAURANT_INFORMATION = "/app/restaurants/restaurant";
 	public static final String URI_DELETE_RESTAURANT_INFORMATION = "/app/restaurants/delete-all-restaurants";
 	
+	// URI Restaurant Type Endpoints
+	public static final String URI_GET_RESTAURANT_TYPE_LIST = "/app/restaurant-types/all";
+	public static final String URI_GET_RESTAURANT_TYPE_BY_ID = "/app/restaurant-types/type/{restaurant_type_id}";
+	public static final String URI_GET_RESTAURANT_TYPE_BY_DESCR = "/app/restaurant-types/type/descr/{restaurantDescr}";
+	public static final String URI_GET_RESTAURANT_TYPE_COUNT = "/app/restuarant-types/type-count";
+	
+	// URI Social Media Endpoints 
+	public static final String URI_GET_SOCIAL_MEDIA_LIST = "/app/social-media/all";
+	public static final String URI_GET_SOCIAL_MEDIA_LIST_PAGINATION = "/app/social-media/all-posts";
+	public static final String URI_GET_SOCIAL_MEDIA_BY_ID = "/app/social-media/post/search/user";
+	public static final String URI_ADD_SOCIAL_MEDIA_INFORMATION = "/app/social-media/add-post-information";
+	public static final String URI_DELETE_SOCIAL_MEDIA_INFORMATION = "/app/social-media/post";
+	
 	// URI Song Endpoints 
 	public static final String URI_GET_SONG_LIST = "/app/restaurants/all";
 	public static final String URI_GET_SONG_LIST_PAGINATION = "/app/music/all-songs";
@@ -145,4 +168,28 @@ public class UriConstants {
 	public static final String URI_UPDATE_SONG_INFORMATION = "/app/music/song";
 	public static final String URI_DELETE_ALL_SONG_INFORMATION = "/app/music/delete-all";
 	public static final String URI_DELETE_SONG_INFORMATION = "/app/music/song";
+	
+	// URI Transaction Type Endpoints 
+	public static final String URI_GET_TRANSACTION_TYPE_LIST = "/app/transaction-types/all";
+	public static final String URI_GET_TRANSACTION_TYPE_BY_ID = "/app/transaction-types/transaction-type/{transaction_type_id}";
+	public static final String URI_GET_TRANSACTION_TYPE_BY_DESCR = "/app/transaction-types/transaction-type/name/{transaction_type_descr}";
+	
+	// URI User Information Endpoints 
+	public static final String URI_GET_ALL_USER_INFORMATION = "/app/users/all";
+	
+	// URI Utility Information Endpoints 
+	public static final String URI_GET_UTILITY_LIST = "/app/utility-information/all";
+	public static final String URI_GET_UTILITY_BY_ID = "/app/utility-information/utility/{utility_id}";
+	public static final String URI_GET_UTILITY_BY_DUE_DATE = "/app/utility-information/dueDate";
+	public static final String URI_GET_UTILITY_BY_NAME = "/app/utility-information/utility/name/{name}";
+	public static final String URI_GET_UTILITY_BY_TYPE = "/app/utility-information/utility/utility-type/{utility_type_id}";
+	public static final String URI_GET_UTILITY_COUNT = "/app/utility-information/get-utility-count";
+	public static final String URI_ADD_UTILITY_INFORMATION = "/app/utility-information/add-utility-information";
+	public static final String URI_DELETE_UTILITY_INFORMATION = "/app/utility-information/utility/{utility_id}";
+	public static final String URI_DELETE_ALL_UTILITY_INFORMATION = "/app/utility-information/delete-all-utilities";
+	
+	// URI Utility Type Information 
+	public static final String URI_GET_UTILITY_TYPE_LIST = "/app/utility-types/all";
+	public static final String URI_GET_UTILITY_TYPE_BY_ID = "/app/utility-types/utility-type/{utility_type_id}";
+	public static final String URI_GET_UTILITY_TYPE_BY_DESCR = "/app/utility-types/utility-type/name/{utility_type_descr}";
 }

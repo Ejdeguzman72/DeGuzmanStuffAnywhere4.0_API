@@ -40,7 +40,7 @@ import com.deguzman.domain_financial.TransactionDeleteAllResponse;
 import com.deguzman.domain_financial.TransactionDeleteByIdRequest;
 
 @RestController
-@CrossOrigin
+@CrossOrigin(origins = "*", maxAge = 3600)
 public class MedicalTrxController {
 
 	@Autowired
@@ -50,14 +50,14 @@ public class MedicalTrxController {
 	private MedicalTrxService medicalTrxPageService;
 
 	@GetMapping(value = UriConstants.URI_GET_MEDICAL_TRX_LIST)
-	@CrossOrigin
+	@CrossOrigin(origins = "*", maxAge = 3600)
 	public ResponseEntity<SuccessResponse<MedicalTrxListResponse>> getAllMedicalTrxInformation() {
 		MedicalTrxListResponse response = medicalTrxService.findAllMedicalTransactionInformation();
 		return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);
 	}
 	
 	@GetMapping(value = UriConstants.URI_GET_MEDICAL_TRX_LIST_PAGINATION)
-	@CrossOrigin
+	@CrossOrigin(origins = "*", maxAge = 3600)
 	public ResponseEntity<Map<String, Object>> getAllTransactionsPagination(@RequestParam(required = false) String paymentDate,
 			@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
 		return medicalTrxPageService.getAllTransactionsPagination(paymentDate, page, size);
@@ -65,21 +65,21 @@ public class MedicalTrxController {
 
 
 	@GetMapping(value = UriConstants.URI_GET_MEDICAL_TRX_BY_FACILITY)
-	@CrossOrigin
+	@CrossOrigin(origins = "*", maxAge = 3600)
 	public ResponseEntity<SuccessResponse<MedicalTrxListResponse>> getAllMedicalTrxInformationByFacility(@RequestBody MedicalTrxSearchByOfficeRequest request) {
 		MedicalTrxListResponse response = medicalTrxService.findAllMedicalTranactionsByFacility(request);
 		return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);
 	}
 
 	@GetMapping(value = UriConstants.URI_GET_MEDICAL_TRX_BY_TYPE)
-	@CrossOrigin
+	@CrossOrigin(origins = "*", maxAge = 3600)
 	public ResponseEntity<SuccessResponse<MedicalTrxListResponse>> getAllMedicalTrxInformationByType(@RequestBody MedicalTrxSearchByTypeRequest request) {
 		MedicalTrxListResponse response = medicalTrxService.findMedicalTransactionsByType(request);
 		return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);
 	}
 
 	@GetMapping(value = UriConstants.URI_GET_MEDICAL_TRX_DTO_BY_ID)
-	@CrossOrigin
+	@CrossOrigin(origins = "*", maxAge = 3600)
 	public ResponseEntity<SuccessResponse<MedicalTrxListResponse>> getAllMedicalTrxInformationByUser(@RequestBody MedicalTrxSearchByUserRequest request) {
 		MedicalTrxListResponse response = medicalTrxService.findmedicalTransactionsByUser(request);
 		return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);
@@ -93,7 +93,7 @@ public class MedicalTrxController {
 //	}
 	
 	@GetMapping(value = UriConstants.URI_GET_MEDICAL_TRX_DTO_BY_ID)
-	@CrossOrigin
+	@CrossOrigin(origins = "*", maxAge = 3600)
 	public ResponseEntity<SuccessResponse<MedicallTrxSearchResponse>> getMedicalTrxDTOById(@RequestBody MedicalTrxSearchByIdRequest request)
 			throws ResourceNotFoundException {
 		MedicallTrxSearchResponse response = medicalTrxService.findMedicalTransasctionInformationDTOById(request);
@@ -101,34 +101,34 @@ public class MedicalTrxController {
 	}
 
 	@GetMapping(value = UriConstants.URI_GET_MEDICAL_TRX_COUNT)
-	@CrossOrigin
+	@CrossOrigin(origins = "*", maxAge = 3600)
 	public long getMedicalTrxCount() {
 		return medicalTrxService.getCountOfMedicalTransactions();
 	}
 
 	@PostMapping(value = UriConstants.URI_ADD_MEDICAL_TRX_INFORMATION)
-	@CrossOrigin
+	@CrossOrigin(origins = "*", maxAge = 3600)
 	public ResponseEntity<SuccessResponse<MedicalTransactionAddResponse>> addMedicalTransaction(@RequestBody MedicalTransactionAddRequest request) throws ResourceNotFoundException {
 		MedicalTransactionAddResponse response = medicalTrxService.addMedicalTranactionInformation(request);
 		return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);
 	}
 	
 	@PutMapping(value = UriConstants.URI_UPDATE_MEDICAL_TRX_INFORMATION)
-	@CrossOrigin
+	@CrossOrigin(origins = "*", maxAge = 3600)
 	public ResponseEntity<SuccessResponse<MedicalTransactionUpdateResponse>> updateMedicalTransactionInformation(@RequestBody MedicalTransactionUpdateRequest request) throws ResourceNotFoundException {
 		MedicalTransactionUpdateResponse response = medicalTrxService.updateMedicalTransaction(request);
 		return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);
 	}
 
 	@DeleteMapping(value = UriConstants.URI_DELETE_MEDICAL_TRX_INFORMATION)
-	@CrossOrigin
+	@CrossOrigin(origins = "*", maxAge = 3600)
 	public ResponseEntity<SuccessResponse<MedicalTransactionDeleteByIdResponse>> deleteMedicalTrxById(@RequestBody TransactionDeleteByIdRequest request) {
 		MedicalTransactionDeleteByIdResponse response = medicalTrxService.deleteMedicalTransactionInformation(request);
 		return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);
 	}
 
 	@DeleteMapping(value = UriConstants.URI_DELETE_ALL_MEDICAL_TRX_INFORMATION)
-	@CrossOrigin
+	@CrossOrigin(origins = "*", maxAge = 3600)
 	public ResponseEntity<SuccessResponse<TransactionDeleteAllResponse>> deleteAllMedicalTransactions() {
 		TransactionDeleteAllResponse response = medicalTrxService.deleteAllMedicalTransactions();
 		return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);

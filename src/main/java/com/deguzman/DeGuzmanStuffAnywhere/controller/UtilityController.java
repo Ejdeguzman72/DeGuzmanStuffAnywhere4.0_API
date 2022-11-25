@@ -15,64 +15,64 @@ import org.springframework.web.bind.annotation.RestController;
 import com.deguzman.DeGuzmanStuffAnywhere.dto.UtilityInfoDTO;
 import com.deguzman.DeGuzmanStuffAnywhere.model.Utility;
 import com.deguzman.DeGuzmanStuffAnywhere.service.UtilityService;
+import com.deguzman.DeGuzmanStuffAnywhere.util.UriConstants;
 
 @RestController
-@RequestMapping("/app/utility-information")
 @CrossOrigin
 public class UtilityController {
 
 	@Autowired
 	private UtilityService utilityService;
 
-	@GetMapping("/all")
+	@GetMapping(value = UriConstants.URI_GET_UTILITY_LIST)
 	@CrossOrigin
 	public List<UtilityInfoDTO> getAllUtilityInformation() {
 		return utilityService.findAllUtilityInformation();
 	}
 
-	@GetMapping("/dueDate")
+	@GetMapping(value = UriConstants.URI_GET_UTILITY_BY_DUE_DATE)
 	@CrossOrigin
 	public List<UtilityInfoDTO> getUtilityInformationByDueDate(@PathVariable String dueDate) {
 		return utilityService.findUtilityInformationByDueDate(dueDate);
 	}
 
-	@GetMapping("/utility/{utility_id}")
+	@GetMapping(value = UriConstants.URI_GET_UTILITY_BY_ID)
 	@CrossOrigin
 	public ResponseEntity<UtilityInfoDTO> getUtilityInformationById(@PathVariable long utility_id) {
 		return utilityService.findUtilityInformationById(utility_id);
 	}
 
-	@GetMapping("/utility/name/{name}")
+	@GetMapping(value = UriConstants.URI_GET_UTILITY_BY_NAME)
 	@CrossOrigin
 	public ResponseEntity<UtilityInfoDTO> getUtilityInformationByName(@PathVariable String name) {
 		return utilityService.findUtilityInformationByName(name);
 	}
 
-	@GetMapping("/utility/utility-type/{utility_type_id}")
+	@GetMapping(value = UriConstants.URI_GET_UTILITY_BY_TYPE)
 	@CrossOrigin
 	public ResponseEntity<UtilityInfoDTO> getUtilityInformationByType(@PathVariable int utility_type_id) {
 		return utilityService.findUtilityInformationByType(utility_type_id);
 	}
 
-	@GetMapping("/get-utility-count")
+	@GetMapping(value = UriConstants.URI_GET_UTILITY_COUNT)
 	@CrossOrigin
 	public long getCountOfUtilities() {
 		return utilityService.findUtilityCount();
 	}
 
-	@GetMapping("/add-utility-information")
+	@GetMapping(value = UriConstants.URI_ADD_UTILITY_INFORMATION)
 	@CrossOrigin
 	public int addUtilityInformation(@RequestBody Utility utility) {
 		return utilityService.addUtilityInformation(utility);
 	}
 
-	@DeleteMapping("/utility/{utility_id}")
+	@DeleteMapping(value = UriConstants.URI_DELETE_UTILITY_INFORMATION)
 	@CrossOrigin
 	public int deleteUtilityInformationById(@PathVariable long utility_id) {
 		return utilityService.deleteUtilityInformation(utility_id);
 	}
 
-	@DeleteMapping("/delete-all-utilties")
+	@DeleteMapping(value = UriConstants.URI_DELETE_ALL_UTILITY_INFORMATION)
 	@CrossOrigin
 	public int deleteAllUtilityInformation() {
 		return utilityService.deleteAllUtilityInformation();

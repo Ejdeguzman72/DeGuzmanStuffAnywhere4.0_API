@@ -17,6 +17,13 @@ import com.deguzman.DeGuzmanStuffAnywhere.daoimpl.PostDaoImpl;
 import com.deguzman.DeGuzmanStuffAnywhere.dto.PostDTO;
 import com.deguzman.DeGuzmanStuffAnywhere.jpa_dao.PostsJpaDao;
 import com.deguzman.DeGuzmanStuffAnywhere.jpa_model.Post;
+import com.deguzman.DeGuzmanStuffAnywhere.util.AppConstants;
+import com.deguzman.domain_social_media.SocialMediaAddRequest;
+import com.deguzman.domain_social_media.SocialMediaAddResponse;
+import com.deguzman.domain_social_media.SocialMediaDeleteByIdRequest;
+import com.deguzman.domain_social_media.SocialMediaDeleteByIdResponse;
+import com.deguzman.domain_social_media.SocialMediaListResponse;
+import com.deguzman.domain_social_media.SocialMediaSearchByUserIdRequest;
 
 @Service
 public class PostsService {
@@ -27,8 +34,17 @@ public class PostsService {
 	@Autowired
 	private PostsJpaDao postDao;
 	
-	public List<PostDTO> findAllPosts() {
-		return postDaoImpl.findAllPosts();
+	public SocialMediaListResponse findAllPosts() {
+		SocialMediaListResponse response = new SocialMediaListResponse();
+		List<PostDTO> list = postDaoImpl.findAllPosts();
+		
+		response.setList(list);
+		response.setSize(list.size());
+		response.setDescription(AppConstants.GET_AUTOSHOP_LIST_DESCR);
+		response.setStatusCode(String.valueOf(AppConstants.HTTP_STATUS_OK));
+		response.setMessage(AppConstants.GET_AUTOSHOP_LIST_MSG);
+		
+		return response;
 	}
 	
 	public ResponseEntity<Map<String, Object>> findAllPostsPagination(
@@ -65,15 +81,46 @@ public class PostsService {
 		}
 	}
 	
-	public List<PostDTO> findPostsByUser(long user_id) {
-		return postDaoImpl.findPostsByUser(user_id);
+	public SocialMediaListResponse findPostsByUser(SocialMediaSearchByUserIdRequest request) {
+		SocialMediaListResponse response = new SocialMediaListResponse();
+		List<PostDTO> list = postDaoImpl.findPostsByUser(request.getUserid());
+		
+		response.setList(list);
+		response.setSize(list.size());
+		response.setDescription(AppConstants.GET_AUTOSHOP_LIST_DESCR);
+		response.setStatusCode(String.valueOf(AppConstants.HTTP_STATUS_OK));
+		response.setMessage(AppConstants.GET_AUTOSHOP_LIST_MSG);
+		
+		return response;
 	}
 	
-	public int addPost(com.deguzman.DeGuzmanStuffAnywhere.model.Post post) {
-		return postDaoImpl.addPost(post);
+	public SocialMediaAddResponse addPost(SocialMediaAddRequest request) {
+		SocialMediaAddResponse response = new SocialMediaAddResponse();
+		com.deguzman.DeGuzmanStuffAnywhere.model.Post post = new com.deguzman.DeGuzmanStuffAnywhere.model.Post();
+		int recordsAdded = postDaoImpl.addPost(request);
+		
+		post.setContent(request.getContent());
+		post.setCreatedDate(request.getCreatedDate());
+		post.setUser_id(request.getUser_id());
+		
+		response.setPost(post);
+		response.setRecordsAdded(recordsAdded);
+		response.setDescription(AppConstants.ADD_SOCIAL_MEDIA_INFORMATION_DESCR);
+		response.setStatusCode(String.valueOf(AppConstants.HTTP_STATUS_OK));
+		response.setMessage(AppConstants.ADD_SOCIAL_MEDIA_INFORMATION_MSG);
+		
+		return response;
 	}
 	
-	public int deletePost(int post_id) {
-		return postDaoImpl.deletePost(post_id);
+	public SocialMediaDeleteByIdResponse deletePost(SocialMediaDeleteByIdRequest request) {
+		SocialMediaDeleteByIdResponse response = new SocialMediaDeleteByIdResponse();
+		int deletedRecords = postDaoImpl.deletePost(request.getPostId());
+		
+		response.setDeleted(deletedRecords);
+		response.setDescription(AppConstants.DELETE_SOCIAL_MEDIA_INFORMATION_DESCR);
+		response.setStatusCode(String.valueOf(AppConstants.HTTP_STATUS_OK));
+		response.setMessage(AppConstants.DELETE_SOCIAL_MEDIA_INFORMATION_MSG);
+		
+		return response;
 	}
 }

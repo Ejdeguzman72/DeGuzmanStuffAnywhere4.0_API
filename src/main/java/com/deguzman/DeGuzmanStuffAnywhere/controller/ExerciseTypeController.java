@@ -12,23 +12,23 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.deguzman.DeGuzmanStuffAnywhere.daoimpl.ExerciseTypeDaoImpl;
 import com.deguzman.DeGuzmanStuffAnywhere.model.ExerciseType;
+import com.deguzman.DeGuzmanStuffAnywhere.util.UriConstants;
 
 @RestController
-@RequestMapping("/app/exercise-type")
-@CrossOrigin
+@CrossOrigin(origins = "*", maxAge = 3600)
 public class ExerciseTypeController {
 
 	@Autowired
 	private ExerciseTypeDaoImpl exerciseTypeDaoImpl;
 
-	@GetMapping("/all")
-	@CrossOrigin
+	@GetMapping(value = UriConstants.URI_GET_EXERCISE_TYPE_LIST)
+	@CrossOrigin(origins = "*", maxAge = 3600)
 	public List<ExerciseType> getAllExerciseTypeInformation() {
 		return exerciseTypeDaoImpl.findAllExerciseTypeInformation();
 	}
 
-	@GetMapping("/type/{exercise_type_id}")
-	@CrossOrigin
+	@GetMapping(value = UriConstants.URI_GET_EXERCISE_TYPE_BY_ID)
+	@CrossOrigin(origins = "*", maxAge = 3600)
 	public ResponseEntity<ExerciseType> getExerciseTypeById(@PathVariable int exercise_type_id) {
 		return exerciseTypeDaoImpl.findExerciseTypeInformationById(exercise_type_id);
 	}

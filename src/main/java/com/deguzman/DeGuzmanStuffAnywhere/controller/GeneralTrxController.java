@@ -34,41 +34,42 @@ import com.deguzman.domain_financial.TransactionDeleteAllResponse;
 import com.deguzman.domain_financial.TransactionDeleteByIdRequest;
 
 @RestController
-@CrossOrigin
+@CrossOrigin(origins = "*", maxAge = 3600)
 public class GeneralTrxController {
 
 	@Autowired
 	private GeneralTrxService generalTrxService;
 
 	@GetMapping(value = UriConstants.URI_GET_GENERAL_TRX_LIST)
-	@CrossOrigin
+	@CrossOrigin(origins = "*", maxAge = 3600)
 	public ResponseEntity<SuccessResponse<GeneralTrxListResponse>> getAllGeneralTransactionInformation() {
 		GeneralTrxListResponse response = generalTrxService.findAllTransactionInformation();
 		return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);
 	}
 	
 	@GetMapping(value = UriConstants.URI_GET_GENERAL_TRX_LIST_PAGINATION)
+	@CrossOrigin(origins = "*", maxAge = 3600)
 	public ResponseEntity<Map<String, Object>> getAllTransactionsPagination(@RequestParam(required = false) String paymentDate,
 			@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
 		return generalTrxService.getAllTransactionsPagination(paymentDate, page, size);
 	}
 
 	@GetMapping(value = UriConstants.URI_GET_GENERAL_TRX_BY_TYPE)
-	@CrossOrigin
+	@CrossOrigin(origins = "*", maxAge = 3600)
 	public ResponseEntity<SuccessResponse<GeneralTrxListResponse>> getTransactionsByType(@RequestBody GeneralTrxSearchByTypeRequest request) {
 		GeneralTrxListResponse response = generalTrxService.findTransactionsByType(request);
 		return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);
 	}
 
 	@GetMapping(value = UriConstants.URI_GET_GENERAL_TRX_BY_USER)
-	@CrossOrigin
+	@CrossOrigin(origins = "*", maxAge = 3600)
 	public ResponseEntity<SuccessResponse<GeneralTrxListResponse>> getTransactionsByUser(@RequestBody GeneralTrxSearchByUserRequest request) {
 		GeneralTrxListResponse response = generalTrxService.findTransactionsByUser(request);
 		return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);
 	}
 
 	@GetMapping(value = UriConstants.URI_GET_GENERAL_TRX_DTO_BY_ID)
-	@CrossOrigin
+	@CrossOrigin(origins = "*", maxAge = 3600)
 	public ResponseEntity<SuccessResponse<GeneratlTrxDTOSearchResponse>> getTrxInformationDTOById(@RequestBody GeneralTrxSearchByIdRequest request)
 			throws ResourceNotFoundException {
 		GeneratlTrxDTOSearchResponse response = generalTrxService.findTranactionInformationDTOById(request);
@@ -111,7 +112,7 @@ public class GeneralTrxController {
 	}
 
 	@DeleteMapping(value = UriConstants.URI_DELETE_ALL_GENERAL_TRX_INFORMATION)
-	@CrossOrigin
+	@CrossOrigin(origins = "*", maxAge = 3600)
 	public ResponseEntity<SuccessResponse<TransactionDeleteAllResponse>> deleteAllTransactions() {
 		TransactionDeleteAllResponse response = generalTrxService.deleteAllTransactions();
 		return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);

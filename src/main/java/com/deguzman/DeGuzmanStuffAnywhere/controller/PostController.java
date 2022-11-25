@@ -1,56 +1,63 @@
 package com.deguzman.DeGuzmanStuffAnywhere.controller;
 
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.deguzman.DeGuzmanStuffAnywhere.dto.PostDTO;
-import com.deguzman.DeGuzmanStuffAnywhere.model.Post;
 import com.deguzman.DeGuzmanStuffAnywhere.service.PostsService;
+import com.deguzman.DeGuzmanStuffAnywhere.util.UriConstants;
+import com.deguzman.domain.SuccessResponse;
+import com.deguzman.domain_social_media.SocialMediaAddRequest;
+import com.deguzman.domain_social_media.SocialMediaAddResponse;
+import com.deguzman.domain_social_media.SocialMediaDeleteByIdRequest;
+import com.deguzman.domain_social_media.SocialMediaDeleteByIdResponse;
+import com.deguzman.domain_social_media.SocialMediaListResponse;
+import com.deguzman.domain_social_media.SocialMediaSearchByUserIdRequest;
 
 @RestController
-@RequestMapping("/app/posts")
 @CrossOrigin
 public class PostController {
 	
 	@Autowired
 	private PostsService socialMediaService;
 	
-	@GetMapping("/all")
-	public List<PostDTO> getAllPosts() {
-		return socialMediaService.findAllPosts();
+	@GetMapping(value = UriConstants.URI_GET_SOCIAL_MEDIA_LIST)
+	public ResponseEntity<SuccessResponse<SocialMediaListResponse>> getAllPosts() {
+		SocialMediaListResponse response = socialMediaService.findAllPosts();
+		return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);
 	}
 	
-	@GetMapping("/all-posts")
+	@GetMapping(value = UriConstants.URI_GET_SOCIAL_MEDIA_LIST_PAGINATION)
 	public ResponseEntity<Map<String, Object>> findAllPostsPagination(
 			@RequestParam(required = false) String content, @RequestParam(defaultValue = "0") int page,
 			@RequestParam(defaultValue = "10") int size) {
 		return socialMediaService.findAllPostsPagination(content, page, size);
 	}
 	
-	@GetMapping("/user/{user_id}")
-	public List<PostDTO> getPostsByUser(@PathVariable long user_id) {
-		return socialMediaService.findPostsByUser(user_id);
+	@GetMapping(value = UriConstants.URI_GET_SOCIAL_MEDIA_BY_ID)
+	public ResponseEntity<SuccessResponse<SocialMediaListResponse>> getPostsByUser(@RequestBody SocialMediaSearchByUserIdRequest request) {
+		SocialMediaListResponse response = socialMediaService.findPostsByUser(request);
+		return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);
 	}
 	
-	@PostMapping("/add-post")
-	public int addPostInformation(@RequestBody Post post) {
-		return socialMediaService.addPost(post);
+	@PostMapping(value = UriConstants.URI_ADD_SOCIAL_MEDIA_INFORMATION)
+	public ResponseEntity<SuccessResponse<SocialMediaAddResponse>> addPostInformation(@RequestBody SocialMediaAddRequest request) {
+		SocialMediaAddResponse response = socialMediaService.addPost(request);
+		return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);
 	}
 	
-	@DeleteMapping("/post/{post_id}")
-	public int deletePostInformation(@PathVariable int post_id) {
-		return socialMediaService.deletePost(post_id);
+	@DeleteMapping(value = UriConstants.URI_DELETE_SOCIAL_MEDIA_INFORMATION)
+	public ResponseEntity<SuccessResponse<SocialMediaDeleteByIdResponse>> deletePostInformation(@RequestBody SocialMediaDeleteByIdRequest request) {
+		SocialMediaDeleteByIdResponse response = socialMediaService.deletePost(request);
+		return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);
 	}
 }

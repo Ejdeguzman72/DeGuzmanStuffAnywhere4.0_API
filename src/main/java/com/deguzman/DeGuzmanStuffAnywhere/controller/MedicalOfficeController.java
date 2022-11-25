@@ -32,21 +32,21 @@ import com.deguzman.domain_entity.MedicalOfficeUpdateResponse;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@CrossOrigin
+@CrossOrigin(origins = "*", maxAge = 3600)
 public class MedicalOfficeController {
 
 	@Autowired
 	private MedicalOfficeService medOfficeService;
 
 	@GetMapping(value = UriConstants.URI_GET_MEDICAL_OFFICE_LIST)
-	@CrossOrigin
+	@CrossOrigin(origins = "*", maxAge = 3600)
 	public ResponseEntity<SuccessResponse<MedicalOfficeListResponse>> getAllMedicalOfficeInformation() {
 		MedicalOfficeListResponse response = medOfficeService.findAllmedicalOfficeInformation();
 		return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);
 	}
 
 	@GetMapping(value = UriConstants.URI_GET_MEDICAL_OFFICE_LIST_PAGINATION)
-	@CrossOrigin
+	@CrossOrigin(origins = "*", maxAge = 3600)
 	public ResponseEntity<Map<String, Object>> getAllMedicalOfficesPagination(
 			@RequestParam(required = false) String name, @RequestParam(defaultValue = "0") int page,
 			@RequestParam(defaultValue = "10") int size) {
@@ -54,48 +54,48 @@ public class MedicalOfficeController {
 	}
 
 	@GetMapping(value = UriConstants.URI_GET_MEDICAL_OFFICE_BY_ZIP)
-	@CrossOrigin
+	@CrossOrigin(origins = "*", maxAge = 3600)
 	public ResponseEntity<SuccessResponse<MedicalOfficeListResponse>> getAllMedicalOfficeInformationByZipCode(@RequestBody MedicalOfficeSearchByZipRequest request) {
 		MedicalOfficeListResponse response = medOfficeService.findMedicalofficesByZip(request);
 		return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);
 	}
 
 	@GetMapping(value = UriConstants.URI_GET_MEDICAL_OFFICE_BY_ID)
-	@CrossOrigin
+	@CrossOrigin(origins = "*", maxAge = 3600)
 	public ResponseEntity<SuccessResponse<MedicalOfficeSearchResponse>> getMedicalOfficeInformationById(@RequestBody MedicalOfficeSearchByIdRequest request) {
 		MedicalOfficeSearchResponse response = medOfficeService.findMedicalOfficeInformationById(request);
 		return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);
 	}
 
 	@GetMapping(value = UriConstants.URI_GET_MEDICAL_OFFICE_COUNT)
-	@CrossOrigin
+	@CrossOrigin(origins = "*", maxAge = 3600)
 	public long getMedicalOfficeCount() {
 		return medOfficeService.getMedicalOfficeCount();
 	}
 
 	@PostMapping(value = UriConstants.URI_ADD_MEDICAL_OFFICE_INFORMATION)
-	@CrossOrigin
+	@CrossOrigin(origins = "*", maxAge = 3600)
 	public ResponseEntity<SuccessResponse<MedicalOfficeAddResponse>> addMedicalOfficeInformation(@RequestBody MedicalOfficeAddRequest request) throws DuplicateOfficeException {
 		MedicalOfficeAddResponse response = medOfficeService.addMedicalOfficeInformation(request);
 		return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);
 	}
 	
 	@PutMapping(value = UriConstants.URI_UPDATE_MEDICAL_OFFICE_INFORMATION)
-	@CrossOrigin
+	@CrossOrigin(origins = "*", maxAge = 3600)
 	public ResponseEntity<SuccessResponse<MedicalOfficeUpdateResponse>> updateMedicalOfficeInformation(@RequestBody MedicalOfficeUpdateRequest request) {
 		MedicalOfficeUpdateResponse response = medOfficeService.updateMedicalOfficeInformation(request);
 		return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);
 	}
 
 	@DeleteMapping(value = UriConstants.URI_DELETE_MEDICAL_OFFICE_INFORMATION)
-	@CrossOrigin
+	@CrossOrigin(origins = "*", maxAge = 3600)
 	public ResponseEntity<SuccessResponse<MedicalOfficeDeleteByIdResponse>> deleteMedicalOfficeById(@RequestBody MedicalOfficeDeleteByIdRequest request) {
 		MedicalOfficeDeleteByIdResponse response = medOfficeService.deleteMedicalOfficeById(request);
 		return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);
 	}
 
 	@DeleteMapping(value = UriConstants.URI_DELETE_ALL_MEDICAL_OFFICE_INFORMATION)
-	@CrossOrigin
+	@CrossOrigin(origins = "*", maxAge = 3600)
 	public ResponseEntity<SuccessResponse<MedicalOfficeDeleteAllResponse>> deleteAllMedicalOffices() {
 		MedicalOfficeDeleteAllResponse response = medOfficeService.deleteAllMedicalOfficeInformation();
 		return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);

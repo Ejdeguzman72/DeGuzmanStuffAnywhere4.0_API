@@ -1,12 +1,12 @@
-package com.deguzman.domain_social_media;
+package com.deguzman.domain_entity;
 
 import java.util.List;
 
-import com.deguzman.DeGuzmanStuffAnywhere.dto.PostDTO;
+import com.deguzman.DeGuzmanStuffAnywhere.dto.UtilityInfoDTO;
 
-public class SocialMediaListResponse {
+public class UtilityListResponse {
 
-	public List<PostDTO> list;
+	public List<UtilityInfoDTO> list;
 	
 	public int size;
 	
@@ -16,11 +16,11 @@ public class SocialMediaListResponse {
 	
 	public String description;
 
-	public List<PostDTO> getList() {
+	public List<UtilityInfoDTO> getList() {
 		return list;
 	}
 
-	public void setList(List<PostDTO> list) {
+	public void setList(List<UtilityInfoDTO> list) {
 		this.list = list;
 	}
 

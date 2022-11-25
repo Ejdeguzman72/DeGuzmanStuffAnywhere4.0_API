@@ -10,16 +10,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.deguzman.DeGuzmanStuffAnywhere.authentication_models.User;
 import com.deguzman.DeGuzmanStuffAnywhere.service.UserService;
+import com.deguzman.DeGuzmanStuffAnywhere.util.UriConstants;
 
 @RestController
-@RequestMapping("/app/users")
 @CrossOrigin
 public class UsersController {
 
 	@Autowired
 	private UserService userService;
 	
-	@GetMapping("/all")
+	@GetMapping(value = UriConstants.URI_GET_ALL_USER_INFORMATION)
 	public List<User> getAllUserInformation() {
 		return userService.findAllUsersInformation();
 	}

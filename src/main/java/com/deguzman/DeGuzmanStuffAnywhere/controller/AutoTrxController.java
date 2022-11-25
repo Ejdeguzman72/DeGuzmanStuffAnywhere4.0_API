@@ -39,7 +39,7 @@ import com.deguzman.domain_financial.AutoTrxSearchResponse;
 import com.deguzman.domain_financial.TransactionDeleteAllResponse;
 
 @RestController
-@CrossOrigin
+@CrossOrigin(origins = "*", maxAge = 3600)
 public class AutoTrxController {
 	
 	@Autowired
@@ -53,34 +53,35 @@ public class AutoTrxController {
 	}
 	
 	@GetMapping(value = UriConstants.URI_GET_AUTO_TRX_LIST_PAGINATION)
+	@CrossOrigin(origins = "*", maxAge = 3600)
 	public ResponseEntity<Map<String, Object>> getAllTransactionsPagination(@RequestParam(required = false) String paymentDate,
 			@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
 		return autoTrxService.getAllTransactionsPagination(paymentDate, page, size);
 	}
 
 	@GetMapping(value = UriConstants.URI_GET_AUTO_TRX_BY_VEHICLE)
-	@CrossOrigin
+	@CrossOrigin(origins = "*", maxAge = 3600)
 	public ResponseEntity<SuccessResponse<AutoTrxListResponse>> getAutoTransactionsByVehicle(@RequestBody AutoTrxSearchByVehicleRequest request) {
 		AutoTrxListResponse response = autoTrxService.findAutoTransactionsByVehicle(request.getVehicleId());
 		return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);
 	}
 
 	@GetMapping(value = UriConstants.URI_GET_AUTO_TRX_BY_USER)
-	@CrossOrigin
+	@CrossOrigin(origins = "*", maxAge = 3600)
 	public ResponseEntity<SuccessResponse<AutoTrxListResponse>> getAutoTransactionsByUser(@RequestBody AutoTrxSearchByUserRequest request) {
 		AutoTrxListResponse response = autoTrxService.findAutoTransactionsByUser(request.getUserId());
 		return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);
 	}
 
 	@GetMapping(value = UriConstants.URI_GET_AUTO_TRX_BY_TYPE)
-	@CrossOrigin
+	@CrossOrigin(origins = "*", maxAge = 3600)
 	public ResponseEntity<SuccessResponse<AutoTrxListResponse>> getAutoTransactionsByType(@RequestBody AutoTrxSearchByTypeRequest request) {
 		AutoTrxListResponse response = autoTrxService.findAutoTransactionsByType(request.getTranactionTypeId());
 		return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);
 	}
 
 	@GetMapping(value = UriConstants.URI_GET_AUTO_TRX_DTO_BY_ID)
-	@CrossOrigin
+	@CrossOrigin(origins = "*", maxAge = 3600)
 	public ResponseEntity<SuccessResponse<AutoTrxSearchResponse>> getAutoTransactionDTOById(@RequestBody AutoTrxSearchByIdRequest request)
 			throws InvalidTransactionException {
 		AutoTrxSearchResponse response = autoTrxService.findAutoTransactionInformationDTOById(request.getTranactionId());
@@ -88,7 +89,7 @@ public class AutoTrxController {
 	}
 	
 	@GetMapping(value = UriConstants.URI_GET_AUTO_TRX_BY_ID)
-	@CrossOrigin
+	@CrossOrigin(origins = "*", maxAge = 3600)
 	public ResponseEntity<AutoTransaction> getAutoTransactionById(@PathVariable long auto_transaction_id)
 			throws InvalidTransactionException {
 		ResponseEntity<AutoTransaction> response = autoTrxService.findAutoTransactionInformationById(auto_transaction_id);
@@ -96,13 +97,13 @@ public class AutoTrxController {
 	}
 
 	@GetMapping(value = UriConstants.URI_GET_AUTO_TRX_COUNT)
-	@CrossOrigin
+	@CrossOrigin(origins = "*", maxAge = 3600)
 	public long getAutoTransactionCount() {
 		return autoTrxService.getCountOfAutoTransactions();
 	}
 
 	@PostMapping(value = UriConstants.URI_ADD_AUTO_TRX_INFORMATION)
-	@CrossOrigin
+	@CrossOrigin(origins = "*", maxAge = 3600)
 	public ResponseEntity<SuccessResponse<AutoTransactionAddResponse>> addAutoTransactionInformation(@RequestBody AutoTransactionAddRequest request)
 			throws InvalidAutoShopException, InvalidUserException, InvalidTransactionTypeException,
 			InvalidVehicleException {
@@ -111,21 +112,21 @@ public class AutoTrxController {
 	}
 	
 	@PutMapping(value = UriConstants.URI_UPDATE_AUTO_TRX_INFORMATION)
-	@CrossOrigin
+	@CrossOrigin(origins = "*", maxAge = 3600)
 	public ResponseEntity<SuccessResponse<AutoTransactionUpdateResponse>> updateAutoTransactionInformation(@RequestBody AutoTransactionUpdateRequest request) throws InvalidAutoShopException, InvalidVehicleException, InvalidTransactionTypeException, InvalidUserException {
 		AutoTransactionUpdateResponse response = autoTrxService.updateTransactionInformation(request);
 		return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);
 	}
 
 	@DeleteMapping(value = UriConstants.URI_DELETE_AUTO_TRX_INFORMATION)
-	@CrossOrigin
+	@CrossOrigin(origins = "*", maxAge = 3600)
 	public ResponseEntity<SuccessResponse<AutoTransactionDeleteByIdResponse>> deleteAutoTransactionById(@RequestBody AutoShopDeleteByIdRequest request) {
 		AutoTransactionDeleteByIdResponse response =  autoTrxService.deleteAutoTransactionInformation(request);
 		return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);
 	}
 
 	@DeleteMapping(value = UriConstants.URI_DELETE_ALL_AUTO_TRX_INFORMATION)
-	@CrossOrigin
+	@CrossOrigin(origins = "*", maxAge = 3600)
 	public ResponseEntity<SuccessResponse<TransactionDeleteAllResponse>> deleteAllAutoTransactions() {
 		TransactionDeleteAllResponse response = autoTrxService.deleteAllAutoTransactions();
 		return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);

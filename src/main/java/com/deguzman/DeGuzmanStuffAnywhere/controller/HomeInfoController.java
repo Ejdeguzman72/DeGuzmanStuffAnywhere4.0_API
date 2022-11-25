@@ -10,17 +10,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.deguzman.DeGuzmanStuffAnywhere.daoimpl.HomeInfoDaoImpl;
 import com.deguzman.DeGuzmanStuffAnywhere.model.HomeInfo;
+import com.deguzman.DeGuzmanStuffAnywhere.util.UriConstants;
 
 @RestController
-@RequestMapping("/app/home-info")
-@CrossOrigin
+@CrossOrigin(origins = "*", maxAge = 3600)
 public class HomeInfoController {
 
 	@Autowired
 	private HomeInfoDaoImpl homeInfoDaoImpl;
 
-	@GetMapping("/all")
-	@CrossOrigin
+	@GetMapping(value = UriConstants.URI_GET_HOME_INFO)
+	@CrossOrigin(origins = "*", maxAge = 3600)
 	public List<HomeInfo> getAllHomeInformation() {
 		return homeInfoDaoImpl.getAllHomeInfo();
 	}

@@ -32,77 +32,77 @@ import com.deguzman.domain_fitness_app.ExerciseUpdateResponse;
 import com.deguzman.domain_fitness_app.ModelExerciseSearchResponse;
 
 @RestController
-@CrossOrigin
+@CrossOrigin(origins = "*", maxAge = 3600)
 public class ExerciseController {
 	
 	@Autowired
 	private ExerciseService exerciseInfoService;
 
 	@GetMapping(value = UriConstants.URI_GET_EXERCISE_LIST)
-	@CrossOrigin
+	@CrossOrigin(origins = "*", maxAge = 3600)
 	public ResponseEntity<SuccessResponse<ExerciseListResponse>> getAllExerciseInformation() {
 		ExerciseListResponse response = exerciseInfoService.findAllExerciseInformation();
 		return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);
 	}
 	
 	@GetMapping(value = UriConstants.URI_GET_EXERCISE_LIST_PAGINATION)
-	@CrossOrigin
+	@CrossOrigin(origins = "*", maxAge = 3600)
 	public ResponseEntity<Map<String, Object>> getAllExercisePagination(@RequestParam(required = false) String exerciseName,
 			@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
 		return exerciseInfoService.getAllExercisePagination(exerciseName, page, size);
 	}
 
 	@GetMapping(value = UriConstants.URI_GET_EXERCISE_BY_USER)
-	@CrossOrigin
+	@CrossOrigin(origins = "*", maxAge = 3600)
 	public ResponseEntity<SuccessResponse<ExerciseListResponse>> getExerciseInformationByUser(@RequestBody ExerciseSearchByUserRequest request) {
 		ExerciseListResponse response = exerciseInfoService.findExerciseInformationByUser(request);
 		return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);
 	}
 
 	@GetMapping(value = UriConstants.URI_GET_EXERCISE_BY_TYPE)
-	@CrossOrigin
+	@CrossOrigin(origins = "*", maxAge = 3600)
 	public ResponseEntity<SuccessResponse<ExerciseListResponse>> getExerciseInformationbyType(@RequestBody ExerciseSearchByTypeRequest request) {
 		ExerciseListResponse response = exerciseInfoService.findExerciseInformationByType(request);
 		return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);
 	}
 
 	@GetMapping(value = UriConstants.URI_GET_EXERCISE_BY_ID)
-	@CrossOrigin
+	@CrossOrigin(origins = "*", maxAge = 3600)
 	public ResponseEntity<SuccessResponse<ModelExerciseSearchResponse>> getExerciseById(@RequestBody ExerciseSearchByIdRequest request) {
 		ModelExerciseSearchResponse response = exerciseInfoService.findExerciseById(request);
 		return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);
 	}
 	
 	@GetMapping(value = UriConstants.URI_GET_EXERCISE_DTO_BY_ID)
-	@CrossOrigin
+	@CrossOrigin(origins = "*", maxAge = 3600)
 	public ResponseEntity<SuccessResponse<ExerciseSearchResponse>> getExerciseDTOById(@RequestBody ExerciseSearchByIdRequest request) {
 		ExerciseSearchResponse response = exerciseInfoService.findExerciseDTOById(request);
 		return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);
 	}
 
 	@PostMapping(value = UriConstants.URI_ADD_EXERCISE_INFORMATION)
-	@CrossOrigin
+	@CrossOrigin(origins = "*", maxAge = 3600)
 	public ResponseEntity<SuccessResponse<ExerciseAddResponse>> addExerciseInformation(@RequestBody ExerciseAddRequest request) {
 		ExerciseAddResponse response = exerciseInfoService.addExerciseInformation(request);
 		return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);
 	}
 	
 	@PutMapping(value = UriConstants.URI_UPDATE_EXERCISE_INFORMATION)
-	@CrossOrigin
+	@CrossOrigin(origins = "*", maxAge = 3600)
 	public ResponseEntity<SuccessResponse<ExerciseUpdateResponse>> updateExerciseInformation(@RequestBody ExerciseUpdateRequest request) {
 		ExerciseUpdateResponse response = exerciseInfoService.updateExerciseInformation(request);
 		return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);
 	}
 
 	@DeleteMapping(value = UriConstants.URI_DELETE_EXERCISE_INFORMATION)
-	@CrossOrigin
+	@CrossOrigin(origins = "*", maxAge = 3600)
 	public ResponseEntity<SuccessResponse<ExerciseDeleteByIdResponse>> deleteExerciseById(@RequestBody ExerciseDeleteByIdRequest request) {
 		ExerciseDeleteByIdResponse response = exerciseInfoService.deleteExerciseInformationbyId(request);
 		return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);
 	}
 
 	@DeleteMapping(value = UriConstants.URI_DELETE_ALL_EXERCISE_INFORMATION)
-	@CrossOrigin
+	@CrossOrigin(origins = "*", maxAge = 3600)
 	public ResponseEntity<SuccessResponse<ExerciseDeleteAllResponse>> deleteAllExercises() {
 		ExerciseDeleteAllResponse response = exerciseInfoService.deleteAllExerciseInformation();
 		return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);

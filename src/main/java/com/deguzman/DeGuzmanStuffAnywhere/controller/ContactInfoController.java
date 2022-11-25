@@ -36,14 +36,14 @@ import com.deguzman.domain.ContactUpdateResponse;
 import com.deguzman.domain.SuccessResponse;
 
 @RestController
-@CrossOrigin
+@CrossOrigin(origins = "*", maxAge = 3600)
 public class ContactInfoController {
 
 	@Autowired
 	private ContactService contactInfoService;
 
 	@GetMapping(value = UriConstants.URI_GET_CONTACT_LIST)
-	@CrossOrigin
+	@CrossOrigin(origins = "*", maxAge = 3600)
 	public ResponseEntity<SuccessResponse<ContactListResponse>> getAllPersonInfo() throws SecurityException, IOException {
 		ContactListResponse response = contactInfoService.findAllPersonInformation();
 		
@@ -51,14 +51,14 @@ public class ContactInfoController {
 	}
 
 	@GetMapping(value = UriConstants.URI_GET_CONTACT_LIST_PAGINATION)
-	@CrossOrigin
+	@CrossOrigin(origins = "*", maxAge = 3600)
 	public ResponseEntity<Map<String, Object>> getAllPersonsPagination(@RequestParam(required = false) String firstname,
 			@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
 		return contactInfoService.getAllPersonsPagination(firstname, page, size);
 	}
 
 	@GetMapping(value = UriConstants.URI_GET_CONTACT_BY_ID)
-	@CrossOrigin
+	@CrossOrigin(origins = "*", maxAge = 3600)
 	public ResponseEntity<SuccessResponse<ContactSearchResponse>> getPersonInformationById(@RequestBody ContactSearchByIdRequest request)
 			throws ResourceNotFoundException, SecurityException, IOException {
 		ContactSearchResponse response = contactInfoService.findPersonById(request);
@@ -66,56 +66,56 @@ public class ContactInfoController {
 	}
 
 	@GetMapping(value = UriConstants.URI_GET_CONTACT_BY_LASTNAME)
-	@CrossOrigin
+	@CrossOrigin(origins = "*", maxAge = 3600)
 	public ResponseEntity<SuccessResponse<ContactSearchResponse>> getPersonInformationByLastname(@RequestBody ContactSearchByLastnameRequest request) {
 		ContactSearchResponse response =  contactInfoService.findPersonByLastname(request);
 		return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);
 	}
 
 	@GetMapping(value = UriConstants.URI_GET_CONTACT_BY_EMAIL)
-	@CrossOrigin
+	@CrossOrigin(origins = "*", maxAge = 3600)
 	public ResponseEntity<SuccessResponse<ContactSearchResponse>> getPersonInformationByEmail(@RequestBody ContactSearchByEmailRequest request) {
 		ContactSearchResponse response = contactInfoService.findPersonByEmail(request);
 		return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);
 	}
 
 	@GetMapping(value = UriConstants.URI_GET_CONTACT_BY_PHONE)
-	@CrossOrigin
+	@CrossOrigin(origins = "*", maxAge = 3600)
 	public ResponseEntity<SuccessResponse<ContactSearchResponse>> getPersonInformationByPhone(@RequestBody ContactSearchByPhoneRequest request) {
 		ContactSearchResponse response = contactInfoService.findPersonByPhone(request);
 		return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);
 	}
 
 	@GetMapping(value = UriConstants.URI_GET_CONTACT_COUNT)
-	@CrossOrigin
+	@CrossOrigin(origins = "*", maxAge = 3600)
 	public ResponseEntity<SuccessResponse<ContactCountResponse>> getCountOfPersonInfo() {
 		ContactCountResponse response= contactInfoService.getCountofPersonInformation();
 		return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);
 	}
 
 	@PostMapping(value = UriConstants.URI_ADD_CONTACT_INFORMATION)
-	@CrossOrigin
+	@CrossOrigin(origins = "*", maxAge = 3600)
 	public ResponseEntity<SuccessResponse<ContactAddResponse>> saveContactInformation(@RequestBody ContactAddRequest request) throws SecurityException, IOException, DuplicateContactException {
 		ContactAddResponse response = contactInfoService.addPersonInformation(request);
 		return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);
 	}
 	
 	@PutMapping(value = UriConstants.URI_UPDATE_CONTACT_INFORMATION)
-	@CrossOrigin
+	@CrossOrigin(origins = "*", maxAge = 3600)
 	public ResponseEntity<SuccessResponse<ContactUpdateResponse>> updateContactInformation(@RequestBody ContactUpdateRequest request) throws SecurityException, IOException, ResourceNotFoundException {
 		ContactUpdateResponse response = contactInfoService.updatePersonInformation(request);
 		return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);
 	}
 
 	@DeleteMapping(value = UriConstants.URI_DELETE_ALL_CONTACT_INFORMATION)
-	@CrossOrigin
+	@CrossOrigin(origins = "*", maxAge = 3600)
 	public ResponseEntity<SuccessResponse<ContactDeleteAllResponse>> deleteAllContactInformation() {
 		ContactDeleteAllResponse response = contactInfoService.deleteAllPersonInformation();
 		return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);
 	}
 
 	@DeleteMapping(value = UriConstants.URI_DELETE_CONTACT_INFORMATION)
-	@CrossOrigin
+	@CrossOrigin(origins = "*", maxAge = 3600)
 	public ResponseEntity<SuccessResponse<ContactDeleteResponse>> deleteContactInformation(@RequestBody ContactDeleteByIdRequest request) throws SecurityException, IOException, ResourceNotFoundException {
 		ContactDeleteResponse response = contactInfoService.deletePersonInformation(request);
 		return new ResponseEntity<>(new SuccessResponse<>(response), HttpStatus.OK);

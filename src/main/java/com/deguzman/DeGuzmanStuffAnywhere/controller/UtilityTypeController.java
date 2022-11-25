@@ -11,32 +11,32 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.deguzman.DeGuzmanStuffAnywhere.daoimpl.UtilityTypeDaoImpl;
 import com.deguzman.DeGuzmanStuffAnywhere.model.UtilityType;
+import com.deguzman.DeGuzmanStuffAnywhere.util.UriConstants;
 
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/app/utility-types")
 @CrossOrigin
 public class UtilityTypeController {
 
 	@Autowired
 	private UtilityTypeDaoImpl utilityTypeDaoImpl;
 
-	@GetMapping("/all")
+	@GetMapping(value = UriConstants.URI_GET_UTILITY_TYPE_LIST)
 	@CrossOrigin
 	public List<UtilityType> getAllUtilityTypes() {
 		return utilityTypeDaoImpl.findAllUtilityTypes();
 	}
 
-	@GetMapping("/utility-type/{utility_type_id}")
+	@GetMapping(value = UriConstants.URI_GET_UTILITY_TYPE_BY_ID)
 	@CrossOrigin
 	public ResponseEntity<UtilityType> getUtilityTypeInformationById(@PathVariable int utility_type_id) {
 		return utilityTypeDaoImpl.findUtilityInformationById(utility_type_id);
 	}
 
-	@GetMapping("/utility-type/descr/{utility_type_descr}")
+	@GetMapping(value = UriConstants.URI_GET_UTILITY_TYPE_BY_DESCR)
 	@CrossOrigin
 	public ResponseEntity<UtilityType> getUtilityInformationByDescr(@PathVariable String utility_type_descr) {
-		return utilityTypeDaoImpl.findUtilityInformationByDescr(utility_type_descr);
+		return utilityTypeDaoImpl.findUtilityInformationByDescr(utility_type_descr); 
 	}
 }

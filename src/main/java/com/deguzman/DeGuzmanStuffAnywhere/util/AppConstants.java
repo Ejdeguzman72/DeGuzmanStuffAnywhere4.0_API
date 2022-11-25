@@ -85,6 +85,7 @@ public class AppConstants {
 	public static String DELETE_ALL_AUTOSHOP_INFORMATION_DESCR = "DELETE ALL AUTOSHOP INFORMATION";
 		
 	public static String DELETE_ALL_AUTOSHOP_INFORMATION_MSG = "Deleteing automotive repair shop information by autoShopId";
+	 
 	
 	// Books descr and msgs
 	
@@ -393,6 +394,24 @@ public class AppConstants {
 	
 	public static String DELETE_ALL_RESTAURANT_INFORMATION_MSG = "Deleting all restaurant information based on ID";
 	
+	// Social Media descr and msgs
+	
+	public static String GET_SOCIAL_MEDIA_LIST_DESCR = "GET SOCIAL_MEDIA LIST";
+		
+	public static String GET_SOCIAL_MEDIA_LIST_MSG = "Retrieving all social media posts from database";
+		
+	public static String FIND_SOCIAL_MEDIA_BY_ID_DESCR = "FIND SOCIAL_MEDIA BY USER";
+		
+	public static String FIND_SOCIAL_MEDIA_BY_ID_MSG = "Searching social media information with user ID";
+		
+	public static String ADD_SOCIAL_MEDIA_INFORMATION_DESCR = "ADD SOCIAL_MEDIA INFORMATION";
+		
+	public static String ADD_SOCIAL_MEDIA_INFORMATION_MSG = "Inserting new social media information";
+		
+	public static String DELETE_SOCIAL_MEDIA_INFORMATION_DESCR = "DELETE SOCIAL_MEDIA BY BOOKID";
+		
+	public static String DELETE_SOCIAL_MEDIA_INFORMATION_MSG = "Deleteing social media information by bookId";
+	
 	// Music Information Library messages and description 
 	
 	public static String GET_MUSIC_LIST_DESCR = "GET MUSIC LIST";
@@ -430,4 +449,42 @@ public class AppConstants {
 	public static String DELETE_ALL_MUSIC_INFORMATION_DESCR = "DELETE ALL MUSIC INFORMATION";
 	
 	public static String DELETE_ALL_MUSIC_INFORMATION_MSG = "Deleting all music information based on ID";
+	
+	// Utility Information MSG and Descr
+	
+	public static String GET_UTILITY_LIST_DESCR = "GET UTILITY LIST";
+	
+	public static String GET_UTILITY_LIST_MSG = "Retrieving all utility information from database";
+	
+	public static String GET_UTILITY_BY_ID_DESCR = "GET UTILITY BY ID";
+	
+	public static String GET_UTILITY_BY_ID_MSG = "Retrieving all utility information from database based off restaurantId";
+	
+	public static String GET_UTILITY_BY_DUE_DATE_DESCR = "GET UTILITY BY DUE DATE";
+	
+	public static String GET_UTILITY_BY_DUE_DATE_MSG = "Retrieving all UTILITY information from database based off due date";
+	
+	public static String GET_UTILITY_LIST_BY_TITLE_DESCR = "GET MUSIC BY TITLE";
+	
+	public static String GET_UTILITY_LIST_BY_TITLE_MSG = "Retrieving music information from database by title";
+	
+	public static String GET_UTILITY_LIST_BY_ARTIST_DESCR = "GET MUSIC LIST BY ARTIST";
+	
+	public static String GET_UTILITY_LIST_BY_ARTIST_MSG = "Retrieving music information from database by artist";
+	
+	public static String ADD_UTILITY_INFORMATION_DESCR = "ADD MUSIC INFORMATION";
+	
+	public static String ADD_UTILITY_INFORMATION_MSG = "Inserting new music information";
+	
+	public static String UPDATE_UTILITY_INFORMATION_DESCR = "UPDATE MUSIC INFORMATION";
+	
+	public static String UPDATE_UTILITY_INFORMATION_MSG = "Updating music information based on ID";
+	
+	public static String DELETE_UTILITY_INFORMATION_DESCR = "DELETE MUSIC INFORMATION";
+	
+	public static String DELETE_UTILITY_INFORMATION_MSG = "Deleting music information based on ID";
+	
+	public static String DELETE_ALL_UTILITY_INFORMATION_DESCR = "DELETE ALL MUSIC INFORMATION";
+	
+	public static String DELETE_ALL_UTILITY_INFORMATION_MSG = "Deleting all music information based on ID";
 }
