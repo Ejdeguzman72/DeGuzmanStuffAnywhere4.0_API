@@ -79,34 +79,34 @@ public class UtilityDaoImpl implements UtilityDao {
 
 	@Override
 	@Cacheable(value = "utilityById", key = "#utility_id")
-	public ResponseEntity<UtilityInfoDTO> findUtilityInformationById(long utility_id) {
-		UtilityInfoDTO utilityInfo = jdbcTemplate.queryForObject(GET_UTILITY_INFORMATION_BY_ID,
-				BeanPropertyRowMapper.newInstance(UtilityInfoDTO.class), utility_id);
+	public Utility findUtilityInformationById(long utility_id) {
+		Utility utilityInfo = jdbcTemplate.queryForObject(GET_UTILITY_INFORMATION_BY_ID,
+				BeanPropertyRowMapper.newInstance(Utility.class), utility_id);
 
 		LOGGER.info("Retrieved Utility Information with ID: " + " " + utility_id + " " + utilityInfo.getName());
 
-		return ResponseEntity.ok().body(utilityInfo);
+		return utilityInfo;
 	}
 
 	@Override
-	public ResponseEntity<UtilityInfoDTO> findUtilityInformationByName(String name) {
+	public UtilityInfoDTO findUtilityInformationByName(String name) {
 		UtilityInfoDTO utilityInfo = jdbcTemplate.queryForObject(GET_UTILITY_INFORMATION_BY_NAME,
 				BeanPropertyRowMapper.newInstance(UtilityInfoDTO.class), name);
 
 		LOGGER.info("Retrieved Utility Information by name: " + utilityInfo.getName());
 
-		return ResponseEntity.ok().body(utilityInfo);
+		return utilityInfo;
 	}
 
 	@Override
-	public ResponseEntity<UtilityInfoDTO> findUtilityInformationByType(int utility_type_id) {
+	public UtilityInfoDTO findUtilityInformationByType(int utility_type_id) {
 		UtilityInfoDTO utilityInfo = jdbcTemplate.queryForObject(GET_UTILITY_INFORMATION_BY_TYPE,
 				BeanPropertyRowMapper.newInstance(UtilityInfoDTO.class), GET_UTILITY_INFORMATION_BY_TYPE);
 
 		LOGGER.info("Retrieved Utility Information By Utility Type ID: " + " " + utility_type_id + " "
 				+ utilityInfo.getName());
 
-		return ResponseEntity.ok().body(utilityInfo);
+		return utilityInfo;
 	}
 
 	@Override

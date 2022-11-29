@@ -15,11 +15,11 @@ public interface UtilityDao {
 
 	public List<UtilityInfoDTO> findUtilityInformationByDueDate(@PathVariable String dueDate);
 
-	public ResponseEntity<UtilityInfoDTO> findUtilityInformationById(@PathVariable long utility_id);
+	public Utility findUtilityInformationById(@PathVariable long utility_id);
 
-	public ResponseEntity<UtilityInfoDTO> findUtilityInformationByName(@PathVariable String name);
+	public UtilityInfoDTO findUtilityInformationByName(@PathVariable String name);
 
-	public ResponseEntity<UtilityInfoDTO> findUtilityInformationByType(@PathVariable int utility_type_id);
+	public UtilityInfoDTO findUtilityInformationByType(@PathVariable int utility_type_id);
 
 	public long findUtilityCount();
 

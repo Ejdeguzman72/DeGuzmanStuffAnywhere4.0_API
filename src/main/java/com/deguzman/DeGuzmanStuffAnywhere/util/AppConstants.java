@@ -464,27 +464,27 @@ public class AppConstants {
 	
 	public static String GET_UTILITY_BY_DUE_DATE_MSG = "Retrieving all UTILITY information from database based off due date";
 	
-	public static String GET_UTILITY_LIST_BY_TITLE_DESCR = "GET MUSIC BY TITLE";
+	public static String GET_UTILITY_LIST_BY_TYPE_DESCR = "GET UTILITY BY TYPE";
 	
-	public static String GET_UTILITY_LIST_BY_TITLE_MSG = "Retrieving music information from database by title";
+	public static String GET_UTILITY_LIST_BY_TYPE_MSG = "Retrieving utility information from database by type";
 	
-	public static String GET_UTILITY_LIST_BY_ARTIST_DESCR = "GET MUSIC LIST BY ARTIST";
+	public static String GET_UTILITY_LIST_BY_NAME_DESCR = "GET MUSIC LIST BY ARTIST";
 	
-	public static String GET_UTILITY_LIST_BY_ARTIST_MSG = "Retrieving music information from database by artist";
+	public static String GET_UTILITY_LIST_BY_NAME_MSG = "Retrieving music information from database by artist";
 	
-	public static String ADD_UTILITY_INFORMATION_DESCR = "ADD MUSIC INFORMATION";
+	public static String ADD_UTILITY_INFORMATION_DESCR = "ADD UTILITY INFORMATION";
 	
-	public static String ADD_UTILITY_INFORMATION_MSG = "Inserting new music information";
+	public static String ADD_UTILITY_INFORMATION_MSG = "Inserting new utility information";
 	
-	public static String UPDATE_UTILITY_INFORMATION_DESCR = "UPDATE MUSIC INFORMATION";
+	public static String UPDATE_UTILITY_INFORMATION_DESCR = "UPDATE UTILITY INFORMATION";
 	
-	public static String UPDATE_UTILITY_INFORMATION_MSG = "Updating music information based on ID";
+	public static String UPDATE_UTILITY_INFORMATION_MSG = "Updating utility information based on ID";
 	
-	public static String DELETE_UTILITY_INFORMATION_DESCR = "DELETE MUSIC INFORMATION";
+	public static String DELETE_UTILITY_INFORMATION_DESCR = "DELETE UTILITY INFORMATION";
 	
-	public static String DELETE_UTILITY_INFORMATION_MSG = "Deleting music information based on ID";
+	public static String DELETE_UTILITY_INFORMATION_MSG = "Deleting utility information based on ID";
 	
-	public static String DELETE_ALL_UTILITY_INFORMATION_DESCR = "DELETE ALL MUSIC INFORMATION";
+	public static String DELETE_ALL_UTILITY_INFORMATION_DESCR = "DELETE ALL UTILITY INFORMATION";
 	
-	public static String DELETE_ALL_UTILITY_INFORMATION_MSG = "Deleting all music information based on ID";
+	public static String DELETE_ALL_UTILITY_INFORMATION_MSG = "Deleting all utility information based on ID";
 }
